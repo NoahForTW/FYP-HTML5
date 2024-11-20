@@ -1,18 +1,31 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
+using Cinemachine;
 using UnityEngine;
+
+public enum PlayerAction {
+    Jump,
+    Crouch,
+    Crouched,
+    Sprinting,
+    Sprinted,
+    Left,
+    Right,
+    Aim
+}
 
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] float movementSpeed = 1f;
+    [SerializeField] float sprintingSpeed = 1f;
     [SerializeField] float jumpForce = 1f;
 
+
+    [SerializeField] CinemachineVirtualCamera vCam;
+    [SerializeField] GameObject itemPrefab;
     Rigidbody playerRb;
     Vector3 direction = new Vector3();
 
     bool isJumping = false;
-    bool isGroubnded = false;
+    bool isSprinting = false;
     float playerHeight;
     void Start()
     {
@@ -24,45 +37,74 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       
 
-       
+        //Debug.Log(Input.mousePosition);
+        Vector3 mousePos = Input.mousePosition;
+        mousePos.z = Mathf.Abs(vCam.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.z);
+        Vector3 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
+        Debug.DrawLine(transform.position, worldPos, Color.red);
+        //Debug.Log(worldPos);
+
     }
 
-    void PlayerAction(string action)
+    void PlayerAction(PlayerAction action)
     {
-        direction = Vector3.zero;
-        float currentForce = movementSpeed;
-        ForceMode forceMode = ForceMode.Force;
+
+        direction = Vector3.zero;  
+        //float currentForce = movementSpeed;
+        //ForceMode forceMode = ForceMode.Force;
         switch (action)
         {
-            case "jump":
+            case global::PlayerAction.Sprinting:
+                SetSprint(true);
+                break;
+            case global::PlayerAction.Sprinted:
+                SetSprint(false);
+                break;
+
+            case global::PlayerAction.Jump:
                 PlayerJump();
                 break;
 
-            case "crouch":
+            case global::PlayerAction.Crouch:
                 PlayerCrouch();
                 break;
 
-            case "crouched":
+            case global::PlayerAction.Crouched:
                 PlayerCrouched();
                 break;
 
-            case "left":
-                direction = -transform.right;
+            case global::PlayerAction.Left:
+            case global::PlayerAction.Right:
+                PlayerMovement(action);
                 break;
 
-            case "right":
-                direction = transform.right;
+            case global::PlayerAction.Aim:
+                // do shit
+                Vector3 mousePos = Input.mousePosition;
+                mousePos.z = Mathf.Abs(vCam.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.z);
+                Vector3 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
+                SpawnGO(worldPos);
                 break;
         }
 
-        playerRb.AddForce(direction.normalized * currentForce, forceMode);
+        //playerRb.AddForce(direction.normalized * currentForce, forceMode);
 
         //transform.position = new Vector3(transform.position.x + movementSpeed, transform.position.y, transform.position.z);
         
     }
 
+    void SetSprint(bool isSprint)
+    {
+        isSprinting = isSprint;
+    }
+    void PlayerMovement(PlayerAction action)
+    {
+        direction = action == global::PlayerAction.Right ? transform.right : -transform.right;
+        float currentSpeed = isSprinting ? sprintingSpeed : movementSpeed;
+        float currentForce = isJumping ? Mathf.Abs(currentSpeed - jumpForce) : currentSpeed;
+        playerRb.AddForce(direction * currentForce);
+    }
     void PlayerJump()
     {
         if (!isJumping)
@@ -87,17 +129,23 @@ public class PlayerController : MonoBehaviour
         transform.localScale = new Vector3(transform.localScale.x, playerHeight, transform.localScale.z);
     }
 
-    private void OnDrawGizmos()
+/*    private void OnDrawGizmos()
     {
+        Vector3 mousePositionDirection = Input.mousePosition - transform.position;
+        mousePositionDirection.z = 0;
         Gizmos.color = Color.blue;
-        Gizmos.DrawLine(transform.position, transform.position + direction * 100);
-    }
+        //Gizmos.DrawLine(transform.position, transform.position + mousePositionDirection.normalized * 100);
+        Gizmos.DrawLine(transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition));
+    }*/
 
+    void SpawnGO(Vector3 position)
+    {
+        Instantiate(itemPrefab,position, Quaternion.identity);
+    }
     public void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "Ground")
         {
-
             isJumping = false;
         }
     }

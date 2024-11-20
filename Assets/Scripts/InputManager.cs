@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -6,14 +7,19 @@ using UnityEngine.Events;
 
 public class InputManager : MonoBehaviour
 {
-    [SerializeField] KeyCode jumpKey;
+    [SerializeField] KeyCode jumpKey01;
+    [SerializeField] KeyCode jumpKey02;
     [SerializeField] KeyCode crouchKey;
     [SerializeField] KeyCode leftKey;
     [SerializeField] KeyCode rightKey;
+    [SerializeField] KeyCode sprintingKey;
+
 
     public static InputManager Instance;
 
-    public UnityEvent<string> movePlayer;
+    public UnityEvent<PlayerAction> movePlayer;
+
+    private Dictionary<PlayerAction,Func<bool>> keyActions = new Dictionary<PlayerAction,Func<bool>>();
 
     // Start is called before the first frame update
     void Awake()
@@ -27,32 +33,32 @@ public class InputManager : MonoBehaviour
             Instance = this;
         }
 
+        keyActions = new Dictionary<PlayerAction, Func<bool>>
+        {
+            { PlayerAction.Jump, () => Input.GetKeyDown(jumpKey01) || Input.GetKeyDown(jumpKey02) },
+            { PlayerAction.Crouch, () => Input.GetKeyDown(crouchKey) },
+            { PlayerAction.Crouched, () => Input.GetKeyUp(crouchKey) },
+            { PlayerAction.Sprinting, () => Input.GetKey(sprintingKey) },
+            { PlayerAction.Sprinted, () => Input.GetKeyUp(sprintingKey) },
+            { PlayerAction.Left, () => Input.GetKey(leftKey) },
+            { PlayerAction.Right, () => Input.GetKey(rightKey) },
+            { PlayerAction.Aim, () => Input.GetMouseButtonDown(0) }
 
+        };
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(jumpKey))
+        foreach (var action in keyActions)
         {
-            movePlayer.Invoke("jump");
+            if (action.Value())
+            {
+                movePlayer.Invoke(action.Key); 
+                
+            }
         }
-        else if (Input.GetKeyDown(crouchKey))
-        {
-            movePlayer.Invoke("crouch");
-        }
-        else if (Input.GetKeyUp(crouchKey))
-        {
-            movePlayer.Invoke("crouched");
-        }
-        else if (Input.GetKey(leftKey))
-        {
-            movePlayer.Invoke("left");
-        }
-        else if (Input.GetKey(rightKey))
-        {
-            movePlayer.Invoke("right");
-        }
+
     }
 
 }

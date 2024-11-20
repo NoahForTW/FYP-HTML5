@@ -11,6 +11,6 @@ public class StartGame : MonoBehaviour
 
     public void StartButton()
     {
-        SceneManager.LoadSceneAsync(switchScene);
+        
     }
 }

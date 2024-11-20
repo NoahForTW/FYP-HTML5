@@ -12,11 +12,12 @@ public class PlayerController : MonoBehaviour
     Vector3 direction = new Vector3();
 
     bool isJumping = false;
+    bool isGroubnded = false;
     float playerHeight;
     void Start()
     {
         //inputManager = InputManager.Instance;
-        InputManager.Instance.movePlayer.AddListener(playerAction);
+        InputManager.Instance.movePlayer.AddListener(PlayerAction);
         playerRb = GetComponent<Rigidbody>();
     }
 
@@ -28,7 +29,7 @@ public class PlayerController : MonoBehaviour
        
     }
 
-    void playerAction(string action)
+    void PlayerAction(string action)
     {
         direction = Vector3.zero;
         float currentForce = movementSpeed;
@@ -36,15 +37,15 @@ public class PlayerController : MonoBehaviour
         switch (action)
         {
             case "jump":
-                playerJump();
+                PlayerJump();
                 break;
 
             case "crouch":
-                playerCrouch();
+                PlayerCrouch();
                 break;
 
             case "crouched":
-                playerCrouched();
+                PlayerCrouched();
                 break;
 
             case "left":
@@ -56,11 +57,13 @@ public class PlayerController : MonoBehaviour
                 break;
         }
 
-        playerRb.AddForce(direction * currentForce, forceMode);
+        playerRb.AddForce(direction.normalized * currentForce, forceMode);
+
+        //transform.position = new Vector3(transform.position.x + movementSpeed, transform.position.y, transform.position.z);
         
     }
 
-    void playerJump()
+    void PlayerJump()
     {
         if (!isJumping)
         {
@@ -70,7 +73,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void playerCrouch()
+    void PlayerCrouch()
     {
         // when crouch button is hold
 
@@ -78,9 +81,9 @@ public class PlayerController : MonoBehaviour
 
         transform.localScale = new Vector3(transform.localScale.x, playerHeight / 2, transform.localScale.z);
     }
-    void playerCrouched()
+    void PlayerCrouched()
     {
-        // when player lets go of crouch key - basically uncrouch
+        // when player lets go of crouch key - basically uncrouch   
         transform.localScale = new Vector3(transform.localScale.x, playerHeight, transform.localScale.z);
     }
 
@@ -94,6 +97,7 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.tag == "Ground")
         {
+
             isJumping = false;
         }
     }

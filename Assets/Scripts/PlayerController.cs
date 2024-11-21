@@ -38,15 +38,14 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        //Debug.Log(Input.mousePosition);
         Vector3 mousePos = Input.mousePosition;
         mousePos.z = Mathf.Abs(vCam.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.z);
         Vector3 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
         Debug.DrawLine(transform.position, worldPos, Color.red);
         //Debug.Log(worldPos);
-
     }
+
+    
 
     void PlayerAction(PlayerAction action)
     {
@@ -54,6 +53,8 @@ public class PlayerController : MonoBehaviour
         direction = Vector3.zero;  
         //float currentForce = movementSpeed;
         //ForceMode forceMode = ForceMode.Force;
+        //Debug.LogError(action);
+
         switch (action)
         {
             case global::PlayerAction.Sprinting:

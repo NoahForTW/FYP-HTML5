@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] GameObject itemPrefab;
     Rigidbody playerRb;
     Vector3 direction = new Vector3();
+    Vector3 facingDirection = new Vector3(1, 1, 1);
 
     bool isJumping = false;
     bool isSprinting = false;
@@ -101,8 +102,10 @@ public class PlayerController : MonoBehaviour
     void PlayerMovement(PlayerAction action)
     {
         direction = action == global::PlayerAction.Right ? transform.right : -transform.right;
+        facingDirection.x = action == global::PlayerAction.Right ? 1 : -1;
         float currentSpeed = isSprinting ? sprintingSpeed : movementSpeed;
         float currentForce = isJumping ? Mathf.Abs(currentSpeed - jumpForce) : currentSpeed;
+        transform.localScale = facingDirection;
         playerRb.AddForce(direction * currentForce);
     }
     void PlayerJump()

@@ -14,10 +14,14 @@ public enum PlayerAction {
 
 public class PlayerController : MonoBehaviour
 {
+    //public
+    public static PlayerController Instance;
+    public bool canMove = true;
+
+    //private
     [SerializeField] float movementSpeed = 1f;
     [SerializeField] float sprintingSpeed = 1f;
     [SerializeField] float jumpForce = 1f;
-
 
     [SerializeField] CinemachineVirtualCamera vCam;
     [SerializeField] GameObject itemPrefab;
@@ -27,6 +31,7 @@ public class PlayerController : MonoBehaviour
 
     bool isJumping = false;
     bool isSprinting = false;
+
     float playerHeight;
     void Start()
     {
@@ -49,8 +54,9 @@ public class PlayerController : MonoBehaviour
 
     void PlayerAction(PlayerAction action)
     {
-
-        direction = Vector3.zero;  
+        
+        direction = Vector3.zero;
+        if (!canMove) { return; }
         //float currentForce = movementSpeed;
         //ForceMode forceMode = ForceMode.Force;
         //Debug.LogError(action);
@@ -108,6 +114,8 @@ public class PlayerController : MonoBehaviour
         float currentForce = isJumping ? Mathf.Abs(currentSpeed - jumpForce) : currentSpeed;
         transform.localScale = facingDirection;
         playerRb.AddForce(direction * currentForce);
+        playerRb.maxLinearVelocity = currentForce;
+        //playerRb.velocity = direction * currentForce;
     }
     void PlayerJump()
     {
@@ -133,18 +141,21 @@ public class PlayerController : MonoBehaviour
         transform.localScale = new Vector3(transform.localScale.x, playerHeight, transform.localScale.z);
     }
 
-/*    private void OnDrawGizmos()
-    {
-        Vector3 mousePositionDirection = Input.mousePosition - transform.position;
-        mousePositionDirection.z = 0;
-        Gizmos.color = Color.blue;
-        //Gizmos.DrawLine(transform.position, transform.position + mousePositionDirection.normalized * 100);
-        Gizmos.DrawLine(transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition));
-    }*/
+    /*    private void OnDrawGizmos()
+        {
+            Vector3 mousePositionDirection = Input.mousePosition - transform.position;
+            mousePositionDirection.z = 0;
+            Gizmos.color = Color.blue;
+            //Gizmos.DrawLine(transform.position, transform.position + mousePositionDirection.normalized * 100);
+            Gizmos.DrawLine(transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition));
+        }*/
 
     void SpawnGO(Vector3 position)
     {
-        Instantiate(itemPrefab,position, Quaternion.identity);
+        if (itemPrefab != null)
+        {
+            Instantiate(itemPrefab, position, Quaternion.identity);
+        }
     }
     public void OnCollisionEnter(Collision collision)
     {

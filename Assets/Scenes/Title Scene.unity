@@ -207,9 +207,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1193910588}
-        m_TargetAssemblyTypeName: SceneController, Assembly-CSharp
-        m_MethodName: LoadScene
-        m_Mode: 3
+        m_TargetAssemblyTypeName: StartGame, Assembly-CSharp
+        m_MethodName: OnButtonPress
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -856,7 +856,7 @@ Transform:
   m_GameObject: {fileID: 1128344772}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 960, y: 540, z: -10}
+  m_LocalPosition: {x: 1280, y: 720, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -981,11 +981,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1193910585}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 885b8a80edb4c6d42b070c0cec9dd1e4, type: 3}
+  m_Script: {fileID: 11500000, guid: 87151e342602d214698ff45aaee28e7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LoaderUI: {fileID: 0}
-  progressSlider: {fileID: 0}
+  sceneLoader: {fileID: 0}
 --- !u!1 &1381827213
 GameObject:
   m_ObjectHideFlags: 0
@@ -1051,7 +1050,7 @@ Transform:
   m_GameObject: {fileID: 1381827213}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 960, y: 540, z: -10}
+  m_LocalPosition: {x: 1280, y: 720, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

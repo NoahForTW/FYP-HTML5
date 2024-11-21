@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: bb0d6246e6d882c428327d55473e6eca
+guid: bcf4fbf142af43345a93d2d78b6a03f4
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,7 +9,7 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - Spenbeb Game
+  - Comfortaa
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0

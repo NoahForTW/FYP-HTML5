@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: edbd4cd848eec4949b64043e726be4e2
+guid: 3723765460c63d4448176cd63a2e7c36
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,7 +9,7 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - Basote
+  - Comfortaa
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0

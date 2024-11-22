@@ -14,10 +14,14 @@ public enum PlayerAction {
 
 public class PlayerController : MonoBehaviour
 {
+    //public
+    public static PlayerController Instance;
+    public bool canMove = true;
+
+    //private
     [SerializeField] float movementSpeed = 1f;
     [SerializeField] float sprintingSpeed = 1f;
     [SerializeField] float jumpForce = 1f;
-
 
     [SerializeField] CinemachineVirtualCamera vCam;
     [SerializeField] GameObject itemPrefab;
@@ -27,6 +31,7 @@ public class PlayerController : MonoBehaviour
 
     bool isJumping = false;
     bool isSprinting = false;
+
     float playerHeight;
     void Start()
     {
@@ -38,20 +43,18 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        //Debug.Log(Input.mousePosition);
         Vector3 mousePos = Input.mousePosition;
         mousePos.z = Mathf.Abs(vCam.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.z);
         Vector3 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
         Debug.DrawLine(transform.position, worldPos, Color.red);
         //Debug.Log(worldPos);
-
     }
 
     void PlayerAction(PlayerAction action)
     {
-
-        direction = Vector3.zero;  
+        
+        direction = Vector3.zero;
+        if (!canMove) { return; }
         //float currentForce = movementSpeed;
         //ForceMode forceMode = ForceMode.Force;
         switch (action)
@@ -107,6 +110,8 @@ public class PlayerController : MonoBehaviour
         float currentForce = isJumping ? Mathf.Abs(currentSpeed - jumpForce) : currentSpeed;
         transform.localScale = facingDirection;
         playerRb.AddForce(direction * currentForce);
+        playerRb.maxLinearVelocity = currentForce;
+        //playerRb.velocity = direction * currentForce;
     }
     void PlayerJump()
     {
@@ -132,18 +137,21 @@ public class PlayerController : MonoBehaviour
         transform.localScale = new Vector3(transform.localScale.x, playerHeight, transform.localScale.z);
     }
 
-/*    private void OnDrawGizmos()
-    {
-        Vector3 mousePositionDirection = Input.mousePosition - transform.position;
-        mousePositionDirection.z = 0;
-        Gizmos.color = Color.blue;
-        //Gizmos.DrawLine(transform.position, transform.position + mousePositionDirection.normalized * 100);
-        Gizmos.DrawLine(transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition));
-    }*/
+    /*    private void OnDrawGizmos()
+        {
+            Vector3 mousePositionDirection = Input.mousePosition - transform.position;
+            mousePositionDirection.z = 0;
+            Gizmos.color = Color.blue;
+            //Gizmos.DrawLine(transform.position, transform.position + mousePositionDirection.normalized * 100);
+            Gizmos.DrawLine(transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition));
+        }*/
 
     void SpawnGO(Vector3 position)
     {
-        Instantiate(itemPrefab,position, Quaternion.identity);
+        if (itemPrefab != null)
+        {
+            Instantiate(itemPrefab, position, Quaternion.identity);
+        }
     }
     public void OnCollisionEnter(Collision collision)
     {

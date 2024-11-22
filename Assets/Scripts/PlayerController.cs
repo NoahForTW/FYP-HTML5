@@ -9,7 +9,8 @@ public enum PlayerAction {
     Sprinted,
     Left,
     Right,
-    Aim
+    Aim,
+    Idle
 }
 
 public class PlayerController : MonoBehaviour
@@ -29,17 +30,30 @@ public class PlayerController : MonoBehaviour
     Vector3 direction = new Vector3();
     Vector3 facingDirection = new Vector3(1, 1, 1);
 
-    bool isJumping = false;
+    public bool isJumping = false;
+    public bool isCrouching = false;
     bool isSprinting = false;
 
     float playerHeight;
-    void Start()
+    void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+
+            Instance = this;
+        }
         //inputManager = InputManager.Instance;
-        InputManager.Instance.movePlayer.AddListener(PlayerAction);
+        
         playerRb = GetComponent<Rigidbody>();
     }
-
+    private void Start()
+    {
+        InputManager.Instance.movePlayer.AddListener(PlayerAction);
+    }
     // Update is called once per frame
     void Update()
     {
@@ -90,12 +104,12 @@ public class PlayerController : MonoBehaviour
                 Vector3 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
                 SpawnGO(worldPos);
                 break;
+
         }
 
-        //playerRb.AddForce(direction.normalized * currentForce, forceMode);
 
-        //transform.position = new Vector3(transform.position.x + movementSpeed, transform.position.y, transform.position.z);
-        
+        Debug.Log("is Idle:" + (action == global::PlayerAction.Idle));
+
     }
 
     void SetSprint(bool isSprint)
@@ -126,7 +140,7 @@ public class PlayerController : MonoBehaviour
     void PlayerCrouch()
     {
         // when crouch button is hold
-
+        isCrouching = true;
         playerHeight = transform.localScale.y;
 
         transform.localScale = new Vector3(transform.localScale.x, playerHeight / 2, transform.localScale.z);
@@ -135,6 +149,7 @@ public class PlayerController : MonoBehaviour
     {
         // when player lets go of crouch key - basically uncrouch   
         transform.localScale = new Vector3(transform.localScale.x, playerHeight, transform.localScale.z);
+        isCrouching = false;
     }
 
     /*    private void OnDrawGizmos()

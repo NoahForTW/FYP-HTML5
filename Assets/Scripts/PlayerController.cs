@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] CinemachineVirtualCamera vCam;
     [SerializeField] GameObject itemPrefab;
     Rigidbody playerRb;
+    Animator playerAnimator;
     Vector3 direction = new Vector3();
     Vector3 facingDirection = new Vector3(1, 1, 1);
 
@@ -49,6 +50,7 @@ public class PlayerController : MonoBehaviour
         //inputManager = InputManager.Instance;
         
         playerRb = GetComponent<Rigidbody>();
+        playerAnimator = GetComponent<Animator>();
     }
     private void Start()
     {
@@ -108,7 +110,9 @@ public class PlayerController : MonoBehaviour
         }
 
 
-        Debug.Log("is Idle:" + (action == global::PlayerAction.Idle));
+        //Debug.Log("is Idle:" + (action == global::PlayerAction.Idle));
+        playerAnimator.SetBool("Idle", action == global::PlayerAction.Idle);
+        playerAnimator.SetBool("Walk", action == global::PlayerAction.Right || action == global::PlayerAction.Left);
 
     }
 

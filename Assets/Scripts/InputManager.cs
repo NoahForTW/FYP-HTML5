@@ -50,15 +50,22 @@ public class InputManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        bool noKeyPress = true;
         foreach (var action in keyActions)
         {
             if (action.Value())
             {
                 movePlayer.Invoke(action.Key); 
-                
+                noKeyPress = false;
             }
         }
 
+        if (noKeyPress 
+            && !PlayerController.Instance.isJumping
+            && !PlayerController.Instance.isCrouching)
+        {
+            movePlayer.Invoke(PlayerAction.Idle);
+        }
     }
 
 }

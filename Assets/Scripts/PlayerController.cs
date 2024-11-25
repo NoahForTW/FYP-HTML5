@@ -1,7 +1,8 @@
 using Cinemachine;
 using UnityEngine;
 
-public enum PlayerAction {
+public enum PlayerAction
+{
     Jump,
     Crouch,
     Crouched,
@@ -10,31 +11,35 @@ public enum PlayerAction {
     Left,
     Right,
     Aim,
-    Idle
+    Idle,
+    Interact
 }
 
 public class PlayerController : MonoBehaviour
 {
     //public
     public static PlayerController Instance;
+
     public bool canMove = true;
 
     //private
-    [SerializeField] float movementSpeed = 1f;
-    [SerializeField] float sprintingSpeed = 1f;
-    [SerializeField] float jumpForce = 1f;
+    [SerializeField] private float movementSpeed = 1f;
 
-    [SerializeField] CinemachineVirtualCamera vCam;
-    [SerializeField] GameObject itemPrefab;
-    Rigidbody playerRb;
-    Vector3 direction = new Vector3();
+    [SerializeField] private float sprintingSpeed = 1f;
+    [SerializeField] private float jumpForce = 1f;
 
-    public bool isJumping = false;
-    public bool isCrouching = false;
-    bool isSprinting = false;
+    [SerializeField] private CinemachineVirtualCamera vCam;
+    [SerializeField] private GameObject itemPrefab;
+    private Rigidbody playerRb;
+    private Vector3 direction = new Vector3();
 
-    float playerHeight;
-    void Awake()
+    public bool isJumping = false; // check if player is jumping
+    public bool isCrouching = false; // check if player is crouching
+    private bool isSprinting = false;
+
+    private float playerHeight;
+
+    private void Awake()
     {
         if (Instance != null && Instance != this)
         {
@@ -42,19 +47,20 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-
             Instance = this;
         }
         //inputManager = InputManager.Instance;
-        
+
         playerRb = GetComponent<Rigidbody>();
     }
+
     private void Start()
     {
-        InputManager.Instance.movePlayer.AddListener(PlayerAction);
+        InputManager.Instance.playerAction.AddListener(PlayerAction);
     }
+
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         Vector3 mousePos = Input.mousePosition;
         mousePos.z = Mathf.Abs(vCam.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.z);
@@ -63,9 +69,8 @@ public class PlayerController : MonoBehaviour
         //Debug.Log(worldPos);
     }
 
-    void PlayerAction(PlayerAction action)
+    private void PlayerAction(PlayerAction action)
     {
-        
         direction = Vector3.zero;
         if (!canMove) { return; }
         //float currentForce = movementSpeed;
@@ -75,6 +80,7 @@ public class PlayerController : MonoBehaviour
             case global::PlayerAction.Sprinting:
                 SetSprint(true);
                 break;
+
             case global::PlayerAction.Sprinted:
                 SetSprint(false);
                 break;
@@ -103,19 +109,17 @@ public class PlayerController : MonoBehaviour
                 Vector3 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
                 SpawnGO(worldPos);
                 break;
-
         }
 
-
         Debug.Log("is Idle:" + (action == global::PlayerAction.Idle));
-
     }
 
-    void SetSprint(bool isSprint)
+    private void SetSprint(bool isSprint)
     {
         isSprinting = isSprint;
     }
-    void PlayerMovement(PlayerAction action)
+
+    private void PlayerMovement(PlayerAction action)
     {
         direction = action == global::PlayerAction.Right ? transform.right : -transform.right;
         float currentSpeed = isSprinting ? sprintingSpeed : movementSpeed;
@@ -124,7 +128,8 @@ public class PlayerController : MonoBehaviour
         playerRb.maxLinearVelocity = currentForce;
         //playerRb.velocity = direction * currentForce;
     }
-    void PlayerJump()
+
+    private void PlayerJump()
     {
         if (!isJumping)
         {
@@ -134,7 +139,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void PlayerCrouch()
+    private void PlayerCrouch()
     {
         // when crouch button is hold
         isCrouching = true;
@@ -142,9 +147,10 @@ public class PlayerController : MonoBehaviour
 
         transform.localScale = new Vector3(transform.localScale.x, playerHeight / 2, transform.localScale.z);
     }
-    void PlayerCrouched()
+
+    private void PlayerCrouched()
     {
-        // when player lets go of crouch key - basically uncrouch   
+        // when player lets go of crouch key - basically uncrouch
         transform.localScale = new Vector3(transform.localScale.x, playerHeight, transform.localScale.z);
         isCrouching = false;
     }
@@ -158,13 +164,14 @@ public class PlayerController : MonoBehaviour
             Gizmos.DrawLine(transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition));
         }*/
 
-    void SpawnGO(Vector3 position)
+    private void SpawnGO(Vector3 position)
     {
         if (itemPrefab != null)
         {
             Instantiate(itemPrefab, position, Quaternion.identity);
         }
     }
+
     public void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "Ground")
@@ -172,5 +179,4 @@ public class PlayerController : MonoBehaviour
             isJumping = false;
         }
     }
-
 }

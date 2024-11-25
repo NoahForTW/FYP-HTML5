@@ -11,6 +11,7 @@ public class DeviceDetection : MonoBehaviour
         {
             //force landscape
             //Screen.orientation = ScreenOrientation.LandscapeLeft;
+            //Screen.fullScreen = !Screen.fullScreen;
         }
     }
 

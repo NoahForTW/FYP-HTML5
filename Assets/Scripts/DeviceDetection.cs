@@ -4,18 +4,14 @@ using UnityEngine;
 
 public class DeviceDetection : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public static DeviceDetection instance;
+
+    public bool isMobilePlatform;
     void Start()
     {
-        if(Application.isMobilePlatform) // is mobile
-        {
-            //force landscape
-            //Screen.orientation = ScreenOrientation.LandscapeLeft;
-            //Screen.fullScreen = !Screen.fullScreen;
-        }
+        isMobilePlatform = Application.isMobilePlatform;
     }
 
-    // Update is called once per frame
     void Update()
     {
         /*        #if UNITY_WEBGL
@@ -32,5 +28,11 @@ public class DeviceDetection : MonoBehaviour
 
         //Debug.LogError("Is it mobile" + Application.isMobilePlatform);
 
+        if (Application.isMobilePlatform) // is mobile
+        {
+            //force landscape
+            //Screen.orientation = ScreenOrientation.LandscapeLeft;
+            Debug.LogError("orientation: " + Screen.orientation);
+        }
     }
 }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
 
 public class InputManager : MonoBehaviour
 {
@@ -13,11 +14,12 @@ public class InputManager : MonoBehaviour
     [SerializeField] KeyCode leftKey;
     [SerializeField] KeyCode rightKey;
     [SerializeField] KeyCode sprintingKey;
+    [SerializeField] KeyCode interactKey;
 
 
     public static InputManager Instance;
 
-    public UnityEvent<PlayerAction> movePlayer;
+    public UnityEvent<PlayerAction> playerAction;
 
     private Dictionary<PlayerAction,Func<bool>> keyActions = new Dictionary<PlayerAction,Func<bool>>();
 
@@ -42,7 +44,9 @@ public class InputManager : MonoBehaviour
             { PlayerAction.Sprinted, () => Input.GetKeyUp(sprintingKey) },
             { PlayerAction.Left, () => Input.GetKey(leftKey) },
             { PlayerAction.Right, () => Input.GetKey(rightKey) },
-            { PlayerAction.Aim, () => Input.GetMouseButtonDown(0) }
+            { PlayerAction.Aim, () => Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject() },
+            { PlayerAction.Interact, () => Input.GetKeyDown(interactKey) }
+
 
         };
     }
@@ -55,17 +59,22 @@ public class InputManager : MonoBehaviour
         {
             if (action.Value())
             {
-                movePlayer.Invoke(action.Key); 
+                playerAction.Invoke(action.Key); 
                 noKeyPress = false;
             }
         }
 
-        if (noKeyPress 
+/*        if (noKeyPress 
             && !PlayerController.Instance.isJumping
             && !PlayerController.Instance.isCrouching)
         {
-            movePlayer.Invoke(PlayerAction.Idle);
-        }
+            playerAction.Invoke(PlayerAction.Idle);
+        }*/
+        // gravity chnage (for mobile)
+/*        if (Input.GetKeyDown(KeyCode.V))
+        {
+            Physics.gravity = new Vector3(-9.81f, 0, 0);
+        }*/
     }
 
 }

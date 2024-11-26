@@ -1,5 +1,6 @@
 using Cinemachine;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum PlayerAction
 {
@@ -30,6 +31,7 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private CinemachineVirtualCamera vCam;
     [SerializeField] private GameObject itemPrefab;
+
     private Rigidbody playerRb;
     private Vector3 direction = new Vector3();
 
@@ -69,12 +71,13 @@ public class PlayerController : MonoBehaviour
         //Debug.Log(worldPos);
     }
 
-    private void PlayerAction(PlayerAction action)
+    public void PlayerAction(PlayerAction action)
     {
         direction = Vector3.zero;
         if (!canMove) { return; }
         //float currentForce = movementSpeed;
         //ForceMode forceMode = ForceMode.Force;
+        Debug.Log(action);
         switch (action)
         {
             case global::PlayerAction.Sprinting:
@@ -111,8 +114,17 @@ public class PlayerController : MonoBehaviour
                 break;
         }
 
-        Debug.Log("is Idle:" + (action == global::PlayerAction.Idle));
+        
+
+        //Debug.Log("is Idle:" + (action == global::PlayerAction.Idle));
     }
+
+    public void UpButton()
+    {
+        PlayerJump();
+    }
+
+
 
     private void SetSprint(bool isSprint)
     {
@@ -151,7 +163,7 @@ public class PlayerController : MonoBehaviour
     private void PlayerCrouched()
     {
         // when player lets go of crouch key - basically uncrouch
-        transform.localScale = new Vector3(transform.localScale.x, playerHeight, transform.localScale.z);
+        transform.localScale = new Vector3(transform.localScale.x, 1, transform.localScale.z);
         isCrouching = false;
     }
 

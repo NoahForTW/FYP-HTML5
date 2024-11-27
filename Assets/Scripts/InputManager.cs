@@ -19,7 +19,7 @@ public class InputManager : MonoBehaviour
 
     public static InputManager Instance;
 
-    public UnityEvent<PlayerAction> playerAction;
+
 
     private Dictionary<PlayerAction,Func<bool>> keyActions = new Dictionary<PlayerAction,Func<bool>>();
 
@@ -59,7 +59,7 @@ public class InputManager : MonoBehaviour
         {
             if (action.Value())
             {
-                playerAction.Invoke(action.Key); 
+                PlayerController.Instance?.playerAction.Invoke(action.Key); 
                 noKeyPress = false;
             }
         }

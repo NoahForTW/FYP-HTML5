@@ -1,6 +1,7 @@
 using Cinemachine;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public enum PlayerAction
 {
@@ -20,7 +21,7 @@ public class PlayerController : MonoBehaviour
 {
     //public
     public static PlayerController Instance;
-
+    public UnityEvent<PlayerAction> playerAction;
     public bool canMove = true;
 
     //private
@@ -58,7 +59,7 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        InputManager.Instance.playerAction.AddListener(PlayerAction);
+        playerAction.AddListener(PlayerAction);
     }
 
     // Update is called once per frame
@@ -77,7 +78,6 @@ public class PlayerController : MonoBehaviour
         if (!canMove) { return; }
         //float currentForce = movementSpeed;
         //ForceMode forceMode = ForceMode.Force;
-        Debug.Log(action);
         switch (action)
         {
             case global::PlayerAction.Sprinting:
@@ -114,17 +114,8 @@ public class PlayerController : MonoBehaviour
                 break;
         }
 
-        
-
-        //Debug.Log("is Idle:" + (action == global::PlayerAction.Idle));
+        Debug.Log("is Idle:" + (action == global::PlayerAction.Idle));
     }
-
-    public void UpButton()
-    {
-        PlayerJump();
-    }
-
-
 
     private void SetSprint(bool isSprint)
     {
@@ -163,7 +154,7 @@ public class PlayerController : MonoBehaviour
     private void PlayerCrouched()
     {
         // when player lets go of crouch key - basically uncrouch
-        transform.localScale = new Vector3(transform.localScale.x, 1, transform.localScale.z);
+        transform.localScale = new Vector3(transform.localScale.x, playerHeight, transform.localScale.z);
         isCrouching = false;
     }
 

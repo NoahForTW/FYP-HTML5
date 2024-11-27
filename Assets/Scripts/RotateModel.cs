@@ -15,9 +15,7 @@ public class RotateModel : MonoBehaviour
     }
 
     private void OnMouseDrag()
-    {
-        //isDragging = true;
-        //Debug.Log("draggging");
+    {   
         isDragging = Input.GetAxis("Mouse X") != 0 ||
             Input.GetAxis("Mouse Y") != 0;
 

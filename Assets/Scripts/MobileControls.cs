@@ -28,11 +28,11 @@ public class MobileControls : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     {
         if(movementDirection == MovementDirection.Left)
         {
-            InputManager.Instance.playerAction.Invoke(PlayerAction.Left);
+            PlayerController.Instance.playerAction.Invoke(PlayerAction.Left);
         }
         if(movementDirection == MovementDirection.Right)
         {
-            InputManager.Instance.playerAction.Invoke(PlayerAction.Right);
+            PlayerController.Instance.playerAction.Invoke(PlayerAction.Right);
 
         }
     }
@@ -49,7 +49,7 @@ public class MobileControls : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     }
     public void UpButton()
     {
-        InputManager.Instance.playerAction.Invoke(PlayerAction.Jump);
+        PlayerController.Instance.playerAction.Invoke(PlayerAction.Jump);
     }
 
     public void OnPointerDown(PointerEventData eventData)
@@ -57,7 +57,7 @@ public class MobileControls : MonoBehaviour, IPointerDownHandler, IPointerUpHand
         switch (mobilePlayerControls)
         {
             case MobilePlayerControls.Jump:
-                InputManager.Instance.playerAction.Invoke(PlayerAction.Jump);
+                PlayerController.Instance.playerAction.Invoke(PlayerAction.Jump);
                 break;
             case MobilePlayerControls.Left:
                 movementDirection = MovementDirection.Left;
@@ -66,7 +66,7 @@ public class MobileControls : MonoBehaviour, IPointerDownHandler, IPointerUpHand
                 movementDirection = MovementDirection.Right;
                 break;
             case MobilePlayerControls.Crouch:
-                InputManager.Instance.playerAction.Invoke(PlayerAction.Crouch);
+                PlayerController.Instance.playerAction.Invoke(PlayerAction.Crouch);
                 break;
         }
     }
@@ -77,7 +77,7 @@ public class MobileControls : MonoBehaviour, IPointerDownHandler, IPointerUpHand
 
         if (mobilePlayerControls == MobilePlayerControls.Crouch)
         {
-            InputManager.Instance.playerAction.Invoke(PlayerAction.Crouched);
+            PlayerController.Instance.playerAction.Invoke(PlayerAction.Crouched);
         }
     }
 }

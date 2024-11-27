@@ -15,7 +15,7 @@ public class Interacable : MonoBehaviour
     void Start()
     {
         input = InputManager.Instance;
-        input.playerAction.AddListener(PlayerAction);
+        PlayerController.Instance.playerAction.AddListener(PlayerAction);
         interactionEvent.AddListener(Interacting);
     }
 

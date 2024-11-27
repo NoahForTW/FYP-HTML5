@@ -26,13 +26,7 @@ public class UVTextureUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             DragUI();
         }
 
-        RaycastHit hit;
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask))
-        {
-            Debug.Log(hit.transform.gameObject.name);
-            Debug.DrawLine(ray.origin, hit.point);
-        }
+
     }
 
     void DragUI()
@@ -48,5 +42,18 @@ public class UVTextureUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     public void OnPointerUp(PointerEventData eventData)
     {
         canDrag= false;
+        RaycastHit hit;
+        Ray ray = Camera.main.ScreenPointToRay(transform.position);
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask))
+        {
+            GameObject go = hit.collider.gameObject;
+            if (go.CompareTag("Model Side"))
+            {
+
+                Material material = new Material(go.GetComponent<MeshRenderer>().material);
+                material.mainTexture = texture;
+                go.GetComponent<MeshRenderer>().material = material;
+            }
+        }
     }
 }

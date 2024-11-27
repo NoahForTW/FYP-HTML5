@@ -2,18 +2,48 @@ using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class DrawingRenderer : MonoBehaviour
 {
-    public GameObject brush;
+    public static DrawingRenderer instance;
+    public bool canDraw;
+    [SerializeField] List<Color> colors = new List<Color>();
+    [SerializeField] GameObject brush;
+    [SerializeField] GameObject brushColorUI;
+    [SerializeField] GameObject colorPalette;
     Camera cam;
     [SerializeField] CinemachineVirtualCamera vCam;
     LineRenderer currentLineRenderer;
     Vector3 lastPos;
     GameObject brushInstance;
+    Color brushPrefabColor;
+
+    public UnityEvent<Color> colorChange;
+    private void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            instance = this;
+        }
+    }
     void Start()
     {
         cam = Camera.main;
+        foreach (var c in colors)
+        {
+            GameObject colorUI = Instantiate(brushColorUI, colorPalette.transform);
+            colorUI.GetComponent<Image>().color = c;
+
+        }
+        brushPrefabColor = brush.GetComponent<LineRenderer>().endColor;
+        colorChange.AddListener(ChangeBrushColor);
     }
 
     // Update is called once per frame
@@ -21,8 +51,15 @@ public class DrawingRenderer : MonoBehaviour
     {
         Drawing();
     }
+
+    void ChangeBrushColor(Color color)
+    {
+        brush.GetComponent<LineRenderer>().startColor = color;
+        brush.GetComponent<LineRenderer>().endColor = color;
+    }
     void Drawing()
     {
+        if (!canDraw) { return; }
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             CreateBrush();
@@ -30,6 +67,7 @@ public class DrawingRenderer : MonoBehaviour
         else if (Input.GetKey(KeyCode.Mouse0))
         {
             PointToMousePos();
+            Debug.Log(EventSystem.current.IsPointerOverGameObject());
         }
         else if (Input.GetKeyUp(KeyCode.Mouse0))
         {
@@ -79,4 +117,11 @@ public class DrawingRenderer : MonoBehaviour
             collider.sharedMesh = mesh;
         }
     }
+
+    private void OnDisable()
+    {
+        brush.GetComponent<LineRenderer>().startColor = brushPrefabColor;
+        brush.GetComponent<LineRenderer>().endColor = brushPrefabColor;
+    }
+
 }

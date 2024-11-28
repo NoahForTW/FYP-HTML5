@@ -16,7 +16,22 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: 7e564398fa73ecd4da0514c4165ceb66
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: bffe1b58f6627cc47a35ea351d3040f7
+    m_Address: Assets/Sprite/MonedaD.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 39c7646ee2439e945ab479cbb0e1251f
+    m_Address: Assets/Sprite/UI_Flat_IconCross01a.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 49f16f98cce2cec448bb6295c9e64ee4
+    m_Address: Assets/Sprite/UI_Flat_IconArrow01a.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 7b37240d0c7ad5c4b93513859892028b, type: 2}
   m_SchemaSet:

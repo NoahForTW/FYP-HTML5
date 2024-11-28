@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class UVTextureUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
-    [SerializeField] Texture2D texture;
+    [SerializeField] public Texture texture;
     Image image;
     public LayerMask layerMask;
     public bool canDrag = false;
@@ -47,9 +47,9 @@ public class UVTextureUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask))
         {
             GameObject go = hit.collider.gameObject;
-            if (go.CompareTag("Model Side"))
+            UVModelSide side = go.GetComponent<UVModelSide>();
+            if (side!= null && side.GetCanChangeTexture())
             {
-
                 Material material = new Material(go.GetComponent<MeshRenderer>().material);
                 material.mainTexture = texture;
                 go.GetComponent<MeshRenderer>().material = material;

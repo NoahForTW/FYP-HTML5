@@ -42,7 +42,7 @@ public class PlayerController : MonoBehaviour
 
     private float playerHeight;
 
-    private void Awake()
+    private void Awake  ()
     {
         if (Instance != null && Instance != this)
         {

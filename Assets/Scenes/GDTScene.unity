@@ -3732,7 +3732,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1667434515}
   - component: {fileID: 1667434514}
-  - component: {fileID: 1667434517}
   - component: {fileID: 1667434518}
   m_Layer: 0
   m_Name: GameManager
@@ -3775,23 +3774,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 620262186}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1667434517
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1667434513}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a3cd878f7141224090a80bbaa2b3f10, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  targetCamera: {fileID: 1932984368}
-  renderTexture: {fileID: 8400000, guid: 26956aafc5f8e324787b9716ca19d445, type: 2}
-  rawImage: {fileID: 0}
-  choseAVGE: {fileID: 0}
-  choseGDT: {fileID: 0}
 --- !u!114 &1667434518
 MonoBehaviour:
   m_ObjectHideFlags: 0

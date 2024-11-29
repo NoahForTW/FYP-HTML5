@@ -6,61 +6,57 @@ using UnityEngine.EventSystems;
 public class AudioPieces : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler
 {
     private bool isDragging = false;
-
-    private Vector2 offset, originalPos;
-
+    private Vector3 originalPos; // Store the original position
+    private Vector2 offset;
     private RectTransform rectTransform;
 
-    private void Awake()
+    private void Start()
     {
-        originalPos =   transform.position;
-    }
+        rectTransform = GetComponent<RectTransform>();
+        originalPos = transform.position; // Store the world position as original
 
-    // Update is called once per frame
-    void Update()
-    {
-        if(!isDragging) 
-        {
-            return;
-        }
-
-        var mousePosition = GetPointerPos();
-
-        transform.position = mousePosition - offset;
-    }
-
-    private void OnPointerDown()
-    {
-        // can play sfx here
-
-        isDragging = true;
-
-        offset = GetPointerPos() - (Vector2)transform.position;
-    }
-
-    private void OnPointerUp()
-    {
-        transform.position = originalPos;
-        isDragging = false;
-    }
-
-    private Vector2 GetPointerPos()
-    {
-        return Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Debug.Log($"{gameObject.name} Original Position: {originalPos}");
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        throw new System.NotImplementedException();
+        // Play SFX or trigger an event here
+        isDragging = true;
+
+        // Calculate offset between the pointer and the object's position
+        RectTransformUtility.ScreenPointToWorldPointInRectangle(
+            rectTransform,
+            eventData.position,
+            eventData.pressEventCamera,
+            out var worldPoint);
+
+        offset = (Vector2)(rectTransform.position - worldPoint);
+
+        Debug.Log($"{gameObject.name} Parent: {transform.parent.name}");
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        throw new System.NotImplementedException();
+        isDragging = false;
+
+        Debug.Log($"{gameObject.name} Resetting to Original Position");
+        // Reset position to the original position
+        transform.position = originalPos;
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        throw new System.NotImplementedException();
+        if (!isDragging)
+            return;
+
+        // Update the object's position to follow the pointer while maintaining the offset
+        if (RectTransformUtility.ScreenPointToWorldPointInRectangle(
+            rectTransform,
+            eventData.position,
+            eventData.pressEventCamera,
+            out var worldPoint))
+        {
+            rectTransform.position = worldPoint + (Vector3)offset;
+        }
     }
 }

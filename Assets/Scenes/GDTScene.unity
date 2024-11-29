@@ -1703,6 +1703,7 @@ GameObject:
   - component: {fileID: 654222680}
   - component: {fileID: 654222682}
   - component: {fileID: 654222681}
+  - component: {fileID: 654222683}
   m_Layer: 0
   m_Name: BGM
   m_TagString: Untagged
@@ -1768,6 +1769,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 654222679}
   m_CullTransparentMesh: 1
+--- !u!114 &654222683
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 654222679}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0ab99802ab17fd46b5ba1a4f350e812, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &809514345
 GameObject:
   m_ObjectHideFlags: 0
@@ -3444,6 +3457,7 @@ GameObject:
   - component: {fileID: 1454689395}
   - component: {fileID: 1454689397}
   - component: {fileID: 1454689396}
+  - component: {fileID: 1454689398}
   m_Layer: 0
   m_Name: Walking
   m_TagString: Untagged
@@ -3509,6 +3523,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1454689394}
   m_CullTransparentMesh: 1
+--- !u!114 &1454689398
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1454689394}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0ab99802ab17fd46b5ba1a4f350e812, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1515616855 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4475725655427619384, guid: 2370ad1b1325b1143b8b6820eeb20be3,
@@ -3706,7 +3732,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1667434515}
   - component: {fileID: 1667434514}
-  - component: {fileID: 1667434517}
   - component: {fileID: 1667434518}
   m_Layer: 0
   m_Name: GameManager
@@ -3749,23 +3774,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 620262186}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1667434517
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1667434513}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a3cd878f7141224090a80bbaa2b3f10, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  targetCamera: {fileID: 1932984368}
-  renderTexture: {fileID: 8400000, guid: 26956aafc5f8e324787b9716ca19d445, type: 2}
-  rawImage: {fileID: 0}
-  choseAVGE: {fileID: 0}
-  choseGDT: {fileID: 0}
 --- !u!114 &1667434518
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3972,6 +3980,7 @@ GameObject:
   - component: {fileID: 1840904455}
   - component: {fileID: 1840904457}
   - component: {fileID: 1840904456}
+  - component: {fileID: 1840904458}
   m_Layer: 0
   m_Name: Jumping
   m_TagString: Untagged
@@ -4037,6 +4046,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1840904454}
   m_CullTransparentMesh: 1
+--- !u!114 &1840904458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1840904454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0ab99802ab17fd46b5ba1a4f350e812, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1882374061
 GameObject:
   m_ObjectHideFlags: 0

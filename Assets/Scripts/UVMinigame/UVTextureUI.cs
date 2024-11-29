@@ -7,15 +7,13 @@ using UnityEngine.UI;
 public class UVTextureUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     [SerializeField] public Texture texture;
-    Image image;
+    RawImage image;
     public LayerMask layerMask;
     public bool canDrag = false;
     void Start()
     {
-        image = GetComponent<Image>();
-        Material mat = new Material(image.material);
-        mat.mainTexture = texture;
-        image.material = mat;
+        image = GetComponent<RawImage>();
+        image.texture = texture;
     }
 
     // Update is called once per frame

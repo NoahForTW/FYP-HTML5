@@ -35,7 +35,10 @@ public class UVModel : MonoBehaviour
     {
         if (isDragging && UVTextureMinigame.Instance.canModelMove)
         {
-            transform.Rotate(new Vector3(Input.GetAxis("Mouse Y"), -Input.GetAxis("Mouse X"), 0) * UVTextureMinigame.Instance.rotationSpeed, Space.World);
+            transform.Rotate(new Vector3(Input.GetAxis("Mouse Y"), -Input.GetAxis("Mouse X"), 0)
+                * UVTextureMinigame.Instance.rotationSpeed
+                , Space.World);
+
         }
 
     }

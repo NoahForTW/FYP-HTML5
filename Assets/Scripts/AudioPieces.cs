@@ -20,21 +20,16 @@ public class AudioPieces : MonoBehaviour, IDragHandler
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        // Allow the item to be moved and make it semi-transparent.
-        canvasGroup.alpha = 0.6f;
-        canvasGroup.blocksRaycasts = false;
+        
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        // Update the position of the item based on the mouse drag.
-        rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
+        transform.position = Input.mousePosition;
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        // Restore the item's appearance and functionality.
-        canvasGroup.alpha = 1f;
-        canvasGroup.blocksRaycasts = true;
+        
     }
 }

@@ -8,13 +8,11 @@ public class Interacable : MonoBehaviour
     [SerializeField] GameObject interactButton;
     [SerializeField] UnityEvent interactionEvent;
 
-    InputManager input;
     GameObject currentInteractionButton;
   
     bool canInteract=false;
     void Start()
     {
-        input = InputManager.Instance;
         PlayerController.Instance.playerAction.AddListener(PlayerAction);
         interactionEvent.AddListener(Interacting);
     }

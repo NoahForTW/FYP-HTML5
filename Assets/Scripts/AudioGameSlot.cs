@@ -13,7 +13,7 @@ public class AudioGameSlot : MonoBehaviour, IDropHandler
             // Reparent the dragged item to the slot and reset its position.
             RectTransform draggedItem = eventData.pointerDrag.GetComponent<RectTransform>();
             draggedItem.SetParent(transform);
-            draggedItem.anchoredPosition = Vector2.zero; // Align in the slot
+            draggedItem.position = transform.position; // Align in the slot
         }
     }
 }

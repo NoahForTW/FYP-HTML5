@@ -3,60 +3,38 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class AudioPieces : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler
+public class AudioPieces : MonoBehaviour, IDragHandler
 {
-    private bool isDragging = false;
-    private Vector3 originalPos; // Store the original position
-    private Vector2 offset;
     private RectTransform rectTransform;
+    private Canvas canvas;
+    private CanvasGroup canvasGroup;
 
-    private void Start()
+    private void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
-        originalPos = transform.position; // Store the world position as original
+        canvasGroup = GetComponent<CanvasGroup>();
 
-        Debug.Log($"{gameObject.name} Original Position: {originalPos}");
+        // Find the Canvas to use for screen-space dragging.
+        canvas = GetComponentInParent<Canvas>();
     }
 
-    public void OnPointerDown(PointerEventData eventData)
+    public void OnBeginDrag(PointerEventData eventData)
     {
-        // Play SFX or trigger an event here
-        isDragging = true;
-
-        // Calculate offset between the pointer and the object's position
-        RectTransformUtility.ScreenPointToWorldPointInRectangle(
-            rectTransform,
-            eventData.position,
-            eventData.pressEventCamera,
-            out var worldPoint);
-
-        offset = (Vector2)(rectTransform.position - worldPoint);
-
-        Debug.Log($"{gameObject.name} Parent: {transform.parent.name}");
-    }
-
-    public void OnPointerUp(PointerEventData eventData)
-    {
-        isDragging = false;
-
-        Debug.Log($"{gameObject.name} Resetting to Original Position");
-        // Reset position to the original position
-        transform.position = originalPos;
+        // Allow the item to be moved and make it semi-transparent.
+        canvasGroup.alpha = 0.6f;
+        canvasGroup.blocksRaycasts = false;
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        if (!isDragging)
-            return;
+        // Update the position of the item based on the mouse drag.
+        rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
+    }
 
-        // Update the object's position to follow the pointer while maintaining the offset
-        if (RectTransformUtility.ScreenPointToWorldPointInRectangle(
-            rectTransform,
-            eventData.position,
-            eventData.pressEventCamera,
-            out var worldPoint))
-        {
-            rectTransform.position = worldPoint + (Vector3)offset;
-        }
+    public void OnEndDrag(PointerEventData eventData)
+    {
+        // Restore the item's appearance and functionality.
+        canvasGroup.alpha = 1f;
+        canvasGroup.blocksRaycasts = true;
     }
 }

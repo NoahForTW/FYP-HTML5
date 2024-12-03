@@ -2,22 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
-public class AudioPieces : MonoBehaviour, IDragHandler, IPointerDownHandler
+public class AudioPieces : MonoBehaviour, IDragHandler, IPointerDownHandler, IDropHandler
 {
-    private CanvasGroup canvasGroup; // For visual and interaction control
-    private Transform originalParent; // Store the original parent to revert if needed
+    public Image image;
 
-    private void Start()
-    {
-        canvasGroup = GetComponent<CanvasGroup>();
-        originalParent = transform.parent;
-    }
+    public Transform parentAfterDrag;
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        canvasGroup.blocksRaycasts = false; // Allow drop detection
+        parentAfterDrag = transform.parent; // Allow drop detection
         transform.SetParent(transform.root); // Move to the top of the hierarchy for easy dragging
+        transform.SetAsLastSibling();
+        image.raycastTarget = false;
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -25,18 +23,26 @@ public class AudioPieces : MonoBehaviour, IDragHandler, IPointerDownHandler
         transform.position = Input.mousePosition;
     }
 
+
+
     public void OnEndDrag(PointerEventData eventData)
     {
-        canvasGroup.blocksRaycasts = true; // Re-enable interaction
-        if (transform.parent == transform.root) // If dropped in an invalid area
-        {
-            transform.SetParent(originalParent); // Revert to the original parent
-            transform.localPosition = Vector3.zero; // Reset position
-        }
+        image.raycastTarget = true; // Re-enable interaction
+        transform.SetParent(parentAfterDrag);
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
         // Optional: Add visual feedback like scaling or highlighting
+    }
+
+    public void OnDrop(PointerEventData eventData)
+    {
+        if(eventData.pointerDrag.TryGetComponent(out AudioPieces other))
+        {
+            Transform temp = transform.parent;
+            transform.SetParent(other.parentAfterDrag);
+            other.parentAfterDrag = temp;
+        }
     }
 }

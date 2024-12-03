@@ -7,11 +7,11 @@ public class AudioGameSlot : MonoBehaviour, IDropHandler
 {
     public void OnDrop(PointerEventData eventData)
     {
-        if (eventData.pointerDrag != null)
+        if(transform.childCount == 0)
         {
-            RectTransform draggedObject = eventData.pointerDrag.GetComponent<RectTransform>();
-            draggedObject.SetParent(transform); // Change the parent to this slot
-            draggedObject.transform.position = Vector2.zero; // Snap to the slot's position
+            GameObject dropped = eventData.pointerDrag;
+            AudioPieces draggableItem = dropped.GetComponent<AudioPieces>();
+            draggableItem.parentAfterDrag = transform;
         }
     }
 }

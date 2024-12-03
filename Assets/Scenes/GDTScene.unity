@@ -1115,7 +1115,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1.7001905, y: 0.0016403198}
+  m_AnchoredPosition: {x: 0, y: 0.0016403198}
   m_SizeDelta: {x: 127.42139, y: 58.333405}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &490794890
@@ -1168,7 +1168,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6787b89180cd4334382816b391a2b9f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentObject: {fileID: 0}
 --- !u!1 &511464590
 GameObject:
   m_ObjectHideFlags: 0
@@ -1544,7 +1543,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6787b89180cd4334382816b391a2b9f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentObject: {fileID: 0}
 --- !u!1 &616310366
 GameObject:
   m_ObjectHideFlags: 0
@@ -2219,6 +2217,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0ab99802ab17fd46b5ba1a4f350e812, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  image: {fileID: 0}
+  parentAfterDrag: {fileID: 0}
 --- !u!114 &945963579
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2825,7 +2825,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6787b89180cd4334382816b391a2b9f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentObject: {fileID: 0}
 --- !u!1 &1306070565
 GameObject:
   m_ObjectHideFlags: 0
@@ -3476,6 +3475,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0ab99802ab17fd46b5ba1a4f350e812, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  image: {fileID: 0}
+  parentAfterDrag: {fileID: 0}
 --- !u!4 &1515616855 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4475725655427619384, guid: 2370ad1b1325b1143b8b6820eeb20be3,
@@ -4054,6 +4055,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1794594523}
+  - component: {fileID: 1794594524}
   m_Layer: 0
   m_Name: AudioSlots
   m_TagString: Untagged
@@ -4083,6 +4085,18 @@ RectTransform:
   m_AnchoredPosition: {x: 1.70018, y: 79.96835}
   m_SizeDelta: {x: 501.62112, y: 58.3367}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1794594524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1794594522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6787b89180cd4334382816b391a2b9f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1840904454
 GameObject:
   m_ObjectHideFlags: 0
@@ -4172,6 +4186,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0ab99802ab17fd46b5ba1a4f350e812, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  image: {fileID: 0}
+  parentAfterDrag: {fileID: 0}
 --- !u!1 &1882374061
 GameObject:
   m_ObjectHideFlags: 0

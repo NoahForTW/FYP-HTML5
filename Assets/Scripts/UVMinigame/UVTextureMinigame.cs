@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using UnityEngine;
 
 public class UVTextureMinigame : MonoBehaviour
@@ -15,6 +16,13 @@ public class UVTextureMinigame : MonoBehaviour
     List<UVTextureUI> UVTextures;
 
     [SerializeField] UVGame_SO currentModelParameters;
+
+    [DllImport("__Internal")]
+    private static extern void requestFullscreen();
+
+    [DllImport("__Internal")]
+    private static extern void resizeCanvas();
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -25,6 +33,9 @@ public class UVTextureMinigame : MonoBehaviour
         {
             Instance = this;
         }
+#if UNITY_WEBGL && !UNITY_EDITOR
+        resizeCanvas();
+#endif
     }
 
     private void Start()
@@ -62,5 +73,13 @@ public class UVTextureMinigame : MonoBehaviour
                 canModelMove = false;
             }
         }
+    }
+
+    public void RequestFullScreen()
+    {
+#if UNITY_WEBGL && !UNITY_EDITOR
+        requestFullscreen();
+        resizeCanvas();
+#endif
     }
 }

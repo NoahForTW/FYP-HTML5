@@ -3,24 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class AudioPieces : MonoBehaviour, IDragHandler
+public class AudioPieces : MonoBehaviour, IDragHandler, IPointerDownHandler
 {
-    private RectTransform rectTransform;
-    private Canvas canvas;
-    private CanvasGroup canvasGroup;
 
-    private void Awake()
+    private void Start()
     {
-        rectTransform = GetComponent<RectTransform>();
-        canvasGroup = GetComponent<CanvasGroup>();
-
-        // Find the Canvas to use for screen-space dragging.
-        canvas = GetComponentInParent<Canvas>();
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -30,6 +21,9 @@ public class AudioPieces : MonoBehaviour, IDragHandler
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
     }
 }

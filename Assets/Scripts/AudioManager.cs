@@ -5,7 +5,7 @@ using System;
 
 public enum SoundType
 {
-    None = 0,
+    None,
 }
 
 [RequireComponent(typeof(AudioSource)), ExecuteInEditMode]

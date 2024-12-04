@@ -1,48 +1,66 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using TMPro;
 
-public class AudioPieces : MonoBehaviour, IDragHandler, IPointerDownHandler, IDropHandler
+public class AudioPieces : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
 {
-    public Image image;
+    private Image image;
+    private TMP_Text text;
+    private CanvasGroup canvasGroup;
 
-    public Transform parentAfterDrag;
+    [HideInInspector] public Transform parentAfterDrag;
+
+    public bool isInSlot = false;
+
+    private void Awake() 
+    {
+        image = GetComponent<Image>();
+        text = GetComponentInChildren<TMP_Text>();
+        canvasGroup = GetComponent<CanvasGroup>();
+        parentAfterDrag = transform.parent;
+    }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        parentAfterDrag = transform.parent; // Allow drop detection
-        transform.SetParent(transform.root); // Move to the top of the hierarchy for easy dragging
-        transform.SetAsLastSibling();
-        image.raycastTarget = false;
+         // Allow drop detection
+        //transform.SetParent(transform.root); // Move to the top of the hierarchy for easy dragging
+        //transform.SetAsLastSibling();
+        //image.raycastTarget = false;
+        canvasGroup.blocksRaycasts = false;
+        Debug.Log("Picked " + gameObject.name);
     }
 
     public void OnDrag(PointerEventData eventData)
     {
         transform.position = Input.mousePosition;
+
+        Debug.Log("Dragging " + gameObject.name);
     }
 
 
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        image.raycastTarget = true; // Re-enable interaction
-        transform.SetParent(parentAfterDrag);
-    }
-
-    public void OnPointerDown(PointerEventData eventData)
-    {
-        // Optional: Add visual feedback like scaling or highlighting
-    }
-
-    public void OnDrop(PointerEventData eventData)
-    {
-        if(eventData.pointerDrag.TryGetComponent(out AudioPieces other))
+        //image.raycastTarget = true; // Re-enable interaction
+        if(!isInSlot)
         {
-            Transform temp = transform.parent;
-            transform.SetParent(other.parentAfterDrag);
-            other.parentAfterDrag = temp;
+            transform.SetParent(parentAfterDrag);
+            transform.position = parentAfterDrag.position;
         }
+        canvasGroup.blocksRaycasts = true;
+        Debug.Log("Stop Dragging " + gameObject.name);
     }
+
+    public void SetText(string newText)
+    {
+        text.text = newText;
+    }
+
+
+
+
 }

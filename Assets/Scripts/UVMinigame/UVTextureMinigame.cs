@@ -34,7 +34,7 @@ public class UVTextureMinigame : MonoBehaviour
             Instance = this;
         }
 #if UNITY_WEBGL && !UNITY_EDITOR
-        resizeCanvas();
+        //resizeCanvas();
 #endif
     }
 

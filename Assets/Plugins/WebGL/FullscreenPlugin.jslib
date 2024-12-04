@@ -10,6 +10,7 @@ mergeInto(LibraryManager.library, {
         } else if (canvas.msRequestFullscreen) { // Older Edge compatibility
             canvas.msRequestFullscreen();
         }
+        //window.alert("fullscreen");
     },
     resizeCanvas: function() {
     console.log("Resize function was called from Unity." + window.innerWidth + window.innerHeight);
@@ -18,6 +19,7 @@ mergeInto(LibraryManager.library, {
     canvas.style.height = window.innerHeight + "px";
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
+    window.alert("resized");
   }
 });
 

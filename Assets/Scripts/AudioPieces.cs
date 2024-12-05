@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using TMPro;
 
-public class AudioPieces : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
+public class AudioPieces : DragDrop, IDragHandler, IBeginDragHandler, IEndDragHandler
 {
     private TMP_Text text;
     private CanvasGroup canvasGroup;
@@ -14,31 +14,30 @@ public class AudioPieces : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
 
     public bool isInSlot = false;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         text = GetComponentInChildren<TMP_Text>();
-        canvasGroup = GetComponent<CanvasGroup>();
         parentAfterDrag = transform.parent;
     }
 
-    public void OnBeginDrag(PointerEventData eventData)
+    public override void OnBeginDrag(PointerEventData eventData)
     {
-        canvasGroup.blocksRaycasts = false;
-
+        base.OnBeginDrag(eventData);
         AudioManager.PlaySoundOneShot(SoundType.Drag);
         //Debug.Log("Picked " + gameObject.name);
     }
 
-    public void OnDrag(PointerEventData eventData)
+    public override void OnDrag(PointerEventData eventData)
     {
-        transform.position = Input.mousePosition;
-
+        base.OnDrag(eventData);
         AudioManager.PlaySoundOneShot(SoundType.Drag);
         //Debug.Log("Dragging " + gameObject.name);
     }
 
-    public void OnEndDrag(PointerEventData eventData)
+    public override void OnEndDrag(PointerEventData eventData)
     {
+        base.OnEndDrag(eventData);
         if (!isInSlot)
         {
             // Smoothly return the object to its original position
@@ -50,7 +49,6 @@ public class AudioPieces : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
 
         AudioManager.PlaySoundOneShot(SoundType.Drag);
 
-        canvasGroup.blocksRaycasts = true;
         //Debug.Log("Stop Dragging " + gameObject.name);
     }
 

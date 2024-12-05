@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4849422654433387402}
   - component: {fileID: 3291125051292646720}
   - component: {fileID: 756995454270905277}
+  - component: {fileID: -5869495967788740991}
   m_Layer: 5
   m_Name: Texture
   m_TagString: Untagged
@@ -35,7 +36,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 365.3, y: -192.6}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4849422654433387402
@@ -58,6 +59,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f1548a61af69cb40b1feac10d4fbe80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canvasCamera: {fileID: 0}
   texture: {fileID: 2800000, guid: fe3e0a556829be24bb87c912d79e872d, type: 3}
   layerMask:
     serializedVersion: 2
@@ -90,3 +92,15 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
+--- !u!225 &-5869495967788740991
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6832713986992560382}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0

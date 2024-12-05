@@ -11,6 +11,7 @@ public class UVTextureMinigame : MonoBehaviour
 
     public float rotationSpeed;
     public bool canModelMove = true;
+    public bool canCheckTexture = true;
 
     UVModelSide[] ModelSides;
     List<UVTextureUI> UVTextures;
@@ -56,10 +57,11 @@ public class UVTextureMinigame : MonoBehaviour
     }
     void Update()
     {
+
         foreach (var side in ModelSides)
         {
             // when texture placed is correct
-            if (side.IsCurrentTextureCorrect())
+            if (side.IsCurrentTextureCorrect() && canCheckTexture)
             {
                 side.SetCanChangeTexture(false);
             }

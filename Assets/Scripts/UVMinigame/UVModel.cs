@@ -43,9 +43,9 @@ public class UVModel : MonoBehaviour
 
     }
 
-    private void OnDrawGizmos()
+/*    private void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawLine(transform.position, transform.position + Vector3.right * 10);
-    }
+    }*/
 }

@@ -1172,7 +1172,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 798315679e76eea439176268572d9ac5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soundList: []
+  soundList:
+  - name: Drag
+    sounds:
+    - {fileID: 8300000, guid: 319e7d1f9b59f0743b4941dfc4e6fba5, type: 3}
 --- !u!82 &546868360
 AudioSource:
   m_ObjectHideFlags: 0

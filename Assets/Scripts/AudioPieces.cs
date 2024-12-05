@@ -24,12 +24,16 @@ public class AudioPieces : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
     public void OnBeginDrag(PointerEventData eventData)
     {
         canvasGroup.blocksRaycasts = false;
+
+        AudioManager.PlaySoundOneShot(SoundType.Drag);
         //Debug.Log("Picked " + gameObject.name);
     }
 
     public void OnDrag(PointerEventData eventData)
     {
         transform.position = Input.mousePosition;
+
+        AudioManager.PlaySoundOneShot(SoundType.Drag);
         //Debug.Log("Dragging " + gameObject.name);
     }
 
@@ -43,6 +47,8 @@ public class AudioPieces : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
                 transform.SetParent(parentAfterDrag);
             }));
         }
+
+        AudioManager.PlaySoundOneShot(SoundType.Drag);
 
         canvasGroup.blocksRaycasts = true;
         //Debug.Log("Stop Dragging " + gameObject.name);

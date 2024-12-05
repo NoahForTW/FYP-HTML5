@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+// Init Sound Variables
 public enum SoundType
 {
-    None,
+    Drag
 }
 
 [RequireComponent(typeof(AudioSource)), ExecuteInEditMode]
@@ -34,6 +35,11 @@ public class AudioManager : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
 
     }
+
+    /*
+     * Can add different function to play sound, sequences, loop etc.
+     * 
+     */
 
     // Play Sound one shot / loop
     public static void PlaySoundOneShot(SoundType sound, float volume = 1)

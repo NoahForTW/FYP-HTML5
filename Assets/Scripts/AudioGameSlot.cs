@@ -21,6 +21,7 @@ public class AudioGameSlot : MonoBehaviour, IDropHandler
                 Transform parent = audioPieces.parentAfterDrag;
                 audioPieces.isInSlot = false;
 
+                AudioManager.PlaySoundOneShot(SoundType.Drag);
                 // Smoothly return existing child to its original parent
                 StartCoroutine(audioPieces.SmoothMove(child.position, parent.position, 0.8f, () =>
                 {
@@ -33,6 +34,7 @@ public class AudioGameSlot : MonoBehaviour, IDropHandler
         AudioPieces draggableItem = dropped.GetComponent<AudioPieces>();
         draggableItem.isInSlot = true;
 
+        AudioManager.PlaySoundOneShot(SoundType.Drag);
         // Smoothly snap the dropped object into the slot
         StartCoroutine(draggableItem.SmoothMove(dropped.transform.position, transform.position, 0.8f, () =>
         {

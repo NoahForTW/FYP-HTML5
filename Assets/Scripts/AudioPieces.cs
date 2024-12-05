@@ -3,12 +3,10 @@ using System.Collections.Generic;
 using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
 using TMPro;
 
 public class AudioPieces : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
 {
-    private Image image;
     private TMP_Text text;
     private CanvasGroup canvasGroup;
 
@@ -16,9 +14,8 @@ public class AudioPieces : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
 
     public bool isInSlot = false;
 
-    private void Awake() 
+    private void Awake()
     {
-        image = GetComponent<Image>();
         text = GetComponentInChildren<TMP_Text>();
         canvasGroup = GetComponent<CanvasGroup>();
         parentAfterDrag = transform.parent;
@@ -26,41 +23,48 @@ public class AudioPieces : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-         // Allow drop detection
-        //transform.SetParent(transform.root); // Move to the top of the hierarchy for easy dragging
-        //transform.SetAsLastSibling();
-        //image.raycastTarget = false;
         canvasGroup.blocksRaycasts = false;
-        Debug.Log("Picked " + gameObject.name);
+        //Debug.Log("Picked " + gameObject.name);
     }
 
     public void OnDrag(PointerEventData eventData)
     {
         transform.position = Input.mousePosition;
-
-        Debug.Log("Dragging " + gameObject.name);
+        //Debug.Log("Dragging " + gameObject.name);
     }
-
-
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        //image.raycastTarget = true; // Re-enable interaction
-        if(!isInSlot)
+        if (!isInSlot)
         {
-            transform.SetParent(parentAfterDrag);
-            transform.position = parentAfterDrag.position;
+            // Smoothly return the object to its original position
+            StartCoroutine(SmoothMove(transform.position, parentAfterDrag.position, 0.8f, () =>
+            {
+                transform.SetParent(parentAfterDrag);
+            }));
         }
+
         canvasGroup.blocksRaycasts = true;
-        Debug.Log("Stop Dragging " + gameObject.name);
+        //Debug.Log("Stop Dragging " + gameObject.name);
     }
 
-    public void SetText(string newText)
+    public void SetText(string newText) 
     {
         text.text = newText;
     }
 
+    public IEnumerator SmoothMove(Vector3 start, Vector3 end, float duration, System.Action onComplete = null)
+    {
+        float elapsed = 0f;
 
+        while (elapsed < duration)
+        {
+            transform.position = Vector3.Lerp(start, end, elapsed / duration);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
 
-
+        transform.position = end; // Snap to the final position
+        onComplete?.Invoke();
+    }
 }

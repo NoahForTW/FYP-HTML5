@@ -8,28 +8,37 @@ public class AudioGameSlot : MonoBehaviour, IDropHandler
 {
     public void OnDrop(PointerEventData eventData)
     {
-        Debug.Log("bitch" + transform.parent.gameObject.name);
-        if (transform.childCount != 0) //when there is shit in child
+        //Debug.Log("Slot name: " + transform.parent.gameObject.name);
+
+        if (transform.childCount != 0)
         {
-            foreach(Transform child in transform)
+            foreach (Transform child in transform)
             {
                 AudioPieces audioPieces = child.GetComponent<AudioPieces>();
 
-                if (audioPieces == null) { continue; }
+                if (audioPieces == null) continue;
+
                 Transform parent = audioPieces.parentAfterDrag;
                 audioPieces.isInSlot = false;
-                child.SetParent(parent);
-                child.position = parent.position;
+
+                // Smoothly return existing child to its original parent
+                StartCoroutine(audioPieces.SmoothMove(child.position, parent.position, 0.8f, () =>
+                {
+                    child.SetParent(parent);
+                }));
             }
         }
-        
+
         GameObject dropped = eventData.pointerDrag;
         AudioPieces draggableItem = dropped.GetComponent<AudioPieces>();
         draggableItem.isInSlot = true;
-        dropped.transform.SetParent(transform);
-        dropped.transform.position = transform.position;
 
-        Debug.Log("Dropped " + draggableItem.gameObject);
+        // Smoothly snap the dropped object into the slot
+        StartCoroutine(draggableItem.SmoothMove(dropped.transform.position, transform.position, 0.8f, () =>
+        {
+            dropped.transform.SetParent(transform);
+        }));
 
+        //Debug.Log("Dropped " + draggableItem.gameObject);
     }
 }

@@ -4,18 +4,16 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class UVTextureUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
+public class UVTextureUI : DragDrop
 {
-    [SerializeField] Texture2D texture;
-    Image image;
+    [SerializeField] public Texture texture;
+    RawImage image;
     public LayerMask layerMask;
     public bool canDrag = false;
     void Start()
     {
-        image = GetComponent<Image>();
-        Material mat = new Material(image.material);
-        mat.mainTexture = texture;
-        image.material = mat;
+        image = GetComponent<RawImage>();
+        image.texture = texture;
     }
 
     // Update is called once per frame
@@ -23,37 +21,34 @@ public class UVTextureUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
         if (canDrag)
         {
-            DragUI();
+
         }
 
 
     }
 
-    void DragUI()
+    public override void OnDrag(PointerEventData eventData)
     {
-        transform.position = Input.mousePosition;
-    }
-
-    public void OnPointerDown(PointerEventData eventData)
-    {
+        base.OnDrag(eventData);
         canDrag = true;
     }
 
-    public void OnPointerUp(PointerEventData eventData)
+    public override void OnEndDrag(PointerEventData eventData)
     {
-        canDrag= false;
+        base.OnEndDrag(eventData);
         RaycastHit hit;
-        Ray ray = Camera.main.ScreenPointToRay(transform.position);
+        Ray ray = Camera.main.ScreenPointToRay(eventData.position);
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask))
         {
             GameObject go = hit.collider.gameObject;
-            if (go.CompareTag("Model Side"))
+            UVModelSide side = go.GetComponent<UVModelSide>();
+            if (side != null && side.GetCanChangeTexture())
             {
-
                 Material material = new Material(go.GetComponent<MeshRenderer>().material);
                 material.mainTexture = texture;
                 go.GetComponent<MeshRenderer>().material = material;
             }
         }
+        canDrag = false;
     }
 }

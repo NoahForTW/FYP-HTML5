@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1941,14 +1941,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38cf3f098d510df48b52fa3e97298c29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerAction:
+    m_PersistentCalls:
+      m_Calls: []
   canMove: 1
   movementSpeed: 15
   sprintingSpeed: 20
   jumpForce: 9
   vCam: {fileID: 43498991}
   itemPrefab: {fileID: 0}
-  isJumping: 0
-  isCrouching: 0
 --- !u!114 &511464595
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4888,8 +4889,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1667434515}
-  - component: {fileID: 1667434514}
-  - component: {fileID: 1667434516}
   - component: {fileID: 1667434517}
   - component: {fileID: 1667434518}
   m_Layer: 0
@@ -4899,28 +4898,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1667434514
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1667434513}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 24e6706b1360b8e4c9ba544eee8647c7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  jumpKey01: 119
-  jumpKey02: 32
-  crouchKey: 115
-  leftKey: 97
-  rightKey: 100
-  sprintingKey: 304
-  interactKey: 0
-  playerAction:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!4 &1667434515
 Transform:
   m_ObjectHideFlags: 0
@@ -4936,18 +4913,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 620262186}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1667434516
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1667434513}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac95cea40ae7b3f4580476dca646a991, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1667434517
 MonoBehaviour:
   m_ObjectHideFlags: 0

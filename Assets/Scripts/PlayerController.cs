@@ -36,13 +36,13 @@ public class PlayerController : MonoBehaviour
     private Rigidbody playerRb;
     private Vector3 direction = new Vector3();
 
-    public bool isJumping = false; // check if player is jumping
-    public bool isCrouching = false; // check if player is crouching
-    private bool isSprinting = false;
+    bool isJumping = false; // check if player is jumping
+    bool isCrouching = false; // check if player is crouching
+    bool isSprinting = false;
 
     private float playerHeight;
 
-    private void Awake()
+    private void Awake  ()
     {
         if (Instance != null && Instance != this)
         {
@@ -52,7 +52,6 @@ public class PlayerController : MonoBehaviour
         {
             Instance = this;
         }
-        //inputManager = InputManager.Instance;
 
         playerRb = GetComponent<Rigidbody>();
     }
@@ -127,9 +126,8 @@ public class PlayerController : MonoBehaviour
         direction = action == global::PlayerAction.Right ? transform.right : -transform.right;
         float currentSpeed = isSprinting ? sprintingSpeed : movementSpeed;
         float currentForce = isJumping ? Mathf.Abs(currentSpeed - jumpForce) : currentSpeed;
-        playerRb.AddForce(direction * currentForce);
-        playerRb.maxLinearVelocity = currentForce;
-        //playerRb.velocity = direction * currentForce;
+        //playerRb.AddForce(direction * currentForce);
+        playerRb.velocity = direction * currentForce;
     }
 
     private void PlayerJump()

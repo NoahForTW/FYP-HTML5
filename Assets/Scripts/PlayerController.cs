@@ -1,5 +1,7 @@
 using Cinemachine;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.Events;
 
 public enum PlayerAction
 {
@@ -19,7 +21,7 @@ public class PlayerController : MonoBehaviour
 {
     //public
     public static PlayerController Instance;
-
+    public UnityEvent<PlayerAction> playerAction;
     public bool canMove = true;
 
     //private
@@ -30,16 +32,17 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private CinemachineVirtualCamera vCam;
     [SerializeField] private GameObject itemPrefab;
+
     private Rigidbody playerRb;
     private Vector3 direction = new Vector3();
 
-    public bool isJumping = false; // check if player is jumping
-    public bool isCrouching = false; // check if player is crouching
-    private bool isSprinting = false;
+    bool isJumping = false; // check if player is jumping
+    bool isCrouching = false; // check if player is crouching
+    bool isSprinting = false;
 
     private float playerHeight;
 
-    private void Awake()
+    private void Awake  ()
     {
         if (Instance != null && Instance != this)
         {
@@ -49,7 +52,6 @@ public class PlayerController : MonoBehaviour
         {
             Instance = this;
         }
-        //inputManager = InputManager.Instance;
 
         playerRb = GetComponent<Rigidbody>();
         playerAnimator = GetComponent<Animator>();
@@ -57,7 +59,7 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        InputManager.Instance.playerAction.AddListener(PlayerAction);
+        playerAction.AddListener(PlayerAction);
     }
 
     // Update is called once per frame
@@ -70,7 +72,7 @@ public class PlayerController : MonoBehaviour
         //Debug.Log(worldPos);
     }
 
-    private void PlayerAction(PlayerAction action)
+    public void PlayerAction(PlayerAction action)
     {
         direction = Vector3.zero;
         if (!canMove) { return; }
@@ -126,13 +128,10 @@ public class PlayerController : MonoBehaviour
     private void PlayerMovement(PlayerAction action)
     {
         direction = action == global::PlayerAction.Right ? transform.right : -transform.right;
-        facingDirection.x = action == global::PlayerAction.Right ? 1 : -1;
         float currentSpeed = isSprinting ? sprintingSpeed : movementSpeed;
         float currentForce = isJumping ? Mathf.Abs(currentSpeed - jumpForce) : currentSpeed;
-        transform.localScale = facingDirection;
-        playerRb.AddForce(direction * currentForce);
-        playerRb.maxLinearVelocity = currentForce;
-        //playerRb.velocity = direction * currentForce;
+        //playerRb.AddForce(direction * currentForce);
+        playerRb.velocity = direction * currentForce;
     }
 
     private void PlayerJump()

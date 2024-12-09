@@ -54,7 +54,7 @@ public class PlayerController : MonoBehaviour
         }
 
         playerRb = GetComponent<Rigidbody>();
-        playerAnimator = GetComponent<Animator>();
+        //playerAnimator = GetComponent<Animator>();
     }
 
     private void Start()
@@ -92,13 +92,13 @@ public class PlayerController : MonoBehaviour
                 PlayerJump();
                 break;
 
-            case global::PlayerAction.Crouch:
+/*            case global::PlayerAction.Crouch:
                 PlayerCrouch();
                 break;
 
             case global::PlayerAction.Crouched:
                 PlayerCrouched();
-                break;
+                break;*/
 
             case global::PlayerAction.Left:
             case global::PlayerAction.Right:
@@ -115,8 +115,8 @@ public class PlayerController : MonoBehaviour
         }
 
         //Debug.Log("is Idle:" + (action == global::PlayerAction.Idle));
-        playerAnimator.SetBool("Idle", action == global::PlayerAction.Idle);
-        playerAnimator.SetBool("Walk", action == global::PlayerAction.Right || action == global::PlayerAction.Left);
+        //playerAnimator.SetBool("Idle", action == global::PlayerAction.Idle);
+        //playerAnimator.SetBool("Walk", action == global::PlayerAction.Right || action == global::PlayerAction.Left);
 
     }
 

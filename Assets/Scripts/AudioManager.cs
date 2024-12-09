@@ -6,7 +6,9 @@ using System;
 // Init Sound Variables
 public enum SoundType
 {
-    Drag
+    Drag,
+    Jumping,
+    Pickup
 }
 
 [RequireComponent(typeof(AudioSource)), ExecuteInEditMode]
@@ -137,6 +139,6 @@ public class AudioManager : MonoBehaviour
 public struct SoundList
 {
     public AudioClip[] Sounds { get => sounds;}
-    [HideInInspector] public string name;
+    public string name;
     [SerializeField] private AudioClip[] sounds;
 }

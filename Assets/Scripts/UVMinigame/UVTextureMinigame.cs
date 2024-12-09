@@ -17,6 +17,8 @@ public class UVTextureMinigame : MonoBehaviour
     List<UVTextureUI> UVTextures;
 
     [SerializeField] UVGame_SO currentModelParameters;
+    [SerializeField] GameObject modelParent;
+
 
     [DllImport("__Internal")]
     private static extern void requestFullscreen();
@@ -42,7 +44,7 @@ public class UVTextureMinigame : MonoBehaviour
     private void Start()
     {
         // instantiate model
-        GameObject model = Instantiate(currentModelParameters.UVModelPrefab);
+        GameObject model = Instantiate(currentModelParameters.UVModelPrefab, modelParent.transform);
         ModelSides = model.GetComponentsInChildren<UVModelSide>();
 
         //instantiate textures

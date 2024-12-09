@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Interacable : MonoBehaviour
+public class Interactable : MonoBehaviour
 {
     [SerializeField] GameObject interactButton;
     [SerializeField] UnityEvent interactionEvent;

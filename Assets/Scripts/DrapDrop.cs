@@ -21,6 +21,8 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         parentAfterDrag = transform.parent;
     }
 
+
+
     // Triggered when dragging begins
     public virtual void OnBeginDrag(PointerEventData eventData)
     {
@@ -63,6 +65,10 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     {
         float elapsed = 0f;
 
+        //start.z = 1f; 
+
+        //end.z = 1f;
+
         while (elapsed < duration)
         {
             transform.position = Vector3.Lerp(start, end, elapsed / duration);
@@ -72,6 +78,7 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 
         transform.position = end; // Snap to the final position
         onComplete?.Invoke();
+
     }
 }
 

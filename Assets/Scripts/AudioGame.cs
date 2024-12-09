@@ -25,7 +25,7 @@ public class AudioGame : MonoBehaviour
         InitialisePiecesAndSlots();
     }
 
-    // Shuffles the gameStates list using the Fisher-Yates algorithm
+    // Shuffles the gameStates list
     void RandomiseStates()
     {
         for (int i = gameStates.Count - 1; i > 0; i--)

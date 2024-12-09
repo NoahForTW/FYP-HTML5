@@ -16,6 +16,7 @@ public class AudioGame : MonoBehaviour
     [Tooltip("Assign a GameSlot Parent")]
     [SerializeField] GameObject GameSlotGroup;
 
+    [Header("Audio Game States")]
     [SerializeField] List<string> gameStates = new List<string>();
     
     void Start()

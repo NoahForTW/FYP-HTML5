@@ -54,6 +54,7 @@ public class PlayerController : MonoBehaviour
         }
 
         playerRb = GetComponent<Rigidbody>();
+        playerAnimator = GetComponent<Animator>();
     }
 
     private void Start()
@@ -113,7 +114,10 @@ public class PlayerController : MonoBehaviour
                 break;
         }
 
-        Debug.Log("is Idle:" + (action == global::PlayerAction.Idle));
+        //Debug.Log("is Idle:" + (action == global::PlayerAction.Idle));
+        playerAnimator.SetBool("Idle", action == global::PlayerAction.Idle);
+        playerAnimator.SetBool("Walk", action == global::PlayerAction.Right || action == global::PlayerAction.Left);
+
     }
 
     private void SetSprint(bool isSprint)

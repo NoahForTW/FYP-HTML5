@@ -34,7 +34,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject itemPrefab;
 
     private Rigidbody playerRb;
+    // private Animator playerAnimator;
     private Vector3 direction = new Vector3();
+    private Vector3 facingDirection = new Vector3(1,1,1);
 
     bool isJumping = false; // check if player is jumping
     bool isCrouching = false; // check if player is crouching
@@ -54,7 +56,7 @@ public class PlayerController : MonoBehaviour
         }
 
         playerRb = GetComponent<Rigidbody>();
-        playerAnimator = GetComponent<Animator>();
+        // playerAnimator = GetComponent<Animator>();
     }
 
     private void Start()
@@ -115,8 +117,8 @@ public class PlayerController : MonoBehaviour
         }
 
         //Debug.Log("is Idle:" + (action == global::PlayerAction.Idle));
-        playerAnimator.SetBool("Idle", action == global::PlayerAction.Idle);
-        playerAnimator.SetBool("Walk", action == global::PlayerAction.Right || action == global::PlayerAction.Left);
+        // playerAnimator.SetBool("Idle", action == global::PlayerAction.Idle);
+        // playerAnimator.SetBool("Walk", action == global::PlayerAction.Right || action == global::PlayerAction.Left);
 
     }
 
@@ -128,10 +130,12 @@ public class PlayerController : MonoBehaviour
     private void PlayerMovement(PlayerAction action)
     {
         direction = action == global::PlayerAction.Right ? transform.right : -transform.right;
+        facingDirection.x = action == global::PlayerAction.Right ? 1 : -1;
         float currentSpeed = isSprinting ? sprintingSpeed : movementSpeed;
         float currentForce = isJumping ? Mathf.Abs(currentSpeed - jumpForce) : currentSpeed;
         //playerRb.AddForce(direction * currentForce);
         playerRb.velocity = direction * currentForce;
+        transform.localScale = facingDirection;
     }
 
     private void PlayerJump()

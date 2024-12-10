@@ -10,7 +10,8 @@ public class UVTextureMinigame : MonoBehaviour
     public GameObject UVTexturePalette;
 
     public float rotationSpeed;
-    public bool canModelMove = true;
+    public bool canModelMove = false;
+    public bool canModelRotate = false;
     public bool canCheckTexture = true;
 
     UVModelSide[] ModelSides;
@@ -18,6 +19,7 @@ public class UVTextureMinigame : MonoBehaviour
 
     [SerializeField] UVGame_SO currentModelParameters;
     [SerializeField] GameObject modelParent;
+    [SerializeField] UVModelTools uVModelTools;
 
 
     [DllImport("__Internal")]
@@ -52,7 +54,7 @@ public class UVTextureMinigame : MonoBehaviour
         foreach(Texture texture in currentModelParameters.UVTextures)
         {
             GameObject textureUI = Instantiate(UVTexturePrefab, UVTexturePalette.transform);
-            UVTextureUI uVTextures = textureUI.GetComponent<UVTextureUI>();
+            UVTextureUI uVTextures = textureUI.GetComponentInChildren<UVTextureUI>();
             uVTextures.texture = texture;
             UVTextures.Add(uVTextures);
         }
@@ -68,15 +70,18 @@ public class UVTextureMinigame : MonoBehaviour
                 side.SetCanChangeTexture(false);
             }
         }
+        canModelMove = uVModelTools.selectedTool == UVTools.Move;
+        canModelRotate = uVModelTools.selectedTool == UVTools.Rotate;
 
-        canModelMove = true;
-        foreach(var uVtexture in UVTextures)
+        foreach (var uVtexture in UVTextures)
         {
             if (uVtexture.canDrag)
             {
+                canModelRotate = false;
                 canModelMove = false;
             }
         }
+
     }
 
     public void RequestFullScreen()

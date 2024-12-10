@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class DragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
@@ -25,7 +26,12 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     public virtual void OnBeginDrag(PointerEventData eventData)
     {
         canvasGroup.alpha = 0.6f;
-        canvasGroup.blocksRaycasts = false; 
+        canvasGroup.blocksRaycasts = false;
+
+        if (GetComponent<Image>() != null)
+            GetComponent<Image>().maskable = false;
+        if (GetComponent<RawImage>() != null)
+            GetComponent<RawImage>().maskable = false;
     }
 
     // Triggered while dragging
@@ -40,7 +46,9 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         {
             var screenPoint = Input.mousePosition;
             screenPoint.z = canvas.planeDistance; //distance of the plane from the camera
-            transform.position = Camera.main.ScreenToWorldPoint(screenPoint);
+            Vector3 dragPos = new Vector3(Camera.main.ScreenToWorldPoint(screenPoint).x,
+                Camera.main.ScreenToWorldPoint(screenPoint).y, transform.position.z); 
+            transform.position = dragPos;
         }
     }
 
@@ -49,6 +57,13 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     {
         canvasGroup.alpha = 1.0f;
         canvasGroup.blocksRaycasts = true;
+
+        Debug.Log(GetComponent<RawImage>().maskable);
+        if (GetComponent<Image>() != null)
+            GetComponent<Image>().maskable = true;
+        if (GetComponent<RawImage>() != null)
+            GetComponent<RawImage>().maskable = true;
+
         if (!isInSlot)
         {
             // Smoothly return the object to its original position

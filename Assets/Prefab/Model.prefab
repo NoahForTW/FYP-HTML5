@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 742216771188815507}
   - component: {fileID: 4499623400331979808}
   - component: {fileID: 1324863959136935793}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: right side
   m_TagString: Model Side
   m_Icon: {fileID: 0}
@@ -133,7 +133,7 @@ GameObject:
   - component: {fileID: 8471776002129419798}
   - component: {fileID: 3234798860793795149}
   - component: {fileID: 2504793947546402931}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: left side
   m_TagString: Model Side
   m_Icon: {fileID: 0}
@@ -251,7 +251,7 @@ GameObject:
   - component: {fileID: 1675439205146528630}
   - component: {fileID: 4720673736864352228}
   - component: {fileID: 4025567435471340535}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -334,7 +334,7 @@ GameObject:
   - component: {fileID: 7951395586929451318}
   - component: {fileID: 470895977764553939}
   - component: {fileID: 4498893343988879619}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -349,9 +349,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4973678558916755025}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: 0.15556028, w: 0.9878264}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
-  m_LocalScale: {x: 100, y: 100, z: 100}
+  m_LocalRotation: {x: 0, y: 0, z: 0.15556388, w: 0.9878259}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 90, y: 90, z: 90}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1675439205146528630}
@@ -415,7 +415,7 @@ GameObject:
   - component: {fileID: 3169496994149434659}
   - component: {fileID: 7692361218510639912}
   - component: {fileID: 8097935176142585105}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: bottom side
   m_TagString: Model Side
   m_Icon: {fileID: 0}
@@ -535,7 +535,7 @@ GameObject:
   - component: {fileID: 453252718912967683}
   - component: {fileID: 2672532115012085681}
   - component: {fileID: 5960474895222223759}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: back side
   m_TagString: Model Side
   m_Icon: {fileID: 0}
@@ -655,7 +655,7 @@ GameObject:
   - component: {fileID: 3521233385170815018}
   - component: {fileID: 2496731757567142629}
   - component: {fileID: 8810022110875115540}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: top side
   m_TagString: Model Side
   m_Icon: {fileID: 0}
@@ -775,7 +775,7 @@ GameObject:
   - component: {fileID: 6313896288283212698}
   - component: {fileID: 7588028716082144168}
   - component: {fileID: 3098673177197369287}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: front side
   m_TagString: Model Side
   m_Icon: {fileID: 0}

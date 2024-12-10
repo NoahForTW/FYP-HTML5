@@ -6,12 +6,12 @@ using UnityEngine.EventSystems;
 public class UVModel : MonoBehaviour
 {
     bool isDragging = false;
-    
     Rigidbody rb;
     Vector3 lastMousePos;
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+      
     }
 
     private void OnMouseDrag()
@@ -33,7 +33,7 @@ public class UVModel : MonoBehaviour
 
     void Update()
     {
-        if (isDragging && UVTextureMinigame.Instance.canModelMove)
+        if (isDragging && UVTextureMinigame.Instance.canModelRotate)
         {
             transform.Rotate(new Vector3(Input.GetAxis("Mouse Y"), -Input.GetAxis("Mouse X"), 0)
                 * UVTextureMinigame.Instance.rotationSpeed
@@ -43,9 +43,12 @@ public class UVModel : MonoBehaviour
 
     }
 
-/*    private void OnDrawGizmos()
-    {
+    private void OnDrawGizmos()
+    {/*
+        var screenPoint = Input.mousePosition;
+        screenPoint.z = modelCanvas.planeDistance; //distance of the plane from the camera
+        Vector3 mousePos = modelCanvas.worldCamera.ScreenToWorldPoint(screenPoint);
         Gizmos.color = Color.yellow;
-        Gizmos.DrawLine(transform.position, transform.position + Vector3.right * 10);
-    }*/
+        Gizmos.DrawLine(modelCanvas.worldCamera.transform.position, mousePos);*/
+    }
 }

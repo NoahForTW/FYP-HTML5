@@ -92,13 +92,13 @@ public class PlayerController : MonoBehaviour
                 PlayerJump();
                 break;
 
-            case global::PlayerAction.Crouch:
+/*            case global::PlayerAction.Crouch:
                 PlayerCrouch();
                 break;
 
             case global::PlayerAction.Crouched:
                 PlayerCrouched();
-                break;
+                break;*/
 
             case global::PlayerAction.Left:
             case global::PlayerAction.Right:

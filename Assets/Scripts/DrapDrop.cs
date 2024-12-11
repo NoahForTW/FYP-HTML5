@@ -29,11 +29,6 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     {
         canvasGroup.alpha = 0.6f;
         canvasGroup.blocksRaycasts = false;
-
-        if (GetComponent<Image>() != null)
-            GetComponent<Image>().maskable = false;
-        if (GetComponent<RawImage>() != null)
-            GetComponent<RawImage>().maskable = false;
     }
 
     // Triggered while dragging
@@ -47,10 +42,8 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         else
         {
             var screenPoint = Input.mousePosition;
-            screenPoint.z = canvas.planeDistance; //distance of the plane from the camera
-            Vector3 dragPos = new Vector3(Camera.main.ScreenToWorldPoint(screenPoint).x,
-                Camera.main.ScreenToWorldPoint(screenPoint).y, transform.position.z); 
-            transform.position = dragPos;
+            screenPoint.z = canvas.planeDistance; //distance of the plane from the camera 
+            transform.position = Camera.main.ScreenToWorldPoint(screenPoint);
         }
     }
 
@@ -59,12 +52,6 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     {
         canvasGroup.alpha = 1.0f;
         canvasGroup.blocksRaycasts = true;
-
-        Debug.Log(GetComponent<RawImage>().maskable);
-        if (GetComponent<Image>() != null)
-            GetComponent<Image>().maskable = true;
-        if (GetComponent<RawImage>() != null)
-            GetComponent<RawImage>().maskable = true;
 
         if (!isInSlot)
         {

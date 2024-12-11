@@ -8,6 +8,7 @@ public class UVTextureMinigame : MonoBehaviour
     public static UVTextureMinigame Instance;
     public GameObject UVTexturePrefab;
     public GameObject UVTexturePalette;
+    public GameObject UVTextureGameObject;
 
     public float rotationSpeed;
     public bool canModelMove = false;

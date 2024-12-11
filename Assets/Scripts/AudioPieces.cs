@@ -27,6 +27,7 @@ public class AudioPieces : DragDrop
         base.OnDrag(eventData);
         AudioManager.PlaySoundOneShot(SoundType.Drag);
         //Debug.Log("Dragging " + gameObject.name);
+
     }
 
     public override void OnEndDrag(PointerEventData eventData)

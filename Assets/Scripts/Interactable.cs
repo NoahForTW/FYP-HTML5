@@ -6,6 +6,7 @@ using UnityEngine.Events;
 public class Interactable : MonoBehaviour
 {
     [SerializeField] GameObject interactButton;
+    [SerializeField] GameObject jumpButton;
     [SerializeField] UnityEvent interactionEvent;
 
     GameObject currentInteractionButton;
@@ -15,12 +16,6 @@ public class Interactable : MonoBehaviour
     {
         PlayerController.Instance.playerAction.AddListener(PlayerAction);
         interactionEvent.AddListener(Interacting);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     private void OnTriggerEnter(Collider other)

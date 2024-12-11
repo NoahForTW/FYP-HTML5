@@ -14,23 +14,18 @@ public class UVTextureUI : DragDrop
     {
         image = GetComponent<RawImage>();
         image.texture = texture;
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (canDrag)
-        {
-
-        }
-
 
     }
 
     public override void OnDrag(PointerEventData eventData)
     {
         base.OnDrag(eventData);
-        transform.SetParent(UVTextureMinigame.Instance.UVTextureGameObject.transform);
         canDrag = true;
     }
 
@@ -53,7 +48,7 @@ public class UVTextureUI : DragDrop
         canDrag = false;
     }
 
-    private void OnDrawGizmos()
+   /* private void OnDrawGizmos()
     {
         var screenPoint = Input.mousePosition;
         screenPoint.z = canvas.planeDistance; //distance of the plane from the camera
@@ -61,9 +56,9 @@ public class UVTextureUI : DragDrop
         //mousePos.z = transform.position.z;
         Gizmos.color = Color.yellow;
         Gizmos.DrawLine(Camera.main.transform.position, mousePos);
-        Debug.Log(mousePos + " , "+transform.position.z);
+        //Debug.Log(mousePos + " , "+transform.position.z);
 
         Gizmos.color = Color.blue;
         Gizmos.DrawLine(mousePos, mousePos + Camera.main.transform.forward * 5);
-    }
+    }*/
 }

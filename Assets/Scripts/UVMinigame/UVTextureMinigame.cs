@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class UVTextureMinigame : MonoBehaviour
 {
@@ -21,6 +22,8 @@ public class UVTextureMinigame : MonoBehaviour
     [SerializeField] UVGame_SO currentModelParameters;
     [SerializeField] GameObject modelParent;
     [SerializeField] UVModelTools uVModelTools;
+
+    public UnityEvent<float> UVToolsZoomEvent;
 
 
     [DllImport("__Internal")]

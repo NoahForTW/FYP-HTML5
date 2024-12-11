@@ -245,7 +245,7 @@ MonoBehaviour:
     type: 3}
   UVTexturePalette: {fileID: 312218785}
   UVTextureGameObject: {fileID: 1130471919}
-  rotationSpeed: 15
+  rotationSpeed: 30
   canModelMove: 0
   canModelRotate: 0
   canCheckTexture: 0
@@ -253,6 +253,9 @@ MonoBehaviour:
     type: 2}
   modelParent: {fileID: 405891261}
   uVModelTools: {fileID: 943292934}
+  UVToolsZoomEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &96566781
 GameObject:
   m_ObjectHideFlags: 0
@@ -728,8 +731,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 48}
-  m_SizeDelta: {x: 500, y: 200}
+  m_AnchoredPosition: {x: -28, y: 48}
+  m_SizeDelta: {x: 400, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &405891265
 CanvasRenderer:
@@ -986,9 +989,10 @@ MonoBehaviour:
   selectedTool: 0
   moveButtonUI: {fileID: 1075858568}
   rotateButtonUI: {fileID: 2032881351}
-  zoomSliderUI: {fileID: 0}
+  zoomSliderUI: {fileID: 1391707108}
   moveButtonMat: {fileID: 2100000, guid: 233ce6c3366e3454abed489eb6458186, type: 2}
   rotateButtonMat: {fileID: 2100000, guid: 96a85fcd98a059042835b87a415790a1, type: 2}
+  increment: 0.1
 --- !u!1 &1075858566
 GameObject:
   m_ObjectHideFlags: 0
@@ -1425,10 +1429,22 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 943292934}
+        m_TargetAssemblyTypeName: UVModelTools, Assembly-CSharp
+        m_MethodName: OnSliderValueChange
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1391707108}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Slider, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1398710401
 GameObject:
   m_ObjectHideFlags: 0

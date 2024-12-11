@@ -12,6 +12,8 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     public Camera canvasCamera;
 
     public Transform parentAfterDrag;
+    public Transform parentSlot;
+    public Transform parentDuringDrag;
     public bool isInSlot = false;
     protected virtual void Awake()
     {
@@ -34,7 +36,6 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     // Triggered while dragging
     public virtual void OnDrag(PointerEventData eventData)
     {
-        Vector2 localPoint;
         if (canvas.renderMode == RenderMode.ScreenSpaceOverlay)
         {
             transform.position = Input.mousePosition;
@@ -45,6 +46,8 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
             screenPoint.z = canvas.planeDistance; //distance of the plane from the camera 
             transform.position = Camera.main.ScreenToWorldPoint(screenPoint);
         }
+        transform.SetParent(parentDuringDrag);
+        isInSlot = false;
     }
 
     // Triggered when dragging ends
@@ -55,10 +58,11 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 
         if (!isInSlot)
         {
+            Transform parent = parentSlot!=null ? parentSlot : parentAfterDrag;
             // Smoothly return the object to its original position
-            StartCoroutine(SmoothMove(transform.position, parentAfterDrag.position, 0.8f, () =>
+            StartCoroutine(SmoothMove(transform.position, parent.position, 0.8f, () =>
             {
-                transform.SetParent(parentAfterDrag);
+                transform.SetParent(parent);
             }));
         }
     }
@@ -69,7 +73,7 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 
         //start.z = 1f; 
 
-        //end.z = 1f;
+        end.z = start.z;
 
         while (elapsed < duration)
         {

@@ -1,6 +1,5 @@
 using Cinemachine;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.Events;
 
 public enum PlayerAction
@@ -65,10 +64,10 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        Vector3 mousePos = Input.mousePosition;
-        mousePos.z = Mathf.Abs(vCam.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.z);
-        Vector3 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
-        Debug.DrawLine(transform.position, worldPos, Color.red);
+        //Vector3 mousePos = Input.mousePosition;
+        //mousePos.z = Mathf.Abs(vCam.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.z);
+        //Vector3 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
+        //Debug.DrawLine(transform.position, worldPos, Color.red);
         //Debug.Log(worldPos);
     }
 

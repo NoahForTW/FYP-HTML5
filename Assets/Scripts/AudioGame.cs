@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class AudioGame : MonoBehaviour
 {
+    public static AudioGame Instance;
+
     [Header("Assign the Audio prefab here")]
     [Tooltip("Assign a GamePiece Prefab")]
     [SerializeField] GameObject GamePiece;
@@ -16,9 +18,22 @@ public class AudioGame : MonoBehaviour
     [Tooltip("Assign a GameSlot Parent")]
     [SerializeField] GameObject GameSlotGroup;
 
+    [Tooltip("Assign a GameSlot Parent")]
+    [SerializeField] public GameObject AudioGameParent;
+
     [Header("Audio Game States")]
     [SerializeField] List<string> gameStates = new List<string>();
     
+    void Awake()
+    {
+        if(Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else{
+            Instance = this;
+        }
+    }
     void Start()
     {
         RandomiseStates();
@@ -43,7 +58,9 @@ public class AudioGame : MonoBehaviour
         {
             // Instantiate GamePiece and set its text
             GameObject stateGO = Instantiate(GamePiece, GamePieceGroup.transform);
-            stateGO.GetComponentInChildren<AudioPieces>().SetText(state);
+            AudioPieces audioPieces =  stateGO.GetComponentInChildren<AudioPieces>() as AudioPieces;
+            audioPieces.SetText(state);
+            audioPieces.parentDuringDrag = AudioGameParent.transform;
 
             // Instantiate GameSlot and name it accordingly
             GameObject parent = Instantiate(GameSlot, GameSlotGroup.transform);

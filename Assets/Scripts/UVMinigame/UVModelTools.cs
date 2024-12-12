@@ -19,8 +19,7 @@ public class UVModelTools : MonoBehaviour
     [SerializeField] Button rotateButtonUI;
     [SerializeField] Slider zoomSliderUI;
 
-    [SerializeField] Material moveButtonMat;
-    [SerializeField] Material rotateButtonMat;
+    [SerializeField] Material selectedButtonMat;
 
     [SerializeField] float increment;
 
@@ -30,11 +29,11 @@ public class UVModelTools : MonoBehaviour
 
         if (tool == UVTools.Move || tool == UVTools.Rotate)
         {
-            moveButtonUI.image.material =
-                tool == UVTools.Move ? moveButtonMat
+            moveButtonUI.targetGraphic.material =
+                tool == UVTools.Move ? selectedButtonMat
                 : null;
-            rotateButtonUI.image.material =
-                tool == UVTools.Rotate ? rotateButtonMat
+            rotateButtonUI.targetGraphic.material =
+                tool == UVTools.Rotate ? selectedButtonMat
                 : null;
             selectedTool = tool;
         }

@@ -4,52 +4,34 @@ using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class UVModel : MonoBehaviour
+public class UVModel : ModelInteraction
 {
-    bool isDragging = false;
     Rigidbody rb;
-    float originalSize;
     private void Awake()
     {
-        UVTextureMinigame.Instance.UVToolsZoomEvent.AddListener(HandleUVToolsZoomEvent);
+        UVTextureMinigame.Instance.UVToolsZoomEvent.AddListener(ZoomModel);
     }
-    void Start()
+    protected override void Start()
     {
+        base.Start();
         rb = GetComponent<Rigidbody>();
-        originalSize = transform.localScale.x;
+
     }
 
-    private void OnMouseDrag()
-    {   
-        isDragging = Input.GetAxis("Mouse X") != 0 ||
-            Input.GetAxis("Mouse Y") != 0;
 
-/*        if (Input.GetAxis("Mouse X") == 0 &&
-            Input.GetAxis("Mouse Y") == 0)
-        {
-            rb.velocity = Vector3.zero;
-            rb.angularVelocity = Vector3.zero;
-        }*/
-    }
-    private void OnMouseUp()
+    protected override void Update()
     {
-        isDragging = false;
-    }
 
-    void Update()
-    {
         if (isDragging)
         {
             if (UVTextureMinigame.Instance.canModelRotate)
             {
-                transform.Rotate(new Vector3(Input.GetAxis("Mouse Y"), -Input.GetAxis("Mouse X"), 0)
-                    * UVTextureMinigame.Instance.rotationSpeed
-                    , Space.World);
+                RotateModel(UVTextureMinigame.Instance.rotationSpeed);
 
             }
             else if (UVTextureMinigame.Instance.canModelMove)
             {
-                transform.Translate(new Vector3(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"), 0) * 0.25f, Space.World);
+                MoveModel(0.25f);
 
                 Vector3 clampedPosition = ClampToParentBounds(transform.position);
 
@@ -59,13 +41,6 @@ public class UVModel : MonoBehaviour
             }
 
         }
-    }
-
-    void HandleUVToolsZoomEvent(float value)
-    {
-        float newScale = originalSize * (1 + 2 * value) / 3f;
-        transform.localScale =
-            new Vector3(newScale, newScale, newScale);
     }
     Vector3 ClampToParentBounds(Vector3 worldPosition)
     {

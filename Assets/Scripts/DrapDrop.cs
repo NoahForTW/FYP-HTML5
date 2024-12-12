@@ -44,7 +44,8 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         {
             var screenPoint = Input.mousePosition;
             screenPoint.z = canvas.planeDistance; //distance of the plane from the camera 
-            transform.position = Camera.main.ScreenToWorldPoint(screenPoint);
+            transform.position = new Vector3(Camera.main.ScreenToWorldPoint(screenPoint).x,
+                Camera.main.ScreenToWorldPoint(screenPoint).y, transform.position.z);
         }
         transform.SetParent(parentDuringDrag);
         isInSlot = false;

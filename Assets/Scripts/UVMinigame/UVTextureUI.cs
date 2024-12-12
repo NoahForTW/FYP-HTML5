@@ -14,7 +14,7 @@ public class UVTextureUI : DragDrop
     {
         image = GetComponent<RawImage>();
         image.texture = texture;
-
+        parentDuringDrag = UVTextureMinigame.Instance.UVTextureGameObject.transform;
     }
 
     // Update is called once per frame

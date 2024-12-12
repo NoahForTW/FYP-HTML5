@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Wire : MonoBehaviour
 {
+    private Canvas canvas;
     public LineRenderer lineRenderer;
     bool Dragging = false;
     // Start is called before the first frame update
@@ -18,8 +19,9 @@ public class Wire : MonoBehaviour
         if (Dragging)
         {
             Vector3 mousePosition = Input.mousePosition;
+            mousePosition.z = canvas.planeDistance;
             Vector3 convertedMousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
-            convertedMousePosition.z = 0;
+            convertedMousePosition.z = transform.position.z;
             transform.position = convertedMousePosition;
 
             Vector3 positionDifference = convertedMousePosition - lineRenderer.transform.position;

@@ -1,6 +1,5 @@
 using Cinemachine;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.Events;
 
 public enum PlayerAction
@@ -54,7 +53,7 @@ public class PlayerController : MonoBehaviour
         }
 
         playerRb = GetComponent<Rigidbody>();
-        playerAnimator = GetComponent<Animator>();
+        //playerAnimator = GetComponent<Animator>();
     }
 
     private void Start()
@@ -65,10 +64,10 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        Vector3 mousePos = Input.mousePosition;
-        mousePos.z = Mathf.Abs(vCam.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.z);
-        Vector3 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
-        Debug.DrawLine(transform.position, worldPos, Color.red);
+        //Vector3 mousePos = Input.mousePosition;
+        //mousePos.z = Mathf.Abs(vCam.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.z);
+        //Vector3 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
+        //Debug.DrawLine(transform.position, worldPos, Color.red);
         //Debug.Log(worldPos);
     }
 
@@ -92,13 +91,13 @@ public class PlayerController : MonoBehaviour
                 PlayerJump();
                 break;
 
-            case global::PlayerAction.Crouch:
+/*            case global::PlayerAction.Crouch:
                 PlayerCrouch();
                 break;
 
             case global::PlayerAction.Crouched:
                 PlayerCrouched();
-                break;
+                break;*/
 
             case global::PlayerAction.Left:
             case global::PlayerAction.Right:
@@ -115,8 +114,8 @@ public class PlayerController : MonoBehaviour
         }
 
         //Debug.Log("is Idle:" + (action == global::PlayerAction.Idle));
-        playerAnimator.SetBool("Idle", action == global::PlayerAction.Idle);
-        playerAnimator.SetBool("Walk", action == global::PlayerAction.Right || action == global::PlayerAction.Left);
+        //playerAnimator.SetBool("Idle", action == global::PlayerAction.Idle);
+        //playerAnimator.SetBool("Walk", action == global::PlayerAction.Right || action == global::PlayerAction.Left);
 
     }
 

@@ -2,21 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class UVTextureMinigame : MonoBehaviour
 {
     public static UVTextureMinigame Instance;
     public GameObject UVTexturePrefab;
     public GameObject UVTexturePalette;
+    public GameObject UVTextureGameObject;
 
     public float rotationSpeed;
-    public bool canModelMove = true;
+    public bool canModelMove = false;
+    public bool canModelRotate = false;
     public bool canCheckTexture = true;
 
     UVModelSide[] ModelSides;
     List<UVTextureUI> UVTextures;
 
     [SerializeField] UVGame_SO currentModelParameters;
+    [SerializeField] GameObject modelParent;
+    [SerializeField] UVModelTools uVModelTools;
+
+    public UnityEvent<float> UVToolsZoomEvent;
+
 
     [DllImport("__Internal")]
     private static extern void requestFullscreen();
@@ -42,7 +50,7 @@ public class UVTextureMinigame : MonoBehaviour
     private void Start()
     {
         // instantiate model
-        GameObject model = Instantiate(currentModelParameters.UVModelPrefab);
+        GameObject model = Instantiate(currentModelParameters.UVModelPrefab, modelParent.transform);
         ModelSides = model.GetComponentsInChildren<UVModelSide>();
 
         //instantiate textures
@@ -50,7 +58,7 @@ public class UVTextureMinigame : MonoBehaviour
         foreach(Texture texture in currentModelParameters.UVTextures)
         {
             GameObject textureUI = Instantiate(UVTexturePrefab, UVTexturePalette.transform);
-            UVTextureUI uVTextures = textureUI.GetComponent<UVTextureUI>();
+            UVTextureUI uVTextures = textureUI.GetComponentInChildren<UVTextureUI>();
             uVTextures.texture = texture;
             UVTextures.Add(uVTextures);
         }
@@ -66,15 +74,18 @@ public class UVTextureMinigame : MonoBehaviour
                 side.SetCanChangeTexture(false);
             }
         }
+        canModelMove = uVModelTools.selectedTool == UVTools.Move;
+        canModelRotate = uVModelTools.selectedTool == UVTools.Rotate;
 
-        canModelMove = true;
-        foreach(var uVtexture in UVTextures)
+        foreach (var uVtexture in UVTextures)
         {
             if (uVtexture.canDrag)
             {
+                canModelRotate = false;
                 canModelMove = false;
             }
         }
+
     }
 
     public void RequestFullScreen()

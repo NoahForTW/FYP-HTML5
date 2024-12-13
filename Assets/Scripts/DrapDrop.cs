@@ -9,12 +9,12 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     protected RectTransform rectTransform; 
     protected Canvas canvas;               
     protected CanvasGroup canvasGroup;     
-    public Camera canvasCamera;
+    [HideInInspector] public Camera canvasCamera;
 
-    public Transform parentAfterDrag;
-    public Transform parentSlot;
-    public Transform parentDuringDrag;
-    public bool isInSlot = false;
+    [HideInInspector] public Transform parentAfterDrag;
+    [HideInInspector] public Transform parentSlot;
+    [HideInInspector] public Transform parentDuringDrag;
+    [HideInInspector] public bool isInSlot = false;
     protected virtual void Awake()
     {
         rectTransform = GetComponent<RectTransform>();

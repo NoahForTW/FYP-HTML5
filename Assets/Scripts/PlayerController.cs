@@ -139,6 +139,7 @@ public class PlayerController : MonoBehaviour
         {
             direction = transform.up;
             playerRb.AddForce(direction * jumpForce, ForceMode.Impulse);
+            AudioManager.PlaySoundOneShot(SoundType.Jumping);
             isJumping = true;
         }
     }

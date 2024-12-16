@@ -49,6 +49,20 @@ public class AudioGame : MonoBehaviour
         InitialisePiecesAndSlots();
     }
 
+    public void DisplayTextWithDelay(string message, float delay)
+    {
+        StopAllCoroutines(); // Stop any ongoing coroutine to avoid overlapping
+        audioValidText.text = message;
+        audioValidText.gameObject.SetActive(true); // Ensure the text is visible
+        StartCoroutine(HideTextAfterDelay(delay));
+    }
+
+    IEnumerator HideTextAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        audioValidText.gameObject.SetActive(false); // Hide the text after the delay
+    }
+
     void InitialisePiecesAndSlots()
     {
         List<Sprite> slotImages = new List<Sprite> { walk, jump, bgm };

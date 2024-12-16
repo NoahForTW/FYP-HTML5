@@ -30,7 +30,11 @@ public class VariablePiece : DragDrop
 
     public override void OnEndDrag(PointerEventData eventData)
     {
-        base.OnEndDrag(eventData);
+        canvasGroup.alpha = 1.0f;
+        canvasGroup.blocksRaycasts = true;
+
+        transform.position = parentAfterDrag.position;
+        transform.SetParent(parentAfterDrag);
     }
 
     public void SetText(string newText)

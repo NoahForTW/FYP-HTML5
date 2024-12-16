@@ -11,6 +11,9 @@ TagManager:
   - UVModelCanvas
   - AudioCanvas
   - BooleanCanvas
+  - Walking
+  - Jumping
+  - BGM
   layers:
   - Default
   - TransparentFX

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AudioGame : MonoBehaviour
 {
@@ -19,7 +20,12 @@ public class AudioGame : MonoBehaviour
     [SerializeField] GameObject GameSlotGroup;
 
     [Tooltip("Assign a GameSlot Parent")]
-    [SerializeField] public GameObject AudioGameParent;
+    [SerializeField] private GameObject AudioGameParent;
+
+    [Header("Audio Slot Images")]
+    [SerializeField] private Sprite walk;
+    [SerializeField] private Sprite jump;
+    [SerializeField] private Sprite bgm;
 
     [Header("Audio Game States")]
     [SerializeField] List<string> gameStates = new List<string>();
@@ -36,37 +42,46 @@ public class AudioGame : MonoBehaviour
     }
     void Start()
     {
-        RandomiseStates();
         InitialisePiecesAndSlots();
-    }
-
-    // Shuffles the gameStates list
-    void RandomiseStates()
-    {
-        for (int i = gameStates.Count - 1; i > 0; i--)
-        {
-            int randomIndex = Random.Range(0, i + 1);
-            string temp = gameStates[i];
-            gameStates[i] = gameStates[randomIndex];
-            gameStates[randomIndex] = temp;
-        }
     }
 
     void InitialisePiecesAndSlots()
     {
-        foreach (var state in gameStates)
+        // Create a list of sprites to assign to slots
+        List<Sprite> slotImages = new List<Sprite> { walk, jump, bgm };
+
+        if (slotImages.Count < gameStates.Count)
         {
+            Debug.LogWarning("Not enough images for the number of game states!");
+            return;
+        }
+
+        for (int i = 0; i < gameStates.Count; i++)
+        {
+            string state = gameStates[i];
+
             // Instantiate GamePiece and set its text
             GameObject stateGO = Instantiate(GamePiece, GamePieceGroup.transform);
-            AudioPieces audioPieces =  stateGO.GetComponentInChildren<AudioPieces>() as AudioPieces;
+            AudioPieces audioPieces = stateGO.GetComponentInChildren<AudioPieces>();
             audioPieces.SetText(state);
             audioPieces.parentDuringDrag = AudioGameParent.transform;
 
-            // Instantiate GameSlot and name it accordingly
-            GameObject parent = Instantiate(GameSlot, GameSlotGroup.transform);
-            parent.name = state + "Parent";
+            // Instantiate GameSlot and assign its image
+            GameObject slotGO = Instantiate(GameSlot, GameSlotGroup.transform);
+            slotGO.name = state + "Parent";
 
-            Debug.Log("Initialised state: " + state);
+            // Assign a unique image to the audioIcon
+            AudioGameSlot audioGameSlot = slotGO.GetComponentInChildren<AudioGameSlot>();
+            if (audioGameSlot != null && audioGameSlot.audioIcon != null)
+            {
+                Image iconImage = audioGameSlot.audioIcon.GetComponent<Image>();
+                if (iconImage != null)
+                {
+                    iconImage.sprite = slotImages[i];
+                }
+            }
+
+            Debug.Log("Initialised state: " + state + " with image: " + slotImages[i].name);
         }
     }
 }

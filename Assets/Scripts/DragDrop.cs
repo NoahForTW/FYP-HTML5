@@ -24,8 +24,6 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         parentAfterDrag = transform.parent;
     }
 
-
-
     // Triggered when dragging begins
     public virtual void OnBeginDrag(PointerEventData eventData)
     {

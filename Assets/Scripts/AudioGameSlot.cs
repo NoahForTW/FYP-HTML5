@@ -25,14 +25,14 @@ public class AudioGameSlot : DropSlot
                 // Validation: Check if the piece matches the slot
                 if (pieceState == slotState)
                 {
-                    Debug.Log($"Correct piece dropped in slot! State: {slotState}");
+                    AudioGame.Instance.audioValidText.text = "Correct Piece!";
 
                     eventData.pointerDrag.transform.SetParent(transform);
                     eventData.pointerDrag.transform.localPosition = Vector3.zero;
                 }
                 else
                 {
-                    Debug.LogWarning($"Incorrect piece! Piece: {pieceState}, Slot: {slotState}");
+                    AudioGame.Instance.audioValidText.text = "Incorrect Piece!";
 
                     // Reset the piece to its original position
                     droppedPiece.ResetPosition();

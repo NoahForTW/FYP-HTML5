@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -26,6 +27,9 @@ public class AudioGame : MonoBehaviour
     [SerializeField] private Sprite walk;
     [SerializeField] private Sprite jump;
     [SerializeField] private Sprite bgm;
+
+    [Header("Validation Text")]
+    public TMP_Text audioValidText;
 
     [Header("Audio Game States")]
     [SerializeField] List<string> gameStates = new List<string>();

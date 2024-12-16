@@ -47,7 +47,6 @@ public class AudioGame : MonoBehaviour
 
     void InitialisePiecesAndSlots()
     {
-        // Create a list of sprites to assign to slots
         List<Sprite> slotImages = new List<Sprite> { walk, jump, bgm };
 
         if (slotImages.Count < gameStates.Count)
@@ -60,28 +59,33 @@ public class AudioGame : MonoBehaviour
         {
             string state = gameStates[i];
 
-            // Instantiate GamePiece and set its text
+            // Instantiate GamePiece and set its state
             GameObject stateGO = Instantiate(GamePiece, GamePieceGroup.transform);
             AudioPieces audioPieces = stateGO.GetComponentInChildren<AudioPieces>();
             audioPieces.SetText(state);
             audioPieces.parentDuringDrag = AudioGameParent.transform;
 
-            // Instantiate GameSlot and assign its image
+            // Instantiate GameSlot and assign its state and image
             GameObject slotGO = Instantiate(GameSlot, GameSlotGroup.transform);
             slotGO.name = state + "Parent";
 
-            // Assign a unique image to the audioIcon
             AudioGameSlot audioGameSlot = slotGO.GetComponentInChildren<AudioGameSlot>();
-            if (audioGameSlot != null && audioGameSlot.audioIcon != null)
+            if (audioGameSlot != null)
             {
-                Image iconImage = audioGameSlot.audioIcon.GetComponent<Image>();
-                if (iconImage != null)
+                audioGameSlot.slotState = state; // Set the slot's expected state
+
+                // Assign a unique image to the slot
+                if (audioGameSlot.audioIcon != null)
                 {
-                    iconImage.sprite = slotImages[i];
+                    Image iconImage = audioGameSlot.audioIcon.GetComponent<Image>();
+                    if (iconImage != null)
+                    {
+                        iconImage.sprite = slotImages[i];
+                    }
                 }
             }
 
-            Debug.Log("Initialised state: " + state + " with image: " + slotImages[i].name);
+            Debug.Log($"Initialised slot: {state} with image: {slotImages[i].name}");
         }
     }
 }

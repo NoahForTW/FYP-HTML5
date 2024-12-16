@@ -14,7 +14,6 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     [HideInInspector] public Transform parentAfterDrag;
     [HideInInspector] public Transform parentSlot;
     [HideInInspector] public Transform parentDuringDrag;
-    [HideInInspector] public bool isInSlot = false;
     protected virtual void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
@@ -48,7 +47,6 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
                 Camera.main.ScreenToWorldPoint(screenPoint).y, transform.position.z);
         }
         transform.SetParent(parentDuringDrag);
-        isInSlot = false;
     }
 
     // Triggered when dragging ends
@@ -57,15 +55,14 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         canvasGroup.alpha = 1.0f;
         canvasGroup.blocksRaycasts = true;
 
-        if (!isInSlot)
+
+        Transform parent = parentSlot!=null ? parentSlot : parentAfterDrag;
+        // Smoothly return the object to its original position
+        StartCoroutine(SmoothMove(transform.position, parent.position, 0.8f, () =>
         {
-            Transform parent = parentSlot!=null ? parentSlot : parentAfterDrag;
-            // Smoothly return the object to its original position
-            StartCoroutine(SmoothMove(transform.position, parent.position, 0.8f, () =>
-            {
-                transform.SetParent(parent);
-            }));
-        }
+            transform.SetParent(parent);
+        }));
+        
     }
 
     public IEnumerator SmoothMove(Vector3 start, Vector3 end, float duration, System.Action onComplete = null)

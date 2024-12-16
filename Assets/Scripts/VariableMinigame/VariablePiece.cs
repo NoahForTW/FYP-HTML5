@@ -7,10 +7,16 @@ using TMPro;
 public class VariablePiece : DragDrop
 {
     TMP_Text text;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        text = GetComponentInChildren<TMP_Text>();
+    }
     private void Start()
     {
-        parentDuringDrag = VariableMinigame.Instance.variablePieceParent.transform;
-        text = GetComponentInChildren<TMP_Text>();
+        parentDuringDrag = VariableMinigame.Instance.slotsPieceParent.transform;
+       
     }
     public override void OnBeginDrag(PointerEventData eventData)
     {
@@ -32,4 +38,8 @@ public class VariablePiece : DragDrop
         text.text = newText;
     }
 
+    public string GetText()
+    {
+        return text.text;
+    }
 }

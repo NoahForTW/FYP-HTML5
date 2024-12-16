@@ -4,6 +4,7 @@ using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class UVTextureMinigame : MonoBehaviour
 {
@@ -20,8 +21,9 @@ public class UVTextureMinigame : MonoBehaviour
 
     UVModelSide[] ModelSides;
     List<UVTextureUI> UVTextures;
+    UVGame_SO currentModelParameters;
 
-    [SerializeField] UVGame_SO currentModelParameters;
+    [SerializeField] public List<UVGame_SO> modelParameters;
     [SerializeField] GameObject modelParent;
     [SerializeField] UVModelTools uVModelTools;
 
@@ -51,6 +53,9 @@ public class UVTextureMinigame : MonoBehaviour
 
     private void Start()
     {
+        int choice = Random.Range(0, modelParameters.Count - 1);
+        currentModelParameters = modelParameters[choice];
+
         // instantiate sample model
         GameObject sampleModel = Instantiate(currentModelParameters.modelSample, SampleModelParent.transform);
         UVModelSide[] sampleModelSides = sampleModel.GetComponentsInChildren<UVModelSide>();

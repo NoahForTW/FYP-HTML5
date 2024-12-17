@@ -49,6 +49,11 @@ public class AudioGame : MonoBehaviour
         InitialisePiecesAndSlots();
     }
 
+    public void ResetGears()
+    {
+        // Todo: reset gear position
+    }
+
     public void DisplayTextWithDelay(string message, float delay)
     {
         StopAllCoroutines(); // Stop any ongoing coroutine to avoid overlapping

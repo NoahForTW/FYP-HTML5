@@ -9,12 +9,11 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     protected RectTransform rectTransform; 
     protected Canvas canvas;               
     protected CanvasGroup canvasGroup;     
-    public Camera canvasCamera;
+    [HideInInspector] public Camera canvasCamera;
 
-    public Transform parentAfterDrag;
-    public Transform parentSlot;
-    public Transform parentDuringDrag;
-    public bool isInSlot = false;
+    [HideInInspector] public Transform parentAfterDrag;
+    [HideInInspector] public Transform parentSlot;
+    [HideInInspector] public Transform parentDuringDrag;
     protected virtual void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
@@ -42,10 +41,10 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         {
             var screenPoint = Input.mousePosition;
             screenPoint.z = canvas.planeDistance; //distance of the plane from the camera 
-            transform.position = Camera.main.ScreenToWorldPoint(screenPoint);
+            transform.position = new Vector3(Camera.main.ScreenToWorldPoint(screenPoint).x,
+                Camera.main.ScreenToWorldPoint(screenPoint).y, transform.position.z);
         }
         transform.SetParent(parentDuringDrag);
-        isInSlot = false;
     }
 
     // Triggered when dragging ends
@@ -54,15 +53,14 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         canvasGroup.alpha = 1.0f;
         canvasGroup.blocksRaycasts = true;
 
-        if (!isInSlot)
+
+        Transform parent = parentSlot!=null ? parentSlot : parentAfterDrag;
+        // Smoothly return the object to its original position
+        StartCoroutine(SmoothMove(transform.position, parent.position, 0.8f, () =>
         {
-            Transform parent = parentSlot!=null ? parentSlot : parentAfterDrag;
-            // Smoothly return the object to its original position
-            StartCoroutine(SmoothMove(transform.position, parent.position, 0.8f, () =>
-            {
-                transform.SetParent(parent);
-            }));
-        }
+            transform.SetParent(parent);
+        }));
+        
     }
 
     public IEnumerator SmoothMove(Vector3 start, Vector3 end, float duration, System.Action onComplete = null)

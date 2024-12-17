@@ -19,8 +19,9 @@ public class UVModelTools : MonoBehaviour
     [SerializeField] Button rotateButtonUI;
     [SerializeField] Slider zoomSliderUI;
 
-    [SerializeField] Material moveButtonMat;
-    [SerializeField] Material rotateButtonMat;
+    [SerializeField] Material selectedButtonMat;
+
+    [SerializeField] float increment;
 
     public void SelectTool(UVTools tool)
     {
@@ -28,18 +29,44 @@ public class UVModelTools : MonoBehaviour
 
         if (tool == UVTools.Move || tool == UVTools.Rotate)
         {
-            moveButtonUI.image.material =
-                tool == UVTools.Move ? moveButtonMat
+            moveButtonUI.targetGraphic.material =
+                tool == UVTools.Move ? selectedButtonMat
                 : null;
-            rotateButtonUI.image.material =
-                tool == UVTools.Rotate ? rotateButtonMat
+            rotateButtonUI.targetGraphic.material =
+                tool == UVTools.Rotate ? selectedButtonMat
                 : null;
             selectedTool = tool;
         }
         else
         {
             // do zoom shit
+            OnSliderValueChange(tool);
         }
+    }
+
+    public void OnSliderValueChange(Slider slider)
+    {
+        UVTextureMinigame.Instance.UVToolsZoomEvent.Invoke(slider.value);
+    }
+    public void OnSliderValueChange(UVTools uVTools)
+    {
+        float value = zoomSliderUI.value;
+
+        switch (uVTools)
+        {
+            case UVTools.ZoomIn:
+                value += increment;
+                if (value > 1) value = 1;
+                break;
+
+            case UVTools.ZoomOut:
+                value -= increment;
+                if (value < 0) value = 0;
+                break;
+        }
+        zoomSliderUI.value = value;
+
+        UVTextureMinigame.Instance.UVToolsZoomEvent.Invoke(value);
     }
 
 

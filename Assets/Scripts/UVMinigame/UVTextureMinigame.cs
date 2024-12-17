@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class UVTextureMinigame : MonoBehaviour
 {
@@ -9,6 +12,7 @@ public class UVTextureMinigame : MonoBehaviour
     public GameObject UVTexturePrefab;
     public GameObject UVTexturePalette;
     public GameObject UVTextureGameObject;
+    public GameObject SampleModelParent;
 
     public float rotationSpeed;
     public bool canModelMove = false;
@@ -17,10 +21,13 @@ public class UVTextureMinigame : MonoBehaviour
 
     UVModelSide[] ModelSides;
     List<UVTextureUI> UVTextures;
+    UVGame_SO currentModelParameters;
 
-    [SerializeField] UVGame_SO currentModelParameters;
+    [SerializeField] public List<UVGame_SO> modelParameters;
     [SerializeField] GameObject modelParent;
     [SerializeField] UVModelTools uVModelTools;
+
+    public UnityEvent<float> UVToolsZoomEvent;
 
 
     [DllImport("__Internal")]
@@ -39,13 +46,25 @@ public class UVTextureMinigame : MonoBehaviour
         {
             Instance = this;
         }
-#if UNITY_WEBGL && !UNITY_EDITOR
+/*#if UNITY_WEBGL && !UNITY_EDITOR
         //resizeCanvas();
-#endif
+#endif*/
     }
 
     private void Start()
     {
+        int choice = Random.Range(0, modelParameters.Count - 1);
+        currentModelParameters = modelParameters[choice];
+
+        // instantiate sample model
+        GameObject sampleModel = Instantiate(currentModelParameters.modelSample, SampleModelParent.transform);
+        UVModelSide[] sampleModelSides = sampleModel.GetComponentsInChildren<UVModelSide>();
+
+        foreach (UVModelSide side in sampleModelSides)
+        {
+            side.GetComponent<Renderer>().material.mainTexture = side.texture;
+        }
+
         // instantiate model
         GameObject model = Instantiate(currentModelParameters.UVModelPrefab, modelParent.transform);
         ModelSides = model.GetComponentsInChildren<UVModelSide>();
@@ -59,6 +78,8 @@ public class UVTextureMinigame : MonoBehaviour
             uVTextures.texture = texture;
             UVTextures.Add(uVTextures);
         }
+
+        
     }
     void Update()
     {
@@ -66,9 +87,10 @@ public class UVTextureMinigame : MonoBehaviour
         foreach (var side in ModelSides)
         {
             // when texture placed is correct
-            if (side.IsCurrentTextureCorrect() && canCheckTexture)
+            if (side.GetCanChangeTexture() &&side.IsCurrentTextureCorrect() && canCheckTexture)
             {
                 side.SetCanChangeTexture(false);
+                Debug.Log(side.gameObject.name + "-> DONE");
             }
         }
         canModelMove = uVModelTools.selectedTool == UVTools.Move;

@@ -30,7 +30,7 @@ public class DrawingArea : MonoBehaviour,
         Debug.Log("start drag: " + eventData.pointerCurrentRaycast.gameObject.name);
 
         GameObject clickedGO = eventData.pointerCurrentRaycast.gameObject;
-        if (clickedGO != drawingAreaStart)
+        if (clickedGO == drawingAreaStart)
         {
             //start drawing 
             LineMinigame.Instance.CreateBrush();

@@ -1,7 +1,9 @@
 using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
 public class LineMinigame : MonoBehaviour
 {
@@ -10,7 +12,7 @@ public class LineMinigame : MonoBehaviour
     [SerializeField] GameObject brush;
 
     GameObject brushInstance;
-    LineRenderer currentLineRenderer;
+    UILineRenderer currentLineRenderer;
     Vector3 lastPos;
     Canvas canvas;
 
@@ -24,6 +26,7 @@ public class LineMinigame : MonoBehaviour
         {
             Instance = this;
         }
+
     }
     void Start()
     {
@@ -39,12 +42,15 @@ public class LineMinigame : MonoBehaviour
     public void CreateBrush()
     {
         brushInstance = Instantiate(brush,canvas.transform);
-        currentLineRenderer = brushInstance.GetComponent<LineRenderer>();
+        currentLineRenderer = brushInstance.GetComponent<UILineRenderer>();
 
-        Vector3 brushPos = MousePosition();
-
-        currentLineRenderer.SetPosition(0, brushPos);
-        currentLineRenderer.SetPosition(1, brushPos);
+        brushInstance.transform.position = MousePosition();
+        RectTransform rectTransform = brushInstance.GetComponent<RectTransform>();
+        rectTransform.localPosition = new Vector3(
+            rectTransform.localPosition.x,
+            rectTransform.localPosition.y,
+            0);
+        currentLineRenderer.points.Add(Vector3.zero);
 
         /*        mousePos.z = Mathf.Abs(vCam.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.z);
                 Vector3 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
@@ -54,14 +60,14 @@ public class LineMinigame : MonoBehaviour
 
     void AddAPoint(Vector3 pointPos)
     {
-        currentLineRenderer.positionCount++;
-        int positionIndex = currentLineRenderer.positionCount - 1;
-        currentLineRenderer.SetPosition(positionIndex, pointPos);
+        currentLineRenderer.points.Add(pointPos);
     }
 
     public void PointToMousePos()
     {
+        Vector3 pos = MousePosition() - brushInstance.transform.position;
         Vector3 linePos = MousePosition();
+        //Vector3 linePos = pos * 5;
         if (lastPos != linePos)
         {
             AddAPoint(linePos);
@@ -78,6 +84,23 @@ public class LineMinigame : MonoBehaviour
     {
         Vector3 mousePos = Input.mousePosition;
         mousePos.z = canvas.planeDistance; //distance of the plane from the camera 
-        return Camera.main.ScreenToWorldPoint(mousePos);
+        return new Vector3(Camera.main.ScreenToWorldPoint(mousePos).x,
+                Camera.main.ScreenToWorldPoint(mousePos).y, 0);
+    }
+
+    private void OnDrawGizmos()
+    {
+        canvas = GetComponent<Canvas>();
+        var screenPoint = Input.mousePosition;
+        screenPoint.z = canvas.planeDistance; //distance of the plane from the camera
+        Vector3 mousePos = Camera.main.ScreenToWorldPoint(screenPoint);
+        Vector3 test = Camera.main.ScreenToViewportPoint(screenPoint);
+        //* size of line game canvas
+        test.x *= 720;
+        test.y *= 405;
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawLine(Camera.main.transform.position, mousePos);
+        Debug.Log(test + ": "+ screenPoint);
     }
 }
+

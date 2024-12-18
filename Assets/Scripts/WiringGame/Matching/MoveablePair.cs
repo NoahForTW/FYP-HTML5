@@ -57,7 +57,7 @@ public class MoveablePair : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag(_portTag))
+        if (other.gameObject.CompareTag("Port"))
         {
             _connected = true;
             transform.position = other.transform.position;

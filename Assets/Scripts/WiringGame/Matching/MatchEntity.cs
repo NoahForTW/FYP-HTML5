@@ -6,6 +6,7 @@ public class MatchEntity : MonoBehaviour
 {
     public MatchFeedback _feedback;
     public MoveablePair _moveablePair;
+    public Renderer _fixedPairRenderer;
     public MatchSystemManager _matchSystemManager;
 
     private bool _matched;
@@ -19,6 +20,13 @@ public class MatchEntity : MonoBehaviour
     {
         _moveablePair.SetInitialPosition(NewMoveablePairPosition);
     }
+
+    public void SetMaterialToPairs(Material PairMaterial)
+    {
+        _moveablePair.GetComponent<Renderer>().material = PairMaterial;
+        _fixedPairRenderer.material = PairMaterial;
+    }
+
     public void PairObjectInteraction(bool IsEnter, MoveablePair moveable)
     {
         if (IsEnter && !_matched)
@@ -27,6 +35,7 @@ public class MatchEntity : MonoBehaviour
             if (_matched)
             {
                 _matchSystemManager.NewMatchRecord(_matched);
+                _feedback.ChangeMaterialWithMatch(_matched);
             }
         }
         else if (!IsEnter && _matched)
@@ -35,6 +44,7 @@ public class MatchEntity : MonoBehaviour
             if (!_matched)
             {
                 _matchSystemManager.NewMatchRecord(_matched);
+                _feedback.ChangeMaterialWithMatch(_matched);
             }
         }
     }

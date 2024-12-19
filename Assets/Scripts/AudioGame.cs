@@ -49,11 +49,6 @@ public class AudioGame : MonoBehaviour
         InitialisePiecesAndSlots();
     }
 
-    public void ResetGears()
-    {
-        // Todo: reset gear position
-    }
-
     public void DisplayTextWithDelay(string message, float delay)
     {
         StopAllCoroutines(); // Stop any ongoing coroutine to avoid overlapping
@@ -70,7 +65,11 @@ public class AudioGame : MonoBehaviour
 
     void InitialisePiecesAndSlots()
     {
-        List<Sprite> slotImages = new List<Sprite> { walk, jump, bgm };
+        List<Sprite> slotImages = new List<Sprite> { 
+            walk, 
+            jump, 
+            bgm 
+        };
 
         if (slotImages.Count < gameStates.Count)
         {

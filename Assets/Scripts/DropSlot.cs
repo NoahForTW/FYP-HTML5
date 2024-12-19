@@ -35,6 +35,8 @@ public class DropSlot : MonoBehaviour, IDropHandler
         {
             dropped.transform.SetParent(transform);
         }));*/
+
+        dropped.transform.SetParent(transform);
     }
 
     public void SetThisToParentSlot(GameObject dragged)

@@ -18,9 +18,9 @@ public class AudioPieces : DragDrop
         text = GetComponentInChildren<TMP_Text>();
     }
 
-    private void Start()
+    public override void OnBeginDrag(PointerEventData eventData)
     {
-        // Save the original position and parent at the start
+        base.OnBeginDrag(eventData);
         originalPosition = transform.position;
         originalParent = transform.parent;
     }
@@ -47,12 +47,6 @@ public class AudioPieces : DragDrop
         // Reset to the original position and parent
         transform.SetParent(originalParent);
         transform.position = originalPosition;
-    }
-
-    public override void OnBeginDrag(PointerEventData eventData)
-    {
-        base.OnBeginDrag(eventData);
-        //Debug.Log("Picked " + gameObject.name);
     }
 
     public override void OnDrag(PointerEventData eventData)

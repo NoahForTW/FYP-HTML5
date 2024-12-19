@@ -108,9 +108,8 @@ public class LineMinigame : MonoBehaviour
             if (i > 1) lineRenderer.positionCount++;
             lineRenderer.SetPosition(i, positionFromStart + (Vector3)difference * multiplier);
         }
-        Debug.Log("Calling AddColliderToDrawing...");
         AddColliderToDrawing(line3d, lineRenderer);
-        Debug.Log("AddColliderToDrawing completed.");
+
 
     }
 

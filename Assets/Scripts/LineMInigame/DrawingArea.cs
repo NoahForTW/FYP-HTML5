@@ -62,6 +62,7 @@ public class DrawingArea : MonoBehaviour,
             {
                 // game finished 
                 Debug.Log("DOnee");
+                LineMinigame.Instance.Spawn3DLine();
             }
 
         }

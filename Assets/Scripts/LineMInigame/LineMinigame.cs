@@ -11,9 +11,12 @@ public class LineMinigame : MonoBehaviour
 
     [SerializeField] GameObject brush;
 
+    [SerializeField] GameObject LineRendererPrefab;
     [SerializeField] UILineRenderer currentLineRenderer;
     Vector3 lastPos;
     Canvas canvas;
+
+    [SerializeField] GameObject LineParent3D;
 
     private void Awake()
     {
@@ -84,22 +87,59 @@ public class LineMinigame : MonoBehaviour
         return screenPoint;
     }
 
-/*    private void OnDrawGizmos()
+    public void Spawn3DLine()
     {
-        canvas = GetComponent<Canvas>();
-        var screenPoint = Input.mousePosition;
-        screenPoint.z = canvas.planeDistance; //distance of the plane from the camera
-        Vector3 mousePos = Camera.main.ScreenToWorldPoint(screenPoint);
-        Vector3 test = Camera.main.ScreenToViewportPoint(screenPoint);
-        //* size of line game canvas
-        RectTransform canvasRT = canvas.GetComponent<RectTransform>();
-        float w = canvasRT.sizeDelta.x;
-        float h = canvasRT.sizeDelta.y;
-        test.x *= w;
-        test.y *= h;
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawLine(Camera.main.transform.position, mousePos);
-        Debug.Log(test + ": "+ screenPoint);
-    }*/
+        int totalPoints = currentLineRenderer.points.Count;
+        float multiplier = LineParent3D.transform.localScale.x 
+             / Mathf.Abs(
+            currentLineRenderer.points[0].x - currentLineRenderer.points[totalPoints - 1].x);
+        GameObject line3d = Instantiate(LineRendererPrefab);
+        line3d.transform.position = Vector3.zero;
+        LineRenderer lineRenderer = line3d.GetComponent<LineRenderer>();
+        for (int i = 0; i < currentLineRenderer.points.Count; i++)
+        {
+            Vector2 difference = currentLineRenderer.points[i] - currentLineRenderer.points[0];
+            Vector3 positionFromStart = new Vector3(
+                LineParent3D.transform.position.x - LineParent3D.transform.localScale.x * 0.5f,
+                LineParent3D.transform.position.y,
+                LineParent3D.transform.position.z);
+
+            // add point
+            if (i > 1) lineRenderer.positionCount++;
+            lineRenderer.SetPosition(i, positionFromStart + (Vector3)difference * multiplier);
+        }
+        Debug.Log("Calling AddColliderToDrawing...");
+        AddColliderToDrawing(line3d, lineRenderer);
+        Debug.Log("AddColliderToDrawing completed.");
+
+    }
+
+    void AddColliderToDrawing(GameObject drawing, LineRenderer lineRenderer)
+    {
+        MeshCollider collider = drawing?.GetComponent<MeshCollider>();
+        if (collider != null)
+        {
+            Mesh mesh = new Mesh();
+            lineRenderer.BakeMesh(mesh, true);
+            collider.sharedMesh = mesh;
+        }
+    }
+    /*    private void OnDrawGizmos()
+        {
+            canvas = GetComponent<Canvas>();
+            var screenPoint = Input.mousePosition;
+            screenPoint.z = canvas.planeDistance; //distance of the plane from the camera
+            Vector3 mousePos = Camera.main.ScreenToWorldPoint(screenPoint);
+            Vector3 test = Camera.main.ScreenToViewportPoint(screenPoint);
+            //* size of line game canvas
+            RectTransform canvasRT = canvas.GetComponent<RectTransform>();
+            float w = canvasRT.sizeDelta.x;
+            float h = canvasRT.sizeDelta.y;
+            test.x *= w;
+            test.y *= h;
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawLine(Camera.main.transform.position, mousePos);
+            Debug.Log(test + ": "+ screenPoint);
+        }*/
 }
 

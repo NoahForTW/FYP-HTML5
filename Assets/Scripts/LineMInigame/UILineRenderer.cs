@@ -77,4 +77,16 @@ public class UILineRenderer : MaskableGraphic
         return Mathf.Atan2(target.y - vertex.y, target.x - vertex.x) * Mathf.Rad2Deg;
     }
 
+    public void AddPoint(Vector2 point)
+    {
+        points.Add(point);
+        SetVerticesDirty(); // Trigger a redraw
+    }
+
+    public void ClearPoints()
+    {
+        points.Clear();
+        SetVerticesDirty(); // Trigger a redraw
+    }
+
 }

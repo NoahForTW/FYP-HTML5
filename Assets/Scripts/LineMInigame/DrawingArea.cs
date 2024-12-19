@@ -27,7 +27,7 @@ public class DrawingArea : MonoBehaviour,
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        Debug.Log("start drag: " + eventData.pointerCurrentRaycast.gameObject.name);
+        //Debug.Log("start drag: " + eventData.pointerCurrentRaycast.gameObject.name);
 
         GameObject clickedGO = eventData.pointerCurrentRaycast.gameObject;
         if (clickedGO == drawingAreaStart)
@@ -45,16 +45,25 @@ public class DrawingArea : MonoBehaviour,
             // add point to line renderer
             LineMinigame.Instance.PointToMousePos();
         }
-        Debug.Log("dragging");
+        //Debug.Log("dragging");
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        Debug.Log("end drag: " + eventData.pointerCurrentRaycast.gameObject.name);
-        if (eventData.pointerCurrentRaycast.gameObject != drawingAreaEnd && drawing)
+        //Debug.Log("end drag: " + eventData.pointerCurrentRaycast.gameObject.name);
+        if (drawing)
         {
-            // restart
-            //LineMinigame.Instance.DeleteCurrentLine();
+            if (eventData.pointerCurrentRaycast.gameObject != drawingAreaEnd)
+            {
+                // restart
+                LineMinigame.Instance.DeleteCurrentLine();
+            }
+            else
+            {
+                // game finished 
+                Debug.Log("DOnee");
+            }
+
         }
         drawing = false;
     }

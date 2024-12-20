@@ -855,7 +855,7 @@ Transform:
   m_GameObject: {fileID: 162091840}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.152, y: 0.578, z: -24.877}
+  m_LocalPosition: {x: -2.5, y: 0.34, z: -24.877}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1093,10 +1093,11 @@ MonoBehaviour:
       m_Calls: []
   canMove: 1
   movementSpeed: 1
-  sprintingSpeed: 1
   jumpForce: 2
   vCam: {fileID: 501556580}
   itemPrefab: {fileID: 0}
+  isJumping: 0
+  isIdle: 1
 --- !u!4 &183069509
 Transform:
   m_ObjectHideFlags: 0
@@ -1106,7 +1107,7 @@ Transform:
   m_GameObject: {fileID: 183069504}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.152, y: 0.578, z: 0.123}
+  m_LocalPosition: {x: -2.5, y: 0.34, z: 0.123}
   m_LocalScale: {x: 0.07, y: 0.07, z: 0.07}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -1814,7 +1815,7 @@ Transform:
   m_GameObject: {fileID: 501556579}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.152, y: 0.578, z: -24.877}
+  m_LocalPosition: {x: -2.5, y: 0.34, z: -24.877}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

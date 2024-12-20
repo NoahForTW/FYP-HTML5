@@ -65,19 +65,11 @@ public class MobileControls : MonoBehaviour, IPointerDownHandler, IPointerUpHand
             case MobilePlayerControls.Right:
                 movementDirection = MovementDirection.Right;
                 break;
-            case MobilePlayerControls.Crouch:
-                PlayerController.Instance.playerAction.Invoke(PlayerAction.Crouch);
-                break;
         }
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
         movementDirection = MovementDirection.None;
-
-        if (mobilePlayerControls == MobilePlayerControls.Crouch)
-        {
-            PlayerController.Instance.playerAction.Invoke(PlayerAction.Crouched);
-        }
     }
 }

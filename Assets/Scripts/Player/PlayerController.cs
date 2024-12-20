@@ -5,15 +5,10 @@ using UnityEngine.Events;
 public enum PlayerAction
 {
     Jump,
-    Crouch,
-    Crouched,
-    Sprinting,
-    Sprinted,
     Left,
     Right,
-    Aim,
-    Idle,
-    Interact
+    Interact,
+    Idle
 }
 
 public class PlayerController : MonoBehaviour
@@ -34,12 +29,12 @@ public class PlayerController : MonoBehaviour
     private Rigidbody playerRb;
     private Vector3 direction = new Vector3();
 
-    bool isJumping = false; // check if player is jumping
-    bool isCrouching = false; // check if player is crouching
-    bool isSprinting = false;
+    public bool isJumping = false; // check if player is jumping
+    public UnityEvent<PlayerAction> currentPlayerAction;
 
     private float playerHeight;
-
+    private float lastActionTime = 0f; // Tracks the time of the last action
+    private float inactivityThreshold = 0.5f;
     private void Awake  ()
     {
         if (Instance != null && Instance != this)
@@ -58,13 +53,18 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         playerAction.AddListener(PlayerAction);
+        SetCurrentPlayerAction(global::PlayerAction.Idle);
     }
 
     // Update is called once per frame
     private void Update()
     {
-        playerAction.Invoke(global::PlayerAction.Idle);
+        if (Time.time - lastActionTime > inactivityThreshold && !isJumping)
+        {
+            SetCurrentPlayerAction(global::PlayerAction.Idle);
+        }
 
+        Debug.Log("current action: " + currentPlayerAction.ToString());
         //Vector3 mousePos = Input.mousePosition;
         //mousePos.z = Mathf.Abs(vCam.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.z);
         //Vector3 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
@@ -72,58 +72,33 @@ public class PlayerController : MonoBehaviour
         //Debug.Log(worldPos);
     }
 
+    public void SetCurrentPlayerAction(PlayerAction action)
+    {
+        currentPlayerAction.Invoke(action);
+    }
     public void PlayerAction(PlayerAction action)
     {
-        direction = Vector3.zero;
+        lastActionTime = Time.time;
         if (!canMove) { return; }
-        //float currentForce = movementSpeed;
-        //ForceMode forceMode = ForceMode.Force;
         switch (action)
         {
-            case global::PlayerAction.Sprinting:
-                SetSprint(true);
-                break;
-
-            case global::PlayerAction.Sprinted:
-                SetSprint(false);
-                break;
-
             case global::PlayerAction.Jump:
                 PlayerJump();
                 break;
 
-/*            case global::PlayerAction.Crouch:
-                PlayerCrouch();
-                break;
-
-            case global::PlayerAction.Crouched:
-                PlayerCrouched();
-                break;*/
 
             case global::PlayerAction.Left:
             case global::PlayerAction.Right:
                 PlayerMovement(action);
                 break;
 
-            case global::PlayerAction.Aim:
-                // do shit
-                Vector3 mousePos = Input.mousePosition;
-                mousePos.z = Mathf.Abs(vCam.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.z);
-                Vector3 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
-                SpawnGO(worldPos);
-                break;
         }
-
-        Debug.Log("is Idle:" + (action == global::PlayerAction.Idle));
+        SetCurrentPlayerAction(action);
         //playerAnimator.SetBool("Idle", action == global::PlayerAction.Idle);
         //playerAnimator.SetBool("Walk", action == global::PlayerAction.Right || action == global::PlayerAction.Left);
 
     }
 
-    private void SetSprint(bool isSprint)
-    {
-        isSprinting = isSprint;
-    }
 
     private void PlayerMovement(PlayerAction action)
     {
@@ -144,21 +119,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void PlayerCrouch()
-    {
-        // when crouch button is hold
-        isCrouching = true;
-        playerHeight = transform.localScale.y;
-
-        transform.localScale = new Vector3(transform.localScale.x, playerHeight / 2, transform.localScale.z);
-    }
-
-    private void PlayerCrouched()
-    {
-        // when player lets go of crouch key - basically uncrouch
-        transform.localScale = new Vector3(transform.localScale.x, playerHeight, transform.localScale.z);
-        isCrouching = false;
-    }
 
     /*    private void OnDrawGizmos()
         {
@@ -168,14 +128,6 @@ public class PlayerController : MonoBehaviour
             //Gizmos.DrawLine(transform.position, transform.position + mousePositionDirection.normalized * 100);
             Gizmos.DrawLine(transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition));
         }*/
-
-    private void SpawnGO(Vector3 position)
-    {
-        if (itemPrefab != null)
-        {
-            Instantiate(itemPrefab, position, Quaternion.identity);
-        }
-    }
 
     public void OnCollisionEnter(Collision collision)
     {

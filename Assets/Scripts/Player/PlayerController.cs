@@ -1,4 +1,6 @@
 using Cinemachine;
+using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -15,24 +17,20 @@ public class PlayerController : MonoBehaviour
 {
     //public
     public static PlayerController Instance;
-    public UnityEvent<PlayerAction> playerAction;
+    [HideInInspector] public UnityEvent<PlayerAction> playerAction;
     public bool canMove = true;
-
-    //private
-    [SerializeField] private float movementSpeed = 1f;
-
-    [SerializeField] private float jumpForce = 1f;
-
-    [SerializeField] private CinemachineVirtualCamera vCam;
-    [SerializeField] private GameObject itemPrefab;
-
-    private Rigidbody playerRb;
-    private Vector3 direction = new Vector3();
-
     public bool isJumping = false; // check if player is jumping
     public UnityEvent<PlayerAction> currentPlayerAction;
+    //private
 
-    private float playerHeight;
+    [Header ("Speeds")]
+    [SerializeField] private float movementSpeed = 1f;
+    [SerializeField] private float jumpForce = 1f;
+
+    private Rigidbody playerRb;
+    private GameObject playerModel;
+    private Vector3 direction = new Vector3();
+
     private float lastActionTime = 0f; // Tracks the time of the last action
     private float inactivityThreshold = 0.5f;
     private void Awake  ()
@@ -47,6 +45,7 @@ public class PlayerController : MonoBehaviour
         }
 
         playerRb = GetComponent<Rigidbody>();
+        playerModel = transform.GetChild(0).gameObject;
         //playerAnimator = GetComponent<Animator>();
     }
 
@@ -62,14 +61,11 @@ public class PlayerController : MonoBehaviour
         if (Time.time - lastActionTime > inactivityThreshold && !isJumping)
         {
             SetCurrentPlayerAction(global::PlayerAction.Idle);
+            playerRb.velocity = Vector3.zero;
         }
 
-        Debug.Log("current action: " + currentPlayerAction.ToString());
-        //Vector3 mousePos = Input.mousePosition;
-        //mousePos.z = Mathf.Abs(vCam.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.z);
-        //Vector3 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
-        //Debug.DrawLine(transform.position, worldPos, Color.red);
-        //Debug.Log(worldPos);
+        Debug.Log("current velocity: " + playerRb.velocity);
+
     }
 
     public void SetCurrentPlayerAction(PlayerAction action)
@@ -104,8 +100,11 @@ public class PlayerController : MonoBehaviour
     {
         direction = action == global::PlayerAction.Right ? transform.right : -transform.right;
         float currentForce = isJumping ? Mathf.Abs(movementSpeed - jumpForce) : movementSpeed;
-        //playerRb.AddForce(direction * currentForce);
-        playerRb.velocity = direction * currentForce;
+        playerRb.AddForce(direction * movementSpeed);
+        //playerRb.velocity = direction * movementSpeed;
+        float yRotation = action == global::PlayerAction.Left ? 180f : 0f;
+        Quaternion rotation = Quaternion.Euler(0, yRotation, 0);
+        StartCoroutine(RotateModel(rotation, 0.3f));
     }
 
     private void PlayerJump()
@@ -119,15 +118,19 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    IEnumerator RotateModel(Quaternion rotateTo, float duration)
+    {
+        float elapsed = 0f;
 
-    /*    private void OnDrawGizmos()
+        Quaternion currentRotation = playerModel.transform.rotation;
+
+        while (elapsed < duration)
         {
-            Vector3 mousePositionDirection = Input.mousePosition - transform.position;
-            mousePositionDirection.z = 0;
-            Gizmos.color = Color.blue;
-            //Gizmos.DrawLine(transform.position, transform.position + mousePositionDirection.normalized * 100);
-            Gizmos.DrawLine(transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition));
-        }*/
+            playerModel.transform.rotation = Quaternion.Lerp(currentRotation, rotateTo, elapsed / duration);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+    }
 
     public void OnCollisionEnter(Collision collision)
     {

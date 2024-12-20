@@ -241,6 +241,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6787b89180cd4334382816b391a2b9f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioIcon: {fileID: 6030265493330953226}
+  slotState: 
 --- !u!1 &6030265493330953226
 GameObject:
   m_ObjectHideFlags: 0
@@ -347,8 +349,8 @@ RectTransform:
   - {fileID: 6012544616718544469}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 104.63273, y: -246.45937}
   m_SizeDelta: {x: 45.5, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}

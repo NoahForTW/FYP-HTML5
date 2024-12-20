@@ -1,5 +1,6 @@
 using Cinemachine;
 using UnityEngine;
+using UnityEngine.Events;
 
 public enum PlayerAction
 {
@@ -19,7 +20,7 @@ public class PlayerController : MonoBehaviour
 {
     //public
     public static PlayerController Instance;
-
+    public UnityEvent<PlayerAction> playerAction;
     public bool canMove = true;
 
     //private
@@ -30,16 +31,17 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private CinemachineVirtualCamera vCam;
     [SerializeField] private GameObject itemPrefab;
+
     private Rigidbody playerRb;
     private Vector3 direction = new Vector3();
 
-    public bool isJumping = false; // check if player is jumping
-    public bool isCrouching = false; // check if player is crouching
-    private bool isSprinting = false;
+    bool isJumping = false; // check if player is jumping
+    bool isCrouching = false; // check if player is crouching
+    bool isSprinting = false;
 
     private float playerHeight;
 
-    private void Awake()
+    private void Awake  ()
     {
         if (Instance != null && Instance != this)
         {
@@ -49,27 +51,27 @@ public class PlayerController : MonoBehaviour
         {
             Instance = this;
         }
-        //inputManager = InputManager.Instance;
 
         playerRb = GetComponent<Rigidbody>();
+        //playerAnimator = GetComponent<Animator>();
     }
 
     private void Start()
     {
-        InputManager.Instance.playerAction.AddListener(PlayerAction);
+        playerAction.AddListener(PlayerAction);
     }
 
     // Update is called once per frame
     private void Update()
     {
-        Vector3 mousePos = Input.mousePosition;
-        mousePos.z = Mathf.Abs(vCam.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.z);
-        Vector3 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
-        Debug.DrawLine(transform.position, worldPos, Color.red);
+        //Vector3 mousePos = Input.mousePosition;
+        //mousePos.z = Mathf.Abs(vCam.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.z);
+        //Vector3 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
+        //Debug.DrawLine(transform.position, worldPos, Color.red);
         //Debug.Log(worldPos);
     }
 
-    private void PlayerAction(PlayerAction action)
+    public void PlayerAction(PlayerAction action)
     {
         direction = Vector3.zero;
         if (!canMove) { return; }
@@ -89,13 +91,13 @@ public class PlayerController : MonoBehaviour
                 PlayerJump();
                 break;
 
-            case global::PlayerAction.Crouch:
+/*            case global::PlayerAction.Crouch:
                 PlayerCrouch();
                 break;
 
             case global::PlayerAction.Crouched:
                 PlayerCrouched();
-                break;
+                break;*/
 
             case global::PlayerAction.Left:
             case global::PlayerAction.Right:
@@ -111,7 +113,10 @@ public class PlayerController : MonoBehaviour
                 break;
         }
 
-        Debug.Log("is Idle:" + (action == global::PlayerAction.Idle));
+        //Debug.Log("is Idle:" + (action == global::PlayerAction.Idle));
+        //playerAnimator.SetBool("Idle", action == global::PlayerAction.Idle);
+        //playerAnimator.SetBool("Walk", action == global::PlayerAction.Right || action == global::PlayerAction.Left);
+
     }
 
     private void SetSprint(bool isSprint)
@@ -124,9 +129,8 @@ public class PlayerController : MonoBehaviour
         direction = action == global::PlayerAction.Right ? transform.right : -transform.right;
         float currentSpeed = isSprinting ? sprintingSpeed : movementSpeed;
         float currentForce = isJumping ? Mathf.Abs(currentSpeed - jumpForce) : currentSpeed;
-        playerRb.AddForce(direction * currentForce);
-        playerRb.maxLinearVelocity = currentForce;
-        //playerRb.velocity = direction * currentForce;
+        //playerRb.AddForce(direction * currentForce);
+        playerRb.velocity = direction * currentForce;
     }
 
     private void PlayerJump()
@@ -135,6 +139,7 @@ public class PlayerController : MonoBehaviour
         {
             direction = transform.up;
             playerRb.AddForce(direction * jumpForce, ForceMode.Impulse);
+            AudioManager.PlaySoundOneShot(SoundType.Jumping);
             isJumping = true;
         }
     }

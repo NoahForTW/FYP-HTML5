@@ -26,7 +26,6 @@ public class PlayerController : MonoBehaviour
     //private
     [SerializeField] private float movementSpeed = 1f;
 
-    [SerializeField] private float sprintingSpeed = 1f;
     [SerializeField] private float jumpForce = 1f;
 
     [SerializeField] private CinemachineVirtualCamera vCam;
@@ -64,6 +63,8 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        playerAction.Invoke(global::PlayerAction.Idle);
+
         //Vector3 mousePos = Input.mousePosition;
         //mousePos.z = Mathf.Abs(vCam.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.z);
         //Vector3 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
@@ -113,7 +114,7 @@ public class PlayerController : MonoBehaviour
                 break;
         }
 
-        //Debug.Log("is Idle:" + (action == global::PlayerAction.Idle));
+        Debug.Log("is Idle:" + (action == global::PlayerAction.Idle));
         //playerAnimator.SetBool("Idle", action == global::PlayerAction.Idle);
         //playerAnimator.SetBool("Walk", action == global::PlayerAction.Right || action == global::PlayerAction.Left);
 
@@ -127,8 +128,7 @@ public class PlayerController : MonoBehaviour
     private void PlayerMovement(PlayerAction action)
     {
         direction = action == global::PlayerAction.Right ? transform.right : -transform.right;
-        float currentSpeed = isSprinting ? sprintingSpeed : movementSpeed;
-        float currentForce = isJumping ? Mathf.Abs(currentSpeed - jumpForce) : currentSpeed;
+        float currentForce = isJumping ? Mathf.Abs(movementSpeed - jumpForce) : movementSpeed;
         //playerRb.AddForce(direction * currentForce);
         playerRb.velocity = direction * currentForce;
     }

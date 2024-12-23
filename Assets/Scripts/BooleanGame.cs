@@ -27,8 +27,24 @@ public class BooleanGame : MonoBehaviour
         }
     }
 
+    public void DisplayValidation(string message, float delay)
+    {
+        StopAllCoroutines(); // Stop any ongoing coroutine to avoid overlapping
+        boolValidation.text = message;
+        boolValidation.gameObject.SetActive(true); // Ensure the text is visible
+        StartCoroutine(HideTextAfterDelay(delay));
+    }
+
+    IEnumerator HideTextAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        boolValidation.gameObject.SetActive(false); // Hide the text after the delay
+    }
+
     private void Start()
     {
+        boolValidation.text = "";
+
         // Find and store all GearPiece components under the GearGameParent
         GearPiece[] pieces = GearGameParent.GetComponentsInChildren<GearPiece>();
         gearPieces.AddRange(pieces);

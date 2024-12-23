@@ -14,6 +14,8 @@ TagManager:
   - Walking
   - Jumping
   - BGM
+  - Big
+  - Small
   layers:
   - Default
   - TransparentFX

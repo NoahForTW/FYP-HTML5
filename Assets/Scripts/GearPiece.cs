@@ -22,6 +22,16 @@ public class GearPiece : DragDrop
         parentDuringDrag = BooleanGame.Instance.GearGameParent.transform;
     }
 
+    public bool ValidatePiece()
+    {
+        if (CompareTag("Big")) // Assuming "Big" is the correct tag
+        {
+            return true; // Correct piece
+        }
+        return false; // Incorrect piece
+    }
+
+
     public override void OnBeginDrag(PointerEventData eventData)
     {
         base.OnBeginDrag(eventData);

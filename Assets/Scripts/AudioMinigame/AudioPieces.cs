@@ -18,6 +18,11 @@ public class AudioPieces : DragDrop
         text = GetComponentInChildren<TMP_Text>();
     }
 
+    private void Start()
+    {
+        parentDuringDrag = AudioGame.Instance.AudioGameParent.transform;
+    }
+
     public override void OnBeginDrag(PointerEventData eventData)
     {
         base.OnBeginDrag(eventData);

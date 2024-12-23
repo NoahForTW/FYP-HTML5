@@ -26,16 +26,10 @@ public class AudioGameSlot : DropSlot
                 if (pieceState == slotState)
                 {
                     AudioGame.Instance.DisplayTextWithDelay("Correct Piece!", 2f);
-
-                    eventData.pointerDrag.transform.SetParent(transform);
-                    eventData.pointerDrag.transform.localPosition = Vector3.zero;
                 }
                 else
                 {
                     AudioGame.Instance.DisplayTextWithDelay("Incorrect Piece!", 2f);
-
-                    // Reset the piece to its original position
-                    droppedPiece.ResetPosition();
                 }
             }
         }

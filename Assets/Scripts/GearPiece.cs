@@ -16,6 +16,9 @@ public class GearPiece : DragDrop
 
     private void Start()
     {
+        originalPosition = transform.position;
+        originalParent = transform.parent;
+
         parentDuringDrag = BooleanGame.Instance.GearGameParent.transform;
     }
 

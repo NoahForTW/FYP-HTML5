@@ -12,7 +12,8 @@ public class BooleanGame : MonoBehaviour
 
     public static BooleanGame Instance;
 
-    public GearPiece gearPiece;
+    // List to keep track of all gear pieces
+    private List<GearPiece> gearPieces = new List<GearPiece>();
 
     private void Awake()
     {
@@ -25,8 +26,19 @@ public class BooleanGame : MonoBehaviour
             Instance = this;
         }
     }
+
+    private void Start()
+    {
+        // Find and store all GearPiece components under the GearGameParent
+        GearPiece[] pieces = GearGameParent.GetComponentsInChildren<GearPiece>();
+        gearPieces.AddRange(pieces);
+    }
+
     public void ResetButton()
     {
-
+        foreach (var gearPiece in gearPieces)
+        {
+            gearPiece.ResetPosition();
+        }
     }
 }

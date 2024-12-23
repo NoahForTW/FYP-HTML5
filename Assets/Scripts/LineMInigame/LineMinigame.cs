@@ -5,7 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
-public class LineMinigame : MonoBehaviour
+public class LineMinigame : Minigame
 {
     public static LineMinigame Instance;
 

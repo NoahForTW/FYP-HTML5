@@ -104,7 +104,8 @@ public class PlayerController : MonoBehaviour
         //playerRb.velocity = direction * movementSpeed;
         float yRotation = action == global::PlayerAction.Left ? 180f : 0f;
         Quaternion rotation = Quaternion.Euler(0, yRotation, 0);
-        StartCoroutine(RotateModel(rotation, 0.3f));
+        //StartCoroutine(RotateModel(rotation, 0.3f));
+        playerModel.transform.rotation = rotation;
     }
 
     private void PlayerJump()

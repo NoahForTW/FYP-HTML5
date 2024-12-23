@@ -974,7 +974,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &235502805
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1080,8 +1080,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GearGameParent: {fileID: 235502804}
-  boolValidation: {fileID: 0}
-  gearPiece: {fileID: 0}
+  boolValidation: {fileID: 1013501976}
 --- !u!1001 &238463571
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2262,7 +2261,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 237.12906, y: -16.629951}
+  m_AnchoredPosition: {x: 237.12, y: -16.635}
   m_SizeDelta: {x: 69.54, y: 43.19}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &459965498
@@ -2664,7 +2663,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -188.08072, y: 103.53351}
+  m_AnchoredPosition: {x: -188.08069, y: 103.53351}
   m_SizeDelta: {x: 199.95001, y: 121.27}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &550491735
@@ -4121,7 +4120,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0.11, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -173.21863, y: 292.0088}
+  m_AnchoredPosition: {x: -172.79999, y: 292.4}
   m_SizeDelta: {x: 76.94, y: 60.78}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1011870932
@@ -4196,8 +4195,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 117.599846, y: -19.109974}
-  m_SizeDelta: {x: 146.37, y: 38.23}
+  m_AnchoredPosition: {x: 111, y: -14.155}
+  m_SizeDelta: {x: 175.64, y: 38.23}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1013501976
 MonoBehaviour:
@@ -4219,7 +4218,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: kms
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a3f2596d1c88a1a4e9626e1e0fc07e97, type: 2}
   m_sharedMaterial: {fileID: -8916233883843229051, guid: a3f2596d1c88a1a4e9626e1e0fc07e97,
@@ -5099,7 +5098,7 @@ GameObject:
   - component: {fileID: 1282783286}
   m_Layer: 0
   m_Name: GearPiece
-  m_TagString: Untagged
+  m_TagString: Big
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8734,7 +8733,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 215.78284, y: -20.872528}
+  m_AnchoredPosition: {x: 215.78284, y: -20.872559}
   m_SizeDelta: {x: 289.035, y: -213.39221}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &1986579675
@@ -9310,6 +9309,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 695421148d709f542b15357a20e3b82b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  requiredTag: Big
 --- !u!1001 &8619994762417064335
 PrefabInstance:
   m_ObjectHideFlags: 0

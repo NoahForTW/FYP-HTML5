@@ -14,6 +14,8 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     [HideInInspector] public Transform parentAfterDrag;
     [HideInInspector] public Transform parentSlot;
     [HideInInspector] public Transform parentDuringDrag;
+
+    float defaultZ;
     protected virtual void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
@@ -21,6 +23,7 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         canvasGroup = GetComponent<CanvasGroup>();
         canvasCamera = canvas.worldCamera;
         parentAfterDrag = transform.parent;
+        defaultZ = transform.position.z;
     }
 
     // Triggered when dragging begins
@@ -42,7 +45,7 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
             var screenPoint = Input.mousePosition;
             screenPoint.z = canvas.planeDistance; //distance of the plane from the camera 
             transform.position = new Vector3(Camera.main.ScreenToWorldPoint(screenPoint).x,
-                Camera.main.ScreenToWorldPoint(screenPoint).y, transform.position.z);
+                Camera.main.ScreenToWorldPoint(screenPoint).y, defaultZ);
         }
         transform.SetParent(parentDuringDrag);
     }
@@ -69,7 +72,7 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 
         //start.z = 1f; 
 
-        end.z = start.z;
+        //end.z = start.z;
 
         while (elapsed < duration)
         {

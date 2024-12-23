@@ -1,18 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class BooleanGame : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [Tooltip("Assign a GameSlot Parent")]
+    public GameObject GearGameParent;
 
-    // Update is called once per frame
-    void Update()
+    public TMP_Text boolValidation;
+
+    public static BooleanGame Instance;
+
+    public GearPiece gearPiece;
+
+    private void Awake()
     {
-        
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
+    public void ResetButton()
+    {
+
     }
 }

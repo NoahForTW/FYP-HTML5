@@ -21,7 +21,7 @@ public class AudioGame : MonoBehaviour
     [SerializeField] GameObject GameSlotGroup;
 
     [Tooltip("Assign a GameSlot Parent")]
-    [SerializeField] private GameObject AudioGameParent;
+    public GameObject AudioGameParent;
 
     [Header("Audio Slot Images")]
     [SerializeField] private Sprite walk;
@@ -44,6 +44,7 @@ public class AudioGame : MonoBehaviour
             Instance = this;
         }
     }
+    
     void Start()
     {
         InitialisePiecesAndSlots();

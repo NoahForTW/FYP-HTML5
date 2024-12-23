@@ -29,7 +29,7 @@ public class QuizManager : MonoBehaviour
             options[i].GetComponent<AnswerScripts>().isCorrect = false;
             options[i].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = _qNa[currentQuestion].Answers[i];
 
-            if (_qNa[currentQuestion].CorrectAnswer == i)
+            if (_qNa[currentQuestion].CorrectAnswer == i+1)
             {
                 options[i].GetComponent<AnswerScripts>().isCorrect = true;
             }

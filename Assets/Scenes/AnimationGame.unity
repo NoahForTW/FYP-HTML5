@@ -2472,17 +2472,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _qNa:
   - Question: Choose 4
-    Answers: []
-    CorrectAnswer: 3
+    Answers:
+    - 1
+    - 2
+    - 3
+    - 4
+    CorrectAnswer: 4
   - Question: Choose 3
-    Answers: []
-    CorrectAnswer: 2
+    Answers:
+    - 1
+    - 2
+    - 3
+    - 4
+    CorrectAnswer: 3
   - Question: Choose 2
-    Answers: []
-    CorrectAnswer: 1
+    Answers:
+    - 1
+    - 2
+    - 3
+    - 4
+    CorrectAnswer: 2
   - Question: Choose 1
-    Answers: []
-    CorrectAnswer: 0
+    Answers:
+    - 1
+    - 2
+    - 3
+    - 4
+    CorrectAnswer: 1
   options:
   - {fileID: 670086909}
   - {fileID: 1235044642}

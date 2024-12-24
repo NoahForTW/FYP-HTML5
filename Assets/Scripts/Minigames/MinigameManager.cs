@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public enum MinigameType
 {
@@ -22,6 +23,12 @@ public class MinigameManager : MonoBehaviour
     MinigameType currentMinigameType;
 
     GameObject parentCanvas;
+    TimerCanvas timerCanvas;
+    TMP_Text timerUI;
+    GameObject notification;
+
+    float gameTimer;
+    bool pauseTimer = false;
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -36,6 +43,14 @@ public class MinigameManager : MonoBehaviour
     private void Start()
     {
         parentCanvas = GameObject.FindGameObjectWithTag("ParentCanvas");
+        timerCanvas = parentCanvas.GetComponentInChildren<TimerCanvas>(true);
+        timerUI = timerCanvas?.timerText;
+        notification = timerCanvas?.notification;
+
+        if (timerCanvas != null)
+        {
+            timerCanvas.gameObject.SetActive(false);
+        }
     }
     public void SetMinigame(MinigameType type)
     {
@@ -67,6 +82,13 @@ public class MinigameManager : MonoBehaviour
         return currentMinigame;
     }
 
+    public string GetGameTimerInFormat()
+    {
+        int min = Mathf.FloorToInt(gameTimer / 60);
+        int seconds = Mathf.FloorToInt(gameTimer % 60);
+        return string.Format("{0:00}:{1:00}", min, seconds);
+    }
+
     bool IsCurrentActive()
     {
         if (currentMinigame == null)
@@ -75,6 +97,36 @@ public class MinigameManager : MonoBehaviour
         return currentMinigame.gameObject.activeSelf;
     }
 
+    void StartMinigame()
+    {
+        timerCanvas?.gameObject.SetActive(true);
+        currentMinigame.gameObject.SetActive(true);
+        gameTimer = 0f;
+    }
+    void UpdateTimer()
+    {
+        gameTimer += Time.deltaTime;
+        if (timerUI != null)
+        {
+            timerUI.text = GetGameTimerInFormat();
+        }
+    }
+    public void PauseTimer()
+    {
+        pauseTimer = true;
+        notification.SetActive(true);
+    }
+    public void UnPauseTimer()
+    {
+        pauseTimer = false;
+        notification.SetActive(false);
+    }
+    public void EndMinigame()
+    {
+        timerCanvas?.gameObject.SetActive(false);
+        currentMinigame.gameObject.SetActive(false);
+        SetMinigame(MinigameType.None);
+    }
     private void Update()
     {
         if (currentMinigame != null)
@@ -82,13 +134,21 @@ public class MinigameManager : MonoBehaviour
             if (currentMinigameType != MinigameType.None
              && !IsCurrentActive())
             {
-                currentMinigame.gameObject.SetActive(true);
+                StartMinigame();
             }
 
             if (currentMinigame.isCompleted)
             {
-                currentMinigame.gameObject.SetActive(false);
-                SetMinigame(MinigameType.None);
+                EndMinigame();
+            }
+            else
+            {
+                if (!pauseTimer)
+                {
+                    // update timer?
+                    UpdateTimer();
+                }
+
             }
         }
 

@@ -9,8 +9,6 @@ TagManager:
   - Void
   - Model Side
   - ParentCanvas
-  - BooleanCanvas
-  - AudioCanvas
   layers:
   - Default
   - TransparentFX

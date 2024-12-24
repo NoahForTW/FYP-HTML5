@@ -64,8 +64,6 @@ public class PlayerController : MonoBehaviour
             playerRb.velocity = Vector3.zero;
         }
 
-        Debug.Log("current velocity: " + playerRb.velocity);
-
     }
 
     public void SetCurrentPlayerAction(PlayerAction action)

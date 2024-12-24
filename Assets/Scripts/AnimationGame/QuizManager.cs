@@ -44,8 +44,6 @@ public class QuizManager : MonoBehaviour
 
             QuestionTxt.text = _qNa[currentQuestion].Question;
             SetAnswers();
-
-            _qNa.RemoveAt(currentQuestion);
         }
         else
         {

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.Events;
 
 public enum MinigameType
 {
@@ -19,8 +20,10 @@ public class MinigameManager : MonoBehaviour
 {
     public static MinigameManager Instance;
 
-    public Minigame currentMinigame;
+    Minigame currentMinigame;
     MinigameType currentMinigameType;
+
+    public UnityEvent minigameCompletion;
 
     GameObject parentCanvas;
     TimerCanvas timerCanvas;
@@ -142,6 +145,7 @@ public class MinigameManager : MonoBehaviour
             if (currentMinigame.isCompleted)
             {
                 EndMinigame();
+                minigameCompletion.Invoke();
             }
             else
             {

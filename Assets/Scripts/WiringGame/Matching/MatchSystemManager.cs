@@ -15,18 +15,18 @@ public class MatchSystemManager : MonoBehaviour
     {
         _matchEntities = transform.GetComponentsInChildren<MatchEntity>().ToList();
         _targetMatchCount = _matchEntities.Count;
-        SetEntityColours();
+        //SetEntityColours();
     }
 
-    void SetEntityColours()
-    {
-        Shuffle(_colorMaterials);
+    //void SetEntityColours()
+    //{
+    //    Shuffle(_colorMaterials);
 
-        for (int i = 0; 1 < _matchEntities.Count; i++)
-        {
-            _matchEntities[i].SetMaterialToPairs(_colorMaterials[i]);
-        }
-    }
+    //    for (int i = 0; 1 < _matchEntities.Count; i++)
+    //    {
+    //        _matchEntities[i].SetMaterialToPairs(_colorMaterials[i]);
+    //    }
+    //}
 
     // Update is called once per frame
     public void NewMatchRecord(bool MatchConnected)

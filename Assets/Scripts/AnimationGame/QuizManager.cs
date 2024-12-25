@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SocialPlatforms.Impl;
+using UnityEngine.UI;
 
 public class QuizManager : MonoBehaviour
 {
@@ -13,7 +13,7 @@ public class QuizManager : MonoBehaviour
     public TextMeshProUGUI _questionTxt;
     public TextMeshProUGUI _scoreTxt;
 
-    int _totalQuestions = 4;
+    int _totalQuestions = 0;
     public int _score;
 
     public GameObject _quizPanel;
@@ -21,6 +21,8 @@ public class QuizManager : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
+        _totalQuestions = _qNa.Count;
+        _gOPanel.SetActive(false);
         generateQuestion();
     }
 
@@ -56,8 +58,9 @@ public class QuizManager : MonoBehaviour
     {
         for (int i = 0; i < options.Length; i++)
         {
+            options[i].GetComponent<Image>().color = options[i].GetComponent<AnswerScripts>().startColor;
             options[i].GetComponent<AnswerScripts>().isCorrect = false;
-            options[i].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = _qNa[_currentQuestion].Answers[i];
+            options[i].transform.GetChild(0).GetComponent<Image>().sprite = _qNa[_currentQuestion].Answers[i];
 
             if (_qNa[_currentQuestion].CorrectAnswer == i+1)
             {

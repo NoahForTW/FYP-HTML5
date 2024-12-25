@@ -4,7 +4,7 @@ using UnityEngine;
 using TMPro;
 using System.Linq;
 
-public class VariableMinigame : MonoBehaviour
+public class VariableMinigame : Minigame
 {
     public static VariableMinigame Instance;
     [SerializeField] public GameObject slotsPieceParent;
@@ -74,7 +74,9 @@ public class VariableMinigame : MonoBehaviour
         else
         {
             // completed
-            Debug.Log("Minigame Completed");
+            //Debug.Log("Minigame Completed");
+            if(!isCompleted)
+                isCompleted = true;
         }
         
 

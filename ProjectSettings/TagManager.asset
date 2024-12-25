@@ -8,14 +8,7 @@ TagManager:
   - EndPoint
   - Void
   - Model Side
-  - UVModelCanvas
-  - AudioCanvas
-  - BooleanCanvas
-  - Walking
-  - Jumping
-  - BGM
-  - Big
-  - Small
+  - ParentCanvas
   layers:
   - Default
   - TransparentFX

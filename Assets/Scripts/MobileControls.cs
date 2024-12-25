@@ -6,9 +6,9 @@ using UnityEngine.EventSystems;
 public enum MobilePlayerControls
 {
     Jump,
-    Crouch,
     Left,
-    Right
+    Right,
+    Interact
 }
 
 enum MovementDirection
@@ -65,8 +65,8 @@ public class MobileControls : MonoBehaviour, IPointerDownHandler, IPointerUpHand
             case MobilePlayerControls.Right:
                 movementDirection = MovementDirection.Right;
                 break;
-            case MobilePlayerControls.Crouch:
-                PlayerController.Instance.playerAction.Invoke(PlayerAction.Crouch);
+            case MobilePlayerControls.Interact:
+                PlayerController.Instance.playerAction.Invoke(PlayerAction.Interact);
                 break;
         }
     }
@@ -74,10 +74,5 @@ public class MobileControls : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     public void OnPointerUp(PointerEventData eventData)
     {
         movementDirection = MovementDirection.None;
-
-        if (mobilePlayerControls == MobilePlayerControls.Crouch)
-        {
-            PlayerController.Instance.playerAction.Invoke(PlayerAction.Crouched);
-        }
     }
 }

@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class AudioGame : MonoBehaviour
+public class AudioGame : Minigame
 {
     public static AudioGame Instance;
 

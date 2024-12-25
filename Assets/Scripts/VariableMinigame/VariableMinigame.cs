@@ -74,7 +74,6 @@ public class VariableMinigame : Minigame
         else
         {
             // completed
-            //Debug.Log("Minigame Completed");
             if(!isCompleted)
                 isCompleted = true;
         }

@@ -108,7 +108,7 @@ public class AudioGame : Minigame
                 }
             }
 
-            Debug.Log($"Initialised slot: {state} with image: {slotImages[i].name}");
+            //Debug.Log($"Initialised slot: {state} with image: {slotImages[i].name}");
         }
     }
 }

@@ -99,6 +99,7 @@ public class MinigameManager : MonoBehaviour
 
     void StartMinigame()
     {
+        pauseTimer = false;
         timerCanvas?.gameObject.SetActive(true);
         currentMinigame.gameObject.SetActive(true);
         gameTimer = 0f;
@@ -125,6 +126,7 @@ public class MinigameManager : MonoBehaviour
     {
         timerCanvas?.gameObject.SetActive(false);
         currentMinigame.gameObject.SetActive(false);
+        notification.SetActive(false);
         SetMinigame(MinigameType.None);
     }
     private void Update()

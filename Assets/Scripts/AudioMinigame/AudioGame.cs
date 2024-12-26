@@ -32,8 +32,10 @@ public class AudioGame : Minigame
     public TMP_Text audioValidText;
 
     [Header("Audio Game States")]
-    [SerializeField] List<string> gameStates = new List<string>();
-    
+    [SerializeField] List<AudioGame_SO> GameQuestions = new List<AudioGame_SO>();
+
+    List<AudioGameSlot> AudioSlots = new List<AudioGameSlot>();
+
     void Awake()
     {
         if(Instance != null && Instance != this)
@@ -66,49 +68,67 @@ public class AudioGame : Minigame
 
     void InitialisePiecesAndSlots()
     {
-        List<Sprite> slotImages = new List<Sprite> { 
+/*        List<Sprite> slotImages = new List<Sprite> { 
             walk, 
             jump, 
             bgm 
         };
 
-        if (slotImages.Count < gameStates.Count)
+        if (slotImages.Count < gameQuestions.Count)
         {
             Debug.LogWarning("Not enough images for the number of game states!");
             return;
-        }
+        }*/
+        AudioSlots.Clear();
 
-        for (int i = 0; i < gameStates.Count; i++)
+        for (int i = 0; i < GameQuestions.Count; i++)
         {
-            string state = gameStates[i];
+            AudioGame_SO gameQuestion = GameQuestions[i];
+            string audioName = GameQuestions[i].AudioName;
 
             // Instantiate GamePiece and set its state
             GameObject stateGO = Instantiate(GamePiece, GamePieceGroup.transform);
             AudioPieces audioPieces = stateGO.GetComponentInChildren<AudioPieces>();
-            audioPieces.SetText(state);
+            audioPieces.SetText(audioName);
             audioPieces.parentDuringDrag = AudioGameParent.transform;
 
             // Instantiate GameSlot and assign its state and image
             GameObject slotGO = Instantiate(GameSlot, GameSlotGroup.transform);
-            slotGO.name = state + "Parent";
-
+            slotGO.name = audioName + "Parent";
             AudioGameSlot audioGameSlot = slotGO.GetComponentInChildren<AudioGameSlot>();
             if (audioGameSlot != null)
             {
-                audioGameSlot.slotState = state; // Set the slot's expected state
-
+                audioGameSlot.slotState = audioName; // Set the slot's expected state
+                AudioSlots.Add(audioGameSlot);
                 // Assign a unique image to the slot
                 if (audioGameSlot.audioIcon != null)
                 {
-                    Image iconImage = audioGameSlot.audioIcon.GetComponent<Image>();
-                    if (iconImage != null)
-                    {
-                        iconImage.sprite = slotImages[i];
-                    }
+                    audioGameSlot.audioIcon.sprite = gameQuestion.AudioSprite;
                 }
             }
+            
 
             //Debug.Log($"Initialised slot: {state} with image: {slotImages[i].name}");
+        }
+    }
+
+    bool AllSlotsAreCorrect()
+    {
+        foreach(AudioGameSlot slot in AudioSlots)
+        {
+            if (!slot.isCorrect)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private void Update()
+    {
+        if (AllSlotsAreCorrect() && !isCompleted)
+        {
+            isCompleted = true;
         }
     }
 }

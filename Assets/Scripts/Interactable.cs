@@ -15,7 +15,6 @@ public class Interactable : MonoBehaviour
     void Start()
     {
         PlayerController.Instance.playerAction.AddListener(PlayerAction);
-        interactionEvent.AddListener(Interacting);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -49,9 +48,5 @@ public class Interactable : MonoBehaviour
         {
             interactionEvent.Invoke();
         }
-    }
-    void Interacting()
-    {
-        Debug.Log("interacting");
     }
 }

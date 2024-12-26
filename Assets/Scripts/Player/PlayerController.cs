@@ -20,7 +20,8 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public UnityEvent<PlayerAction> playerAction;
     public bool canMove = true;
     public bool isJumping = false; // check if player is jumping
-    public UnityEvent<PlayerAction> currentPlayerAction;
+    public UnityEvent<PlayerAction> currentPlayerActionEvent;
+    public PlayerAction currentPlayerAction;
     //private
 
     [Header ("Speeds")]
@@ -68,7 +69,8 @@ public class PlayerController : MonoBehaviour
 
     public void SetCurrentPlayerAction(PlayerAction action)
     {
-        currentPlayerAction.Invoke(action);
+        currentPlayerActionEvent.Invoke(action);
+        currentPlayerAction = action;
     }
     public void PlayerAction(PlayerAction action)
     {

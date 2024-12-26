@@ -17,21 +17,12 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private GameObject[] choices;
     private TextMeshProUGUI[] choicesText;
 
-    [Header("Cameras")]
-    [SerializeField] private GameObject[] cameras;
-
-    [Header("Inventory")]
-    [SerializeField] private GameObject inventoryPanel;
-    private bool openInventory = false;
-
     [Header("Story Dialogue")]
     public bool dialogueIsPlaying;
     private Story currentStory;
     private bool makingChoice;
 
     private const string SPEAKER_TAG = "speaker";
-    private const string CAMERA_TAG = "camera";
-    private const string INVENTORY_TAG = "inventory";
 
     void Awake()
     {
@@ -56,13 +47,6 @@ public class DialogueManager : MonoBehaviour
         for (int i = 0; i < choices.Length; i++) {
             choicesText[i] = choices[i].GetComponentInChildren<TextMeshProUGUI>();
         }
-
-        inventoryPanel.SetActive(false);
-
-        foreach (GameObject camera in cameras) {
-            camera.SetActive(false);
-        }
-        cameras[0].SetActive(true);
     }
 
 
@@ -84,7 +68,6 @@ public class DialogueManager : MonoBehaviour
         currentStory = new Story(inkJSON.text);
         dialogueIsPlaying = true;
         dialoguePanel.SetActive(true);
-        inventoryPanel.SetActive(false);
         ContinueStory();
     }
 
@@ -92,14 +75,6 @@ public class DialogueManager : MonoBehaviour
         dialogueIsPlaying = false;
         dialoguePanel.SetActive(false);
         dialogueText.text = "";
-
-        inventoryPanel.SetActive(openInventory);
-
-        //you can omit this part if it doesnt fit the story
-        foreach (GameObject camera in cameras) {
-            camera.SetActive(false);
-        }
-        cameras[0].SetActive(true);
     }
 
     private void ContinueStory() {
@@ -126,22 +101,6 @@ public class DialogueManager : MonoBehaviour
             switch(tagKey) {
                 case SPEAKER_TAG:
                     speakerName.text = tagValue;
-                    break;
-                case CAMERA_TAG:
-                    foreach (GameObject camera in cameras) {
-                        camera.SetActive(false);
-                        if (camera.name == tagValue) {
-                            camera.SetActive(true);
-                        }
-                    }
-                    break;
-                case INVENTORY_TAG:
-                    if (tagValue == "open") {
-                        openInventory = true;
-                    }
-                    else if (tagValue == "close") {
-                        openInventory = false;
-                    }
                     break;
                 default:
                     Debug.LogWarning("This tag is currently not supported");

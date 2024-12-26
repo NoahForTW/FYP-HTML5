@@ -1,7 +1,6 @@
 {
   "dependencies": {
     "com.kyrylokuzyk.primetween": "file:../Assets/Plugins/PrimeTween/internal/com.kyrylokuzyk.primetween.tgz",
-    "com.mygamedevtools.scene-loader": "https://github.com/mygamedevtools/scene-loader.git#upm",
     "com.unity.2d.animation": "9.1.3",
     "com.unity.2d.psdimporter": "8.0.5",
     "com.unity.2d.sprite": "1.0.0",

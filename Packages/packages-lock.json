@@ -6,6 +6,13 @@
       "source": "local-tarball",
       "dependencies": {}
     },
+    "com.mygamedevtools.scene-loader": {
+      "version": "https://github.com/mygamedevtools/scene-loader.git#upm",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "8117e93b3eaddd497b992d9ee11cdfc32f440ea0"
+    },
     "com.unity.2d.animation": {
       "version": "9.1.3",
       "depth": 0,

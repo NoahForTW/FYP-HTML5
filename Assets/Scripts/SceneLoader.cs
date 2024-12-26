@@ -9,14 +9,13 @@ public static class SceneLoader
     // Init the Scenes
     public enum Scene
     {
-        GameScene,
+        None,
+        GDTScene,
         LoadingScene,
     }
     
     public static void Load(Scene scene)
     {
-        SceneManager.LoadScene(Scene.LoadingScene.ToString());    
-
-        SceneManager.LoadScene(scene.ToString());
+        SceneManager.LoadSceneAsync(Scene.LoadingScene.ToString());
     }
 }

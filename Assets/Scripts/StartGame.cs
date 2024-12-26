@@ -6,7 +6,7 @@ public class StartGame : MonoBehaviour
 {
     public void StartButton()
     {
-        SceneLoader.Load(SceneLoader.Scene.GameScene);
+        SceneLoader.Load(SceneLoader.Scene.GDTScene);
 
         Debug.Log("Start Game");
     }

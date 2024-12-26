@@ -129,6 +129,7 @@ public class AudioGame : Minigame
         if (AllSlotsAreCorrect() && !isCompleted)
         {
             isCompleted = true;
+            Debug.Log("Audio Game Done");
         }
     }
 }

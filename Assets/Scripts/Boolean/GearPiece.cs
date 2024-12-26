@@ -4,8 +4,16 @@ using Unity.VisualScripting;
 using UnityEngine.EventSystems;
 using UnityEngine;
 
+public enum GearType
+{
+    None,
+    Big,
+    Small
+}
+
 public class GearPiece : DragDrop
 {
+    public GearType gearType;
     private Transform originalParent;
     private Vector3 originalPosition;
 
@@ -22,13 +30,9 @@ public class GearPiece : DragDrop
         parentDuringDrag = BooleanGame.Instance.GearGameParent.transform;
     }
 
-    public bool ValidatePiece()
+    public bool ValidatePiece(GearType expectedType)
     {
-        if (CompareTag("Big")) // Assuming "Big" is the correct tag
-        {
-            return true; // Correct piece
-        }
-        return false; // Incorrect piece
+        return gearType == expectedType;
     }
 
 

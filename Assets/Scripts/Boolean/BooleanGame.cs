@@ -12,8 +12,11 @@ public class BooleanGame : MonoBehaviour
 
     public static BooleanGame Instance;
 
-    // List to keep track of all gear pieces
+    // List to keep track of all gear pieces and slots
     private List<GearPiece> gearPieces = new List<GearPiece>();
+    private List<GearSlot> gearSlots = new List<GearSlot>();
+
+    private bool isBoolGameComplete;
 
     private void Awake()
     {
@@ -48,6 +51,10 @@ public class BooleanGame : MonoBehaviour
         // Find and store all GearPiece components under the GearGameParent
         GearPiece[] pieces = GearGameParent.GetComponentsInChildren<GearPiece>();
         gearPieces.AddRange(pieces);
+
+        // Find and store all GearSlot components under the GearGameParent
+        GearSlot[] slots = GearGameParent.GetComponentsInChildren<GearSlot>();
+        gearSlots.AddRange(slots);
     }
 
     public void ResetButton()
@@ -55,6 +62,43 @@ public class BooleanGame : MonoBehaviour
         foreach (var gearPiece in gearPieces)
         {
             gearPiece.ResetPosition();
+        }
+    }
+
+    public void ValidateAllPieces()
+    {
+        foreach (var slot in gearSlots)
+        {
+            if (slot.IsSlotEmpty())
+            {
+                return;
+            }
+        }
+
+        if (AllSlotsAreCorrect())
+        {
+            isBoolGameComplete = true;
+        }
+    }
+
+    private bool AllSlotsAreCorrect()
+    {
+        foreach (GearSlot slot in gearSlots)
+        {
+            if (!slot.isGearPlaced)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private void Update()
+    {
+        if (AllSlotsAreCorrect() && !isBoolGameComplete)
+        {
+            isBoolGameComplete = true;
+            Debug.Log("Bool Game Done");
         }
     }
 }

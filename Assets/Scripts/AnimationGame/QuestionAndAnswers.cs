@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [System.Serializable]
-public class x
+public class QuestionAndAnswers
 {
     public string Question;
     public Sprite[] Answers;

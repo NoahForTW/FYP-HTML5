@@ -8,12 +8,19 @@ public class NPC : MonoBehaviour
     public MinigameType MinigameType;
 
     public List<MinigameCompletedEffects> CompletedEffects;
+
+    [Header("Ink JSON")]
+    [SerializeField] private TextAsset inkJSON;
     public void StartMinigame()
     {
         MinigameManager.Instance.SetMinigame(MinigameType);
         MinigameManager.Instance.minigameCompletion.AddListener(MinigameCompleted);
     }
 
+    public void StartDialogue()
+    {
+        DialogueManager.GetInstance().EnterDialogueMode(inkJSON);
+    }
     void MinigameCompleted()
     {
         foreach (var effect in CompletedEffects)

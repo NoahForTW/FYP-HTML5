@@ -11,6 +11,8 @@ TagManager:
   - ParentCanvas
   - Big
   - Small
+  - UVModelCanvas
+  - Port
   layers:
   - Default
   - TransparentFX

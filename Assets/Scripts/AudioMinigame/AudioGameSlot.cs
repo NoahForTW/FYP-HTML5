@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class AudioGameSlot : DropSlot
 {
-    public GameObject audioIcon;
+    public Image audioIcon;
     public string slotState; // Represents the expected state for this slot
+    public bool isCorrect;
 
     public override void OnDrop(PointerEventData eventData)
     {
@@ -22,6 +24,7 @@ public class AudioGameSlot : DropSlot
             {
                 string pieceState = droppedPiece.GetState();
 
+                isCorrect = pieceState == slotState;
                 // Validation: Check if the piece matches the slot
                 if (pieceState == slotState)
                 {
@@ -31,6 +34,10 @@ public class AudioGameSlot : DropSlot
                 {
                     AudioGame.Instance.DisplayTextWithDelay("Incorrect Piece!", 2f);
                 }
+            }
+            else
+            {
+                isCorrect = false;
             }
         }
     }

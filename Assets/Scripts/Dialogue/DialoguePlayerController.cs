@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class DialoguePlayerController : MonoBehaviour
 {
     private Rigidbody playerRb;
     public float moveSpeed;

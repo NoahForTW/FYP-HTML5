@@ -1612,6 +1612,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87151e342602d214698ff45aaee28e7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sceneName: GDT Level
 --- !u!1 &1368603742
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,6 +9,9 @@ public class NPC : MonoBehaviour
 
     public List<MinigameCompletedEffects> CompletedEffects;
 
+    [Header("Required Completed Minigames")]
+    [SerializeField] private List<MinigameType> completedMinigames;
+
     [Header("Ink JSON")]
     [SerializeField] private TextAsset inkJSON;
     public void StartMinigame()
@@ -19,7 +22,7 @@ public class NPC : MonoBehaviour
 
     public void StartDialogue()
     {
-        DialogueManager.GetInstance().EnterDialogueMode(inkJSON);
+        DialogueManager.GetInstance().EnterDialogueMode(inkJSON, () => StartMinigame());
     }
     void MinigameCompleted()
     {

@@ -6,7 +6,7 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 
-public class UVTextureMinigame : MonoBehaviour
+public class UVTextureMinigame : Minigame
 {
     public static UVTextureMinigame Instance;
     public GameObject UVTexturePrefab;
@@ -87,7 +87,7 @@ public class UVTextureMinigame : MonoBehaviour
         foreach (var side in ModelSides)
         {
             // when texture placed is correct
-            if (side.GetCanChangeTexture() &&side.IsCurrentTextureCorrect() && canCheckTexture)
+            if (side.GetCanChangeTexture() && side.IsCurrentTextureCorrect() && canCheckTexture)
             {
                 side.SetCanChangeTexture(false);
                 Debug.Log(side.gameObject.name + "-> DONE");
@@ -105,6 +105,23 @@ public class UVTextureMinigame : MonoBehaviour
             }
         }
 
+        if(AllSidesAreCorrect())
+        {
+            isCompleted = true;
+        }
+
+    }
+
+    public bool AllSidesAreCorrect()
+    {
+        foreach (var side in ModelSides)
+        {
+             if (!side.IsCurrentTextureCorrect())
+            {
+                return false;
+            }
+        }
+        return true;
     }
 
     public void RequestFullScreen()

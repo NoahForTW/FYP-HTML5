@@ -25,8 +25,7 @@ public class MinigameManager : MonoBehaviour
 
     public UnityEvent minigameCompletion;
 
-    GameObject parentCanvas;
-    TimerCanvas timerCanvas;
+
     TMP_Text timerUI;
     GameObject notification;
 
@@ -45,14 +44,12 @@ public class MinigameManager : MonoBehaviour
     }
     private void Start()
     {
-        parentCanvas = GameObject.FindGameObjectWithTag("ParentCanvas");
-        timerCanvas = parentCanvas.GetComponentInChildren<TimerCanvas>(true);
-        timerUI = timerCanvas?.timerText;
-        notification = timerCanvas?.notification;
+        timerUI = CanvasManager.Instance.TimerCanvas?.timerText;
+        notification = CanvasManager.Instance.TimerCanvas?.notification;
 
-        if (timerCanvas != null)
+        if (CanvasManager.Instance.TimerCanvas != null)
         {
-            timerCanvas.gameObject.SetActive(false);
+            CanvasManager.Instance.TimerCanvas.gameObject.SetActive(false);
         }
     }
     public void SetMinigame(MinigameType type)
@@ -64,7 +61,7 @@ public class MinigameManager : MonoBehaviour
             return;
         }
 
-        Minigame[] games = parentCanvas.GetComponentsInChildren<Minigame>(true);
+        Minigame[] games = CanvasManager.Instance.GetComponentsInChildren<Minigame>(true);
         foreach(var game in games)
         {
             if (game.minigameType == type)
@@ -103,7 +100,7 @@ public class MinigameManager : MonoBehaviour
     void StartMinigame()
     {
         pauseTimer = false;
-        timerCanvas?.gameObject.SetActive(true);
+        CanvasManager.Instance.TimerCanvas?.gameObject.SetActive(true);
         currentMinigame.gameObject.SetActive(true);
         gameTimer = 0f;
     }
@@ -127,7 +124,7 @@ public class MinigameManager : MonoBehaviour
     }
     public void EndMinigame()
     {
-        timerCanvas?.gameObject.SetActive(false);
+        CanvasManager.Instance.TimerCanvas?.gameObject.SetActive(false);
         currentMinigame.gameObject.SetActive(false);
         notification.SetActive(false);
         SetMinigame(MinigameType.None);

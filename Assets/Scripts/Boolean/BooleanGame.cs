@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class BooleanGame : MonoBehaviour
+public class BooleanGame : Minigame
 {
     [Tooltip("Assign a GameSlot Parent")]
     public GameObject GearGameParent;
@@ -16,7 +16,6 @@ public class BooleanGame : MonoBehaviour
     private List<GearPiece> gearPieces = new List<GearPiece>();
     private List<GearSlot> gearSlots = new List<GearSlot>();
 
-    private bool isBoolGameComplete;
 
     private void Awake()
     {
@@ -77,7 +76,7 @@ public class BooleanGame : MonoBehaviour
 
         if (AllSlotsAreCorrect())
         {
-            isBoolGameComplete = true;
+            isCompleted = true;
         }
     }
 
@@ -95,10 +94,10 @@ public class BooleanGame : MonoBehaviour
 
     private void Update()
     {
-        if (AllSlotsAreCorrect() && !isBoolGameComplete)
+        if (AllSlotsAreCorrect() && !isCompleted)
         {
-            isBoolGameComplete = true;
-            Debug.Log("Bool Game Done");
+            isCompleted = true;
+            //Debug.Log("Bool Game Done");
         }
     }
 }

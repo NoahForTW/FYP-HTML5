@@ -10,18 +10,23 @@ public class NPC : MonoBehaviour
     public List<MinigameCompletedEffects> CompletedEffects;
 
     [Header("Required Completed Minigames")]
-    [SerializeField] private List<MinigameType> completedMinigames;
+    [SerializeField] private List<MinigameType> CompletedMinigames;
 
     [Header("Ink JSON")]
     [SerializeField] private TextAsset inkJSON;
+
+    bool canStartMinigame = false;
     public void StartMinigame()
     {
+        if (!canStartMinigame)
+            return;
         MinigameManager.Instance.SetMinigame(MinigameType);
-        MinigameManager.Instance.minigameCompletion.AddListener(MinigameCompleted);
+        MinigameManager.Instance.MinigameCompletion.AddListener(MinigameCompleted);
     }
 
     public void StartDialogue()
     {
+        canStartMinigame = CheckCompletionOfRequireMinigames();
         DialogueManager.GetInstance().EnterDialogueMode(inkJSON, () => StartMinigame());
     }
     void MinigameCompleted()
@@ -36,11 +41,26 @@ public class NPC : MonoBehaviour
                 case global::CompletedEffects.Deactivate:
                     StartCoroutine(DeactivateGameObject(effect.gameObject, 2f));
                     break;
+                case global::CompletedEffects.PlayAnimation:
+                    effect.gameObject.GetComponent<Obstacle>()?.PlayAnimation();
+                    break;
             }
         }
-        MinigameManager.Instance.minigameCompletion.RemoveListener(MinigameCompleted);
+        MinigameManager.Instance.MinigameCompletion.RemoveListener(MinigameCompleted);
     }
 
+    bool CheckCompletionOfRequireMinigames()
+    {
+        foreach(MinigameType type in CompletedMinigames)
+        {
+            if (!MinigameManager.Instance.CheckIfMinigameCompleted(type))
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
     IEnumerator DeactivateGameObject(GameObject go, float duration)
     {
         yield return new WaitForSeconds(duration);

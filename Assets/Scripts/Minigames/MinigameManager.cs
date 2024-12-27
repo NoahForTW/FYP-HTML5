@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.Events;
+using System.Linq;
 
 public enum MinigameType
 {
@@ -20,17 +21,20 @@ public class MinigameManager : MonoBehaviour
 {
     public static MinigameManager Instance;
 
-    Minigame currentMinigame;
-    MinigameType currentMinigameType;
+    Minigame CurrentMinigame;
+    MinigameType CurrentMinigameType;
 
-    public UnityEvent minigameCompletion;
+    public UnityEvent MinigameCompletion;
 
+    //minigame list
+    List<Minigame> Minigames = new List<Minigame>();
 
-    TMP_Text timerUI;
-    GameObject notification;
+    // timer UI & variables
+    TMP_Text TimerUI;
+    GameObject Notification;
 
-    float gameTimer;
-    bool pauseTimer = false;
+    float GameTimer;
+    bool PauseTime = false;
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -44,8 +48,8 @@ public class MinigameManager : MonoBehaviour
     }
     private void Start()
     {
-        timerUI = CanvasManager.Instance.TimerCanvas?.timerText;
-        notification = CanvasManager.Instance.TimerCanvas?.notification;
+        TimerUI = CanvasManager.Instance.TimerCanvas?.timerText;
+        Notification = CanvasManager.Instance.TimerCanvas?.notification;
 
         if (CanvasManager.Instance.TimerCanvas != null)
         {
@@ -54,19 +58,19 @@ public class MinigameManager : MonoBehaviour
     }
     public void SetMinigame(MinigameType type)
     {
-        currentMinigameType = type;
+        CurrentMinigameType = type;
         if (type == MinigameType.None)
         {
-            currentMinigame = null;
+            CurrentMinigame = null;
             return;
         }
 
-        Minigame[] games = CanvasManager.Instance.GetComponentsInChildren<Minigame>(true);
-        foreach(var game in games)
+        Minigames = CanvasManager.Instance.GetComponentsInChildren<Minigame>(true).ToList();
+        foreach(var game in Minigames)
         {
             if (game.minigameType == type)
             {
-                currentMinigame = game;
+                CurrentMinigame = game;
                 break;
             }
         }
@@ -74,79 +78,91 @@ public class MinigameManager : MonoBehaviour
 
     public MinigameType GetCurrentMinigameType()
     {
-        return currentMinigameType;
+        return CurrentMinigameType;
     }
 
     public Minigame GetCurrentMinigame()
     {
-        return currentMinigame;
+        return CurrentMinigame;
     }
 
     public string GetGameTimerInFormat()
     {
-        int min = Mathf.FloorToInt(gameTimer / 60);
-        int seconds = Mathf.FloorToInt(gameTimer % 60);
+        int min = Mathf.FloorToInt(GameTimer / 60);
+        int seconds = Mathf.FloorToInt(GameTimer % 60);
         return string.Format("{0:00}:{1:00}", min, seconds);
+    }
+
+    public bool CheckIfMinigameCompleted(MinigameType minigameType)
+    {
+        foreach (var game in Minigames)
+        {
+            if (game.minigameType == minigameType && game.isCompleted)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     bool IsCurrentActive()
     {
-        if (currentMinigame == null)
+        if (CurrentMinigame == null)
             return false;
 
-        return currentMinigame.gameObject.activeSelf;
+        return CurrentMinigame.gameObject.activeSelf;
     }
 
     void StartMinigame()
     {
-        pauseTimer = false;
+        PauseTime = false;
         CanvasManager.Instance.TimerCanvas?.gameObject.SetActive(true);
-        currentMinigame.gameObject.SetActive(true);
-        gameTimer = 0f;
+        CurrentMinigame.gameObject.SetActive(true);
+        GameTimer = 0f;
     }
     void UpdateTimer()
     {
-        gameTimer += Time.deltaTime;
-        if (timerUI != null)
+        GameTimer += Time.deltaTime;
+        if (TimerUI != null)
         {
-            timerUI.text = GetGameTimerInFormat();
+            TimerUI.text = GetGameTimerInFormat();
         }
     }
     public void PauseTimer()
     {
-        pauseTimer = true;
-        notification.SetActive(true);
+        PauseTime = true;
+        Notification.SetActive(true);
     }
     public void UnPauseTimer()
     {
-        pauseTimer = false;
-        notification.SetActive(false);
+        PauseTime = false;
+        Notification.SetActive(false);
     }
     public void EndMinigame()
     {
         CanvasManager.Instance.TimerCanvas?.gameObject.SetActive(false);
-        currentMinigame.gameObject.SetActive(false);
-        notification.SetActive(false);
+        CurrentMinigame.gameObject.SetActive(false);
+        Notification.SetActive(false);
         SetMinigame(MinigameType.None);
     }
     private void Update()
     {
-        if (currentMinigame != null)
+        if (CurrentMinigame != null)
         {
-            if (currentMinigameType != MinigameType.None
+            if (CurrentMinigameType != MinigameType.None
              && !IsCurrentActive())
             {
                 StartMinigame();
             }
 
-            if (currentMinigame.isCompleted)
+            if (CurrentMinigame.isCompleted)
             {
                 EndMinigame();
-                minigameCompletion.Invoke();
+                MinigameCompletion.Invoke();
             }
             else
             {
-                if (!pauseTimer)
+                if (!PauseTime)
                 {
                     // update timer?
                     UpdateTimer();

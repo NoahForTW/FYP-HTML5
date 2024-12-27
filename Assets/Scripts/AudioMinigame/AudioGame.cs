@@ -23,11 +23,6 @@ public class AudioGame : Minigame
     [Tooltip("Assign a GameSlot Parent")]
     public GameObject AudioGameParent;
 
-    [Header("Audio Slot Images")]
-    [SerializeField] private Sprite walk;
-    [SerializeField] private Sprite jump;
-    [SerializeField] private Sprite bgm;
-
     [Header("Validation Text")]
     public TMP_Text audioValidText;
 

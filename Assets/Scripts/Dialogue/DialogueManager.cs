@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using Ink.Runtime;
-using UnityEngine.UI;
-using System;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -16,15 +14,15 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI speakerName;
 
     [Header("Choices UI")]
-    [SerializeField] private GameObject choicePrefab;
-    [SerializeField] private GameObject choiceParent;
-    List<Transform> choiceList = new List<Transform>();
+    [SerializeField] private GameObject[] choices;
+    private TextMeshProUGUI[] choicesText;
 
     [Header("Story Dialogue")]
     public bool dialogueIsPlaying;
     private Story currentStory;
     private bool makingChoice;
 
+    private const string SPEAKER_TAG = "speaker";
 
     void Awake()
     {
@@ -44,6 +42,11 @@ public class DialogueManager : MonoBehaviour
     {
         dialogueIsPlaying = false;
         dialoguePanel.SetActive(false);
+
+        choicesText = new TextMeshProUGUI[choices.Length];
+        for (int i = 0; i < choices.Length; i++) {
+            choicesText[i] = choices[i].GetComponentInChildren<TextMeshProUGUI>();
+        }
     }
 
 
@@ -53,52 +56,31 @@ public class DialogueManager : MonoBehaviour
             return;
         }
 
-        if (PlayerController.Instance.currentPlayerAction != PlayerAction.Interact
-            &&Input.GetMouseButtonUp(0) && dialogueIsPlaying && !makingChoice) {
+        if (Input.GetMouseButtonDown(0) && !makingChoice) {
             ContinueStory();
         }
     }
-    public void EnterDialogueMode(TextAsset inkJSON, Action action) {
+
+    public void EnterDialogueMode(TextAsset inkJSON) {
         if (dialogueIsPlaying) {
             return;
         }
         currentStory = new Story(inkJSON.text);
         dialogueIsPlaying = true;
         dialoguePanel.SetActive(true);
-
-        // add functions to ink
-        currentStory.BindExternalFunction("StartMinigame", () =>
-        {
-            action.Invoke();
-            //Debug.Log("Start Minigame");
-        });
         ContinueStory();
-
-        // hide player controls
-        CanvasManager.Instance.GUICanvas.PlayerControlsUI.SetActive(false);
-
-
     }
 
     private void ExitDialogueMode() {
         dialogueIsPlaying = false;
         dialoguePanel.SetActive(false);
         dialogueText.text = "";
-        // hide player controls
-        CanvasManager.Instance.GUICanvas.PlayerControlsUI.SetActive(true);
-
-        // unbind function
-        currentStory.UnbindExternalFunction("StartMinigame");
     }
 
     private void ContinueStory() {
         if (currentStory.canContinue) {
-            string nextLine = currentStory.Continue();
-            if (nextLine.Equals("") && !currentStory.canContinue)
-            {
-                ExitDialogueMode();
-            }
-            dialogueText.text = nextLine;
+            dialogueText.text = currentStory.Continue();
+            HandleTags(currentStory.currentTags);
             DisplayChoices();
         }
         else {
@@ -106,26 +88,49 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
+    private void HandleTags(List<string> currentTags) {
+        
+        foreach (string tag in currentTags) {
+            string[] splitTag = tag.Split(':');
+            if (splitTag.Length != 2) {
+                Debug.LogError("Tag could not be appropriately parsed" + tag);
+            }
+            string tagKey = splitTag[0].Trim();
+            string tagValue = splitTag[1].Trim();
+
+            switch(tagKey) {
+                case SPEAKER_TAG:
+                    speakerName.text = tagValue;
+                    break;
+                default:
+                    Debug.LogWarning("This tag is currently not supported");
+                    break;
+            }
+        }
+
+    }
 
     private void DisplayChoices() {
         List<Choice> currentChoices = currentStory.currentChoices;
-        foreach(Transform child in choiceList)
-        {
-            Destroy(child.gameObject);
-        }
-        choiceList.Clear();
-        if (currentChoices.Count <= 0) {
-            return;
+
+        if (currentChoices.Count > choices.Length) {
+            Debug.LogError("more choices given than UI can support");
         }
 
-        makingChoice = true;
-        
+        int index = 0;
+
         for (int i = 0; i < currentChoices.Count; i++) {
-            GameObject choice = Instantiate(choicePrefab, choiceParent.transform);
-            choice.GetComponentInChildren<TextMeshProUGUI>().text = currentChoices[i].text;
-            int index = i;
-            choice.GetComponent<Button>().onClick.AddListener(()=> MakeChoice(index));
-            choiceList.Add(choice.transform);
+            choices[i].gameObject.SetActive(true);
+            choicesText[i].text = currentChoices[i].text;
+            index++;
+        }
+        
+        for (int i = index; i < choices.Length; i++) {
+            choices[i].gameObject.SetActive(false);
+        }
+
+        if (currentStory.currentChoices.Count != 0) {
+            makingChoice = true;
         }
     }
 

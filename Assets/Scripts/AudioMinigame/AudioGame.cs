@@ -23,11 +23,6 @@ public class AudioGame : Minigame
     [Tooltip("Assign a GameSlot Parent")]
     public GameObject AudioGameParent;
 
-    [Header("Audio Slot Images")]
-    [SerializeField] private Sprite walk;
-    [SerializeField] private Sprite jump;
-    [SerializeField] private Sprite bgm;
-
     [Header("Validation Text")]
     public TMP_Text audioValidText;
 
@@ -106,8 +101,6 @@ public class AudioGame : Minigame
                     audioGameSlot.audioIcon.sprite = gameQuestion.AudioSprite;
                 }
             }
-            
-
             //Debug.Log($"Initialised slot: {state} with image: {slotImages[i].name}");
         }
     }
@@ -129,7 +122,6 @@ public class AudioGame : Minigame
         if (AllSlotsAreCorrect() && !isCompleted)
         {
             isCompleted = true;
-            Debug.Log("Audio Game Done");
         }
     }
 }

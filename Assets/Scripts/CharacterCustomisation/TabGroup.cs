@@ -8,7 +8,8 @@ public class TabGroup : MonoBehaviour
     [SerializeField] private Sprite tabIdle;
     [SerializeField] private Sprite tabHover;
     [SerializeField] private Sprite tabActive;
-
+    [SerializeField] private TabButton selectedTab;
+    [SerializeField] private List<GameObject> objectToSwap;
 
     public void Subscribe(TabButton button)
     {
@@ -23,7 +24,10 @@ public class TabGroup : MonoBehaviour
     public void OnTabEnter(TabButton button)
     {
         ResetTabs();
-        button.background.sprite = tabHover;
+        if(selectedTab == null || button != selectedTab)
+        {
+            button.background.sprite = tabHover;  
+        }
     }
 
     public void OnTabExit(TabButton button)
@@ -33,14 +37,31 @@ public class TabGroup : MonoBehaviour
 
     public void OnTabSelected(TabButton button)
     {
+        selectedTab = button;
         ResetTabs();
         button.background.sprite = tabActive;
+        int index = button.transform.GetSiblingIndex();
+        for(int i=0; i < objectToSwap.Count; i++)
+        {
+            if(i == index)
+            {
+                objectToSwap[i].SetActive(true);
+            }
+            else
+            {
+                objectToSwap[i].SetActive(false);
+            }
+        }
     }
 
     public void ResetTabs()
     {
         foreach(TabButton button in tabButtons)
         {
+            if(selectedTab != null && button == selectedTab)
+            {
+                continue;
+            }
             button.background.sprite = tabIdle;
         }
     }

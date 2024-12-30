@@ -3416,9 +3416,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tabButtons: []
-  tabIdle: {fileID: 0}
-  tabHover: {fileID: 0}
-  tabActive: {fileID: 0}
+  tabIdle: {fileID: 21300000, guid: b1d5fe5caa5e2ca40adc42037fc80c3f, type: 3}
+  tabHover: {fileID: 21300000, guid: 2d0f972b618cf8644b97a84c9f86f032, type: 3}
+  tabActive: {fileID: 21300000, guid: 22a6bfe017ae2e546b2d1e316dd917f2, type: 3}
+  selectedTab: {fileID: 0}
+  objectToSwap:
+  - {fileID: 1648646598}
+  - {fileID: 692878690}
+  - {fileID: 1581944275}
+  - {fileID: 1348304807}
 --- !u!1 &860368211
 GameObject:
   m_ObjectHideFlags: 0
@@ -5209,7 +5215,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1198554192
 MonoBehaviour:
   m_ObjectHideFlags: 0

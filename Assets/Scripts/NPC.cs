@@ -33,7 +33,7 @@ public class NPC : MonoBehaviour
     {
         foreach (var effect in CompletedEffects)
         {
-            if (effect == null)
+            if (effect == null || effect.gameObject == null)
                 continue;
 
             switch (effect.completedEffects)
@@ -42,7 +42,10 @@ public class NPC : MonoBehaviour
                     StartCoroutine(DeactivateGameObject(effect.gameObject, 2f));
                     break;
                 case global::CompletedEffects.PlayAnimation:
-                    effect.gameObject.GetComponent<Obstacle>()?.PlayAnimation();
+                    if (effect.gameObject.TryGetComponent<Obstacle>(out Obstacle obstacle))
+                    {
+                        obstacle.PlayAnimation();
+                    }
                     break;
             }
         }

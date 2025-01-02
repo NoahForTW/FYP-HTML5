@@ -12,7 +12,7 @@ public class PlayerAnimation : MonoBehaviour
             controller = PlayerController.Instance;
 
         animator = GetComponent<Animator>();
-        controller?.currentPlayerActionEvent.AddListener(SetAnimation);
+        controller?.currentPlayerAction.AddListener(SetAnimation);
     }
 
     void SetAnimation(PlayerAction action)

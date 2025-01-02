@@ -1945,11 +1945,13 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canMove: 1
+  isJumping: 0
+  currentPlayerActionEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  currentPlayerAction: 0
   movementSpeed: 15
-  sprintingSpeed: 20
   jumpForce: 9
-  vCam: {fileID: 43498991}
-  itemPrefab: {fileID: 0}
 --- !u!114 &511464595
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4926,7 +4928,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetCamera: {fileID: 1932984368}
-  renderTexture: {fileID: 8400000, guid: 26956aafc5f8e324787b9716ca19d445, type: 2}
+  renderTexture: {fileID: 0}
   rawImage: {fileID: 1462134679}
   choseAVGE: {fileID: 1325609799}
   choseGDT: {fileID: 1545491742}

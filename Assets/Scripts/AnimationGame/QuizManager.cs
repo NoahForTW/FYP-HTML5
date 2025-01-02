@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class QuizManager : MonoBehaviour
+public class QuizManager : Minigame
 {
     public List<QuestionAndAnswers> _qNa;
     public GameObject[] options;
@@ -31,6 +31,7 @@ public class QuizManager : MonoBehaviour
         _quizPanel.SetActive(false);
         _gOPanel.SetActive(true);
         _scoreTxt.text = _score + "/" + _totalQuestions;
+        StartCoroutine(EndMinigame());
     }
 
     public void retry()
@@ -83,5 +84,11 @@ public class QuizManager : MonoBehaviour
             Debug.Log("Out Of Questions");
             GameOver();
         }
+    }
+
+    IEnumerator EndMinigame()
+    {
+        yield return new WaitForSeconds(1);
+        isCompleted = true;
     }
 }

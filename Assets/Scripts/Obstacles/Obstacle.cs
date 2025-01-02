@@ -25,7 +25,7 @@ public class Obstacle : MonoBehaviour
         switch (CompletionEffect)
         {
             case global::CompletionEffects.Deactivate:
-                StartCoroutine(DeactivateGameObject(this.gameObject, 2f));
+                StartDeactivativeGameObject();
                 break;
             case global::CompletionEffects.PlayAnimation:
                 PlayAnimation();
@@ -37,6 +37,10 @@ public class Obstacle : MonoBehaviour
         Animator?.SetBool(AnimationName, true);
     }
 
+    public void StartDeactivativeGameObject()
+    {
+        StartCoroutine(DeactivateGameObject(this.gameObject, 2f));
+    }
     IEnumerator DeactivateGameObject(GameObject go, float duration)
     {
         yield return new WaitForSeconds(duration);

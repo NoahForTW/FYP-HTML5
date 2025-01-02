@@ -110,7 +110,7 @@ public class LineMinigame : Minigame
         }
         AddColliderToDrawing(line3d, lineRenderer);
 
-
+        isCompleted = true;
     }
 
     void AddColliderToDrawing(GameObject drawing, LineRenderer lineRenderer)

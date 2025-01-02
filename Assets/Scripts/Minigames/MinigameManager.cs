@@ -117,6 +117,7 @@ public class MinigameManager : MonoBehaviour
     {
         PauseTime = false;
         CanvasManager.Instance.TimerCanvas?.gameObject.SetActive(true);
+        CanvasManager.Instance.GUICanvas.CanvasGroup.blocksRaycasts = false;
         CurrentMinigame.gameObject.SetActive(true);
         GameTimer = 0f;
     }
@@ -141,6 +142,7 @@ public class MinigameManager : MonoBehaviour
     public void EndMinigame()
     {
         CanvasManager.Instance.TimerCanvas?.gameObject.SetActive(false);
+        CanvasManager.Instance.GUICanvas.CanvasGroup.blocksRaycasts = true;
         CurrentMinigame.gameObject.SetActive(false);
         Notification.SetActive(false);
         SetMinigame(MinigameType.None);

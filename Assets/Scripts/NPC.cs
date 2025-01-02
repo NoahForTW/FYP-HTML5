@@ -7,7 +7,7 @@ public class NPC : MonoBehaviour
 {
     public MinigameType MinigameType;
 
-    public List<MinigameCompletedEffects> CompletedEffects;
+    public List<Obstacle> CompletedEffects;
 
     [Header("Required Completed Minigames")]
     [SerializeField] private List<MinigameType> CompletedMinigames;
@@ -35,19 +35,7 @@ public class NPC : MonoBehaviour
         {
             if (effect == null || effect.gameObject == null)
                 continue;
-
-            switch (effect.completedEffects)
-            {
-                case global::CompletionEffects.Deactivate:
-                    StartCoroutine(DeactivateGameObject(effect.gameObject, 2f));
-                    break;
-                case global::CompletionEffects.PlayAnimation:
-                    if (effect.gameObject.TryGetComponent<Obstacle>(out Obstacle obstacle))
-                    {
-                        obstacle.PlayAnimation();
-                    }
-                    break;
-            }
+            effect.Event.Invoke();
         }
         MinigameManager.Instance.MinigameCompletion.RemoveListener(MinigameCompleted);
     }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -50,7 +51,7 @@ public class VariableSlot : DropSlot
         // set piece color
         Color pieceColor = isPieceCorrect? Color.green : Color.red;
 
-        piece.GetComponent<Image>().color = pieceColor;
+        piece.GetComponentInChildren<TextMeshProUGUI>().color = pieceColor;
         
     }
 }

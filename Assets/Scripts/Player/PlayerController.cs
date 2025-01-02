@@ -74,7 +74,7 @@ public class PlayerController : MonoBehaviour
             PlayerMovement(currentPlayerAction);
         }
 
-        if (currentPlayerAction == global::PlayerAction.Jump)
+        if (currentPlayerAction == global::PlayerAction.Jump && !isJumping)
         {
             PlayerJump();
         }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class MatchSystemManager : MonoBehaviour
+public class MatchSystemManager : Minigame
 {
     public List<Material> _colorMaterials;
     private List<MatchEntity> _matchEntities;
@@ -43,6 +43,11 @@ public class MatchSystemManager : MonoBehaviour
         if(_currentMatchCount == _targetMatchCount)
         {
             //woo all paired
+            isCompleted = true;
+        }
+        else
+        {
+            isCompleted = false;
         }
     }
 

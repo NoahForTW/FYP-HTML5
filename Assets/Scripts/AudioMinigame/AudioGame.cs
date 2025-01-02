@@ -101,8 +101,6 @@ public class AudioGame : Minigame
                     audioGameSlot.audioIcon.sprite = gameQuestion.AudioSprite;
                 }
             }
-            
-
             //Debug.Log($"Initialised slot: {state} with image: {slotImages[i].name}");
         }
     }
@@ -124,7 +122,6 @@ public class AudioGame : Minigame
         if (AllSlotsAreCorrect() && !isCompleted)
         {
             isCompleted = true;
-            Debug.Log("Audio Game Done");
         }
     }
 }

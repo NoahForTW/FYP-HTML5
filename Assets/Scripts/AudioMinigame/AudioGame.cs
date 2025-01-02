@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -44,7 +45,24 @@ public class AudioGame : Minigame
     
     void Start()
     {
+        
         InitialisePiecesAndSlots();
+    }
+
+    List<T> ShuffleList<T>(List<T> list)
+    {
+        System.Random random = new System.Random();
+        int n = list.Count;
+        while (n > 1)
+        {
+            int k = random.Next(n);
+            n--;
+            T temp = list[k];
+            list[k] = list[n];
+            list[n] = temp;
+        }
+
+        return list;
     }
 
     public void DisplayTextWithDelay(string message, float delay)
@@ -63,45 +81,32 @@ public class AudioGame : Minigame
 
     void InitialisePiecesAndSlots()
     {
-/*        List<Sprite> slotImages = new List<Sprite> { 
-            walk, 
-            jump, 
-            bgm 
-        };
-
-        if (slotImages.Count < gameQuestions.Count)
-        {
-            Debug.LogWarning("Not enough images for the number of game states!");
-            return;
-        }*/
         AudioSlots.Clear();
+        List<AudioGame_SO> shuffledPieces = ShuffleList(GameQuestions);
+        List<AudioGame_SO> shuffledSlot = ShuffleList(GameQuestions);
 
         for (int i = 0; i < GameQuestions.Count; i++)
         {
-            AudioGame_SO gameQuestion = GameQuestions[i];
-            string audioName = GameQuestions[i].AudioName;
-
             // Instantiate GamePiece and set its state
             GameObject stateGO = Instantiate(GamePiece, GamePieceGroup.transform);
             AudioPieces audioPieces = stateGO.GetComponentInChildren<AudioPieces>();
-            audioPieces.SetText(audioName);
+            audioPieces.SetText(shuffledPieces[i].AudioName);
             audioPieces.parentDuringDrag = AudioGameParent.transform;
 
             // Instantiate GameSlot and assign its state and image
             GameObject slotGO = Instantiate(GameSlot, GameSlotGroup.transform);
-            slotGO.name = audioName + "Parent";
+            slotGO.name = shuffledSlot[i].AudioName + "Parent";
             AudioGameSlot audioGameSlot = slotGO.GetComponentInChildren<AudioGameSlot>();
             if (audioGameSlot != null)
             {
-                audioGameSlot.slotState = audioName; // Set the slot's expected state
+                audioGameSlot.slotState = shuffledSlot[i].AudioName; // Set the slot's expected state
                 AudioSlots.Add(audioGameSlot);
                 // Assign a unique image to the slot
                 if (audioGameSlot.audioIcon != null)
                 {
-                    audioGameSlot.audioIcon.sprite = gameQuestion.AudioSprite;
+                    audioGameSlot.audioIcon.sprite = shuffledSlot[i].AudioSprite;
                 }
             }
-            //Debug.Log($"Initialised slot: {state} with image: {slotImages[i].name}");
         }
     }
 

@@ -66,6 +66,19 @@ public class PlayerController : MonoBehaviour
         }
 
     }
+    private void FixedUpdate()
+    {
+        if (currentPlayerAction == global::PlayerAction.Left ||
+            currentPlayerAction == global::PlayerAction.Right)
+        {
+            PlayerMovement(currentPlayerAction);
+        }
+
+        if (currentPlayerAction == global::PlayerAction.Jump)
+        {
+            PlayerJump();
+        }
+    }
 
     public void SetCurrentPlayerAction(PlayerAction action)
     {
@@ -76,23 +89,21 @@ public class PlayerController : MonoBehaviour
     {
         lastActionTime = Time.time;
         if (!canMove) { return; }
-        switch (action)
+/*        switch (action)
         {
             case global::PlayerAction.Jump:
-                PlayerJump();
+                //PlayerJump();
                 break;
 
 
             case global::PlayerAction.Left:
             case global::PlayerAction.Right:
-                PlayerMovement(action);
+                //PlayerMovement(action);
                 break;
 
-        }
+        }*/
         SetCurrentPlayerAction(action);
-        //playerAnimator.SetBool("Idle", action == global::PlayerAction.Idle);
-        //playerAnimator.SetBool("Walk", action == global::PlayerAction.Right || action == global::PlayerAction.Left);
-
+        
     }
 
 

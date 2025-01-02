@@ -38,10 +38,10 @@ public class NPC : MonoBehaviour
 
             switch (effect.completedEffects)
             {
-                case global::CompletedEffects.Deactivate:
+                case global::CompletionEffects.Deactivate:
                     StartCoroutine(DeactivateGameObject(effect.gameObject, 2f));
                     break;
-                case global::CompletedEffects.PlayAnimation:
+                case global::CompletionEffects.PlayAnimation:
                     if (effect.gameObject.TryGetComponent<Obstacle>(out Obstacle obstacle))
                     {
                         obstacle.PlayAnimation();
@@ -75,14 +75,8 @@ public class NPC : MonoBehaviour
 public class MinigameCompletedEffects
 {
     public GameObject gameObject;
-    public CompletedEffects completedEffects;
+    public CompletionEffects completedEffects;
 }
 
-public enum CompletedEffects
-{
-    None,
-    Deactivate,
-    PlayAnimation
-}
 
 

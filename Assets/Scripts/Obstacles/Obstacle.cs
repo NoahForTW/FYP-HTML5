@@ -1,19 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.Events;
+public enum CompletionEffects
+{
+    None,
+    Deactivate,
+    PlayAnimation
+}
+[RequireComponent(typeof(Animator))]
 public class Obstacle : MonoBehaviour
 {
-    Animator animator;
+    Animator Animator;
     public string AnimationName;
-
+    public UnityEvent Event;
+    public CompletionEffects completionEffect;
     private void Start()
     {
-        animator = GetComponent<Animator>();
+        Animator = GetComponent<Animator>();
     }
+
 
     public void PlayAnimation()
     {
-        animator?.SetBool(AnimationName, true);
+        Animator?.SetBool(AnimationName, true);
     }
 }

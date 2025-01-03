@@ -20,13 +20,6 @@ public class GearSlot : DropSlot
             GearPiece gearPiece = droppedObject.GetComponent<GearPiece>();
             if (gearPiece != null)
             {
-                // Check if slot already contains a gear piece
-                if (isGearPlaced)
-                {
-                    BooleanGame.Instance.DisplayValidation("Slot already filled!", 2f);
-                    return;
-                }
-
                 // Validate the gear type
                 if (gearPiece.gearType == requiredGearType)
                 {
@@ -37,6 +30,7 @@ public class GearSlot : DropSlot
                 else
                 {
                     BooleanGame.Instance.DisplayValidation("Incorrect Piece", 2f);
+                    isGearPlaced = false; // Mark slot as filled
                 }
             }
         }
@@ -47,13 +41,13 @@ public class GearSlot : DropSlot
         return !isGearPlaced;
     }
 
-    public void ClearSlot()
-    {
-        if (currentGearPiece != null)
-        {
-            currentGearPiece.ResetPosition(); // Move the gear piece back to its original position
-            currentGearPiece = null; // Clear reference
-        }
-        isGearPlaced = false; // Reset slot state
-    }
+    //public void ClearSlot()
+    //{
+    //    if (currentGearPiece != null)
+    //    {
+    //        currentGearPiece.ResetPosition(); // Move the gear piece back to its original position
+    //        currentGearPiece = null; // Clear reference
+    //    }
+    //    isGearPlaced = false; // Reset slot state
+    //}
 }

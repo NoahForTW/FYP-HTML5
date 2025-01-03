@@ -34,7 +34,7 @@ public class PlayerController : MonoBehaviour
 
     private float lastActionTime = 0f; // Tracks the time of the last action
     private float inactivityThreshold = 0.5f;
-    private void Awake  ()
+    private void Awake()
     {
         if (Instance != null && Instance != this)
         {
@@ -59,7 +59,9 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        if (Time.time - lastActionTime > inactivityThreshold && !isJumping)
+        if (Time.time - lastActionTime > inactivityThreshold 
+            && !isJumping
+            && currentPlayerAction != global::PlayerAction.Idle)
         {
             SetCurrentPlayerAction(global::PlayerAction.Idle);
             playerRb.velocity = Vector3.zero;
@@ -74,7 +76,7 @@ public class PlayerController : MonoBehaviour
             PlayerMovement(currentPlayerAction);
         }
 
-        if (currentPlayerAction == global::PlayerAction.Jump)
+        if (currentPlayerAction == global::PlayerAction.Jump && !isJumping)
         {
             PlayerJump();
         }

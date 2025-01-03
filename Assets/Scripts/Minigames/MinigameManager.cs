@@ -118,6 +118,7 @@ public class MinigameManager : MonoBehaviour
         PauseTime = false;
         CanvasManager.Instance.TimerCanvas?.gameObject.SetActive(true);
         CanvasManager.Instance.GUICanvas.CanvasGroup.blocksRaycasts = false;
+        CanvasManager.Instance.GUICanvas.PlayerControlsUI.gameObject.SetActive(false);
         CurrentMinigame.gameObject.SetActive(true);
         GameTimer = 0f;
     }
@@ -144,6 +145,7 @@ public class MinigameManager : MonoBehaviour
         CanvasManager.Instance.TimerCanvas?.gameObject.SetActive(false);
         CanvasManager.Instance.GUICanvas.CanvasGroup.blocksRaycasts = true;
         CurrentMinigame.gameObject.SetActive(false);
+        CanvasManager.Instance.GUICanvas.PlayerControlsUI.gameObject.SetActive(true);
         Notification.SetActive(false);
         SetMinigame(MinigameType.None);
     }

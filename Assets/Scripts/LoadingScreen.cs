@@ -33,11 +33,11 @@ public class LoadingScreen : MonoBehaviour
             // Increment artificial progress gradually to simulate loading.
             if (artificialProgress < realProgress)
             {
-                artificialProgress = Mathf.MoveTowards(artificialProgress, realProgress, Time.deltaTime * 0.5f); // Adjust speed as needed.
+                artificialProgress = Mathf.MoveTowards(artificialProgress, realProgress, Time.deltaTime * 0.45f); // Adjust speed as needed.
             }
             else if (realProgress >= 0.9f && artificialProgress < 1f)
             {
-                artificialProgress = Mathf.MoveTowards(artificialProgress, 1f, Time.deltaTime * 0.3f); // Final slow increment to 100%.
+                artificialProgress = Mathf.MoveTowards(artificialProgress, 1f, Time.deltaTime * 0.2f); // Final slow increment to 100%.
             }
 
             // Update the progress bar and text.

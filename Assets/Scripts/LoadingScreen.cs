@@ -8,11 +8,10 @@ using TMPro;
 public class LoadingScreen : MonoBehaviour
 {
     [SerializeField] private Slider progressBar; // Reference to a UI slider for progress.
-    [SerializeField] private TMP_Text loadingText;
+    [SerializeField] private TMP_Text loadingText; // Reference to the "Loading..." text.
+    [SerializeField] private TMP_Text loadingBarText; // Reference to the percentage text.
 
-    [SerializeField] private TMP_Text loadingBarText;
-
-    // Optional: Add hints to loading screen
+    // Optional: Add a hint dialogue into loading scene
 
     private void Start()
     {
@@ -22,30 +21,35 @@ public class LoadingScreen : MonoBehaviour
 
     private IEnumerator LoadTargetScene()
     {
-        float timer = 0;
-
+        float artificialProgress = 0; // Artificial progress value.
         AsyncOperation operation = SceneManager.LoadSceneAsync(SceneLoader.TargetScene);
         operation.allowSceneActivation = false;
 
-        // Update progress bar until the scene is ready.
         while (!operation.isDone)
         {
-            // Progress ranges from 0.0f to 0.9f.
-            float progress = Mathf.Clamp01(operation.progress / 0.9f);
+            // Real progress ranges from 0.0f to 0.9f.
+            float realProgress = Mathf.Clamp01(operation.progress / 0.9f);
+
+            // Increment artificial progress gradually to simulate loading.
+            if (artificialProgress < realProgress)
+            {
+                artificialProgress = Mathf.MoveTowards(artificialProgress, realProgress, Time.deltaTime * 0.5f); // Adjust speed as needed.
+            }
+            else if (realProgress >= 0.9f && artificialProgress < 1f)
+            {
+                artificialProgress = Mathf.MoveTowards(artificialProgress, 1f, Time.deltaTime * 0.3f); // Final slow increment to 100%.
+            }
+
+            // Update the progress bar and text.
             if (progressBar != null)
-            {
-                progressBar.value = progress;
-            }
+                progressBar.value = artificialProgress;
 
-            // Update the loading bar percentage text.
             if (loadingBarText != null)
-            {
-                loadingBarText.text = $"{(progress * 100):0}%"; // Display as a whole number percentage.
-            }
+                loadingBarText.text = $"{(artificialProgress * 100):0}%";
 
-            if (operation.progress >= 0.9f)
+            // When artificial progress reaches 100%, allow the scene to activate.
+            if (artificialProgress >= 1f && realProgress >= 0.9f)
             {
-                // Activate the scene once it's loaded.
                 operation.allowSceneActivation = true;
             }
 
@@ -66,7 +70,7 @@ public class LoadingScreen : MonoBehaviour
             dotCount = (dotCount + 1) % 4;
 
             // Wait for 0.5 seconds before updating again.
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.25f);
         }
     }
 }

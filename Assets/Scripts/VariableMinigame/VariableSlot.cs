@@ -7,7 +7,6 @@ using UnityEngine.UI;
 
 public class VariableSlot : DropSlot
 {
-    public char letter;
     public bool isCorrect = false;
 
     private void Update()
@@ -18,7 +17,7 @@ public class VariableSlot : DropSlot
             VariablePiece piece = child.GetComponentInChildren<VariablePiece>();
             if (piece != null)
             {
-                isPieceCorrect(piece.GetText() == letter.ToString(), piece.gameObject);
+                isPieceCorrect(piece.GetIsCorrentOption(), piece.gameObject);
             }
         }
         else

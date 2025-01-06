@@ -5,9 +5,13 @@ using UnityEngine;
 
 public class NPC : MonoBehaviour
 {
+    public bool IsMinigameCompleted = false;
     public MinigameType MinigameType;
 
     public List<Obstacle> CompletedEffects;
+    
+    [Header("Questions")]
+    public List<ScriptableObject> questions;
 
     [Header("Required Completed Minigames")]
     [SerializeField] private List<MinigameType> CompletedMinigames;
@@ -21,6 +25,7 @@ public class NPC : MonoBehaviour
         if (!canStartMinigame)
             return;
         MinigameManager.Instance.SetMinigame(MinigameType);
+        MinigameManager.Instance.SetQuestions(questions);
         MinigameManager.Instance.MinigameCompletion.AddListener(MinigameCompleted);
     }
 
@@ -31,6 +36,7 @@ public class NPC : MonoBehaviour
     }
     void MinigameCompleted()
     {
+        IsMinigameCompleted = true;
         foreach (var effect in CompletedEffects)
         {
             if (effect == null || effect.gameObject == null)

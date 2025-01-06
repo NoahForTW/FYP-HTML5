@@ -1293,7 +1293,7 @@ MonoBehaviour:
   Event:
     m_PersistentCalls:
       m_Calls: []
-  CompletionEffect: 0
+  CompletionEffect: 2
 --- !u!1 &142267144
 GameObject:
   m_ObjectHideFlags: 0
@@ -1678,10 +1678,10 @@ Transform:
   - {fileID: 1902670328}
   - {fileID: 1470724159}
   - {fileID: 353294665}
-  - {fileID: 485183679}
   - {fileID: 1012667110}
   - {fileID: 691030235}
   - {fileID: 4369137051217984177}
+  - {fileID: 485183679}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &175365568
@@ -1848,9 +1848,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c779b82a933d1647a7392a9caff14d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsMinigameCompleted: 0
   MinigameType: 4
   CompletedEffects:
   - {fileID: 1690869505}
+  questions: []
   CompletedMinigames: 
   inkJSON: {fileID: 4900000, guid: 02c28a7d6ad50654ab274d9d8d81c1a6, type: 3}
 --- !u!1 &213729281 stripped
@@ -7188,7 +7190,7 @@ MonoBehaviour:
   Event:
     m_PersistentCalls:
       m_Calls: []
-  CompletionEffect: 0
+  CompletionEffect: 2
 --- !u!1 &267136128 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 9135e570d25a82346a70b722f614780f,
@@ -13291,6 +13293,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 446891036}
   m_CullTransparentMesh: 1
+--- !u!1 &447139719 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7316840164334339268, guid: ca25308d27987e946b82ea6854776731,
+    type: 3}
+  m_PrefabInstance: {fileID: 7170186163898974439}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &485183679 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3402098919528327761, guid: 27f73716fd5e8cd41ad90a68997dc047,
@@ -16940,7 +16948,7 @@ MonoBehaviour:
   Event:
     m_PersistentCalls:
       m_Calls: []
-  CompletionEffect: 0
+  CompletionEffect: 2
 --- !u!1 &1075603657
 GameObject:
   m_ObjectHideFlags: 0
@@ -17899,12 +17907,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c779b82a933d1647a7392a9caff14d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsMinigameCompleted: 0
   MinigameType: 1
   CompletedEffects:
   - {fileID: 1682056423}
   - {fileID: 1514049280}
   - {fileID: 2013364559}
   - {fileID: 279730545}
+  questions:
+  - {fileID: 11400000, guid: f76965b62602eaf43910ebcffe1cec1b, type: 2}
+  - {fileID: 11400000, guid: d201df4d2ca816847a6f1835d6e1ce9e, type: 2}
+  - {fileID: 11400000, guid: 01c1d4208ee7c1b44a6318ad28660bf0, type: 2}
   CompletedMinigames: 
   inkJSON: {fileID: 4900000, guid: 02c28a7d6ad50654ab274d9d8d81c1a6, type: 3}
 --- !u!1 &1294969142
@@ -19112,6 +19125,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minigameType: 4
   isCompleted: 0
+  Window: {fileID: 0}
   _colorMaterials:
   - {fileID: 2100000, guid: 72e5f387820d4cc4b9188840eadddb9a, type: 2}
   - {fileID: 2100000, guid: 2bd2a8fc13e911c4da2b52c89c822320, type: 2}
@@ -19644,6 +19658,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c779b82a933d1647a7392a9caff14d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsMinigameCompleted: 0
   MinigameType: 2
   CompletedEffects:
   - {fileID: 1605134327}
@@ -19651,6 +19666,7 @@ MonoBehaviour:
   - {fileID: 421219660}
   - {fileID: 238047759}
   - {fileID: 816438265}
+  questions: []
   CompletedMinigames: 
   inkJSON: {fileID: 4900000, guid: 844e8cdfb2c218c459d2298ac5b5e493, type: 3}
 --- !u!1 &1557364355
@@ -20423,6 +20439,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5ecf32f743696f4780fb95317107e92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CurrentQuestions: []
   MinigameCompletion:
     m_PersistentCalls:
       m_Calls: []
@@ -21880,11 +21897,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c779b82a933d1647a7392a9caff14d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsMinigameCompleted: 0
   MinigameType: 3
   CompletedEffects:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 128009352}
+  - {fileID: 1068644509}
+  - {fileID: 250851853}
+  questions:
+  - {fileID: 11400000, guid: f66b5e839fb950146b765ea8b4bdae1d, type: 2}
+  - {fileID: 11400000, guid: cb30efb6658ab7d46abf62e6739d76ca, type: 2}
+  - {fileID: 11400000, guid: 5460ee994054d6d40b6a0e8505315451, type: 2}
   CompletedMinigames: 
   inkJSON: {fileID: 4900000, guid: a990425856d1cfb40a9e0e343a11bb5d, type: 3}
 --- !u!1001 &1888522855
@@ -22919,7 +22941,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 505707575}
   m_Lens:
-    FieldOfView: 60.000004
+    FieldOfView: 62
     OrthographicSize: 10
     NearClipPlane: 0.1
     FarClipPlane: 5000
@@ -22973,7 +22995,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 77.44997, y: -25}
+  m_AnchoredPosition: {x: 77.44995, y: -25}
   m_SizeDelta: {x: 100, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &663097696311993951
@@ -23057,7 +23079,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 1
-  m_FollowOffset: {x: 0, y: 0, z: -25}
+  m_FollowOffset: {x: 0, y: 4.8, z: -25}
   m_XDamping: 1
   m_YDamping: 1
   m_ZDamping: 1
@@ -23296,7 +23318,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 0, y: 41.899994}
+  m_AnchoredPosition: {x: 0, y: 41.900024}
   m_SizeDelta: {x: 0, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2379264149047759425
@@ -23549,7 +23571,7 @@ Transform:
   m_GameObject: {fileID: 6347464721685390652}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -21.3, y: 4.5, z: -12.15}
+  m_LocalPosition: {x: -17.2, y: 8.4, z: -12.15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -23817,7 +23839,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 242.29996, y: -25}
+  m_AnchoredPosition: {x: 242.29993, y: -25}
   m_SizeDelta: {x: 140.5, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &4270425661450221136
@@ -24404,12 +24426,12 @@ PrefabInstance:
     - target: {fileID: 5844570921862521951, guid: f8e4b06e11ad8654a83b72bafaaed0b0,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -21.3
+      value: -17.2
       objectReference: {fileID: 0}
     - target: {fileID: 5844570921862521951, guid: f8e4b06e11ad8654a83b72bafaaed0b0,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.5
+      value: 3.6
       objectReference: {fileID: 0}
     - target: {fileID: 5844570921862521951, guid: f8e4b06e11ad8654a83b72bafaaed0b0,
         type: 3}
@@ -24535,7 +24557,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 5000
-  field of view: 60.000004
+  field of view: 62
   orthographic: 0
   orthographic size: 10
   m_Depth: -1
@@ -24610,7 +24632,7 @@ Transform:
   m_GameObject: {fileID: 7227375200743288649}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -21.3, y: 4.5, z: -12.15}
+  m_LocalPosition: {x: -17.2, y: 8.4, z: -12.15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -24992,6 +25014,31 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 6180390636679337192}
+    - target: {fileID: 8204669532468670972, guid: ca25308d27987e946b82ea6854776731,
+        type: 3}
+      propertyPath: Window
+      value: 
+      objectReference: {fileID: 447139719}
+    - target: {fileID: 8204669532468670972, guid: ca25308d27987e946b82ea6854776731,
+        type: 3}
+      propertyPath: GameQuestions.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8204669532468670972, guid: ca25308d27987e946b82ea6854776731,
+        type: 3}
+      propertyPath: GameQuestions.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8204669532468670972, guid: ca25308d27987e946b82ea6854776731,
+        type: 3}
+      propertyPath: GameQuestions.Array.data[1]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8204669532468670972, guid: ca25308d27987e946b82ea6854776731,
+        type: 3}
+      propertyPath: GameQuestions.Array.data[2]
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -25126,7 +25173,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -1.2649536, y: 44}
+  m_AnchoredPosition: {x: -1.2650146, y: 44}
   m_SizeDelta: {x: -14.13009, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &7664954105813600216

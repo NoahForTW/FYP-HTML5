@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -46,6 +47,13 @@ public class AudioGame : Minigame
     void Start()
     {
         
+        //InitialisePiecesAndSlots();
+    }
+
+    public override void StartMinigame()
+    {
+        base.StartMinigame();
+        GameQuestions = MinigameManager.Instance.GetQuestions().OfType<AudioGame_SO>().ToList();
         InitialisePiecesAndSlots();
     }
 

@@ -10,7 +10,7 @@ public enum MinigameType
     None,
     Audio,
     Variable_Gear,
-    Variable_Spelling,
+    Variable_Type,
     Variable_Wires,
     Drawing,
     ModelTexture,
@@ -21,8 +21,10 @@ public class MinigameManager : MonoBehaviour
 {
     public static MinigameManager Instance;
 
+    [Header("Current Minigame")]
     Minigame CurrentMinigame;
     MinigameType CurrentMinigameType;
+    public List<ScriptableObject> CurrentQuestions;
 
     public UnityEvent MinigameCompletion;
 
@@ -76,6 +78,16 @@ public class MinigameManager : MonoBehaviour
         }
     }
 
+    public void SetQuestions(List<ScriptableObject> questions)
+    {
+        CurrentQuestions = questions;
+    }
+
+    public List<ScriptableObject> GetQuestions()
+    {
+        return CurrentQuestions;
+    }
+
     public MinigameType GetCurrentMinigameType()
     {
         return CurrentMinigameType;
@@ -119,7 +131,7 @@ public class MinigameManager : MonoBehaviour
         CanvasManager.Instance.TimerCanvas?.gameObject.SetActive(true);
         CanvasManager.Instance.GUICanvas.CanvasGroup.blocksRaycasts = false;
         CanvasManager.Instance.GUICanvas.PlayerControlsUI.gameObject.SetActive(false);
-        CurrentMinigame.gameObject.SetActive(true);
+        CurrentMinigame.StartMinigame();
         GameTimer = 0f;
     }
     void UpdateTimer()
@@ -144,7 +156,7 @@ public class MinigameManager : MonoBehaviour
     {
         CanvasManager.Instance.TimerCanvas?.gameObject.SetActive(false);
         CanvasManager.Instance.GUICanvas.CanvasGroup.blocksRaycasts = true;
-        CurrentMinigame.gameObject.SetActive(false);
+        CurrentMinigame.EndMinigame();
         CanvasManager.Instance.GUICanvas.PlayerControlsUI.gameObject.SetActive(true);
         Notification.SetActive(false);
         SetMinigame(MinigameType.None);

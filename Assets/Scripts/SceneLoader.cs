@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour
 {  
-    public static string TargetScene; // Store the scene name to load.
+    [HideInInspector] public static string TargetScene; // Store the scene name to load.
 
     // Method to be called by buttons
     public void LoadSceneWithLoading(string sceneName)

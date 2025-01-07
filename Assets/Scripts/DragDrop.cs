@@ -36,11 +36,11 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     // Triggered while dragging
     public virtual void OnDrag(PointerEventData eventData)
     {
-        if (canvas.renderMode == RenderMode.ScreenSpaceOverlay)
+/*        if (canvas.renderMode == RenderMode.ScreenSpaceOverlay)
         {
             transform.position = Input.mousePosition;
         }
-        else
+        else*/
         {
             var screenPoint = Input.mousePosition;
             screenPoint.z = canvas.planeDistance; //distance of the plane from the camera 

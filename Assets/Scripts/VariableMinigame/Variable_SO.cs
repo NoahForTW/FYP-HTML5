@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,14 @@ public class Variable_SO : ScriptableObject
     [TextArea]
     public string question;
 
-    public string answer;
+    public List<VariableTypeOptions> options;
 
 }
+
+[Serializable]
+public class VariableTypeOptions
+{
+    public string option;
+    public bool isCorrectOption;
+}
+

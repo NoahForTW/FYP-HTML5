@@ -24,17 +24,15 @@ public class GearPiece : DragDrop
 
     private void Start()
     {
+        parentDuringDrag = BooleanGame.Instance.GearGameParent.transform;
         originalPosition = transform.position;
         originalParent = transform.parent;
-
-        parentDuringDrag = BooleanGame.Instance.GearGameParent.transform;
     }
 
     public bool ValidatePiece(GearType expectedType)
     {
         return gearType == expectedType;
     }
-
 
     public override void OnBeginDrag(PointerEventData eventData)
     {

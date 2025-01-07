@@ -4,46 +4,27 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using TMPro;
 
-public class VariablePiece : DragDrop
+public class VariablePiece : MonoBehaviour
 {
     TMP_Text text;
-
-    protected override void Awake()
+    VariableTypeOptions variable;
+    private void Awake()
     {
-        base.Awake();
         text = GetComponentInChildren<TMP_Text>();
+
     }
-    private void Start()
+    public void SetVariable(VariableTypeOptions variable)
     {
-        parentDuringDrag = VariableMinigame.Instance.slotsPieceParent.transform;
-       
+        this.variable = variable;
+        text.text = variable.option;
     }
-    public override void OnBeginDrag(PointerEventData eventData)
+    public bool GetIsCorrentOption()
     {
-        base.OnBeginDrag(eventData);
+        return variable.isCorrectOption;
     }
 
-    public override void OnDrag(PointerEventData eventData)
+    public void OptionClicked()
     {
-        base.OnDrag(eventData);
-    }
-
-    public override void OnEndDrag(PointerEventData eventData)
-    {
-        canvasGroup.alpha = 1.0f;
-        canvasGroup.blocksRaycasts = true;
-
-        transform.position = parentAfterDrag.position;
-        transform.SetParent(parentAfterDrag);
-    }
-
-    public void SetText(string newText)
-    {
-        text.text = newText;
-    }
-
-    public string GetText()
-    {
-        return text.text;
+        VariableMinigame.Instance.QuestionAnswered.Invoke(GetIsCorrentOption());
     }
 }

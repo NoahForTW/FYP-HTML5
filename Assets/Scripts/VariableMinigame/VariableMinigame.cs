@@ -3,24 +3,30 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System.Linq;
+using UnityEngine.Events;
+
 
 public class VariableMinigame : Minigame
 {
     public static VariableMinigame Instance;
-    [SerializeField] public GameObject slotsPieceParent;
-    [SerializeField] public GameObject variablePieceParent;
-    [SerializeField] public GameObject variableSlotParent;
-    [SerializeField] public TMP_Text questionTextUI;
+    // instances
+    [SerializeField] GameObject variablePieceParent;
+    [SerializeField] TMP_Text QuestionTextUI;
+    [SerializeField] GameObject FeedbackGO;
+    [SerializeField] TMP_Text FeedbackText;
 
+    [Header("Questions")]
     [SerializeField] List<Variable_SO> variableQuestions;
-    [SerializeField] public GameObject variableSlotPrefab;
+
+    // prefabs
+    //[SerializeField] public GameObject variableSlotPrefab;
     [SerializeField] public GameObject variablePiecePrefab;
 
     List<QuestionCompleted> questionsCompleted;
-    List<VariableSlot> variableSlots;
-    Variable_SO currentQuestion;
-
-    private void Awake()
+    //List<VariableSlot> variableSlots;
+    QuestionCompleted CurrentQuestion;
+    public UnityEvent<bool> QuestionAnswered;
+    protected void Awake()
     {
         if (Instance != null && Instance != this)
         {
@@ -30,23 +36,14 @@ public class VariableMinigame : Minigame
         {
             Instance = this;
         }
-    }
 
-    private void Start()
-    {
         questionsCompleted = new List<QuestionCompleted>();
-        variableQuestions = ShuffleList(variableQuestions);
-        foreach (Variable_SO variableQuestion in variableQuestions)
-        {
-            QuestionCompleted question = new QuestionCompleted();
-            question.question = variableQuestion;
-            question.completed = false;
-            questionsCompleted.Add(question);
-        }
-        variableSlots = new List<VariableSlot>();
-        SetQuestion(questionsCompleted[0].question);
+        QuestionAnswered.AddListener(QuestionIsAnswered);
+
+       
     }
 
+        
     void Update()
     {
         if (!isAllQuestionCompleted())
@@ -54,20 +51,17 @@ public class VariableMinigame : Minigame
             foreach (QuestionCompleted question in questionsCompleted)
             {
                 // when current question is not completed
-                if (!question.completed && currentQuestion == question.question)
+                if (CurrentQuestion == question && question.completed)
                 {
-                    if (isAllSlotCorrect())
+                    // set to the next question
+                    int currentIndex = questionsCompleted.IndexOf(question);
+                    if (currentIndex + 1 != questionsCompleted.Count
+                        && !questionsCompleted[currentIndex + 1].completed)
                     {
-                        question.completed = true;
-
-                        // set to the next question
-                        int currentIndex = questionsCompleted.IndexOf(question);
-                        if (currentIndex + 1 != questionsCompleted.Count
-                            && !questionsCompleted[currentIndex + 1].completed)
-                        {
-                            SetQuestion(questionsCompleted[currentIndex + 1].question);
-                        }
+                        SetQuestion(questionsCompleted[currentIndex + 1]);
                     }
+
+                    
                 }
             }
         }
@@ -81,33 +75,78 @@ public class VariableMinigame : Minigame
 
     }
 
-    void SetQuestion(Variable_SO question)
+    public override void StartMinigame()
+    {
+        base.StartMinigame();
+        variableQuestions = MinigameManager.Instance.GetQuestions().OfType<Variable_SO>().ToList();
+        variableQuestions = ShuffleList(variableQuestions);
+        foreach (Variable_SO variableQuestion in variableQuestions)
+        {
+            QuestionCompleted question = new QuestionCompleted();
+            question.Question_SO = variableQuestion;
+            question.completed = false;
+            questionsCompleted.Add(question);
+        }
+        //variableSlots = new List<VariableSlot>();
+        SetQuestion(questionsCompleted[0]);
+    }
+
+    void SetQuestion(QuestionCompleted questionCompleted)
     {
         //clear 
-        variableSlots.Clear();
-        ClearChild(variableSlotParent.transform);
+        //variableSlots.Clear();
+        //ClearChild(variableSlotParent.transform);
         ClearChild(variablePieceParent.transform);
-
-        currentQuestion = question;
-
+        CurrentQuestion = questionCompleted;
+        Variable_SO question_SO = questionCompleted.Question_SO;
         // set question text
-        questionTextUI.text = question.question;
+        QuestionTextUI.text = question_SO.question;
 
-        char[] answerArray = question.answer.ToCharArray();
-        char[] shuffledChar = ShuffleArray(RemoveRepetition((char[])answerArray.Clone()));
+        //char[] answerArray = question.answer.ToCharArray();
+        //char[] shuffledChar = ShuffleArray(RemoveRepetition((char[])answerArray.Clone()));
 
-        foreach (char c in answerArray)
-        {
-            //set slot
-            GameObject slot = Instantiate(variableSlotPrefab, variableSlotParent.transform);
-            slot.GetComponent<VariableSlot>().letter = c;
-            variableSlots.Add(slot.GetComponent<VariableSlot>());
-        }
-        foreach (char c in shuffledChar)
+        /*        foreach (char c in answerArray)
+                {
+                    //set slot
+                    GameObject slot = Instantiate(variableSlotPrefab, variableSlotParent.transform);
+                    slot.GetComponent<VariableSlot>().letter = c;
+                    variableSlots.Add(slot.GetComponent<VariableSlot>());
+                }*/
+        /*        foreach (char c in shuffledChar)
+                {
+                    GameObject piece = Instantiate(variablePiecePrefab, variablePieceParent.transform);
+                    piece.GetComponentInChildren<VariablePiece>().SetText(c.ToString());
+                }*/
+
+        foreach (VariableTypeOptions option in question_SO.options)
         {
             GameObject piece = Instantiate(variablePiecePrefab, variablePieceParent.transform);
-            piece.GetComponentInChildren<VariablePiece>().SetText(c.ToString());
+            piece.GetComponentInChildren<VariablePiece>().SetVariable(option);
+
         }
+
+    }
+
+    void QuestionIsAnswered(bool isCorrect)
+    {
+        StopCoroutine(ShowFeedBack(isCorrect));
+        StartCoroutine(ShowFeedBack(isCorrect));
+    }
+    IEnumerator ShowFeedBack(bool isCorrect)
+    {
+        // show feedback
+        FeedbackGO.SetActive(true);
+        FeedbackText.text = isCorrect ? "Correct!" : "Try Again";
+        FeedbackText.color = isCorrect ? Color.green : Color.red;
+        yield return new WaitForSeconds(1f);
+        if (isCorrect)
+            CurrentQuestion.completed = true;
+        HideFeedback();
+    }
+    void HideFeedback()
+    {
+        // hide feedback
+        FeedbackGO.SetActive(false);
     }
     bool isAllQuestionCompleted()
     {
@@ -120,7 +159,7 @@ public class VariableMinigame : Minigame
         }
         return true;
     }
-    bool isAllSlotCorrect()
+/*    bool isAllSlotCorrect()
     {
         foreach (VariableSlot slot in variableSlots)
         {
@@ -130,7 +169,7 @@ public class VariableMinigame : Minigame
             }
         }
         return true;
-    }
+    }*/
 
     public void ClearChild(Transform parent)
     {
@@ -139,7 +178,7 @@ public class VariableMinigame : Minigame
             Destroy(child.gameObject);
         }
     }
-    public void ResetSlots()
+/*    public void ResetSlots()
     {
         foreach (VariableSlot slot in variableSlots)
         {
@@ -148,8 +187,8 @@ public class VariableMinigame : Minigame
                 Destroy(child.gameObject);
             }
         }
-    }
-    char[] RemoveRepetition(char[] array)
+    }*/
+/*    char[] RemoveRepetition(char[] array)
     {
         HashSet<char> uniqueChars = new HashSet<char>();
         List<char> resultList = new List<char>();
@@ -164,7 +203,7 @@ public class VariableMinigame : Minigame
         }
 
         return resultList.ToArray();
-    }
+    }*/
     List<T> ShuffleList<T>(List<T> list)
     {
         System.Random random = new System.Random();
@@ -180,7 +219,7 @@ public class VariableMinigame : Minigame
 
         return list;
     }
-    char[] ShuffleArray(char[] texts)
+/*    char[] ShuffleArray(char[] texts)
     {
         // Knuth shuffle algorithm :: courtesy of Wikipedia :)
         for (int t = 0; t < texts.Length; t++)
@@ -191,12 +230,12 @@ public class VariableMinigame : Minigame
             texts[r] = tmp;
         }
         return texts;
-    }
+    }*/
 }
 
 
 public class QuestionCompleted
 {
-    public Variable_SO question;
+    public Variable_SO Question_SO;
     public bool completed;
 }

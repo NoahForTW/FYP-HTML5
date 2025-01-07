@@ -7,4 +7,10 @@ public class GUICanvas : MonoBehaviour
 {
     public GameObject PlayerControlsUI;
     public TextMeshProUGUI CoinsText;
+    public CanvasGroup CanvasGroup;
+
+    private void Awake()
+    {
+        CanvasGroup = GetComponent<CanvasGroup>();
+    }
 }

@@ -12,5 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff25d40eb22cb3c439f127adb1e02e64, type: 3}
   m_Name: Sample 1
   m_EditorClassIdentifier: 
-  question: What is the variable type for <color=red>43.5</color>?
-  answer: FLOAT
+  question: <color=red>_____</color> name = "John"
+  options:
+  - option: bool
+    isCorrectOption: 0
+  - option: float
+    isCorrectOption: 0
+  - option: string
+    isCorrectOption: 1
+  - option: char
+    isCorrectOption: 0

@@ -12,5 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff25d40eb22cb3c439f127adb1e02e64, type: 3}
   m_Name: Sample 2
   m_EditorClassIdentifier: 
-  question: What is the variable type for <color=red>false</color>?
-  answer: BOOLEAN
+  question: 'char letter = <color=red>_____</color> '
+  options:
+  - option: 0.56
+    isCorrectOption: 0
+  - option: '''W'''
+    isCorrectOption: 1
+  - option: 25
+    isCorrectOption: 0
+  - option: '"Red"'
+    isCorrectOption: 0

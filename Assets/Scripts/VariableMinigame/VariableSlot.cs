@@ -1,12 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class VariableSlot : DropSlot
 {
-    public char letter;
     public bool isCorrect = false;
 
     private void Update()
@@ -17,7 +17,7 @@ public class VariableSlot : DropSlot
             VariablePiece piece = child.GetComponentInChildren<VariablePiece>();
             if (piece != null)
             {
-                isPieceCorrect(piece.GetText() == letter.ToString(), piece.gameObject);
+                isPieceCorrect(piece.GetIsCorrentOption(), piece.gameObject);
             }
         }
         else
@@ -50,7 +50,7 @@ public class VariableSlot : DropSlot
         // set piece color
         Color pieceColor = isPieceCorrect? Color.green : Color.red;
 
-        piece.GetComponent<Image>().color = pieceColor;
+        piece.GetComponentInChildren<TextMeshProUGUI>().color = pieceColor;
         
     }
 }

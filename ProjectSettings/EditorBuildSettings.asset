@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/TitleScene.unity
     guid: 0f1615eb6c7f7be419a7d7aa024cc9a5
   - enabled: 1
+    path: Assets/Scenes/LoadingScene.unity
+    guid: 743c1c25a22988b468401c7e4da5130b
+  - enabled: 1
     path: Assets/Scenes/GDT Level.unity
     guid: 8abb393edce30ab4c8692abdc227ec2f
   - enabled: 1

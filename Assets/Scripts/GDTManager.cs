@@ -38,17 +38,4 @@ public class GDTManager : MonoBehaviour
         customisePanel.SetActive(false);
         titlePanel.SetActive(true);
     }
-
-    public void SwitchToScene(string sceneName)
-    {
-        // Check if the current scene is the target scene
-        if (SceneManager.GetActiveScene().name == sceneName)
-        {
-            Debug.Log("Already in the target scene: " + sceneName);
-            return; // Do nothing if already in the scene
-        }
-
-        // Load the target scene
-        SceneManager.LoadScene(sceneName);
-    }
 }

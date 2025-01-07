@@ -36,11 +36,6 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     // Triggered while dragging
     public virtual void OnDrag(PointerEventData eventData)
     {
-/*        if (canvas.renderMode == RenderMode.ScreenSpaceOverlay)
-        {
-            transform.position = Input.mousePosition;
-        }
-        else*/
         {
             var screenPoint = Input.mousePosition;
             screenPoint.z = canvas.planeDistance; //distance of the plane from the camera 
@@ -69,10 +64,6 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     public IEnumerator SmoothMove(Vector3 start, Vector3 end, float duration, System.Action onComplete = null)
     {
         float elapsed = 0f;
-
-        //start.z = 1f; 
-
-        //end.z = start.z;
 
         while (elapsed < duration)
         {

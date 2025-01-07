@@ -56,7 +56,5 @@ public class GearPiece : DragDrop
     public override void OnDrag(PointerEventData eventData)
     {
         base.OnDrag(eventData);
-        //Debug.Log("Dragging " + gameObject.name);
-
     }
 }

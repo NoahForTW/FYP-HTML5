@@ -40,14 +40,4 @@ public class GearSlot : DropSlot
     {
         return !isGearPlaced;
     }
-
-    //public void ClearSlot()
-    //{
-    //    if (currentGearPiece != null)
-    //    {
-    //        currentGearPiece.ResetPosition(); // Move the gear piece back to its original position
-    //        currentGearPiece = null; // Clear reference
-    //    }
-    //    isGearPlaced = false; // Reset slot state
-    //}
 }

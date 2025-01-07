@@ -26,15 +26,8 @@ public class DropSlot : MonoBehaviour, IDropHandler
         }
 
         GameObject dropped = eventData.pointerDrag;
-/*        DragDrop draggableItem = dropped.GetComponent<DragDrop>();
-        draggableItem.parentSlot = transform;*/
 
         SetThisToParentSlot(dropped);
-        // Smoothly snap the dropped object into the slot
-/*        StartCoroutine(draggableItem.SmoothMove(dropped.transform.position, transform.position, 0.8f, () =>
-        {
-            dropped.transform.SetParent(transform);
-        }));*/
     }
 
     public void SetThisToParentSlot(GameObject dragged)

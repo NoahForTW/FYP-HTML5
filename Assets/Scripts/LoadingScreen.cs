@@ -13,7 +13,9 @@ public class LoadingScreen : MonoBehaviour
     [SerializeField] private TMP_Text loadingBarText; // Reference to the percentage text.
     [SerializeField] private TMP_Text tipText; // Reference to the text displaying tips.
 
+    
     private List<string> tips = new List<string>(); // List to store tips from JSON.
+
 
     private void Start()
     {

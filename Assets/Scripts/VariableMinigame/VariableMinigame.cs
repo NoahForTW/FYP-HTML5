@@ -96,7 +96,7 @@ public class VariableMinigame : Minigame
         //clear 
         //variableSlots.Clear();
         //ClearChild(variableSlotParent.transform);
-        ClearChild(variablePieceParent.transform);
+        MinigameManager.Instance.ClearChild(variablePieceParent.transform);
         CurrentQuestion = questionCompleted;
         Variable_SO question_SO = questionCompleted.Question_SO;
         // set question text
@@ -171,13 +171,7 @@ public class VariableMinigame : Minigame
         return true;
     }*/
 
-    public void ClearChild(Transform parent)
-    {
-        foreach (Transform child in parent)
-        {
-            Destroy(child.gameObject);
-        }
-    }
+
 /*    public void ResetSlots()
     {
         foreach (VariableSlot slot in variableSlots)

@@ -89,7 +89,11 @@ public class AudioGame : Minigame
 
     void InitialisePiecesAndSlots()
     {
+        //clear list & parents
         AudioSlots.Clear();
+        MinigameManager.Instance.ClearChild(GamePieceGroup.transform);
+        MinigameManager.Instance.ClearChild(GameSlotGroup.transform);
+
         List<AudioGame_SO> shuffledPieces = ShuffleList(GameQuestions);
         List<AudioGame_SO> shuffledSlot = ShuffleList(GameQuestions);
 
@@ -136,5 +140,12 @@ public class AudioGame : Minigame
         {
             isCompleted = true;
         }
+    }
+
+    private void OnDisable()
+    {
+        AudioSlots.Clear();
+        MinigameManager.Instance.ClearChild(GamePieceGroup.transform);
+        MinigameManager.Instance.ClearChild(GameSlotGroup.transform);
     }
 }

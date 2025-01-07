@@ -13,9 +13,9 @@ public class Minigame : MonoBehaviour
     protected virtual void OnEnable()
     {
         RectTransform windownRect = Window?.GetComponent<RectTransform>();
-        Vector3 currentPosition = windownRect.position;
+        Vector3 currentPosition = windownRect.anchoredPosition3D;
         RectTransform startTransform = windownRect;
-        startTransform.position = currentPosition - transform.up * 5;
+        startTransform.anchoredPosition3D = currentPosition - transform.up * 400;
         Tween.UIAnchoredPosition(startTransform, currentPosition, duration: 1, ease: Ease.OutCubic);
     }
     public virtual void StartMinigame()

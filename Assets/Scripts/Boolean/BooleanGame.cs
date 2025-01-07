@@ -28,7 +28,11 @@ public class BooleanGame : Minigame
             Instance = this;
         }
     }
-
+    
+    void InitializeGears()
+    {
+        // get from NPC 
+    }
     public void DisplayValidation(string message, float delay)
     {
         StopAllCoroutines(); // Stop any ongoing coroutine to avoid overlapping

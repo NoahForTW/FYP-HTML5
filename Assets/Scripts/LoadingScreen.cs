@@ -61,6 +61,8 @@ public class LoadingScreen : MonoBehaviour
 
     // TODO: Change the font colour to match the background behind?
     // TODO: Could possible add more to the tips?
+    // TODO: Add a Scene Transition
+
     private void LoadTipsFromJson()
     {
         string filePath = Path.Combine(Application.streamingAssetsPath, "LoadingTips.json");

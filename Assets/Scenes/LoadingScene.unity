@@ -1002,8 +1002,6 @@ MonoBehaviour:
   loadingText: {fileID: 1483944661}
   loadingBarText: {fileID: 1349325072}
   tipText: {fileID: 942883117}
-  transitionAnimator: {fileID: 65385228}
-  transitionDuration: 1
   panelImage: {fileID: 796693471}
   gdtBG:
   - {fileID: 21300000, guid: 19237b5822f446e488302113490e64d1, type: 3}
@@ -1404,7 +1402,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1698751920
 RectTransform:
   m_ObjectHideFlags: 0

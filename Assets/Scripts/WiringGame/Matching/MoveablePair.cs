@@ -63,5 +63,10 @@ public class MoveablePair : MonoBehaviour
             transform.position = other.transform.position;
             Debug.Log("In the Port Box");
         }
+        else
+        {
+            _connected = false;
+            ResetPosition();
+        }
     }
 }

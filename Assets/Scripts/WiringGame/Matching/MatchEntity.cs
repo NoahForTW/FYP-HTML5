@@ -34,6 +34,7 @@ public class MatchEntity : MonoBehaviour
             _matched = (moveable == _moveablePair);
             if (_matched)
             {
+                Debug.Log("Matched");
                 _matchSystemManager.NewMatchRecord(_matched);
                 _feedback.ChangeMaterialWithMatch(_matched);
             }

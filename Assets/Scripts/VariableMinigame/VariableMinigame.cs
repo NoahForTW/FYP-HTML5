@@ -22,9 +22,9 @@ public class VariableMinigame : Minigame
     //[SerializeField] public GameObject variableSlotPrefab;
     [SerializeField] public GameObject variablePiecePrefab;
 
-    List<QuestionCompleted> questionsCompleted;
+    List<VariableQuestionCompleted> questionsCompleted;
     //List<VariableSlot> variableSlots;
-    QuestionCompleted CurrentQuestion;
+    VariableQuestionCompleted CurrentQuestion;
     public UnityEvent<bool> QuestionAnswered;
     protected void Awake()
     {
@@ -37,7 +37,7 @@ public class VariableMinigame : Minigame
             Instance = this;
         }
 
-        questionsCompleted = new List<QuestionCompleted>();
+        questionsCompleted = new List<VariableQuestionCompleted>();
         QuestionAnswered.AddListener(QuestionIsAnswered);
 
        
@@ -48,7 +48,7 @@ public class VariableMinigame : Minigame
     {
         if (!isAllQuestionCompleted())
         {
-            foreach (QuestionCompleted question in questionsCompleted)
+            foreach (VariableQuestionCompleted question in questionsCompleted)
             {
                 // when current question is not completed
                 if (CurrentQuestion == question && question.completed)
@@ -82,7 +82,7 @@ public class VariableMinigame : Minigame
         variableQuestions = ShuffleList(variableQuestions);
         foreach (Variable_SO variableQuestion in variableQuestions)
         {
-            QuestionCompleted question = new QuestionCompleted();
+            VariableQuestionCompleted question = new VariableQuestionCompleted();
             question.Question_SO = variableQuestion;
             question.completed = false;
             questionsCompleted.Add(question);
@@ -91,7 +91,7 @@ public class VariableMinigame : Minigame
         SetQuestion(questionsCompleted[0]);
     }
 
-    void SetQuestion(QuestionCompleted questionCompleted)
+    void SetQuestion(VariableQuestionCompleted questionCompleted)
     {
         //clear 
         //variableSlots.Clear();
@@ -150,7 +150,7 @@ public class VariableMinigame : Minigame
     }
     bool isAllQuestionCompleted()
     {
-        foreach (QuestionCompleted question in questionsCompleted)
+        foreach (VariableQuestionCompleted question in questionsCompleted)
         {
             if (!question.completed)
             {
@@ -228,7 +228,7 @@ public class VariableMinigame : Minigame
 }
 
 
-public class QuestionCompleted
+public class VariableQuestionCompleted
 {
     public Variable_SO Question_SO;
     public bool completed;

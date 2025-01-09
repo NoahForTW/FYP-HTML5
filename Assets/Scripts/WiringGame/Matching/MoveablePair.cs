@@ -9,6 +9,8 @@ public class MoveablePair : MonoBehaviour
     private Vector3 _initialPosition;
     private bool _connected;
 
+    public GameObject _resetPosition;
+
     private const string _portTag = "Port";
     private const float _dragResponseThreshold = 2;
 
@@ -17,7 +19,13 @@ public class MoveablePair : MonoBehaviour
     {
         _mainCam = Camera.main;
         _CameraZDist = _mainCam.WorldToScreenPoint(transform.position).z;
-        SetInitialPosition(transform.position);
+        StartCoroutine(SetInitalPosCoroutine());
+    }
+
+    IEnumerator SetInitalPosCoroutine()
+    {
+        yield return new WaitForSeconds(1.5f);
+        SetInitialPosition(_resetPosition.transform.position);
     }
     private void OnMouseDrag()
     {
@@ -62,6 +70,11 @@ public class MoveablePair : MonoBehaviour
             _connected = true;
             transform.position = other.transform.position;
             Debug.Log("In the Port Box");
+        }
+        else
+        {
+            _connected = false;
+            ResetPosition();
         }
     }
 }

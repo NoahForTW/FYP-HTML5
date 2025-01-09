@@ -10,6 +10,9 @@ public class MatchSystemManager : Minigame
     private int _targetMatchCount;
     private int _currentMatchCount = 0;
 
+    public GameObject _gamePanel;
+    public GameObject _completePanel;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -43,12 +46,21 @@ public class MatchSystemManager : Minigame
         if(_currentMatchCount == _targetMatchCount)
         {
             //woo all paired
-            isCompleted = true;
+            StartCoroutine(ShowComplete());
         }
         else
         {
             isCompleted = false;
         }
+    }
+
+    IEnumerator ShowComplete()
+    {
+        _gamePanel.SetActive(false);
+        _completePanel.SetActive(true);
+        yield return new WaitForSeconds(2);
+        isCompleted = true;
+        Debug.Log("Complete scene done");
     }
 
     public static void Shuffle<T>(IList<T> list)

@@ -6,7 +6,7 @@ public class MoveablePair : MonoBehaviour
 {
     private Camera _mainCam;
     private float _CameraZDist;
-    private Vector3 _initialPosition;
+    //private Vector3 _initialPosition;
     private bool _connected;
 
     public GameObject _resetPosition;
@@ -19,7 +19,7 @@ public class MoveablePair : MonoBehaviour
     {
         _mainCam = Camera.main;
         _CameraZDist = _mainCam.WorldToScreenPoint(transform.position).z;
-        StartCoroutine(SetInitalPosCoroutine());
+        //StartCoroutine(SetInitalPosCoroutine());
     }
 
     IEnumerator SetInitalPosCoroutine()
@@ -55,12 +55,12 @@ public class MoveablePair : MonoBehaviour
     }
     public void SetInitialPosition(Vector3 NewPosition)
     {
-        _initialPosition = NewPosition;
-        transform.position = _initialPosition;
+        //_initialPosition = NewPosition;
+        //transform.position = _initialPosition;
     }
-    private void ResetPosition()
+    public void ResetPosition()
     {
-        transform.position = _initialPosition;
+        transform.position = _resetPosition.transform.position;
     }
 
     private void OnTriggerEnter(Collider other)

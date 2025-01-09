@@ -46,9 +46,7 @@ public class MatchSystemManager : Minigame
         if(_currentMatchCount == _targetMatchCount)
         {
             //woo all paired
-            isCompleted = true;
-            _gamePanel.SetActive(false);
-            _completePanel.SetActive(true);
+            StartCoroutine(ShowComplete());
         }
         else
         {
@@ -56,6 +54,14 @@ public class MatchSystemManager : Minigame
         }
     }
 
+    IEnumerator ShowComplete()
+    {
+        _gamePanel.SetActive(false);
+        _completePanel.SetActive(true);
+        yield return new WaitForSeconds(2);
+        isCompleted = true;
+        Debug.Log("Complete scene done");
+    }
 
     public static void Shuffle<T>(IList<T> list)
     {

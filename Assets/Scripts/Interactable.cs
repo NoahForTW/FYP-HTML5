@@ -33,11 +33,6 @@ public class Interactable : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            /*if (currentInteractionButton != null)
-            {
-                Destroy(currentInteractionButton);
-                currentInteractionButton = null;
-            }*/
             canInteract =false;
         }
     }

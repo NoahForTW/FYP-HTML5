@@ -12,16 +12,55 @@ public class LoadingScreen : MonoBehaviour
     [SerializeField] private TMP_Text loadingText; // Reference to the "Loading..." text.
     [SerializeField] private TMP_Text loadingBarText; // Reference to the percentage text.
     [SerializeField] private TMP_Text tipText; // Reference to the text displaying tips.
-
+    [SerializeField] private Image panelImage; 
+    [SerializeField] private Sprite[] gdtBG;
+    [SerializeField] private Sprite[] agveFG;
+    
     private List<string> tips = new List<string>(); // List to store tips from JSON.
 
     private void Start()
     {
+        SetBackgroundImage();
         LoadTipsFromJson();
         DisplayRandomTip();
         StartCoroutine(LoadTargetScene());
         StartCoroutine(AnimateLoadingText());
     }
+
+    private void SetBackgroundImage()
+    {
+        if (panelImage == null)
+        {
+            Debug.LogError("Background panel image is not assigned.");
+            return;
+        }
+
+        Sprite[] selectedArray = null;
+
+        // Determine which background array to use based on the target scene
+        if (SceneLoader.TargetScene == "GDT Level") // Replace with your actual scene names
+        {
+            selectedArray = gdtBG;
+        }
+        else if (SceneLoader.TargetScene == "AVGEScene")
+        {
+            selectedArray = agveFG;
+        }
+
+        if (selectedArray != null && selectedArray.Length > 0)
+        {
+            // Randomly pick a background image from the selected array
+            Sprite randomBackground = selectedArray[Random.Range(0, selectedArray.Length)];
+            panelImage.sprite = randomBackground;
+        }
+        else
+        {
+            Debug.LogError("No backgrounds found for the selected scene.");
+        }
+    }
+
+    // TODO: Could possible add more to the tips?
+    // TODO: Add a Scene Transition
 
     private void LoadTipsFromJson()
     {
@@ -58,11 +97,14 @@ public class LoadingScreen : MonoBehaviour
         operation.allowSceneActivation = false;
 
         // Variables for random loading speed
-        float currentSpeed = Random.Range(0.3f, 0.6f); // Initial random speed.
-        float speedChangeInterval = Random.Range(1f, 2f); // Time before changing speed.
-        //Debug.Log($"Initial speed: {currentSpeed:F2}, Speed change interval: {speedChangeInterval:F2}s");
+        float currentSpeed = Random.Range(0.2f, 0.5f); // Initial random speed.
+        float speedChangeInterval = Random.Range(0.5f, 1f); // Time before changing speed.
 
         float elapsedTime = 0f;
+
+        // Threshold for changing the tip
+        float tipChangeThreshold = Random.Range(0.2f, 0.8f);
+        bool tipChanged = false;
 
         while (!operation.isDone)
         {
@@ -79,9 +121,6 @@ public class LoadingScreen : MonoBehaviour
                 currentSpeed = Random.Range(0.2f, 0.7f); // Pick a new speed.
                 speedChangeInterval = Random.Range(1f, 2.5f); // Set a new interval.
                 elapsedTime = 0f; // Reset the timer.
-
-                // Log the new speed and interval
-                //Debug.Log($"New speed: {currentSpeed:F2}, New interval: {speedChangeInterval:F2}s");
             }
 
             // Ensure final progress towards 100% is slower and smoother.
@@ -97,6 +136,13 @@ public class LoadingScreen : MonoBehaviour
             if (loadingBarText != null)
                 loadingBarText.text = $"{(artificialProgress * 100):0}%";
 
+            // Check for the threshold and change the tip
+            if (!tipChanged && artificialProgress >= tipChangeThreshold)
+            {
+                DisplayRandomTip(); // Change the tip
+                tipChanged = true;  // Ensure this happens only once
+            }
+
             // Allow scene activation once progress is 100%.
             if (artificialProgress >= 1f && realProgress >= 0.9f)
             {
@@ -106,6 +152,7 @@ public class LoadingScreen : MonoBehaviour
             yield return null;
         }
     }
+
 
     private IEnumerator AnimateLoadingText()
     {

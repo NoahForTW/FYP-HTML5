@@ -161,6 +161,13 @@ public class MinigameManager : MonoBehaviour
         Notification.SetActive(false);
         SetMinigame(MinigameType.None);
     }
+    public void ClearChild(Transform parent)
+    {
+        foreach (Transform child in parent)
+        {
+            Destroy(child.gameObject);
+        }
+    }
     private void Update()
     {
         if (CurrentMinigame != null)

@@ -5,9 +5,10 @@ using UnityEngine.EventSystems;
 
 public class GearSlot : DropSlot
 {
-    public GearType requiredGearType; // The type of gear expected for this slot
-    public bool isGearPlaced; // Tracks if the slot is correctly filled
-    private GearPiece currentGearPiece; // Reference to the piece in the slot
+    public GameObject requiredGear;
+    //public GearType requiredGearType; // The type of gear expected for this slot
+    public bool isGearCorrect = false; // Tracks if the slot is correctly filled
+    //private GearPiece currentGearPiece; // Reference to the piece in the slot
 
     public override void OnDrop(PointerEventData eventData)
     {
@@ -21,33 +22,16 @@ public class GearSlot : DropSlot
             if (gearPiece != null)
             {
                 // Validate the gear type
-                if (gearPiece.gearType == requiredGearType)
-                {
-                    BooleanGame.Instance.DisplayValidation("Correct Piece", 2f);
-                    isGearPlaced = true; // Mark slot as filled
-                    currentGearPiece = gearPiece; // Store reference to the piece
-                }
-                else
-                {
-                    BooleanGame.Instance.DisplayValidation("Incorrect Piece", 2f);
-                    isGearPlaced = false; // Mark slot as filled
-                }
+                //if (gearPiece.gearType == requiredGearType)
+                isGearCorrect = droppedObject == requiredGear;
+                string displayString = droppedObject == requiredGear ? "Correct Piece" : "Incorrect Piece";
+                BooleanGame.Instance.DisplayValidation(displayString, 2f);
             }
         }
     }
 
-    public bool IsSlotEmpty()
+    public bool IsGearCorrect()
     {
-        return !isGearPlaced;
+        return isGearCorrect;
     }
-
-    //public void ClearSlot()
-    //{
-    //    if (currentGearPiece != null)
-    //    {
-    //        currentGearPiece.ResetPosition(); // Move the gear piece back to its original position
-    //        currentGearPiece = null; // Clear reference
-    //    }
-    //    isGearPlaced = false; // Reset slot state
-    //}
 }

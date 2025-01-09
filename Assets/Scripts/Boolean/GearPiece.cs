@@ -25,8 +25,8 @@ public class GearPiece : DragDrop
     private void Start()
     {
         parentDuringDrag = BooleanGame.Instance.GearGameParent.transform;
-        originalPosition = transform.position;
-        originalParent = transform.parent;
+        //originalPosition = transform.position;
+        //originalParent = transform.parent;
     }
 
     public bool ValidatePiece(GearType expectedType)
@@ -37,8 +37,8 @@ public class GearPiece : DragDrop
     public override void OnBeginDrag(PointerEventData eventData)
     {
         base.OnBeginDrag(eventData);
-        originalPosition = transform.position;
-        originalParent = transform.parent;
+        //originalPosition = transform.position;
+        //originalParent = transform.parent;
     }
 
     public override void OnEndDrag(PointerEventData eventData)
@@ -48,9 +48,13 @@ public class GearPiece : DragDrop
 
     public void ResetPosition()
     {
+        StartCoroutine(SmoothMove(transform.position, parentAfterDrag.position, 0.8f, () =>
+        {
+            transform.SetParent(parentAfterDrag);
+        }));
         // Reset to the original position and parent
-        transform.SetParent(originalParent);
-        transform.position = originalPosition;
+/*        transform.SetParent(parentAfterDrag);
+        transform.position = originalPosition;*/
     }
 
     public override void OnDrag(PointerEventData eventData)

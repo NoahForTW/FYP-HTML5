@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu]
-public class BooleanGame_SO : MonoBehaviour
+public class BooleanGame_SO : ScriptableObject
 {
     [TextArea]
     public string Question;

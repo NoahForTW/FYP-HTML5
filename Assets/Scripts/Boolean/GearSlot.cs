@@ -7,7 +7,7 @@ public class GearSlot : DropSlot
 {
     public GameObject requiredGear;
     //public GearType requiredGearType; // The type of gear expected for this slot
-    public bool isGearPlaced; // Tracks if the slot is correctly filled
+    public bool isGearCorrect = false; // Tracks if the slot is correctly filled
     //private GearPiece currentGearPiece; // Reference to the piece in the slot
 
     public override void OnDrop(PointerEventData eventData)
@@ -23,15 +23,15 @@ public class GearSlot : DropSlot
             {
                 // Validate the gear type
                 //if (gearPiece.gearType == requiredGearType)
-                isGearPlaced = droppedObject == requiredGear;
+                isGearCorrect = droppedObject == requiredGear;
                 string displayString = droppedObject == requiredGear ? "Correct Piece" : "Incorrect Piece";
                 BooleanGame.Instance.DisplayValidation(displayString, 2f);
             }
         }
     }
 
-    public bool IsSlotEmpty()
+    public bool IsGearCorrect()
     {
-        return !isGearPlaced;
+        return isGearCorrect;
     }
 }

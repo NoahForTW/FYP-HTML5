@@ -20,7 +20,10 @@ public class UVModelSide : MonoBehaviour
     {
         canChangeTexture = newBool;
     }
-
+    public void PromptFeedback()
+    {
+        UVTextureMinigame.Instance.TextureIsPlaced(IsCurrentTextureCorrect());
+    }
     public void CompletedVFX(ParticleSystem particleSystem, float duration)
     {
         // play particle for a fe seconds ??

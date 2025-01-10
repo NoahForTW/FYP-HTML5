@@ -7,14 +7,24 @@ public class ModelInteraction : MonoBehaviour
     protected float originalSize;
     protected bool isDragging = false;
 
+    Vector3 mouseDelta;
+    private Vector3 previousMousePosition;
+
     protected virtual void Start()
     {
         originalSize = transform.localScale.x;
     }
     protected void OnMouseDrag()
     {
-        isDragging = Input.GetAxis("Mouse X") != 0 ||
-            Input.GetAxis("Mouse Y") != 0;
+        Vector3 currentMousePosition = Input.mousePosition;
+        mouseDelta = currentMousePosition - previousMousePosition;
+
+        // Determine if the mouse is moving
+        isDragging = mouseDelta.magnitude > 0;
+        //Debug.Log($"Mouse Delta: {mouseDelta}");
+
+        // Update the previous mouse position
+        previousMousePosition = currentMousePosition;
 
     }
     protected void OnMouseUp()
@@ -23,12 +33,12 @@ public class ModelInteraction : MonoBehaviour
     }
     protected virtual void MoveModel(float speed)
     {
-        transform.Translate(new Vector3(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"), 0) * speed, Space.World);
+        transform.Translate(mouseDelta.normalized * speed, Space.World);
     }
 
     protected virtual void RotateModel(float speed)
     {
-        transform.Rotate(new Vector3(Input.GetAxis("Mouse Y"), -Input.GetAxis("Mouse X"), 0)
+        transform.Rotate(new Vector3(mouseDelta.y, -mouseDelta.x, 0)
                     * speed
                     , Space.World);
     }

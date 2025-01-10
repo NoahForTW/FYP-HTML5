@@ -10,6 +10,7 @@ public class HealthBar : MonoBehaviour
     private int totalHearts;
     private float currentHearts;
     private HeartContainer currentContainer;
+
     // Start is called before the first frame update
     void Start()
     {

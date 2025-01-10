@@ -5,11 +5,11 @@ using UnityEngine;
 public class HealthBar : MonoBehaviour
 {
     public static HealthBar instance;
-    [SerializeField] GameObject heartContainerPrefab;
-    [SerializeField] List<GameObject> heartContainers;
-    int totalHearts;
-    float currentHearts;
-    HeartContainer currentContainer;
+    [SerializeField] private GameObject heartContainerPrefab;
+    [SerializeField] private List<GameObject> heartContainers;
+    private int totalHearts;
+    private float currentHearts;
+    private HeartContainer currentContainer;
     // Start is called before the first frame update
     void Start()
     {

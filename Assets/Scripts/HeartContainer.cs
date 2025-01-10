@@ -6,8 +6,8 @@ using UnityEngine.UI;
 public class HeartContainer : MonoBehaviour
 {
     public HeartContainer next;
-    [Range(0, 1)] float fill;
-    [SerializeField] Image fillImage;
+    [Range(0, 1)] private float fill;
+    [SerializeField] private Image fillImage;
     public void SetHeart(float count)
     {
         fill = count;

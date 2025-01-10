@@ -10,14 +10,29 @@ public class MatchSystemManager : Minigame
     private int _targetMatchCount;
     private int _currentMatchCount = 0;
 
+    public GameObject _gamePanel;
+    public GameObject _completePanel;
+
     // Start is called before the first frame update
     void Start()
     {
-        _matchEntities = transform.GetComponentsInChildren<MatchEntity>().ToList();
-        _targetMatchCount = _matchEntities.Count;
+
         //SetEntityColours();
     }
 
+    public override void StartMinigame()
+    {
+        base.StartMinigame();
+        _matchEntities = transform.GetComponentsInChildren<MatchEntity>().ToList();
+        _targetMatchCount = _matchEntities.Count;
+        foreach(MatchEntity matchEntity in _matchEntities )
+        {
+            MoveablePair pair = matchEntity._moveablePair;
+            pair.ResetPosition();
+            MatchFeedback feedback = matchEntity._feedback;
+            feedback.ResetMaterial();
+        }
+    }
     //void SetEntityColours()
     //{
     //    Shuffle(_colorMaterials);
@@ -43,12 +58,21 @@ public class MatchSystemManager : Minigame
         if(_currentMatchCount == _targetMatchCount)
         {
             //woo all paired
-            isCompleted = true;
+            StartCoroutine(ShowComplete());
         }
         else
         {
             isCompleted = false;
         }
+    }
+
+    IEnumerator ShowComplete()
+    {
+        _gamePanel.SetActive(false);
+        _completePanel.SetActive(true);
+        yield return new WaitForSeconds(2);
+        isCompleted = true;
+        Debug.Log("Complete scene done");
     }
 
     public static void Shuffle<T>(IList<T> list)

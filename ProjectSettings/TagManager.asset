@@ -13,6 +13,8 @@ TagManager:
   - Small
   - UVModelCanvas
   - Port
+  - AudioCanvas
+  - BooleanCanvas
   layers:
   - Default
   - TransparentFX

@@ -36,6 +36,7 @@ public class NPC : MonoBehaviour
     }
     void MinigameCompleted()
     {
+        DialogueManager.GetInstance().SetVariable("isMinigameDone", true);
         IsMinigameCompleted = true;
         foreach (var effect in CompletedEffects)
         {

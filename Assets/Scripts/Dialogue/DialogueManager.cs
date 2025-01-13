@@ -5,6 +5,7 @@ using TMPro;
 using Ink.Runtime;
 using UnityEngine.UI;
 using System;
+using Unity.VisualScripting;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -133,5 +134,15 @@ public class DialogueManager : MonoBehaviour
         currentStory.ChooseChoiceIndex(choiceIndex);
         makingChoice = false;
         ContinueStory();
+    }
+
+    public void SetVariable(string variableName, bool newBool)
+    {
+        Debug.Log(currentStory.variablesState[variableName].ToString());
+        currentStory.variablesState[variableName] = newBool;
+    }
+    public void SetVariable(string variableName, string newString)
+    {
+        currentStory.variablesState[variableName] = newString;
     }
 }

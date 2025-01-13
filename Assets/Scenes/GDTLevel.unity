@@ -97,7 +97,8 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: b26493022c1c0b745b8439361a37c016,
+    type: 2}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
@@ -13735,15 +13736,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soundList:
-  - name: Drag
-    sounds:
-    - {fileID: 8300000, guid: 319e7d1f9b59f0743b4941dfc4e6fba5, type: 3}
   - name: Jumping
     sounds:
     - {fileID: 8300000, guid: a36d59517a7377048882a49caa04bef4, type: 3}
   - name: Pickup
     sounds:
     - {fileID: 8300000, guid: 319e7d1f9b59f0743b4941dfc4e6fba5, type: 3}
+  - name: Walking
+    sounds:
+    - {fileID: 0}
+  - name: Successful
+    sounds: []
 --- !u!82 &546868360
 AudioSource:
   m_ObjectHideFlags: 0
@@ -21730,7 +21733,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: GDT Level
+          m_StringArgument: GDTLevel
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &2088249769

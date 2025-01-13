@@ -25,23 +25,22 @@ public class UVModelTools : MonoBehaviour
 
     public void SelectTool(UVTools tool)
     {
-        if (tool == UVTools.None) return;
-
-        if (tool == UVTools.Move || tool == UVTools.Rotate)
-        {
-            moveButtonUI.targetGraphic.material =
-                tool == UVTools.Move ? selectedButtonMat
-                : null;
-            rotateButtonUI.targetGraphic.material =
-                tool == UVTools.Rotate ? selectedButtonMat
-                : null;
-            selectedTool = tool;
-        }
-        else
+        if (tool == UVTools.ZoomIn || tool == UVTools.ZoomOut)
         {
             // do zoom shit
             OnSliderValueChange(tool);
+            return;
         }
+
+        moveButtonUI.targetGraphic.material =
+            tool == UVTools.Move ? selectedButtonMat
+            : null;
+        rotateButtonUI.targetGraphic.material =
+            tool == UVTools.Rotate ? selectedButtonMat
+            : null;
+        selectedTool = tool;
+    
+
     }
 
     public void OnSliderValueChange(Slider slider)

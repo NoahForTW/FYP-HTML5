@@ -120,7 +120,7 @@ public class BooleanGame : Minigame
     {
         base.StartMinigame();
         GameQuestions = MinigameManager.Instance.GetQuestions().OfType<BooleanGame_SO>().ToList();
-        GameQuestions = ShuffleList(GameQuestions);
+        GameQuestions = ShuffleList(GameQuestions).Take(3).ToList();
         foreach (BooleanGame_SO booleanQuestion in GameQuestions)
         {
             BooleanQuestionCompleted question = new BooleanQuestionCompleted();

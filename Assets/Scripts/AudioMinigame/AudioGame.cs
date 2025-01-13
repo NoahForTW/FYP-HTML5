@@ -54,6 +54,7 @@ public class AudioGame : Minigame
     {
         base.StartMinigame();
         GameQuestions = MinigameManager.Instance.GetQuestions().OfType<AudioGame_SO>().ToList();
+        GameQuestions = ShuffleList(GameQuestions).Take(3).ToList();
         InitialisePiecesAndSlots();
     }
 

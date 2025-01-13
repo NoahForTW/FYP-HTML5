@@ -5,7 +5,6 @@ using UnityEngine.EventSystems;
 
 public class UVModel : ModelInteraction
 {
-    Rigidbody rb;
     private void Awake()
     {
         UVTextureMinigame.Instance.UVToolsZoomEvent.AddListener(ZoomModel);
@@ -13,14 +12,13 @@ public class UVModel : ModelInteraction
     protected override void Start()
     {
         base.Start();
-        rb = GetComponent<Rigidbody>();
 
     }
 
 
     protected override void Update()
     {
-
+        Debug.Log($"Mouse X: {Input.GetAxisRaw("Mouse X")}, Mouse Y: {Input.GetAxisRaw("Mouse Y")}");
         if (isDragging)
         {
             if (UVTextureMinigame.Instance.canModelRotate)
@@ -30,7 +28,7 @@ public class UVModel : ModelInteraction
             }
             else if (UVTextureMinigame.Instance.canModelMove)
             {
-                MoveModel(0.25f);
+                MoveModel(0.5f);
 
                 Vector3 clampedPosition = ClampToParentBounds(transform.position);
 

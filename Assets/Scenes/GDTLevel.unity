@@ -20512,6 +20512,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f66b5e839fb950146b765ea8b4bdae1d, type: 2}
   - {fileID: 11400000, guid: cb30efb6658ab7d46abf62e6739d76ca, type: 2}
   - {fileID: 11400000, guid: 5460ee994054d6d40b6a0e8505315451, type: 2}
+  - {fileID: 11400000, guid: 096cf27f89227974aab748d529a52c17, type: 2}
   CompletedMinigames: 
   inkJSON: {fileID: 4900000, guid: a990425856d1cfb40a9e0e343a11bb5d, type: 3}
 --- !u!1001 &1888522855
@@ -21868,7 +21869,7 @@ Transform:
   m_GameObject: {fileID: 6347464721685390652}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 83.3, y: 16, z: -12.15}
+  m_LocalPosition: {x: 10.9, y: 9.3, z: -12.15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -21998,7 +21999,7 @@ PrefabInstance:
     - target: {fileID: 1443564002138906008, guid: 9dccdcf613a7b62438460cde2e0583cd,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3205659881582862532, guid: 9dccdcf613a7b62438460cde2e0583cd,
         type: 3}
@@ -22009,6 +22010,40 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: DialogueCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 6051964138173552970, guid: 9dccdcf613a7b62438460cde2e0583cd,
+        type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 40ca28f4cb48f2b4d858b0b18dfebb4c,
+        type: 2}
+    - target: {fileID: 6051964138173552970, guid: 9dccdcf613a7b62438460cde2e0583cd,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -4786420025284712238, guid: 40ca28f4cb48f2b4d858b0b18dfebb4c,
+        type: 2}
+    - target: {fileID: 6051964138173552970, guid: 9dccdcf613a7b62438460cde2e0583cd,
+        type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7736044072985672957, guid: 9dccdcf613a7b62438460cde2e0583cd,
+        type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 40ca28f4cb48f2b4d858b0b18dfebb4c,
+        type: 2}
+    - target: {fileID: 7736044072985672957, guid: 9dccdcf613a7b62438460cde2e0583cd,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -4786420025284712238, guid: 40ca28f4cb48f2b4d858b0b18dfebb4c,
+        type: 2}
+    - target: {fileID: 7736044072985672957, guid: 9dccdcf613a7b62438460cde2e0583cd,
+        type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -22372,12 +22407,12 @@ PrefabInstance:
     - target: {fileID: 5844570921862521951, guid: f8e4b06e11ad8654a83b72bafaaed0b0,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 83.3
+      value: 10.9
       objectReference: {fileID: 0}
     - target: {fileID: 5844570921862521951, guid: f8e4b06e11ad8654a83b72bafaaed0b0,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 11.2
+      value: 4.5
       objectReference: {fileID: 0}
     - target: {fileID: 5844570921862521951, guid: f8e4b06e11ad8654a83b72bafaaed0b0,
         type: 3}
@@ -22497,7 +22532,7 @@ Transform:
   m_GameObject: {fileID: 7227375200743288649}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 83.3, y: 16, z: -12.15}
+  m_LocalPosition: {x: 10.9, y: 9.3, z: -12.15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -23107,11 +23142,6 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 6180390636679337192}
-    - target: {fileID: 1789074366896061834, guid: c9526f4cf1215434b80a059fe742e0ed,
-        type: 3}
-      propertyPath: m_PlaneDistance
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 3108882954377922608, guid: c9526f4cf1215434b80a059fe742e0ed,
         type: 3}
       propertyPath: m_Name

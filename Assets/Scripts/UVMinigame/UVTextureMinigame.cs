@@ -65,7 +65,7 @@ public class UVTextureMinigame : Minigame
         base.StartMinigame();
 
         modelParameters = MinigameManager.Instance.GetQuestions().OfType<UVGame_SO>().ToList();
-        modelParameters = ShuffleList(modelParameters);
+        modelParameters = ShuffleList(modelParameters).Take(3).ToList();
         foreach (UVGame_SO UVQuestion in modelParameters)
         {
             UVQuestionCompleted question = new UVQuestionCompleted();

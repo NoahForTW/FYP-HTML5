@@ -176,8 +176,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Linework
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: a3f2596d1c88a1a4e9626e1e0fc07e97, type: 2}
-  m_sharedMaterial: {fileID: -8916233883843229051, guid: a3f2596d1c88a1a4e9626e1e0fc07e97,
+  m_fontAsset: {fileID: 11400000, guid: 40ca28f4cb48f2b4d858b0b18dfebb4c, type: 2}
+  m_sharedMaterial: {fileID: -4786420025284712238, guid: 40ca28f4cb48f2b4d858b0b18dfebb4c,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -514,8 +514,8 @@ MonoBehaviour:
     <color=red>Don''t exceed the colored
     boxes! </color>'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: a3f2596d1c88a1a4e9626e1e0fc07e97, type: 2}
-  m_sharedMaterial: {fileID: -8916233883843229051, guid: a3f2596d1c88a1a4e9626e1e0fc07e97,
+  m_fontAsset: {fileID: 11400000, guid: 40ca28f4cb48f2b4d858b0b18dfebb4c, type: 2}
+  m_sharedMaterial: {fileID: -4786420025284712238, guid: 40ca28f4cb48f2b4d858b0b18dfebb4c,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}

@@ -407,7 +407,7 @@ Canvas:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 454838046022363061}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_RenderMode: 1
   m_Camera: {fileID: 0}
@@ -2846,8 +2846,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Boolean
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 4ccf3ef55b9847b4a8dfdc5fc8307f44, type: 2}
-  m_sharedMaterial: {fileID: -9105813242771146798, guid: 4ccf3ef55b9847b4a8dfdc5fc8307f44,
+  m_fontAsset: {fileID: 11400000, guid: 40ca28f4cb48f2b4d858b0b18dfebb4c, type: 2}
+  m_sharedMaterial: {fileID: -4786420025284712238, guid: 40ca28f4cb48f2b4d858b0b18dfebb4c,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}

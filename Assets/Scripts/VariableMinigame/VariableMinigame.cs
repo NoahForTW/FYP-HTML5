@@ -79,7 +79,7 @@ public class VariableMinigame : Minigame
     {
         base.StartMinigame();
         variableQuestions = MinigameManager.Instance.GetQuestions().OfType<Variable_SO>().ToList();
-        variableQuestions = ShuffleList(variableQuestions);
+        variableQuestions = ShuffleList(variableQuestions).Take(3).ToList();
         foreach (Variable_SO variableQuestion in variableQuestions)
         {
             VariableQuestionCompleted question = new VariableQuestionCompleted();

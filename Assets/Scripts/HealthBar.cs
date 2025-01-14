@@ -9,6 +9,9 @@ public class HealthBar : MonoBehaviour
     [SerializeField] private List<GameObject> heartContainers;
     private int totalHearts;
     private float currentHearts;
+    private float displayedHearts;
+    private Coroutine healthUpdateCoroutine;
+
     private HeartContainer currentContainer;
 
     // Start is called before the first frame update
@@ -16,6 +19,7 @@ public class HealthBar : MonoBehaviour
     {
         instance = this;
         heartContainers = new List<GameObject>();
+        displayedHearts = currentHearts;
     }
     //ZeldaHealthBar.instance.SetupHearts(valueIn);
     public void SetupHearts(int heartsIn)
@@ -27,6 +31,7 @@ public class HealthBar : MonoBehaviour
         }
         totalHearts = heartsIn;
         currentHearts = (float)totalHearts;
+        displayedHearts = currentHearts;
         
         for (int i = 0; i < totalHearts; i++)
         {
@@ -44,28 +49,49 @@ public class HealthBar : MonoBehaviour
     public void SetCurrentHealth(float health)
     {
         currentHearts = health;
-        currentContainer.SetHeart(currentHearts);
-        
+        if (healthUpdateCoroutine != null)
+        {
+            StopCoroutine(healthUpdateCoroutine);
+        }
+        healthUpdateCoroutine = StartCoroutine(SmoothHealthUpdate());
+    }
+
+    private IEnumerator SmoothHealthUpdate()
+    {
+        float updateSpeed = 0.5f; // Adjust for desired smoothness
+        while (Mathf.Abs(displayedHearts - currentHearts) > 0.01f)
+        {
+            displayedHearts = Mathf.Lerp(displayedHearts, currentHearts, Time.deltaTime / updateSpeed);
+            UpdateVisualHealth(displayedHearts);
+            yield return null;
+        }
+        displayedHearts = currentHearts;
+        UpdateVisualHealth(displayedHearts);
+    }
+
+    private void UpdateVisualHealth(float health)
+    {
+        currentContainer.SetHeart(health);
     }
     //ZeldaHealthBar.instance.AddHearts(valueIn);
     public void AddHearts(float healthUp)
     {
         currentHearts += healthUp;
-        if(currentHearts > totalHearts)
+        if (currentHearts > totalHearts)
         {
             currentHearts = (float)totalHearts;
         }
-        currentContainer.SetHeart(currentHearts);
+        SetCurrentHealth(currentHearts);
     }
     //ZeldaHealthBar.instance.RemoveHearts(valueIn);
     public void RemoveHearts(float healthDown)
     {
         currentHearts -= healthDown;
-        if(currentHearts < 0)
+        if (currentHearts < 0)
         {
             currentHearts = 0f;
         }
-        currentContainer.SetHeart(currentHearts);
+        SetCurrentHealth(currentHearts);
     }
     //ZeldaHealthBar.instance.AddContainer(valueIn);
     public void AddContainer()
@@ -73,12 +99,12 @@ public class HealthBar : MonoBehaviour
         GameObject newHeart = Instantiate(heartContainerPrefab, transform);
         currentContainer = heartContainers[heartContainers.Count - 1].GetComponent<HeartContainer>();
         heartContainers.Add(newHeart);
-        
+
         if (currentContainer != null)
         {
             currentContainer.next = newHeart.GetComponent<HeartContainer>();
         }
-    
+
         currentContainer = heartContainers[0].GetComponent<HeartContainer>();
         totalHearts++;
         currentHearts = totalHearts;

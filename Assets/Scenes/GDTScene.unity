@@ -3526,15 +3526,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soundList:
-  - name: Drag
-    sounds:
-    - {fileID: 8300000, guid: 319e7d1f9b59f0743b4941dfc4e6fba5, type: 3}
   - name: Jumping
     sounds:
-    - {fileID: 8300000, guid: a36d59517a7377048882a49caa04bef4, type: 3}
+    - {fileID: 8300000, guid: 319e7d1f9b59f0743b4941dfc4e6fba5, type: 3}
   - name: Pickup
     sounds:
+    - {fileID: 8300000, guid: a36d59517a7377048882a49caa04bef4, type: 3}
+  - name: Walking
+    sounds:
     - {fileID: 8300000, guid: 6b2cf1e0537bc6f4797391fe0687ba64, type: 3}
+  - name: Successful
+    sounds: []
 --- !u!82 &546868360
 AudioSource:
   m_ObjectHideFlags: 0

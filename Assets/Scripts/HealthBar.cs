@@ -82,6 +82,7 @@ public class HealthBar : MonoBehaviour
             currentHearts = (float)totalHearts;
         }
         SetCurrentHealth(currentHearts);
+        TriggerFlash(false);
     }
     //ZeldaHealthBar.instance.RemoveHearts(valueIn);
     public void RemoveHearts(float healthDown)
@@ -92,6 +93,7 @@ public class HealthBar : MonoBehaviour
             currentHearts = 0f;
         }
         SetCurrentHealth(currentHearts);
+        TriggerFlash(true);
     }
     //ZeldaHealthBar.instance.AddContainer(valueIn);
     public void AddContainer()
@@ -110,4 +112,16 @@ public class HealthBar : MonoBehaviour
         currentHearts = totalHearts;
         SetCurrentHealth(currentHearts);
     }
+
+    private void TriggerFlash(bool isHealthDecreasing)
+{
+    Color flashColor = isHealthDecreasing ? Color.red : Color.green;
+    float flashDuration = 0.2f; // Adjust as needed
+
+    foreach (var heart in heartContainers)
+    {
+        HeartContainer heartContainer = heart.GetComponent<HeartContainer>();
+        heartContainer.Flash(flashColor, flashDuration);
+    }
+}
 }

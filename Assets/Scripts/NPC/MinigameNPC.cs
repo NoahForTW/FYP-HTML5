@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NPC : MonoBehaviour
+public class MinigameNPC : NPC
 {
     public bool IsMinigameCompleted = false;
     public MinigameType MinigameType;
@@ -16,9 +16,6 @@ public class NPC : MonoBehaviour
     [Header("Required Completed Minigames")]
     [SerializeField] private List<MinigameType> CompletedMinigames;
 
-    [Header("Ink JSON")]
-    [SerializeField] private TextAsset inkJSON;
-
     bool canStartMinigame = false;
     public void StartMinigame()
     {
@@ -29,15 +26,19 @@ public class NPC : MonoBehaviour
         MinigameManager.Instance.MinigameCompletion.AddListener(MinigameCompleted);
     }
 
-    public void StartDialogue()
+    public override void StartDialogue()
     {
         canStartMinigame = CheckCompletionOfRequireMinigames();
-        DialogueManager.GetInstance().EnterDialogueMode(inkJSON, () => StartMinigame());
+        List<(string Name, object Value)> variableList = new List<(string Name, object Value)> {
+            (nameof(IsMinigameCompleted), IsMinigameCompleted)
+        };
+        List<Action> actionList = new List<Action> { StartMinigame };
+        DialogueManager.GetInstance().EnterDialogueMode(inkJSON, variableList, actionList);
     }
     void MinigameCompleted()
     {
-        DialogueManager.GetInstance().SetVariable("isMinigameDone", true);
         IsMinigameCompleted = true;
+        DialogueManager.GetInstance().SetVariableInStory(nameof(IsMinigameCompleted), IsMinigameCompleted);
         foreach (var effect in CompletedEffects)
         {
             if (effect == null || effect.gameObject == null)

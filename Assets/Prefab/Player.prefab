@@ -59,7 +59,7 @@ MonoBehaviour:
       m_Calls: []
   currentPlayerAction: 4
   movementSpeed: 20
-  jumpForce: 12.5
+  jumpForce: 12
 --- !u!54 &7254659285549525368
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -27,6 +27,8 @@ public class AudioManager : MonoBehaviour
     private int[] currentSequenceIndex; // Track current index for each SoundType
     private Coroutine[] sequenceCoroutines; // Track coroutines for each SoundType
     private Coroutine[] loopCoroutines; // Track looping coroutines for each SoundType
+
+    [Tooltip("To enable or disable the audio in the game")]
     public bool canAudio;
 
     private void Awake()

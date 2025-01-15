@@ -132,7 +132,7 @@ public class PlayerController : MonoBehaviour
             direction = transform.up;
             //playerRb.AddForce(direction * jumpForce, ForceMode.Impulse);
             playerRb.velocity = new Vector3(playerRb.velocity.x, jumpForce, 0);
-            AudioManager.PlaySoundOneShot(SoundType.Jumping);
+            AudioManager.instance.PlaySoundOneShot(SoundType.Jumping);
             isJumping = true;
         }
     }

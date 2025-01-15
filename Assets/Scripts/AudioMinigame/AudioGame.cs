@@ -46,7 +46,6 @@ public class AudioGame : Minigame
     
     void Start()
     {
-        
         //InitialisePiecesAndSlots();
     }
 
@@ -140,8 +139,9 @@ public class AudioGame : Minigame
 
     private void Update()
     {
-        if (AllSlotsAreCorrect() && !isCompleted)
+        if (AllSlotsAreCorrect() && !isCompleted && !AudioManager.instance.canAudio)
         {
+            AudioManager.instance.canAudio = true;
             isCompleted = true;
         }
     }

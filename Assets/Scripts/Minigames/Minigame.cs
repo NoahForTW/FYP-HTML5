@@ -29,6 +29,6 @@ public class Minigame : MonoBehaviour
         this.gameObject.SetActive(false);
 
         // * I think can add like a visual "Success" thingy panel here ??
-        AudioManager.PlaySoundOneShot(SoundType.Successful);
+        //AudioManager.instance.PlaySoundOneShot(SoundType.Successful);
     }
 }

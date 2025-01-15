@@ -25,6 +25,7 @@ public class AudioGameSlot : DropSlot
                 string pieceState = droppedPiece.GetState();
 
                 isCorrect = pieceState == slotState;
+
                 // Validation: Check if the piece matches the slot
                 if (pieceState == slotState)
                 {

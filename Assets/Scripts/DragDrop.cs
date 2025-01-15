@@ -51,6 +51,7 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         canvasGroup.alpha = 1.0f;
         canvasGroup.blocksRaycasts = true;
 
+        AudioManager.instance.PlaySoundOneShot(SoundType.Pickup);
 
         Transform parent = parentSlot!=null ? parentSlot : parentAfterDrag;
         // Smoothly return the object to its original position

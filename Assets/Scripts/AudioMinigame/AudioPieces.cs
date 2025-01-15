@@ -32,7 +32,7 @@ public class AudioPieces : DragDrop
     public override void OnEndDrag(PointerEventData eventData)
     {
         base.OnEndDrag(eventData);
-        Debug.Log($"Dropped piece with state: {state}");
+        //Debug.Log($"Dropped piece with state: {state}");
     }
 
     public void SetText(string newText)

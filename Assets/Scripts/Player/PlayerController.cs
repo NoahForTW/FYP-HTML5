@@ -22,6 +22,9 @@ public class PlayerController : MonoBehaviour
     public bool isJumping = false; // check if player is jumping
     public UnityEvent<PlayerAction> currentPlayerActionEvent;
     public PlayerAction currentPlayerAction;
+
+    private float lastSoundTime = 0f; // Tracks the last time a walking sound was played
+    [SerializeField] private float walkingSoundCooldown = 0.3f; // Cooldown in seconds for walking sound
     //private
 
     [Header ("Speeds")]
@@ -123,6 +126,13 @@ public class PlayerController : MonoBehaviour
         Quaternion rotation = Quaternion.Euler(0, yRotation, 0);
         //StartCoroutine(RotateModel(rotation, 0.3f));
         playerModel.transform.rotation = rotation;
+
+        // Play walking sound if cooldown has passed
+        if (Time.time - lastSoundTime > walkingSoundCooldown)
+        {
+            AudioManager.instance.PlaySoundOneShot(SoundType.Walking);
+            lastSoundTime = Time.time; // Update the last sound time
+        }
     }
 
     private void PlayerJump()

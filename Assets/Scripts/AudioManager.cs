@@ -2,13 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Sirenix.OdinInspector;
 
 // Init Sound Variables
+/*
+ * Declare the type of sound you want to play under this enum
+*/
 public enum SoundType
 {
-    Drag,
     Jumping,
-    Pickup
+    Pickup,
+    Walking,
+    Successful
 }
 
 [RequireComponent(typeof(AudioSource)), ExecuteInEditMode]
@@ -35,15 +40,14 @@ public class AudioManager : MonoBehaviour
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
-
     }
 
     /*
      * Can add different function to play sound, sequences, loop etc.
-     * 
+     * Just called the function with AudioManager.TheFunction(EnumType, Volume) Volume can leave blank if you do not want to adjust it
      */
 
-    // Play Sound one shot / loop
+    // Play Sound one shot
     public static void PlaySoundOneShot(SoundType sound, float volume = 1)
     {
         AudioClip[] clips = instance.soundList[(int)sound].Sounds;
@@ -139,6 +143,6 @@ public class AudioManager : MonoBehaviour
 public struct SoundList
 {
     public AudioClip[] Sounds { get => sounds;}
-    public string name;
+    [ReadOnly] public string name;
     [SerializeField] private AudioClip[] sounds;
 }

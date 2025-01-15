@@ -43,6 +43,7 @@ public class UVTextureUI : DragDrop
                 Material material = new Material(go.GetComponent<MeshRenderer>().material);
                 material.mainTexture = texture;
                 go.GetComponent<MeshRenderer>().material = material;
+                side.PromptFeedback();
             }
         }
         canDrag = false;

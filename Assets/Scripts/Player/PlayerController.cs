@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 direction = new Vector3();
 
     private float lastActionTime = 0f; // Tracks the time of the last action
-    private float inactivityThreshold = 0.5f;
+    private float inactivityThreshold = 0.05f;
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -56,7 +56,6 @@ public class PlayerController : MonoBehaviour
         SetCurrentPlayerAction(global::PlayerAction.Idle);
     }
 
-    // Update is called once per frame
     private void Update()
     {
         if (Time.time - lastActionTime > inactivityThreshold 
@@ -111,10 +110,15 @@ public class PlayerController : MonoBehaviour
 
     private void PlayerMovement(PlayerAction action)
     {
-        direction = action == global::PlayerAction.Right ? transform.right : -transform.right;
-        float currentForce = isJumping ? Mathf.Abs(movementSpeed - jumpForce) : movementSpeed;
-        playerRb.AddForce(direction * movementSpeed);
-        //playerRb.velocity = direction * movementSpeed;
+        // player movement
+
+       direction = action == global::PlayerAction.Right ? transform.right : -transform.right;
+        /*  float currentForce = isJumping ? Mathf.Abs(movementSpeed - jumpForce) : movementSpeed;
+         playerRb.AddForce(direction * movementSpeed);*/
+        Vector3 movement = direction * movementSpeed;
+        playerRb.velocity = new Vector3(movement.x, playerRb.velocity.y, 0);
+
+        // rotating player 
         float yRotation = action == global::PlayerAction.Left ? 180f : 0f;
         Quaternion rotation = Quaternion.Euler(0, yRotation, 0);
         //StartCoroutine(RotateModel(rotation, 0.3f));
@@ -126,7 +130,8 @@ public class PlayerController : MonoBehaviour
         if (!isJumping)
         {
             direction = transform.up;
-            playerRb.AddForce(direction * jumpForce, ForceMode.Impulse);
+            //playerRb.AddForce(direction * jumpForce, ForceMode.Impulse);
+            playerRb.velocity = new Vector3(playerRb.velocity.x, jumpForce, 0);
             AudioManager.PlaySoundOneShot(SoundType.Jumping);
             isJumping = true;
         }

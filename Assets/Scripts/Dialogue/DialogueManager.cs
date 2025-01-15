@@ -5,6 +5,8 @@ using TMPro;
 using Ink.Runtime;
 using UnityEngine.UI;
 using System;
+using Unity.VisualScripting;
+using System.Globalization;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -24,8 +26,10 @@ public class DialogueManager : MonoBehaviour
     public bool dialogueIsPlaying;
     private Story currentStory;
     private bool makingChoice;
+    private List<Action> bindActionNames;
 
 
+    const string SpeakerTag = "speaker";
     void Awake()
     {
         if (instance == null) {
@@ -34,6 +38,8 @@ public class DialogueManager : MonoBehaviour
         else if (instance != null) {
             Debug.LogWarning("More than 1 DialogueManager instance");
         }
+
+        bindActionNames = new List<Action>();
     }
 
     public static DialogueManager GetInstance() {
@@ -49,6 +55,7 @@ public class DialogueManager : MonoBehaviour
 
     void Update()
     {
+        PlayerController.Instance.canMove = !dialogueIsPlaying;
         if (!dialogueIsPlaying) {
             return;
         }
@@ -58,20 +65,67 @@ public class DialogueManager : MonoBehaviour
             ContinueStory();
         }
     }
-    public void EnterDialogueMode(TextAsset inkJSON, Action action) {
-        if (dialogueIsPlaying) {
-            return;
-        }
-        currentStory = new Story(inkJSON.text);
-        dialogueIsPlaying = true;
-        dialoguePanel.SetActive(true);
 
-        // add functions to ink
-        currentStory.BindExternalFunction("StartMinigame", () =>
+    public void SetCurrentDialogue(TextAsset inkJSON)
+    {
+        currentStory = new Story(inkJSON.text);
+        
+    }
+
+    public void SetVariableInStory(string variableName, object variableValue)
+    {
+        if (currentStory == null)
+            return;
+        currentStory.variablesState[variableName] = variableValue;
+    }
+
+    public void BindFuntionToStory(Action action)
+    {
+        currentStory.BindExternalFunction(action.Method.Name, () =>
         {
             action.Invoke();
-            //Debug.Log("Start Minigame");
         });
+    }
+    public void UnbindFuntionToStory(Action action)
+    {
+        // unbind function
+        currentStory.UnbindExternalFunction(action.Method.Name);
+    }
+    public void EnterDialogueMode(TextAsset inkJson, List<(string Name, object Value)> variables, List<Action> actions)
+    {
+        if (dialogueIsPlaying)
+            return;
+        if (inkJson == null)
+            return;
+        // reset bind list 
+        bindActionNames.Clear();
+
+        // set dialogue 
+        SetCurrentDialogue(inkJson);
+
+        // set variables if have
+        if (variables != null && variables.Count > 0)
+        {
+            foreach (var (name, value) in variables)
+            {
+                SetVariableInStory(name, value);
+            }
+        }
+
+        // set actions if have
+        if (actions != null && actions.Count > 0)
+        {
+            foreach (var action in actions)
+            {
+                BindFuntionToStory(action);
+                bindActionNames.Add(action);
+            }
+        }
+
+        dialogueIsPlaying = true;
+
+        // show panel
+        dialoguePanel.SetActive(true);
         ContinueStory();
 
         // hide player controls
@@ -87,8 +141,10 @@ public class DialogueManager : MonoBehaviour
         // hide player controls
         CanvasManager.Instance.GUICanvas.PlayerControlsUI.SetActive(true);
 
-        // unbind function
-        currentStory.UnbindExternalFunction("StartMinigame");
+        foreach(Action action in bindActionNames)
+        {
+            UnbindFuntionToStory(action);
+        }
     }
 
     private void ContinueStory() {
@@ -100,6 +156,7 @@ public class DialogueManager : MonoBehaviour
             }
             dialogueText.text = nextLine;
             DisplayChoices();
+            HandleTags(currentStory.currentTags);
         }
         else {
             ExitDialogueMode();
@@ -134,4 +191,30 @@ public class DialogueManager : MonoBehaviour
         makingChoice = false;
         ContinueStory();
     }
+
+    void HandleTags(List<string> tags)
+    {
+        // reset text 
+        speakerName.text = "";
+        // set text
+        foreach (string tag in tags)
+        {
+            // split tag
+            string[] splitTag = tag.Split(':');
+            if (splitTag.Length != 2)
+            {
+                continue;
+            }
+            string tagKey = splitTag[0].Trim();
+            string tagValue = splitTag[1].Trim();
+
+            switch (tagKey)
+            {
+                case SpeakerTag:
+                    speakerName.text = tagValue;
+                    break;
+            }
+        }
+    }
+
 }

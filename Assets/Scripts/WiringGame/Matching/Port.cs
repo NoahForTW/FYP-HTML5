@@ -9,7 +9,7 @@ public class Port : MonoBehaviour
         if (other.gameObject.TryGetComponent(out MoveablePair CollidedMoveable))
         {
             _ownerMatchEntity.PairObjectInteraction(true, CollidedMoveable);
-            Debug.Log("aoubndwiuawdbuabwd");
+            //Debug.Log("aoubndwiuawdbuabwd");
         }
     }
     private void OnTriggerExit(Collider other)

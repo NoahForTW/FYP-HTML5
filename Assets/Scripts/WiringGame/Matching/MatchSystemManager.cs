@@ -16,11 +16,23 @@ public class MatchSystemManager : Minigame
     // Start is called before the first frame update
     void Start()
     {
-        _matchEntities = transform.GetComponentsInChildren<MatchEntity>().ToList();
-        _targetMatchCount = _matchEntities.Count;
+
         //SetEntityColours();
     }
 
+    public override void StartMinigame()
+    {
+        base.StartMinigame();
+        _matchEntities = transform.GetComponentsInChildren<MatchEntity>().ToList();
+        _targetMatchCount = _matchEntities.Count;
+        foreach(MatchEntity matchEntity in _matchEntities )
+        {
+            MoveablePair pair = matchEntity._moveablePair;
+            pair.ResetPosition();
+            MatchFeedback feedback = matchEntity._feedback;
+            feedback.ResetMaterial();
+        }
+    }
     //void SetEntityColours()
     //{
     //    Shuffle(_colorMaterials);

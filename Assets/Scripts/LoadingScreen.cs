@@ -38,7 +38,7 @@ public class LoadingScreen : MonoBehaviour
         Sprite[] selectedArray = null;
 
         // Determine which background array to use based on the target scene
-        if (SceneLoader.TargetScene == "GDT Level") // Replace with your actual scene names
+        if (SceneLoader.TargetScene == "GDTLevel") // Replace with your actual scene names
         {
             selectedArray = gdtBG;
         }

@@ -54,23 +54,27 @@ public class AudioGame : Minigame
     {
         base.StartMinigame();
         GameQuestions = MinigameManager.Instance.GetQuestions().OfType<AudioGame_SO>().ToList();
+        GameQuestions = ShuffleList(GameQuestions).Take(3).ToList();
         InitialisePiecesAndSlots();
     }
 
     List<T> ShuffleList<T>(List<T> list)
     {
+        // Create a copy of the original list
+        List<T> shuffled = new List<T>(list);
+
         System.Random random = new System.Random();
-        int n = list.Count;
+        int n = shuffled.Count;
         while (n > 1)
         {
             int k = random.Next(n);
             n--;
-            T temp = list[k];
-            list[k] = list[n];
-            list[n] = temp;
+            T temp = shuffled[k];
+            shuffled[k] = shuffled[n];
+            shuffled[n] = temp;
         }
 
-        return list;
+        return shuffled;
     }
 
     public void DisplayTextWithDelay(string message, float delay)

@@ -41,7 +41,7 @@ public class BooleanGame : Minigame
 
     private void Start()
     {
-        StartMinigame();
+        //StartMinigame();
     }
     void InitializeGame(BooleanQuestionCompleted booleanQuestion)
     {
@@ -56,7 +56,7 @@ public class BooleanGame : Minigame
 
         // Find and store all GearSlot components under the GearSlotParent
         GearSlot[] slots = GearSlotParent.GetComponentsInChildren<GearSlot>();
-        
+        gearSlots = slots.ToList();
 
         // Find and store all GearPiece components under the GearGameParent
         GearPiece[] pieces = GearPiecesParent.GetComponentsInChildren<GearPiece>();
@@ -70,6 +70,7 @@ public class BooleanGame : Minigame
                 GearPiece piece = slot.GetComponentInChildren<GearPiece>();
                 slot.enabled = slot == slots[randomIndex];
                 piece.enabled = slot == slots[randomIndex];
+                piece.GetComponentInChildren<TextMeshProUGUI>().text = "";
 
                 if (slot != slots[randomIndex])
                     continue;
@@ -84,11 +85,16 @@ public class BooleanGame : Minigame
                         piece.GetComponent<RectTransform>().anchoredPosition3D = Vector3.zero;
                         piece.GetComponentInChildren<TextMeshProUGUI>().text = question.Answer.ToString();
                         slot.requiredGear = piece.gameObject;
-                        gearSlots.Add(slot);
+                        //gearSlots.Add(slot);
                         gearPieces.Add(piece);
                     }
                     else {
-                        pieceInParent.GetComponentInChildren<TextMeshProUGUI>().text = (!question.Answer).ToString();
+                        pieceInParent.GetComponentInChildren<TextMeshProUGUI>().text = (!question.Answer).ToString();;
+                        if (randomIndex % 2 == 0)
+                        {
+                            pieceParent.transform.SetAsFirstSibling();
+                        }
+          
                     }
                 }
             }
@@ -113,7 +119,8 @@ public class BooleanGame : Minigame
     public override void StartMinigame()
     {
         base.StartMinigame();
-        GameQuestions = ShuffleList(GameQuestions);
+        GameQuestions = MinigameManager.Instance.GetQuestions().OfType<BooleanGame_SO>().ToList();
+        GameQuestions = ShuffleList(GameQuestions).Take(3).ToList();
         foreach (BooleanGame_SO booleanQuestion in GameQuestions)
         {
             BooleanQuestionCompleted question = new BooleanQuestionCompleted();
@@ -136,6 +143,9 @@ public class BooleanGame : Minigame
     {
         foreach (GearSlot slot in gearSlots)
         {
+            if (!slot.enabled)
+                continue;
+
             if (!slot.IsGearCorrect())
             {
                 return false;

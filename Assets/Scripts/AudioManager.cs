@@ -27,6 +27,7 @@ public class AudioManager : MonoBehaviour
     private int[] currentSequenceIndex; // Track current index for each SoundType
     private Coroutine[] sequenceCoroutines; // Track coroutines for each SoundType
     private Coroutine[] loopCoroutines; // Track looping coroutines for each SoundType
+    public bool canAudio;
 
     private void Awake()
     {
@@ -48,14 +49,16 @@ public class AudioManager : MonoBehaviour
      */
 
     // Play Sound one shot
-    public static void PlaySoundOneShot(SoundType sound, float volume = 1)
+    public void PlaySoundOneShot(SoundType sound, float volume = 1)
     {
+        if(!canAudio) return;
+
         AudioClip[] clips = instance.soundList[(int)sound].Sounds;
         instance.audioSource.PlayOneShot(clips[0], volume);
     }
     
     // Play Sound Randomly
-    public static void PlaySoundRandomly(SoundType sound, float volume = 1)
+    public void PlaySoundRandomly(SoundType sound, float volume = 1)
     {
         AudioClip[] clips = instance.soundList[(int)sound].Sounds;
         AudioClip randomClip = clips[UnityEngine.Random.Range(0, clips.Length)];
@@ -63,7 +66,7 @@ public class AudioManager : MonoBehaviour
     }
 
     // Play Sound in Sequences
-    public static void PlaySoundInSequence(SoundType sound, float volume = 1f)
+    public void PlaySoundInSequence(SoundType sound, float volume = 1f)
     {
         int soundIndex = (int)sound;
         if (instance.sequenceCoroutines[soundIndex] != null) return; // Prevent overlapping sequences
@@ -71,7 +74,7 @@ public class AudioManager : MonoBehaviour
     }
 
     // Stop the Sound
-    public static void StopSoundSequence(SoundType sound)
+    public void StopSoundSequence(SoundType sound)
     {
         int soundIndex = (int)sound;
         if (instance.sequenceCoroutines[soundIndex] != null)
@@ -98,7 +101,7 @@ public class AudioManager : MonoBehaviour
     }
 
     // Play Sound Loop
-    public static void PlaySoundLoop(SoundType sound, float volume = 1f)
+    public void PlaySoundLoop(SoundType sound, float volume = 1f)
     {
         int soundIndex = (int)sound;
         if (instance.loopCoroutines[soundIndex] != null) return; // Prevent overlapping loops
@@ -106,7 +109,7 @@ public class AudioManager : MonoBehaviour
     }
 
     // Stop Sound Loop
-    public static void StopSoundLoop(SoundType sound)
+    public void StopSoundLoop(SoundType sound)
     {
         int soundIndex = (int)sound;
         if (instance.loopCoroutines[soundIndex] != null)

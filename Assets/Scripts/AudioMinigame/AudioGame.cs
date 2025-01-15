@@ -143,6 +143,7 @@ public class AudioGame : Minigame
         if (AllSlotsAreCorrect() && !isCompleted)
         {
             isCompleted = true;
+            //AudioManager.instance.canAudio = true;
         }
     }
 

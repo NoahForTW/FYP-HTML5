@@ -33,7 +33,7 @@ public class Obstacle : MonoBehaviour
                 break;
             
             case global::CompletionEffects.Activate:
-                StartDeactivativeGameObject();
+                StartActivativeGameObject();
                 break;
             case global::CompletionEffects.PlayAnimation:
                 PlayAnimation();
@@ -79,7 +79,7 @@ public class Obstacle : MonoBehaviour
     IEnumerator ActivateGameObject(GameObject go, float duration)
     {
         yield return new WaitForSeconds(duration);
-        go.SetActive(true);
+        GetComponent<SphereCollider>().enabled = true;
     }
 
     public void InvokeAfterEvent()

@@ -36,12 +36,19 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     // Triggered while dragging
     public virtual void OnDrag(PointerEventData eventData)
     {
+        /*        var screenPoint = Input.mousePosition;
+                screenPoint.z = canvas.planeDistance; //distance of the plane from the camera 
+                transform.position = new Vector3(Camera.main.ScreenToWorldPoint(screenPoint).x,
+                    Camera.main.ScreenToWorldPoint(screenPoint).y, defaultZ);*/
+        if (RectTransformUtility.ScreenPointToWorldPointInRectangle(
+            rectTransform,
+            eventData.position,
+            canvasCamera,
+            out Vector3 worldPoint))
         {
-            var screenPoint = Input.mousePosition;
-            screenPoint.z = canvas.planeDistance; //distance of the plane from the camera 
-            transform.position = new Vector3(Camera.main.ScreenToWorldPoint(screenPoint).x,
-                Camera.main.ScreenToWorldPoint(screenPoint).y, defaultZ);
+            transform.position = new Vector3(worldPoint.x, worldPoint.y, defaultZ);
         }
+
         transform.SetParent(parentDuringDrag);
     }
 

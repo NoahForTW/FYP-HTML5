@@ -15,11 +15,15 @@ public class PlayerAnimation : MonoBehaviour
         controller?.currentPlayerActionEvent.AddListener(SetAnimation);
     }
 
+    private void FixedUpdate()
+    {
+        animator.SetBool("Jump", controller.notGrounded);
+    }
+
     void SetAnimation(PlayerAction action)
     {
         animator.SetBool("Idle", action == global::PlayerAction.Idle);
         animator.SetBool("Run", (action == global::PlayerAction.Right || action == global::PlayerAction.Left) 
-            && !controller.isJumping); // if player is not currently jumping
-        animator.SetBool("Jump", action == global::PlayerAction.Jump);
+            && !controller.notGrounded); // if player is not currently jumping
     }
 }

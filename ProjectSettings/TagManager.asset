@@ -13,8 +13,19 @@ TagManager:
   - Small
   - UVModelCanvas
   - Port
+  - GDT_BehindComputer
+  - AGVE_StartOfLevel
+  - AGVE_BeforeEnemies
   - AudioCanvas
   - BooleanCanvas
+  - GDT_LiquidBeforePlatforms
+  - GDT_ComputerTeleport
+  - GDT_Platform
+  - AGVE_BeforeStatues
+  - AGVE_EGround
+  - GDT_BooleanGame
+  - GDT_BeforeVariableGame
+  - GDT_StartOfLevel
   layers:
   - Default
   - TransparentFX

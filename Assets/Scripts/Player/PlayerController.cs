@@ -1,8 +1,10 @@
 using Cinemachine;
 using System.Collections;
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public enum PlayerAction
 {
@@ -19,9 +21,10 @@ public class PlayerController : MonoBehaviour
     public static PlayerController Instance;
     [HideInInspector] public UnityEvent<PlayerAction> playerAction;
     public bool canMove = true;
-    public bool isJumping = false; // check if player is jumping
+    public bool notGrounded = false; // check if player is jumping
     public UnityEvent<PlayerAction> currentPlayerActionEvent;
     public PlayerAction currentPlayerAction;
+    private HashSet<PlayerAction> activePlayerActions = new HashSet<PlayerAction>();
 
     private float lastSoundTime = 0f; // Tracks the last time a walking sound was played
     [SerializeField] private float walkingSoundCooldown = 0.3f; // Cooldown in seconds for walking sound
@@ -62,28 +65,58 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         if (Time.time - lastActionTime > inactivityThreshold 
-            && !isJumping
+            && !notGrounded
             && currentPlayerAction != global::PlayerAction.Idle)
         {
-            SetCurrentPlayerAction(global::PlayerAction.Idle);
+            PlayerAction(global::PlayerAction.Idle);
             playerRb.velocity = Vector3.zero;
         }
 
+        Debug.Log("is not grounded: " + notGrounded);
     }
     private void FixedUpdate()
     {
-        if (currentPlayerAction == global::PlayerAction.Left ||
-            currentPlayerAction == global::PlayerAction.Right)
+        if (activePlayerActions.Contains(global::PlayerAction.Left))
         {
-            PlayerMovement(currentPlayerAction);
+            PlayerMovement(global::PlayerAction.Left);
+        }
+        if (activePlayerActions.Contains(global::PlayerAction.Right))
+        {
+            PlayerMovement(global::PlayerAction.Right);
         }
 
-        if (currentPlayerAction == global::PlayerAction.Jump && !isJumping)
+        // Process jump action
+        if (activePlayerActions.Contains(global::PlayerAction.Jump) && !notGrounded)
         {
             PlayerJump();
         }
     }
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
 
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        string RespawnTag = null;
+        if (SceneManager.GetActiveScene().name == "GDTLevel")
+        {
+            RespawnTag = SavePlayerData.Instance.LoadData<GDTLevelData>().RespawnTag;
+        }
+        else if (SceneManager.GetActiveScene().name == "AGVEScene")
+        {
+            RespawnTag = SavePlayerData.Instance.LoadData<AGVELevelData>().RespawnTag;
+        }
+        if (!string.IsNullOrEmpty(RespawnTag))
+        {
+            SpawnPlayer(RespawnTag);
+        }
+    }
     public void SetCurrentPlayerAction(PlayerAction action)
     {
         currentPlayerActionEvent.Invoke(action);
@@ -93,19 +126,22 @@ public class PlayerController : MonoBehaviour
     {
         lastActionTime = Time.time;
         if (!canMove) { return; }
-/*        switch (action)
+        if (action == global::PlayerAction.Idle)
         {
-            case global::PlayerAction.Jump:
-                //PlayerJump();
-                break;
+            activePlayerActions.Clear(); // Clear all actions for Idle
+        }
+        else if (action == global::PlayerAction.Left || action == global::PlayerAction.Right)
+        {
+            // Ensure only one of Left or Right exists in the list
+            activePlayerActions.Remove(global::PlayerAction.Left);
+            activePlayerActions.Remove(global::PlayerAction.Right);
+            activePlayerActions.Add(action);
+        }
+        else if (!activePlayerActions.Contains(action))
+        {
+            activePlayerActions.Add(action); // Add the action
+        }
 
-
-            case global::PlayerAction.Left:
-            case global::PlayerAction.Right:
-                //PlayerMovement(action);
-                break;
-
-        }*/
         SetCurrentPlayerAction(action);
         
     }
@@ -137,13 +173,12 @@ public class PlayerController : MonoBehaviour
 
     private void PlayerJump()
     {
-        if (!isJumping)
+        if (!notGrounded)
         {
             direction = transform.up;
             //playerRb.AddForce(direction * jumpForce, ForceMode.Impulse);
             playerRb.velocity = new Vector3(playerRb.velocity.x, jumpForce, 0);
             AudioManager.instance.PlaySoundOneShot(SoundType.Jumping);
-            isJumping = true;
         }
     }
 
@@ -160,12 +195,42 @@ public class PlayerController : MonoBehaviour
             yield return null;
         }
     }
-
-    public void OnCollisionEnter(Collision collision)
+    
+    public void SpawnPlayer(string tagName)
     {
-        if (collision.gameObject.tag == "Ground")
+        GameObject PlayerSpawnPoint = null;
+        Scene s = SceneManager.GetActiveScene();
+        GameObject[] rootGameObjects = s.GetRootGameObjects();
+        foreach (GameObject go in rootGameObjects)
         {
-            isJumping = false;
+            if (go.CompareTag(tagName))
+            {
+                PlayerSpawnPoint = go;
+                break;
+            }
+        }
+
+        if (PlayerSpawnPoint == null)
+            return;
+
+        transform.position = PlayerSpawnPoint.transform.position;
+    }
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.tag == "Ground")
+        {
+            notGrounded = false;
+            if (activePlayerActions.Contains(global::PlayerAction.Jump))
+                activePlayerActions.Remove(global::PlayerAction.Jump);
         }
     }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "Ground")
+        {
+            notGrounded = true;
+        }
+    }
+    
 }

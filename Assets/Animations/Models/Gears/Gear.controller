@@ -46,7 +46,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: d7b5e08af498108468d02f104aba4bff, type: 2}
+  m_Motion: {fileID: 7400000, guid: 392ac114e894d484788742a103b56c5b, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -113,7 +113,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: GearSpinning
-  m_Speed: 1
+  m_Speed: 5
   m_CycleOffset: 0
   m_Transitions: []
   m_StateMachineBehaviours: []
@@ -125,7 +125,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: a9f2695637a82884ab4e54e6a35fd03f, type: 2}
+  m_Motion: {fileID: 7400000, guid: 5189509a1877cf643befa07d21365075, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 

@@ -1,8 +1,6 @@
 using PrimeTween;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor.PackageManager.UI;
 using UnityEngine;
 public class Minigame : MonoBehaviour
 {

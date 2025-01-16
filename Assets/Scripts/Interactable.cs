@@ -5,11 +5,8 @@ using UnityEngine.Events;
 
 public class Interactable : MonoBehaviour
 {
-/*    [SerializeField] GameObject interactButton;
-    [SerializeField] GameObject jumpButton;*/
     [SerializeField] UnityEvent interactionEvent;
 
-    GameObject currentInteractionButton;
   
     bool canInteract=false;
     void Start()
@@ -21,9 +18,6 @@ public class Interactable : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-/*            Canvas canvas = FindObjectOfType<Canvas>();
-            // show Interaction 
-            currentInteractionButton = Instantiate(interactButton, canvas.transform);*/
             canInteract = true;
         }
 

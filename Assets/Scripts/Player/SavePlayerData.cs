@@ -6,8 +6,7 @@ using System.Xml.Serialization;
 using TMPro;
 using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
-
-
+using static PlayerData;
 
 [Serializable]
 public class PlayerScore {
@@ -17,6 +16,12 @@ public class PlayerScore {
 
 public class SavePlayerData : MonoBehaviour
 {
+    public static SavePlayerData Instance;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
     public static PlayerScore playerScore;
     public void SaveData<T>(T currentData) where T : new()
     {
@@ -49,7 +54,14 @@ public class SavePlayerData : MonoBehaviour
             }
         }
     }
-
+    
+    public void ClearGame()
+    {
+        GDTLevelData data = new GDTLevelData();
+        SaveData(data);
+        PlayerData playerData = new PlayerData();
+        SaveData(playerData);
+    }
     public void test()
     {
         PlayerScore score = new PlayerScore();

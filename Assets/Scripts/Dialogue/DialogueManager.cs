@@ -60,8 +60,7 @@ public class DialogueManager : MonoBehaviour
             return;
         }
 
-        if (PlayerController.Instance.currentPlayerAction != PlayerAction.Interact
-            &&Input.GetMouseButtonUp(0) && dialogueIsPlaying && !makingChoice) {
+        if (Input.GetMouseButtonUp(0) && dialogueIsPlaying && !makingChoice) {
             ContinueStory();
         }
     }
@@ -129,7 +128,7 @@ public class DialogueManager : MonoBehaviour
         ContinueStory();
 
         // hide player controls
-        CanvasManager.Instance.GUICanvas.PlayerControlsUI.SetActive(false);
+        CanvasManager.Instance.GUICanvas.SetActiveControlsUI(false);
 
 
     }
@@ -139,7 +138,7 @@ public class DialogueManager : MonoBehaviour
         dialoguePanel.SetActive(false);
         dialogueText.text = "";
         // hide player controls
-        CanvasManager.Instance.GUICanvas.PlayerControlsUI.SetActive(true);
+        CanvasManager.Instance.GUICanvas.SetActiveControlsUI(true);
 
         foreach(Action action in bindActionNames)
         {

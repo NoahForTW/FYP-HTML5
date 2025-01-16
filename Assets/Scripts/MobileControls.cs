@@ -32,7 +32,7 @@ public class MobileControls : MonoBehaviour, IPointerDownHandler, IPointerUpHand
         }
         if(movementDirection == MovementDirection.Right)
         {
-            PlayerController.Instance.playerAction.Invoke(PlayerAction.Right);
+            PlayerController.Instance.  playerAction.Invoke(PlayerAction.Right);
 
         }
     }

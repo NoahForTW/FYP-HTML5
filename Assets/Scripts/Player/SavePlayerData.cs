@@ -71,5 +71,9 @@ public class SavePlayerData : MonoBehaviour
         Debug.Log(output + LoadData<PlayerScore>().score);
     }
 
+    public void ClearAllData()
+    {
+        PlayerPrefs.DeleteAll();
+    }
 
 }

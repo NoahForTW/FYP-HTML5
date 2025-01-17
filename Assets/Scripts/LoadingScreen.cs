@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 using System.IO;
+using UnityEngine.Networking;
 
 public class LoadingScreen : MonoBehaviour
 {
@@ -15,13 +16,14 @@ public class LoadingScreen : MonoBehaviour
     [SerializeField] private Image panelImage; 
     [SerializeField] private Sprite[] gdtBG;
     [SerializeField] private Sprite[] agveFG;
+
+    [SerializeField] private TipsDataSO tipsDataSO;
     
     private List<string> tips = new List<string>(); // List to store tips from JSON.
 
     private void Start()
     {
         SetBackgroundImage();
-        LoadTipsFromJson();
         DisplayRandomTip();
         StartCoroutine(LoadTargetScene());
         StartCoroutine(AnimateLoadingText());
@@ -59,34 +61,21 @@ public class LoadingScreen : MonoBehaviour
         }
     }
 
-    // TODO: Could possible add more to the tips?
     // TODO: Add a Scene Transition
-
-    private void LoadTipsFromJson()
-    {
-        string filePath = Path.Combine(Application.streamingAssetsPath, "LoadingTips.json");
-
-        if (File.Exists(filePath))
-        {
-            string jsonContent = File.ReadAllText(filePath);
-            TipsData tipsData = JsonUtility.FromJson<TipsData>(jsonContent);
-            tips = tipsData.tips;
-        }
-        else
-        {
-            Debug.LogError("LoadingTips.json not found in StreamingAssets.");
-        }
-    }
 
     private void DisplayRandomTip()
     {
-        if (tips != null && tips.Count > 0)
+        if (tipsDataSO != null && tipsDataSO.tips.Count > 0)
         {
-            string randomTip = tips[Random.Range(0, tips.Count)];
+            string randomTip = tipsDataSO.tips[Random.Range(0, tipsDataSO.tips.Count)];
             if (tipText != null)
             {
                 tipText.text = randomTip;
             }
+        }
+        else
+        {
+            Debug.LogError("TipsDataSO is not assigned or contains no tips.");
         }
     }
 

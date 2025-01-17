@@ -5,8 +5,13 @@ using UnityEngine;
 [RequireComponent(typeof(TeleportPlayerHandler))]
 public class TeleportationPoint : MonoBehaviour
 {
+    bool teleported = false;
     private void OnTriggerEnter(Collider other)
     {
-        GetComponent<TeleportPlayerHandler>().TeleportPlayer();
+        if (!teleported)
+        {
+            GetComponent<TeleportPlayerHandler>().TeleportPlayer();
+            teleported = true;
+        }
     }
 }

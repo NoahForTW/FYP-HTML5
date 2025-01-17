@@ -112,9 +112,11 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   currentPlayerAction: 4
+  MovingDirection: 0
+  Jumping: 0
   walkingSoundCooldown: 0.3
   movementSpeed: 10
-  jumpForce: 13
+  jumpForce: 15
 --- !u!54 &7254659285549525368
 Rigidbody:
   m_ObjectHideFlags: 0

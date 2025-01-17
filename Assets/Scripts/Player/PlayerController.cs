@@ -12,7 +12,8 @@ public enum PlayerAction
     Left,
     Right,
     Interact,
-    Idle
+    Idle, 
+    None
 }
 
 public class PlayerController : MonoBehaviour
@@ -24,8 +25,8 @@ public class PlayerController : MonoBehaviour
     public bool notGrounded = false; // check if player is jumping
     public UnityEvent<PlayerAction> currentPlayerActionEvent;
     public PlayerAction currentPlayerAction;
-    private HashSet<PlayerAction> activePlayerActions = new HashSet<PlayerAction>();
-
+    public PlayerAction MovingDirection;
+    public bool Jumping;
     private float lastSoundTime = 0f; // Tracks the last time a walking sound was played
     [SerializeField] private float walkingSoundCooldown = 0.3f; // Cooldown in seconds for walking sound
     //private
@@ -64,29 +65,25 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        MovingDirection = global::PlayerAction.None;
+        Jumping = false;
         if (Time.time - lastActionTime > inactivityThreshold 
             && !notGrounded
             && currentPlayerAction != global::PlayerAction.Idle)
         {
             PlayerAction(global::PlayerAction.Idle);
-            playerRb.velocity = Vector3.zero;
         }
-
-        Debug.Log("is not grounded: " + notGrounded);
     }
     private void FixedUpdate()
     {
-        if (activePlayerActions.Contains(global::PlayerAction.Left))
-        {
-            PlayerMovement(global::PlayerAction.Left);
-        }
-        if (activePlayerActions.Contains(global::PlayerAction.Right))
-        {
-            PlayerMovement(global::PlayerAction.Right);
+        playerRb.velocity = new Vector3(0,playerRb.velocity.y, playerRb.velocity.x);
+        if (MovingDirection != global::PlayerAction.None)
+        { 
+            PlayerMovement(MovingDirection);
         }
 
         // Process jump action
-        if (activePlayerActions.Contains(global::PlayerAction.Jump) && !notGrounded)
+        if (Jumping && !notGrounded)
         {
             PlayerJump();
         }
@@ -126,20 +123,13 @@ public class PlayerController : MonoBehaviour
     {
         lastActionTime = Time.time;
         if (!canMove) { return; }
-        if (action == global::PlayerAction.Idle)
+        if (action == global::PlayerAction.Left || action == global::PlayerAction.Right)
         {
-            activePlayerActions.Clear(); // Clear all actions for Idle
+            MovingDirection = action;
         }
-        else if (action == global::PlayerAction.Left || action == global::PlayerAction.Right)
+        else if (action == global::PlayerAction.Jump)
         {
-            // Ensure only one of Left or Right exists in the list
-            activePlayerActions.Remove(global::PlayerAction.Left);
-            activePlayerActions.Remove(global::PlayerAction.Right);
-            activePlayerActions.Add(action);
-        }
-        else if (!activePlayerActions.Contains(action))
-        {
-            activePlayerActions.Add(action); // Add the action
+            Jumping = true;
         }
 
         SetCurrentPlayerAction(action);
@@ -150,7 +140,6 @@ public class PlayerController : MonoBehaviour
     private void PlayerMovement(PlayerAction action)
     {
         // player movement
-
        direction = action == global::PlayerAction.Right ? transform.right : -transform.right;
         /*  float currentForce = isJumping ? Mathf.Abs(movementSpeed - jumpForce) : movementSpeed;
          playerRb.AddForce(direction * movementSpeed);*/
@@ -220,8 +209,7 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.tag == "Ground")
         {
             notGrounded = false;
-            if (activePlayerActions.Contains(global::PlayerAction.Jump))
-                activePlayerActions.Remove(global::PlayerAction.Jump);
+
         }
     }
 

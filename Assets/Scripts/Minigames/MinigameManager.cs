@@ -133,6 +133,7 @@ public class MinigameManager : MonoBehaviour
         CanvasManager.Instance.GUICanvas.SetActiveControlsUI(false);
         CurrentMinigame.StartMinigame();
         GameTimer = 0f;
+        PlayerController.Instance.canMove = false;
     }
     void UpdateTimer()
     {
@@ -160,6 +161,7 @@ public class MinigameManager : MonoBehaviour
         CanvasManager.Instance.GUICanvas.SetActiveControlsUI(true);
         Notification.SetActive(false);
         SetMinigame(MinigameType.None);
+        PlayerController.Instance.canMove = true;
     }
     public void ClearChild(Transform parent)
     {

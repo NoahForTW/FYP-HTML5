@@ -4518,6 +4518,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   CompletionEffect: 1
+  DoSaveData: 1
 --- !u!1001 &572125365
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7298,6 +7299,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   CompletionEffect: 3
+  DoSaveData: 0
 --- !u!114 &1081226738
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9054,6 +9056,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   CompletionEffect: 1
+  DoSaveData: 1
 --- !u!1001 &1484127993
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10318,6 +10321,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   CompletionEffect: 1
+  DoSaveData: 1
 --- !u!1 &1694937876
 GameObject:
   m_ObjectHideFlags: 0

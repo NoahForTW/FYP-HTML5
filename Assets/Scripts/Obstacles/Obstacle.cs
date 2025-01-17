@@ -18,6 +18,8 @@ public class Obstacle : MonoBehaviour
     public UnityEvent Event;
     public UnityEvent AfterEvent;
     public CompletionEffects CompletionEffect;
+
+    public bool DoSaveData = true;
     private void Awake()
     {
         Animator = GetComponent<Animator>();
@@ -39,7 +41,8 @@ public class Obstacle : MonoBehaviour
                 PlayAnimation();
                 break;
         }
-
+        if (!DoSaveData)
+            return;
         ObstaclesData obstacles = new ObstaclesData();
         obstacles.TagName = this.tag;
         if (SceneManager.GetActiveScene().name == "GDTLevel")

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FerrisWheelCart : MonoBehaviour
+public class PlayerOnModel : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {

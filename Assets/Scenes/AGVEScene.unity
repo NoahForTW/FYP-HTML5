@@ -4677,6 +4677,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: GUICanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 3168370023394918358, guid: c9526f4cf1215434b80a059fe742e0ed,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 55.649994
+      objectReference: {fileID: 0}
+    - target: {fileID: 4041931531522502640, guid: c9526f4cf1215434b80a059fe742e0ed,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 55.649994
+      objectReference: {fileID: 0}
     - target: {fileID: 4537915842477844153, guid: c9526f4cf1215434b80a059fe742e0ed,
         type: 3}
       propertyPath: m_SizeDelta.x
@@ -4776,6 +4786,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.x
       value: -73.859985
+      objectReference: {fileID: 0}
+    - target: {fileID: 8945555833729083388, guid: c9526f4cf1215434b80a059fe742e0ed,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -19.700012
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -65,8 +65,6 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        MovingDirection = global::PlayerAction.None;
-        Jumping = false;
         if (Time.time - lastActionTime > inactivityThreshold 
             && !notGrounded
             && currentPlayerAction != global::PlayerAction.Idle)
@@ -77,15 +75,17 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         playerRb.velocity = new Vector3(0,playerRb.velocity.y, playerRb.velocity.x);
-        if (MovingDirection != global::PlayerAction.None)
+        if (MovingDirection == global::PlayerAction.Left || MovingDirection == global::PlayerAction.Right)
         { 
             PlayerMovement(MovingDirection);
+            MovingDirection = global::PlayerAction.None;
         }
 
         // Process jump action
-        if (Jumping && !notGrounded)
+        if (Jumping)
         {
             PlayerJump();
+
         }
     }
     private void OnEnable()
@@ -209,7 +209,7 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.tag == "Ground")
         {
             notGrounded = false;
-
+            Jumping = false;
         }
     }
 
@@ -218,6 +218,7 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.tag == "Ground")
         {
             notGrounded = true;
+
         }
     }
     

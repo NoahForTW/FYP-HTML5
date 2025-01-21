@@ -60,11 +60,13 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         playerAction.AddListener(PlayerAction);
-        SetCurrentPlayerAction(global::PlayerAction.Idle);
+        SetCurrentPlayerAction(global::PlayerAction.Jump);
     }
 
     private void Update()
     {
+        transform.rotation = Quaternion.identity;
+        canMove = !DialogueManager.GetInstance().dialogueIsPlaying && MinigameManager.Instance.GetCurrentMinigame() == null;
         if (Time.time - lastActionTime > inactivityThreshold 
             && !notGrounded
             && currentPlayerAction != global::PlayerAction.Idle)
@@ -165,8 +167,8 @@ public class PlayerController : MonoBehaviour
         if (!notGrounded)
         {
             direction = transform.up;
-            //playerRb.AddForce(direction * jumpForce, ForceMode.Impulse);
             playerRb.velocity = new Vector3(playerRb.velocity.x, jumpForce, 0);
+            //playerRb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             AudioManager.instance.PlaySoundOneShot(SoundType.Jumping);
         }
     }

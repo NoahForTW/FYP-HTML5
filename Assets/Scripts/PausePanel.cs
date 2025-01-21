@@ -5,22 +5,33 @@ using UnityEngine;
 
 public class PausePanel : MonoBehaviour
 {
+    [SerializeField] private GameObject pauseMenu;
     [SerializeField] private GameObject pausePanel;
+    [SerializeField] private GameObject settingsPanel;
 
     [ReadOnly]
     public bool isPaused = false; // Track pause state
 
-    // Start is called before the first frame update
     void Start()
     {
         pausePanel.SetActive(false);
-        Time.timeScale = 1; // Ensure time is running normally at the start
+        settingsPanel.SetActive(false);
+        pauseMenu.SetActive(false);
+        //Time.timeScale = 1; // Ensure time is running normally at the start
+
+        // Subscribe to the Pause action
+        PlayerController.Instance.playerAction.AddListener(OnPlayerAction);
     }
 
-    void Update()
+    void OnDestroy()
     {
-        // Toggle pause state when Escape key is pressed
-        if (Input.GetKeyDown(KeyCode.Escape))
+        // Unsubscribe to avoid memory leaks
+        PlayerController.Instance.playerAction.RemoveListener(OnPlayerAction);
+    }
+
+    private void OnPlayerAction(PlayerAction action)
+    {
+        if (action == PlayerAction.Pause)
         {
             if (isPaused)
             {
@@ -36,14 +47,30 @@ public class PausePanel : MonoBehaviour
     public void PauseGame()
     {
         pausePanel.SetActive(true);
-        Time.timeScale = 0; // Freeze time
+        settingsPanel.SetActive(false); // Ensure settings panel is hidden
+        pauseMenu.SetActive(true);
+        //Time.timeScale = 0; // Freeze time
         isPaused = true;
     }
 
     public void ResumeGame()
     {
         pausePanel.SetActive(false);
-        Time.timeScale = 1; // Resume time
+        settingsPanel.SetActive(false); // Ensure settings panel is hidden
+        pauseMenu.SetActive(false);
+        //Time.timeScale = 1; // Resume time
         isPaused = false;
+    }
+
+    public void OpenSettings()
+    {
+        pausePanel.SetActive(false); // Hide Pause Menu
+        settingsPanel.SetActive(true); // Show Settings Panel
+    }
+
+    public void CloseSettings()
+    {
+        settingsPanel.SetActive(false); // Hide Settings Panel
+        pausePanel.SetActive(true); // Show Pause Menu
     }
 }

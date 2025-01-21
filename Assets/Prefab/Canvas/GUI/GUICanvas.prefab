@@ -15,7 +15,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3168370023394918358
 RectTransform:
   m_ObjectHideFlags: 0
@@ -37,7 +37,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 55.65}
+  m_AnchoredPosition: {x: 0, y: 55.650024}
   m_SizeDelta: {x: 656.01, y: 111.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &278488364829877434
@@ -512,7 +512,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 49f16f98cce2cec448bb6295c9e64ee4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 76d48a4afa57b584dad781fb201d9a18, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -721,7 +721,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 49f16f98cce2cec448bb6295c9e64ee4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 76d48a4afa57b584dad781fb201d9a18, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -854,7 +854,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 39c7646ee2439e945ab479cbb0e1251f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2f9b8e15d2e8fba4c885e1bcc102d1a3, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -907,7 +907,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 839541385887336538}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: PausePanel, Assembly-CSharp
+        m_MethodName: PauseGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2916437126444909505
 GameObject:
   m_ObjectHideFlags: 0
@@ -974,7 +986,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 49f16f98cce2cec448bb6295c9e64ee4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 76d48a4afa57b584dad781fb201d9a18, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1269,7 +1281,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 217005cf2dd740c4badee8f86e260cf8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 94237c7ef3e3faf4e842424b7618140b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1370,7 +1382,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 55.65}
+  m_AnchoredPosition: {x: 0, y: 55.650024}
   m_SizeDelta: {x: 656.01, y: 111.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &4704113251754021060
@@ -1595,7 +1607,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 49f16f98cce2cec448bb6295c9e64ee4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 76d48a4afa57b584dad781fb201d9a18, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2086,7 +2098,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.9972222, y: 0.9965309}
   m_AnchorMax: {x: 0.9972222, y: 0.9965309}
-  m_AnchoredPosition: {x: -65.1, y: -19.7}
+  m_AnchoredPosition: {x: -65.099976, y: -19.700012}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5155754453210115212
@@ -2233,7 +2245,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 217005cf2dd740c4badee8f86e260cf8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 94237c7ef3e3faf4e842424b7618140b, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1

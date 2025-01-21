@@ -10,6 +10,7 @@ public class InputManager : MonoBehaviour
     [SerializeField] KeyCode leftKey;
     [SerializeField] KeyCode rightKey;
     [SerializeField] KeyCode interactingKey;
+    [SerializeField] KeyCode escKey;
 
 
     public static InputManager Instance;
@@ -37,7 +38,7 @@ public class InputManager : MonoBehaviour
                 { PlayerAction.Left, () => Input.GetKey(leftKey) },
                 { PlayerAction.Right, () => Input.GetKey(rightKey) },
                 { PlayerAction.Interact, () => Input.GetKeyDown(interactingKey) },
-
+                { PlayerAction.Pause, () => Input.GetKeyDown(escKey)},
             };
     }
 

@@ -653,7 +653,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.035195757, y: 0.019618647}
   m_AnchorMax: {x: 0.96700007, y: 0.5895876}
-  m_AnchoredPosition: {x: -0.4998474, y: 0}
+  m_AnchoredPosition: {x: -0.4998169, y: 0}
   m_SizeDelta: {x: 0.78700066, y: -0.2290039}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &942883117
@@ -1176,6 +1176,8 @@ MonoBehaviour:
   agveFG:
   - {fileID: 21300000, guid: 4d68ec4a11d00004dbb8c9e84c67beb0, type: 3}
   - {fileID: 21300000, guid: 2d0482d9484fb624091732d7ce29e12a, type: 3}
+  titleBG:
+  - {fileID: 21300000, guid: 6ffc68f4e95d4e54e93816b119abcf65, type: 3}
   tipsDataSO: {fileID: 11400000, guid: 27601a8790f7e8743bd74725cafe9887, type: 2}
 --- !u!4 &1472137055
 Transform:
@@ -1226,7 +1228,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.8973701}
   m_AnchorMax: {x: 0.5, y: 0.8973701}
-  m_AnchoredPosition: {x: 0.0000038192, y: -24.3}
+  m_AnchoredPosition: {x: 0.0000038192, y: -24.300003}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1483944661

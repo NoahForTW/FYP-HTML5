@@ -51,7 +51,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.5293562, y: 0.31652737, z: 5}
+  m_Size: {x: 2.46, y: 0.31652737, z: 3}
   m_Center: {x: 0, y: -2.7807965, z: 0}
 --- !u!1 &8841480867982241963
 GameObject:
@@ -67,7 +67,7 @@ GameObject:
   - component: {fileID: 2001075505133269726}
   - component: {fileID: 6179395797785353365}
   - component: {fileID: 5693127182044194046}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -107,7 +107,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canMove: 1
-  notGrounded: 0
+  notGrounded: 1
   currentPlayerActionEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -126,7 +126,7 @@ Rigidbody:
   m_GameObject: {fileID: 8841480867982241963}
   serializedVersion: 4
   m_Mass: 1
-  m_Drag: 0
+  m_Drag: 0.75
   m_AngularDrag: 0
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}

@@ -55,7 +55,6 @@ public class DialogueManager : MonoBehaviour
 
     void Update()
     {
-        PlayerController.Instance.canMove = !dialogueIsPlaying;
         if (!dialogueIsPlaying) {
             return;
         }

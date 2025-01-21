@@ -22,7 +22,9 @@ public class Obstacle : MonoBehaviour
     public bool DoSaveData = true;
     private void Awake()
     {
-        Animator = GetComponent<Animator>();
+        if (TryGetComponent<Animator>(out Animator animator))
+            Animator = animator;
+
         Event.AddListener(DoCompletionEvent);
     }
 

@@ -27,6 +27,9 @@ TagManager:
   - GDT_BeforeVariableGame
   - GDT_StartOfLevel
   - PlayerFeet
+  - GDT_WallAfterBooleanGame
+  - GDT_WallAfterVariableGame
+  - GDT_GearAtBooleanGame
   layers:
   - Default
   - TransparentFX

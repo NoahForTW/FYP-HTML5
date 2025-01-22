@@ -38,11 +38,14 @@ public class UVTextureUI : DragDrop
         {
             GameObject go = hit.collider.gameObject;
             UVModelSide side = go.GetComponent<UVModelSide>();
-            if (side != null && side.GetCanChangeTexture())
+            if (side != null && !side.IsCurrentTextureCorrect())
             {
                 Material material = new Material(go.GetComponent<MeshRenderer>().material);
                 material.mainTexture = texture;
-                go.GetComponent<MeshRenderer>().material = material;
+                Material[] materials = go.GetComponentInChildren<MeshRenderer>().materials;
+                materials[0] = material;
+
+                go.GetComponent<MeshRenderer>().materials = materials;
                 side.PromptFeedback();
             }
         }

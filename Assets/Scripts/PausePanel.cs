@@ -49,7 +49,7 @@ public class PausePanel : MonoBehaviour
         pausePanel.SetActive(true);
         settingsPanel.SetActive(false); // Ensure settings panel is hidden
         pauseMenu.SetActive(true);
-        //Time.timeScale = 0; // Freeze time
+        Time.timeScale = 0; // Freeze time
         isPaused = true;
     }
 
@@ -58,7 +58,7 @@ public class PausePanel : MonoBehaviour
         pausePanel.SetActive(false);
         settingsPanel.SetActive(false); // Ensure settings panel is hidden
         pauseMenu.SetActive(false);
-        //Time.timeScale = 1; // Resume time
+        Time.timeScale = 1; // Resume time
         isPaused = false;
     }
 

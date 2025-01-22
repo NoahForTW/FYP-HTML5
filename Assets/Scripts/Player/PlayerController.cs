@@ -13,6 +13,7 @@ public enum PlayerAction
     Right,
     Interact,
     Idle, 
+    Pause,
     None
 }
 

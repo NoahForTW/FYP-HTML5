@@ -16,7 +16,7 @@ public class LoadingScreen : MonoBehaviour
     [SerializeField] private Image panelImage; 
     [SerializeField] private Sprite[] gdtBG;
     [SerializeField] private Sprite[] agveFG;
-
+    [SerializeField] private Sprite[] titleBG;
     [SerializeField] private TipsDataSO tipsDataSO;
     
     private List<string> tips = new List<string>(); // List to store tips from JSON.
@@ -47,6 +47,11 @@ public class LoadingScreen : MonoBehaviour
         else if (SceneLoader.TargetScene == "AVGEScene")
         {
             selectedArray = agveFG;
+        }
+
+        else if (SceneLoader.TargetScene == "TitleScene")
+        {
+            selectedArray = titleBG;
         }
 
         if (selectedArray != null && selectedArray.Length > 0)

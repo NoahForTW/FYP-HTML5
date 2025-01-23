@@ -28,7 +28,7 @@ public class UVModel : ModelInteraction
             }
             else if (UVTextureMinigame.Instance.canModelMove)
             {
-                MoveModel(0.5f);
+                MoveModel(0.25f);
 
                 Vector3 clampedPosition = ClampToParentBounds(transform.position);
 

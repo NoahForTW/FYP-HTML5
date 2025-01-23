@@ -114,9 +114,8 @@ public class UVTextureMinigame : Minigame
         foreach (var side in ModelSides)
         {
             // when texture placed is correct
-            if (side.GetCanChangeTexture() && side.IsCurrentTextureCorrect() && canCheckTexture)
+            if (side.IsCurrentTextureCorrect() && canCheckTexture)
             {
-                side.SetCanChangeTexture(false);
                 Debug.Log(side.gameObject.name + "-> DONE");
             }
         }
@@ -151,12 +150,12 @@ public class UVTextureMinigame : Minigame
         UVGame_SO game_SO = uVQuestion.Question_SO;
         // instantiate sample model
         GameObject sampleModel = Instantiate(game_SO.modelSample, SampleModelParent.transform);
-        UVModelSide[] sampleModelSides = sampleModel.GetComponentsInChildren<UVModelSide>();
+/*        UVModelSide[] sampleModelSides = sampleModel.GetComponentsInChildren<UVModelSide>();
 
         foreach (UVModelSide side in sampleModelSides)
         {
             side.GetComponent<Renderer>().material.mainTexture = side.texture;
-        }
+        }*/
 
         // instantiate model
         GameObject model = Instantiate(game_SO.UVModelPrefab, modelParent.transform);

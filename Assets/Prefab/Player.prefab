@@ -111,8 +111,8 @@ MonoBehaviour:
   currentPlayerActionEvent:
     m_PersistentCalls:
       m_Calls: []
-  currentPlayerAction: 4
-  MovingDirection: 0
+  currentPlayerAction: 0
+  MovingDirection: 6
   Jumping: 0
   walkingSoundCooldown: 0.3
   movementSpeed: 10

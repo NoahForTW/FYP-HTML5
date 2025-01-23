@@ -6,6 +6,7 @@ public class Minigame : MonoBehaviour
 {
     public MinigameType minigameType;
     public bool isCompleted = false;
+    public float maxTimeInSeconds = 0f;
 
     public GameObject Window;
     protected virtual void OnEnable()
@@ -27,6 +28,7 @@ public class Minigame : MonoBehaviour
         this.gameObject.SetActive(false);
 
         // * I think can add like a visual "Success" thingy panel here ??
-        AudioManager.instance.PlaySoundOneShot(SoundType.Successful);
+        if (isCompleted) 
+            AudioManager.instance.PlaySoundOneShot(SoundType.Successful);
     }
 }

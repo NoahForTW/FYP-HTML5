@@ -11,6 +11,7 @@ public class TeleportPlayerHandler : MonoBehaviour
 
     public void TeleportPlayer()
     {
+        Debug.Log(this.gameObject.name);
 
         if (TargetScene == "GDTLevel")
         {

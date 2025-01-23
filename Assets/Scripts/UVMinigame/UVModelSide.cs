@@ -1,24 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class UVModelSide : MonoBehaviour
 {
     [SerializeField] public Texture texture;
-    bool canChangeTexture = true;
-    
+
     public bool IsCurrentTextureCorrect()
     {
-        return GetComponent<MeshRenderer>().material.mainTexture == texture;
-    }
-
-    public bool GetCanChangeTexture()
-    {
-        return canChangeTexture;
-    }
-    public void SetCanChangeTexture(bool newBool)
-    {
-        canChangeTexture = newBool;
+        List<Material> materials = GetComponent<MeshRenderer>().materials.ToList();
+        foreach (Material mat in materials)
+        {
+            if (mat.HasProperty("_MainTex") && mat.mainTexture == texture)
+                return true;
+        }
+        return false;
     }
     public void PromptFeedback()
     {

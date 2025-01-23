@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40ec195cb6d1887429d35ec1fa173f24, type: 3}
+  m_Name: Teddy
+  m_EditorClassIdentifier: 
+  UVModelPrefab: {fileID: 5390248929474435994, guid: ce3d99dc76ea67c439b6c88769b4cf91,
+    type: 3}
+  UVTextures:
+  - {fileID: 2800000, guid: 82bc9223c233df34fb7fd1e54d02651c, type: 3}
+  - {fileID: 2800000, guid: 9ab4f8d7c77967045896842587042ebf, type: 3}
+  - {fileID: 2800000, guid: 1040f41cdfc055242b6ed504a8627e45, type: 3}
+  - {fileID: 2800000, guid: 5f2cd612a504fa741883e91628db8890, type: 3}
+  - {fileID: 2800000, guid: 9fa7592fca2ebc4439c9fbc342076c79, type: 3}
+  modelSample: {fileID: 3634176843744327362, guid: 3df7ac4c89e19ed4d863b9fa21087cff,
+    type: 3}

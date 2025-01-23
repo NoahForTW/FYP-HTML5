@@ -58,6 +58,11 @@ public class MinigameManager : MonoBehaviour
             CanvasManager.Instance.TimerCanvas.gameObject.SetActive(false);
         }
     }
+
+    public void SetTimer(float time)
+    {
+        GameTimer = time;
+    }
     public void SetMinigame(MinigameType type)
     {
         CurrentMinigameType = type;
@@ -132,12 +137,11 @@ public class MinigameManager : MonoBehaviour
         CanvasManager.Instance.GUICanvas.CanvasGroup.blocksRaycasts = false;
         CanvasManager.Instance.GUICanvas.SetActiveControlsUI(false);
         CurrentMinigame.StartMinigame();
-        GameTimer = 0f;
         PlayerController.Instance.canMove = false;
     }
     void UpdateTimer()
     {
-        GameTimer += Time.deltaTime;
+        GameTimer -= Time.deltaTime;
         if (TimerUI != null)
         {
             TimerUI.text = GetGameTimerInFormat();

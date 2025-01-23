@@ -18,6 +18,9 @@ public class BooleanGame : Minigame
     public TMP_Text boolValidation;
     public TMP_Text QuestionText;
 
+    [Header("Lever")]
+    public GameObject Lever;
+
     public static BooleanGame Instance;
 
     // List to keep track of all gear pieces and slots
@@ -46,6 +49,7 @@ public class BooleanGame : Minigame
     void InitializeGame(BooleanQuestionCompleted booleanQuestion)
     {
         BooleanGame_SO question = booleanQuestion.Question_SO;
+        currentClue = question.Clue;
         CurrentQuestion = booleanQuestion;
         // get questions from NPC
         // set question 
@@ -168,6 +172,7 @@ public class BooleanGame : Minigame
 
     public void QuestionIsAnswered()
     {
+        Lever.GetComponent<Animator>()?.SetBool("Start", true);
         StopCoroutine(ShowFeedBack(AllSlotsAreCorrect()));
         StartCoroutine(ShowFeedBack(AllSlotsAreCorrect()));
     }

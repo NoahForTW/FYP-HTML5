@@ -16,3 +16,4 @@ MonoBehaviour:
 
     What is !IsCorrect?'
   Answer: 1
+  Clue: <color=red>!</color> is used to invert a boolean variable.

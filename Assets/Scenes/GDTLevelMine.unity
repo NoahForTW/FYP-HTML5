@@ -2193,6 +2193,7 @@ MonoBehaviour:
   inkJSON: {fileID: 4900000, guid: 7336ff77fe09738439d9202386cda394, type: 3}
   IsMinigameCompleted: 0
   MinigameType: 4
+  maxTimeInSeconds: 0
   CompletedEffects:
   - {fileID: 602475159}
   - {fileID: 1210419774}
@@ -10853,6 +10854,7 @@ MonoBehaviour:
   inkJSON: {fileID: 4900000, guid: 02c28a7d6ad50654ab274d9d8d81c1a6, type: 3}
   IsMinigameCompleted: 0
   MinigameType: 1
+  maxTimeInSeconds: 0
   CompletedEffects:
   - {fileID: 1786364166}
   questions:
@@ -17941,6 +17943,7 @@ MonoBehaviour:
   inkJSON: {fileID: 4900000, guid: 844e8cdfb2c218c459d2298ac5b5e493, type: 3}
   IsMinigameCompleted: 0
   MinigameType: 2
+  maxTimeInSeconds: 0
   CompletedEffects:
   - {fileID: 296679826}
   - {fileID: 1507488356}
@@ -17960,6 +17963,7 @@ GameObject:
   - component: {fileID: 1595362152}
   - component: {fileID: 1595362151}
   - component: {fileID: 1595362150}
+  - component: {fileID: 1595362155}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -18046,6 +18050,27 @@ Transform:
   - {fileID: 1665915337}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &1595362155
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1595362149}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a0101a273267e7148b8a264f00293610, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1606312395
 GameObject:
   m_ObjectHideFlags: 0
@@ -19962,6 +19987,7 @@ MonoBehaviour:
   inkJSON: {fileID: 4900000, guid: 02c28a7d6ad50654ab274d9d8d81c1a6, type: 3}
   IsMinigameCompleted: 0
   MinigameType: 3
+  maxTimeInSeconds: 0
   CompletedEffects:
   - {fileID: 1171723537}
   questions:
@@ -22494,6 +22520,46 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 6180390636679337192}
+    - target: {fileID: 7105290229026343904, guid: efcb26936e8927a4589e98e4c5cf4836,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7105290229026343904, guid: efcb26936e8927a4589e98e4c5cf4836,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7105290229026343904, guid: efcb26936e8927a4589e98e4c5cf4836,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7105290229026343904, guid: efcb26936e8927a4589e98e4c5cf4836,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7467025014358206003, guid: efcb26936e8927a4589e98e4c5cf4836,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7467025014358206003, guid: efcb26936e8927a4589e98e4c5cf4836,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7467025014358206003, guid: efcb26936e8927a4589e98e4c5cf4836,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7467025014358206003, guid: efcb26936e8927a4589e98e4c5cf4836,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8402560122861481238, guid: efcb26936e8927a4589e98e4c5cf4836,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target

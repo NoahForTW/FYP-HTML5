@@ -6,11 +6,11 @@ public class Coin : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        CoinInventory _coinInventory = other.GetComponent<CoinInventory>();
+        PickUpInventory _pkInventory = other.GetComponent<PickUpInventory>();
 
-        if (_coinInventory != null)
+        if (_pkInventory != null)
         {
-            _coinInventory.CoinCollected();
+            _pkInventory.CoinCollected();
             gameObject.SetActive(false);
         }
     }

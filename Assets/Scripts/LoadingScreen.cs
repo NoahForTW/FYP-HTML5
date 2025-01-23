@@ -44,7 +44,7 @@ public class LoadingScreen : MonoBehaviour
         {
             selectedArray = gdtBG;
         }
-        else if (SceneLoader.TargetScene == "AVGEScene")
+        else if (SceneLoader.TargetScene == "AGVEScene")
         {
             selectedArray = agveFG;
         }

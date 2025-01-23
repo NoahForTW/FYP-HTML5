@@ -21,7 +21,7 @@ public class HealthBar : MonoBehaviour
         heartContainers = new List<GameObject>();
         displayedHearts = currentHearts;
     }
-    //ZeldaHealthBar.instance.SetupHearts(valueIn);
+
     public void SetupHearts(int heartsIn)
     {
         heartContainers.Clear();
@@ -45,7 +45,7 @@ public class HealthBar : MonoBehaviour
         }
         currentContainer = heartContainers[0].GetComponent<HeartContainer>();
     }
-    //ZeldaHealthBar.instance.SetCurrentHealth(valueIn);
+
     public void SetCurrentHealth(float health)
     {
         currentHearts = health;
@@ -73,7 +73,7 @@ public class HealthBar : MonoBehaviour
     {
         currentContainer.SetHeart(health);
     }
-    //ZeldaHealthBar.instance.AddHearts(valueIn);
+
     public void AddHearts(float healthUp)
     {
         currentHearts += healthUp;
@@ -84,7 +84,7 @@ public class HealthBar : MonoBehaviour
         SetCurrentHealth(currentHearts);
         TriggerFlash(false);
     }
-    //ZeldaHealthBar.instance.RemoveHearts(valueIn);
+
     public void RemoveHearts(float healthDown)
     {
         currentHearts -= healthDown;
@@ -95,7 +95,7 @@ public class HealthBar : MonoBehaviour
         SetCurrentHealth(currentHearts);
         TriggerFlash(true);
     }
-    //ZeldaHealthBar.instance.AddContainer(valueIn);
+
     public void AddContainer()
     {
         GameObject newHeart = Instantiate(heartContainerPrefab, transform);
@@ -116,7 +116,7 @@ public class HealthBar : MonoBehaviour
     private void TriggerFlash(bool isHealthDecreasing)
 {
     Color flashColor = isHealthDecreasing ? Color.red : Color.green;
-    float flashDuration = 0.2f; // Adjust as needed
+    float flashDuration = 0.2f;
 
     foreach (var heart in heartContainers)
     {

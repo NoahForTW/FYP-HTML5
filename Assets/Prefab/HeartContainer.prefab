@@ -70,7 +70,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
-  m_FillAmount: 0.5
+  m_FillAmount: 1
   m_FillClockwise: 0
   m_FillOrigin: 2
   m_UseSpriteMesh: 0
@@ -202,3 +202,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   next: {fileID: 0}
   fillImage: {fileID: 7893311290109017156}
+  flashColor: {r: 1, g: 0, b: 0, a: 1}

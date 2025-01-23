@@ -7,13 +7,12 @@ using UnityEngine;
 public class PlayerData
 {
     int Coins = 0;
-
 }
 [Serializable]
 public class GameData
 {
     int Coins = 0;
-
+    public int playerHealth = 3;
 }
 [Serializable]
 public class LevelData

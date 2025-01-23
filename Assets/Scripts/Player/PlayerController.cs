@@ -68,12 +68,17 @@ public class PlayerController : MonoBehaviour
     {
         transform.rotation = Quaternion.identity;
         canMove = !DialogueManager.GetInstance().dialogueIsPlaying && MinigameManager.Instance.GetCurrentMinigame() == null;
-        if (Time.time - lastActionTime > inactivityThreshold 
-            && !notGrounded
-            && currentPlayerAction != global::PlayerAction.Idle)
+
+        if (notGrounded)
         {
-            PlayerAction(global::PlayerAction.Idle);
+            SetCurrentPlayerAction(global::PlayerAction.Jump);
         }
+        else
+        {
+            if (MovingDirection == global::PlayerAction.None)
+                PlayerAction(global::PlayerAction.Idle);
+        }
+            
     }
     private void FixedUpdate()
     {

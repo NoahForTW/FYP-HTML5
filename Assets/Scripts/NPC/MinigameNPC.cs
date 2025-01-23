@@ -8,6 +8,9 @@ public class MinigameNPC : NPC
     public bool IsMinigameCompleted = false;
     public MinigameType MinigameType;
 
+    [Header("Minigame Max Time In Seconds")]
+    public float maxTimeInSeconds = 0f;
+
     public List<Obstacle> CompletedEffects;
     
     [Header("Questions")]
@@ -21,6 +24,7 @@ public class MinigameNPC : NPC
     {
         if (!canStartMinigame)
             return;
+        MinigameManager.Instance.SetTimer(maxTimeInSeconds);
         MinigameManager.Instance.SetMinigame(MinigameType);
         MinigameManager.Instance.SetQuestions(questions);
         MinigameManager.Instance.MinigameCompletion.AddListener(MinigameCompleted);

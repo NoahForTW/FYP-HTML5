@@ -150,7 +150,8 @@ public class MinigameManager : MonoBehaviour
     public void PauseTimer()
     {
         PauseTime = true;
-        Notification.SetActive(true);
+        CanvasManager.Instance.TimerCanvas?.SetPauseNotif();
+
     }
     public void UnPauseTimer()
     {
@@ -166,6 +167,11 @@ public class MinigameManager : MonoBehaviour
         Notification.SetActive(false);
         SetMinigame(MinigameType.None);
         PlayerController.Instance.canMove = true;
+    }
+    void ShowResults()
+    {
+        PauseTime = true;
+        CanvasManager.Instance.TimerCanvas?.SetGameDoneNotif(GetGameTimerInFormat(), 5, 6);
     }
     public void ClearChild(Transform parent)
     {
@@ -186,8 +192,10 @@ public class MinigameManager : MonoBehaviour
 
             if (CurrentMinigame.isCompleted)
             {
-                EndMinigame();
+                //EndMinigame();
                 MinigameCompletion.Invoke();
+                // show result notification
+                ShowResults();
             }
             else
             {

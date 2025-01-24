@@ -4,63 +4,197 @@ using UnityEngine;
 
 public class EnemyAI : MonoBehaviour
 {
+    public enum EnemyType
+    {
+        GroundEnemy,  // Enemy that only moves between waypoints
+        FlyEnemy      // Enemy that moves and can attack the player
+    }
+
+    public enum State
+    {
+        Idle,         // Enemy is idle
+        Walking,      // Enemy is walking between waypoints
+        Attacking,    // Enemy is attacking the player
+        Dying         // Enemy is dying (placeholder for future use)
+    }
+
+    public EnemyType enemyType; // Set the type of the enemy in the Inspector
+    public State currentState = State.Idle; // Enemy's current state
+    public float idleDuration = 2.0f; // Time spent idle at each waypoint
+    public float detectionRange = 5.0f; // Range for detecting the player
+    public float attackRange = 2.0f; // Range for attacking the player
+    public float attackCooldown = 1.5f; // Cooldown between attacks
+    private float attackTimer = 0f; // Tracks attack cooldown
+
     public List<Transform> waypoints = new List<Transform>();
     private Transform targetWaypoint;
     private int targetWaypointIndex = 0;
-    private float minDistance = 0.1f; //If the distance between the enemy and the waypoint is less than this, then it has reacehd the waypoint
+    private float minDistance = 0.1f; // Distance to waypoint
     private int lastWaypointIndex;
 
     private float movementSpeed = 5.0f;
-    //private float rotationSpeed = 2.0f;
+    private Animator animator; // Reference to Animator
+    private bool isIdleCoroutineRunning = false; // Prevent multiple coroutines
 
-	// Use this for initialization
-	void Start () {
-        lastWaypointIndex = waypoints.Count - 1;
-        targetWaypoint = waypoints[targetWaypointIndex]; //Set the first target waypoint at the start so the enemy starts moving towards a waypoint
-	}
-	
-	// Update is called once per frame
-	void Update () {
-        float movementStep = movementSpeed * Time.deltaTime;
-        //float rotationStep = rotationSpeed * Time.deltaTime;
+    public Transform player; // Reference to the player
 
-        Vector3 directionToTarget = targetWaypoint.position - transform.position;
-        //Quaternion rotationToTarget = Quaternion.LookRotation(directionToTarget); 
-
-        //transform.rotation = Quaternion.Slerp(transform.rotation, rotationToTarget, rotationStep); 
-
-        //Debug.DrawRay(transform.position, transform.forward * 50f, Color.green, 0f); //Draws a ray forward in the direction the enemy is facing
-        Debug.DrawRay(transform.position, directionToTarget, Color.red, 0f); //Draws a ray in the direction of the current target waypoint
-
-        float distance = Vector3.Distance(transform.position, targetWaypoint.position);
-        CheckDistanceToWaypoint(distance);
-
-        transform.position = Vector3.MoveTowards(transform.position, targetWaypoint.position, movementStep);
-	}
-
-    /// <summary>
-    /// Checks to see if the enemy is within distance of the waypoint. If it is, it called the UpdateTargetWaypoint function 
-    /// </summary>
-    /// <param name="currentDistance">The enemys current distance from the waypoint</param>
-    void CheckDistanceToWaypoint(float currentDistance)
+    // Start is called before the first frame update
+    void Start()
     {
-        if(currentDistance <= minDistance)
+        lastWaypointIndex = waypoints.Count - 1;
+        targetWaypoint = waypoints[targetWaypointIndex]; // Set the first waypoint
+        animator = GetComponent<Animator>(); // Get the Animator component
+        ChangeState(State.Walking); // Start in the Walking state
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        attackTimer -= Time.deltaTime; // Reduce attack cooldown timer
+
+        switch (currentState)
         {
-            targetWaypointIndex++;
-            UpdateTargetWaypoint();
+            case State.Idle:
+                HandleIdleState();
+                break;
+            case State.Walking:
+                HandleWalkingState();
+                break;
+            case State.Attacking:
+                if (enemyType == EnemyType.FlyEnemy)
+                    HandleAttackingState();
+                break;
+            case State.Dying:
+                HandleDyingState(); // Placeholder for future implementation
+                break;
         }
     }
 
-    /// <summary>
-    /// Increaes the index of the target waypoint. If the enemy has reached the last waypoint in the waypoints list, it resets the targetWaypointIndex to the first waypoint in the list (causes the enemy to loop)
-    /// </summary>
+    void ChangeState(State newState)
+    {
+        currentState = newState;
+
+        switch (newState)
+        {
+            case State.Idle:
+                animator.SetBool("Walking", false);
+                break;
+            case State.Walking:
+                animator.SetBool("Walking", true);
+                break;
+            case State.Attacking:
+                animator.SetTrigger("Attack");
+                break;
+        }
+    }
+
+    void HandleIdleState()
+    {
+        if (!isIdleCoroutineRunning)
+        {
+            StartCoroutine(IdleDelay());
+        }
+    }
+
+    IEnumerator IdleDelay()
+    {
+        isIdleCoroutineRunning = true;
+        yield return new WaitForSeconds(idleDuration);
+        ChangeState(State.Walking);
+        isIdleCoroutineRunning = false;
+    }
+
+    void HandleWalkingState()
+    {
+        float movementStep = movementSpeed * Time.deltaTime;
+        float distanceToWaypoint = Vector3.Distance(transform.position, targetWaypoint.position);
+
+        if (distanceToWaypoint > minDistance)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, targetWaypoint.position, movementStep);
+        }
+        else
+        {
+            targetWaypointIndex++;
+            UpdateTargetWaypoint();
+            ChangeState(State.Idle);
+        }
+
+        if (enemyType == EnemyType.FlyEnemy && player != null)
+        {
+            float playerDistance = Vector3.Distance(transform.position, player.position);
+
+            if (playerDistance <= detectionRange) // Detection range check
+            {
+                Debug.Log("Player detected!");
+                ChangeState(State.Attacking);
+            }
+        }
+    }
+
+    void HandleAttackingState()
+    {
+        if (player == null) return;
+
+        float playerDistance = Vector3.Distance(transform.position, player.position);
+
+        // If the player moves out of the detection range, return to patrolling
+        if (playerDistance > detectionRange)
+        {
+            Debug.Log("Player lost! Returning to patrol.");
+            ChangeState(State.Walking);
+            return;
+        }
+
+        // If the player is in attack range, attack
+        if (playerDistance <= attackRange && attackTimer <= 0f)
+        {
+            Debug.Log("Attacking player!");
+            attackTimer = attackCooldown; // Reset cooldown
+        }
+    }
+
+    void HandleDyingState()
+    {
+        Debug.Log("Enemy is dying...");
+    }
+
     void UpdateTargetWaypoint()
     {
-        if(targetWaypointIndex > lastWaypointIndex)
+        if (targetWaypointIndex > lastWaypointIndex)
         {
-            targetWaypointIndex = 0;
+            targetWaypointIndex = 0; // Loop back to the first waypoint
         }
 
         targetWaypoint = waypoints[targetWaypointIndex];
     }
+
+    void OnDrawGizmos()
+{
+    // Draw a line to the current waypoint
+    if (targetWaypoint != null)
+    {
+        Gizmos.color = Color.green; // Colour for the waypoint line
+        Gizmos.DrawLine(transform.position, targetWaypoint.position);
+    }
+
+    // Draw a line to the player if in detection range
+    if (player != null)
+    {
+        float playerDistance = Vector3.Distance(transform.position, player.position);
+
+        if (playerDistance <= detectionRange)
+        {
+            Gizmos.color = Color.yellow; // Colour for detection range
+            Gizmos.DrawLine(transform.position, player.position);
+        }
+
+        // Optionally, draw a sphere around the enemy for the detection and attack ranges
+        Gizmos.color = new Color(1, 1, 0, 0.2f); // Yellow for detection range
+        Gizmos.DrawWireSphere(transform.position, detectionRange);
+
+        Gizmos.color = new Color(1, 0, 0, 0.2f); // Red for attack range
+        Gizmos.DrawWireSphere(transform.position, attackRange);
+    }
+}
 }

@@ -9,4 +9,7 @@ public class BooleanGame_SO : ScriptableObject
     public string Question;
 
     public bool Answer;
+
+    [TextArea]
+    public string Clue;
 }

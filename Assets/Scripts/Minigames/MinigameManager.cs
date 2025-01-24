@@ -51,7 +51,7 @@ public class MinigameManager : MonoBehaviour
     private void Start()
     {
         TimerUI = CanvasManager.Instance.TimerCanvas?.timerText;
-        Notification = CanvasManager.Instance.TimerCanvas?.notification;
+        Notification = CanvasManager.Instance.NotificationCanvas?.notification;
 
         if (CanvasManager.Instance.TimerCanvas != null)
         {
@@ -150,7 +150,7 @@ public class MinigameManager : MonoBehaviour
     public void PauseTimer()
     {
         PauseTime = true;
-        CanvasManager.Instance.TimerCanvas?.SetPauseNotif();
+        CanvasManager.Instance.NotificationCanvas?.SetPauseNotif();
 
     }
     public void UnPauseTimer()
@@ -171,7 +171,11 @@ public class MinigameManager : MonoBehaviour
     void ShowResults()
     {
         PauseTime = true;
-        CanvasManager.Instance.TimerCanvas?.SetGameDoneNotif(GetGameTimerInFormat(), 5, 6);
+        CanvasManager.Instance.NotificationCanvas?.SetGameDoneNotif(GetGameTimerInFormat(), 5, 6);
+    }
+    public void ShowClue(string clue)
+    {
+        CanvasManager.Instance.NotificationCanvas?.SetNotif(clue);
     }
     public void ClearChild(Transform parent)
     {

@@ -7,6 +7,8 @@ public class Minigame : MonoBehaviour
     public MinigameType minigameType;
     public bool isCompleted = false;
     public float maxTimeInSeconds = 0f;
+    [TextArea]
+    public string currentClue;
 
     public GameObject Window;
     protected virtual void OnEnable()
@@ -30,5 +32,10 @@ public class Minigame : MonoBehaviour
         // * I think can add like a visual "Success" thingy panel here ??
         if (isCompleted) 
             AudioManager.instance.PlaySoundOneShot(SoundType.Successful);
+    }
+
+    public void ShowClue()
+    {
+        MinigameManager.Instance.ShowClue(currentClue);
     }
 }

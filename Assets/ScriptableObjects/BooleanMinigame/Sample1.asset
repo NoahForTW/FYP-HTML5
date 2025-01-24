@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efcae531a75df8b4aaf056af52d851cb, type: 3}
   m_Name: Sample1
   m_EditorClassIdentifier: 
-  Question: "bool GetBoolean()\n\treturn isTrue;\nWhat will GetBoolean() return if
-    isTrue = false;"
+  Question: "bool GetBoolean()\n\treturn <color=red>isTrue</color>;\nWhat will GetBoolean()
+    return if <color= red>isTrue = false; </color>"
   Answer: 0
+  Clue: GetBoolean() returns the value of <color=red>isTrue</color>.

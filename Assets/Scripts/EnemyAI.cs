@@ -1,53 +1,53 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyAI : MonoBehaviour
 {
     public enum EnemyType
     {
-        GroundEnemy,  // Enemy that only moves between waypoints
-        FlyEnemy      // Enemy that moves and can attack the player
+        GroundEnemy, // Only moves between waypoints
+        FlyEnemy     // Moves and can attack the player
     }
 
     public enum State
     {
-        Idle,         // Enemy is idle
-        Walking,      // Enemy is walking between waypoints
-        Attacking,    // Enemy is attacking the player
-        Dying         // Enemy is dying (placeholder for future use)
+        Idle,        // Enemy is idle
+        Walking,     // Enemy is walking between waypoints
+        Attacking,   // Enemy is attacking the player
+        Dying        // Enemy is dying (placeholder)
     }
 
-    public EnemyType enemyType; // Set the type of the enemy in the Inspector
-    public State currentState = State.Idle; // Enemy's current state
-    public float idleDuration = 2.0f; // Time spent idle at each waypoint
-    public float detectionRange = 5.0f; // Range for detecting the player
-    public float attackRange = 2.0f; // Range for attacking the player
-    public float attackCooldown = 1.5f; // Cooldown between attacks
+    [SerializeField] private EnemyType enemyType; // Enemy type (Ground or Fly)
+    [SerializeField] private State currentState = State.Idle; // Current state
+    [SerializeField] private float idleDuration = 2.0f; // Idle time at waypoints
+    [SerializeField] private float detectionRange = 5.0f; // Range for detecting the player
+    [SerializeField] private float attackRange = 2.0f; // Range for attacking the player
+    [SerializeField] private float attackCooldown = 1.5f; // Cooldown between attacks
     private float attackTimer = 0f; // Tracks attack cooldown
 
-    public List<Transform> waypoints = new List<Transform>();
+    [SerializeField] private List<Transform> waypoints = new List<Transform>();
     private Transform targetWaypoint;
     private int targetWaypointIndex = 0;
-    private float minDistance = 0.1f; // Distance to waypoint
     private int lastWaypointIndex;
 
-    private float movementSpeed = 5.0f;
+    private NavMeshAgent navMeshAgent; // Reference to NavMeshAgent
     private Animator animator; // Reference to Animator
     private bool isIdleCoroutineRunning = false; // Prevent multiple coroutines
 
-    public Transform player; // Reference to the player
+    [SerializeField] private Transform player; // Reference to the player
 
-    // Start is called before the first frame update
     void Start()
     {
         lastWaypointIndex = waypoints.Count - 1;
         targetWaypoint = waypoints[targetWaypointIndex]; // Set the first waypoint
-        animator = GetComponent<Animator>(); // Get the Animator component
-        ChangeState(State.Walking); // Start in the Walking state
+        animator = GetComponent<Animator>(); // Get Animator
+        navMeshAgent = GetComponent<NavMeshAgent>(); // Get NavMeshAgent
+
+        ChangeState(State.Walking); // Start in Walking state
     }
 
-    // Update is called once per frame
     void Update()
     {
         attackTimer -= Time.deltaTime; // Reduce attack cooldown timer
@@ -74,16 +74,20 @@ public class EnemyAI : MonoBehaviour
     {
         currentState = newState;
 
+        // Trigger animation transitions if needed
         switch (newState)
         {
             case State.Idle:
                 animator.SetBool("Walking", false);
+                navMeshAgent.isStopped = true; // Stop the NavMeshAgent
                 break;
             case State.Walking:
                 animator.SetBool("Walking", true);
+                navMeshAgent.isStopped = false; // Resume NavMeshAgent
                 break;
             case State.Attacking:
                 animator.SetTrigger("Attack");
+                navMeshAgent.isStopped = true; // Stop moving while attacking
                 break;
         }
     }
@@ -106,25 +110,26 @@ public class EnemyAI : MonoBehaviour
 
     void HandleWalkingState()
     {
-        float movementStep = movementSpeed * Time.deltaTime;
-        float distanceToWaypoint = Vector3.Distance(transform.position, targetWaypoint.position);
-
-        if (distanceToWaypoint > minDistance)
+        // Move the enemy to the current waypoint
+        if (targetWaypoint != null)
         {
-            transform.position = Vector3.MoveTowards(transform.position, targetWaypoint.position, movementStep);
-        }
-        else
-        {
-            targetWaypointIndex++;
-            UpdateTargetWaypoint();
-            ChangeState(State.Idle);
+            navMeshAgent.SetDestination(targetWaypoint.position);
+
+            // Check if the enemy reached the waypoint
+            if (!navMeshAgent.pathPending && navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance)
+            {
+                targetWaypointIndex++;
+                UpdateTargetWaypoint();
+                ChangeState(State.Idle);
+            }
         }
 
+        // If player is within detection range, switch to Attacking state
         if (enemyType == EnemyType.FlyEnemy && player != null)
         {
             float playerDistance = Vector3.Distance(transform.position, player.position);
 
-            if (playerDistance <= detectionRange) // Detection range check
+            if (playerDistance <= detectionRange)
             {
                 Debug.Log("Player detected!");
                 ChangeState(State.Attacking);
@@ -138,7 +143,7 @@ public class EnemyAI : MonoBehaviour
 
         float playerDistance = Vector3.Distance(transform.position, player.position);
 
-        // If the player moves out of the detection range, return to patrolling
+        // If player moves out of detection range, return to Walking
         if (playerDistance > detectionRange)
         {
             Debug.Log("Player lost! Returning to patrol.");
@@ -146,11 +151,18 @@ public class EnemyAI : MonoBehaviour
             return;
         }
 
-        // If the player is in attack range, attack
+        // Attack if the player is within range and cooldown is ready
         if (playerDistance <= attackRange && attackTimer <= 0f)
         {
             Debug.Log("Attacking player!");
-            attackTimer = attackCooldown; // Reset cooldown
+            attackTimer = attackCooldown; // Reset attack cooldown
+        }
+        else
+        {
+            // Face the player while attacking
+            Vector3 direction = (player.position - transform.position).normalized;
+            Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
         }
     }
 

@@ -16,7 +16,7 @@ public class EnemyAI : MonoBehaviour
         Idle,        // Enemy is idle
         Walking,     // Enemy is walking between waypoints
         Attacking,   // Enemy is attacking the player
-        Dying        // Enemy is dying (placeholder)
+        Dying        // Enemy is dying 
     }
 
     [SerializeField] private EnemyType enemyType; // Enemy type (Ground or Fly)
@@ -211,7 +211,14 @@ public class EnemyAI : MonoBehaviour
     {
         ChangeState(State.Dying);
 
-        // Destroy the enemy after a delay to let the animation play
+        // Disable the enemy's collider(s)
+        Collider[] colliders = GetComponentsInChildren<Collider>(); // Get all colliders (including children)
+        foreach (var collider in colliders)
+        {
+            collider.enabled = false; // Disable each collider
+        }
+
+        // Destroy the enemy after a delay to let the death animation play
         Destroy(gameObject, deadBodyTimer);
     }
 

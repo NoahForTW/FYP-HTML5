@@ -116,7 +116,7 @@ MonoBehaviour:
   Jumping: 0
   walkingSoundCooldown: 0.3
   movementSpeed: 10
-  jumpForce: 15
+  jumpForce: 20
 --- !u!54 &7254659285549525368
 Rigidbody:
   m_ObjectHideFlags: 0

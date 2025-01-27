@@ -4,15 +4,20 @@ using UnityEngine;
 
 public class VisualCue : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] Animator animator;
+    private void OnTriggerEnter(Collider other)
     {
-        
+        if (other.gameObject.CompareTag("Player"))
+        {
+            animator.SetBool("Near", true);
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerExit(Collider other)
     {
-        
+        if (other.gameObject.CompareTag("Player"))
+        {
+            animator.SetBool("Near", false);
+        }
     }
 }

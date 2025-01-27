@@ -110,10 +110,24 @@ public class EnemyAI : MonoBehaviour
 
     void HandleWalkingState()
     {
-        // Move the enemy to the current waypoint
         if (targetWaypoint != null)
         {
             navMeshAgent.SetDestination(targetWaypoint.position);
+
+            // Determine the direction of movement
+            Vector3 directionToWaypoint = targetWaypoint.position - transform.position;
+
+            // Flip the enemy based on movement direction
+            if (directionToWaypoint.x < 0)
+            {
+                // Moving right
+                transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+            }
+            else if (directionToWaypoint.x > 0)
+            {
+                // Moving left
+                transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+            }
 
             // Check if the enemy reached the waypoint
             if (!navMeshAgent.pathPending && navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance)

@@ -1883,6 +1883,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inkJSON: {fileID: 4900000, guid: 7336ff77fe09738439d9202386cda394, type: 3}
+  NPCNameText: {fileID: 0}
   IsMinigameCompleted: 0
   MinigameType: 4
   maxTimeInSeconds: 0
@@ -4059,7 +4060,7 @@ MonoBehaviour:
   - name: PickUpPotion
     sounds:
     - {fileID: 8300000, guid: 0c938184010d92b4b835680ccc6eb93c, type: 3}
-  canAudio: 0
+  canAudio: 1
 --- !u!82 &546868360
 AudioSource:
   m_ObjectHideFlags: 0
@@ -6842,6 +6843,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inkJSON: {fileID: 0}
+  NPCNameText: {fileID: 0}
 --- !u!114 &1012560517
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7484,6 +7486,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inkJSON: {fileID: 0}
+  NPCNameText: {fileID: 0}
 --- !u!114 &1146237182
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8749,6 +8752,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inkJSON: {fileID: 4900000, guid: 02c28a7d6ad50654ab274d9d8d81c1a6, type: 3}
+  NPCNameText: {fileID: 0}
   IsMinigameCompleted: 0
   MinigameType: 1
   maxTimeInSeconds: 0
@@ -15659,6 +15663,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inkJSON: {fileID: 4900000, guid: 844e8cdfb2c218c459d2298ac5b5e493, type: 3}
+  NPCNameText: {fileID: 0}
   IsMinigameCompleted: 0
   MinigameType: 2
   maxTimeInSeconds: 0
@@ -17677,6 +17682,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inkJSON: {fileID: 4900000, guid: 02c28a7d6ad50654ab274d9d8d81c1a6, type: 3}
+  NPCNameText: {fileID: 0}
   IsMinigameCompleted: 0
   MinigameType: 3
   maxTimeInSeconds: 0

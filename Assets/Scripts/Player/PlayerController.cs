@@ -163,9 +163,9 @@ public class PlayerController : MonoBehaviour
         playerModel.transform.rotation = rotation;
 
         // Play walking sound if cooldown has passed
-        if (Time.time - lastSoundTime > walkingSoundCooldown)
+        if (!notGrounded && Time.time - lastSoundTime > walkingSoundCooldown)
         {
-            AudioManager.instance.PlaySoundOneShot(SoundType.Walking);
+            AudioManager.instance.PlaySoundOneShot(SoundType.Walking, 0.7f);
             lastSoundTime = Time.time; // Update the last sound time
         }
     }

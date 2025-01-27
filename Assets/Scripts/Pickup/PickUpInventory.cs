@@ -14,15 +14,14 @@ public class PickUpInventory : MonoBehaviour
     public void CoinCollected()
     {
         NoOfCoins++;
-        Debug.Log(NoOfCoins);
         OnCoinCollected.Invoke(this);
     }
 
     public void HeartCollected()
     {
-        //Put ur heart gain logic here
-        // if uw use the int at the top also can
-        //glhf
+        HealthBar.instance.AddContainer();
+        HealthBar.instance.AddHearts(1);
+        OnHeartCollected.Invoke(this);
     }
 
     public void CosmeticCollected()

@@ -11,7 +11,7 @@ public class PlayerData
 [Serializable]
 public class GameData
 {
-    int Coins = 0;
+    public int Coins = 0;
     public int playerHealth = 3;
 }
 [Serializable]

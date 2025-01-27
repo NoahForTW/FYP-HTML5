@@ -11,9 +11,10 @@ using Sirenix.OdinInspector;
 public enum SoundType
 {
     Jumping,
-    Pickup,
+    PickUpCoin,
     Walking,
-    Successful
+    Successful,
+    PickUpPotion
 }
 
 [RequireComponent(typeof(AudioSource)), ExecuteInEditMode]

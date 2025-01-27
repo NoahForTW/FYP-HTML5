@@ -12,6 +12,8 @@ public class Coin : MonoBehaviour
         {
             _pkInventory.CoinCollected();
             gameObject.SetActive(false);
+
+            AudioManager.instance.PlaySoundOneShot(SoundType.PickUpCoin);
         }
     }
 }

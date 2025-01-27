@@ -5,11 +5,11 @@ using UnityEngine;
 
 public class CoinUI : MonoBehaviour
 {
-    private TextMeshProUGUI _pkText;
+    public TMP_Text _pkText;
 
     void Start()
     {
-        _pkText = GetComponent<TextMeshProUGUI>();
+        _pkText = GetComponent<TMP_Text>();
     }
 
     public void UpdateCoinText(PickUpInventory _pkInventory)

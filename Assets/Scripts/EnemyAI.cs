@@ -25,6 +25,10 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] private float detectionRange = 5.0f; // Range for detecting the player
     [SerializeField] private float attackRange = 2.0f; // Range for attacking the player
     [SerializeField] private float attackCooldown = 1.5f; // Cooldown between attacks
+
+    [SerializeField] private GameObject hitDetection; // Reference to the HitBox GameObject
+
+    [SerializeField] private float deadBodyTimer;
     private float attackTimer = 0f; // Tracks attack cooldown
 
     [SerializeField] private List<Transform> waypoints = new List<Transform>();
@@ -65,7 +69,7 @@ public class EnemyAI : MonoBehaviour
                     HandleAttackingState();
                 break;
             case State.Dying:
-                HandleDyingState(); // Placeholder for future implementation
+                Die();
                 break;
         }
     }
@@ -74,7 +78,6 @@ public class EnemyAI : MonoBehaviour
     {
         currentState = newState;
 
-        // Trigger animation transitions if needed
         switch (newState)
         {
             case State.Idle:
@@ -88,6 +91,10 @@ public class EnemyAI : MonoBehaviour
             case State.Attacking:
                 animator.SetTrigger("Attack");
                 navMeshAgent.isStopped = true; // Stop moving while attacking
+                break;
+            case State.Dying:
+                animator.SetTrigger("Die");
+                navMeshAgent.isStopped = true;
                 break;
         }
     }
@@ -180,11 +187,6 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
-    void HandleDyingState()
-    {
-        Debug.Log("Enemy is dying...");
-    }
-
     void UpdateTargetWaypoint()
     {
         if (targetWaypointIndex > lastWaypointIndex)
@@ -195,32 +197,50 @@ public class EnemyAI : MonoBehaviour
         targetWaypoint = waypoints[targetWaypointIndex];
     }
 
-    void OnDrawGizmos()
-{
-    // Draw a line to the current waypoint
-    if (targetWaypoint != null)
+    // Called when something interacts with the HitBox
+    public void OnHitDetected(Collider other)
     {
-        Gizmos.color = Color.green; // Colour for the waypoint line
-        Gizmos.DrawLine(transform.position, targetWaypoint.position);
+        if (other.CompareTag("PlayerFeet"))
+        {
+            Die(); // Call the Die() method to destroy the enemy
+        }
     }
 
-    // Draw a line to the player if in detection range
-    if (player != null)
+    // Handle enemy death
+    private void Die()
     {
-        float playerDistance = Vector3.Distance(transform.position, player.position);
+        ChangeState(State.Dying);
 
-        if (playerDistance <= detectionRange)
+        // Destroy the enemy after a delay to let the animation play
+        Destroy(gameObject, deadBodyTimer);
+    }
+
+    void OnDrawGizmos()
+    {
+        // Draw a line to the current waypoint
+        if (targetWaypoint != null)
         {
-            Gizmos.color = Color.yellow; // Colour for detection range
-            Gizmos.DrawLine(transform.position, player.position);
+            Gizmos.color = Color.green; // Colour for the waypoint line
+            Gizmos.DrawLine(transform.position, targetWaypoint.position);
         }
 
-        // Optionally, draw a sphere around the enemy for the detection and attack ranges
-        Gizmos.color = new Color(1, 1, 0, 0.2f); // Yellow for detection range
-        Gizmos.DrawWireSphere(transform.position, detectionRange);
+        // Draw a line to the player if in detection range
+        if (player != null)
+        {
+            float playerDistance = Vector3.Distance(transform.position, player.position);
 
-        Gizmos.color = new Color(1, 0, 0, 0.2f); // Red for attack range
-        Gizmos.DrawWireSphere(transform.position, attackRange);
+            if (playerDistance <= detectionRange)
+            {
+                Gizmos.color = Color.yellow; // Colour for detection range
+                Gizmos.DrawLine(transform.position, player.position);
+            }
+
+            // Optionally, draw a sphere around the enemy for the detection and attack ranges
+            Gizmos.color = new Color(1, 1, 0, 0.2f); // Yellow for detection range
+            Gizmos.DrawWireSphere(transform.position, detectionRange);
+
+            Gizmos.color = new Color(1, 0, 0, 0.2f); // Red for attack range
+            Gizmos.DrawWireSphere(transform.position, attackRange);
+        }
     }
-}
 }

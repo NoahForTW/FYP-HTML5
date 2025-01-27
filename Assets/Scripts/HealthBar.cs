@@ -15,14 +15,24 @@ public class HealthBar : MonoBehaviour
     private HeartContainer currentContainer;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        instance = this;
+        if (instance == null)
+        {
+            instance = this;
+        }
+        
         heartContainers = new List<GameObject>();
         displayedHearts = currentHearts;
     }
 
-    public void SetupHearts(int heartsIn)
+    public void SetUpPlayerHealth()
+    {
+        int health = SavePlayerData.Instance.LoadData<GameData>().playerHealth;
+        SetupHearts(3);
+    }
+
+    private void SetupHearts(int heartsIn)
     {
         heartContainers.Clear();
         for(int i = transform.childCount -1; i >=0; i--)
@@ -46,7 +56,7 @@ public class HealthBar : MonoBehaviour
         currentContainer = heartContainers[0].GetComponent<HeartContainer>();
     }
 
-    public void SetCurrentHealth(float health)
+    private void SetCurrentHealth(float health)
     {
         currentHearts = health;
         if (healthUpdateCoroutine != null)
@@ -85,7 +95,7 @@ public class HealthBar : MonoBehaviour
         TriggerFlash(false);
     }
 
-    public void RemoveHearts(float healthDown)
+    private void RemoveHearts(float healthDown)
     {
         currentHearts -= healthDown;
         if (currentHearts < 0)

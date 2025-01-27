@@ -5,9 +5,6 @@ using TMPro;
 using Ink.Runtime;
 using UnityEngine.UI;
 using System;
-using Unity.VisualScripting;
-using System.Globalization;
-
 public class DialogueManager : MonoBehaviour
 {
     private static DialogueManager instance;

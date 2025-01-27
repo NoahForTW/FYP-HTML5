@@ -11,7 +11,7 @@ public class Coin : MonoBehaviour
         if (_pkInventory != null)
         {
             _pkInventory.CoinCollected();
-            gameObject.SetActive(false);
+            Destroy(gameObject);
 
             AudioManager.instance.PlaySoundOneShot(SoundType.PickUpCoin);
         }

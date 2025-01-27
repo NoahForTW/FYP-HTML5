@@ -11,7 +11,7 @@ public class Heart : MonoBehaviour
         if (_pkInventory != null)
         {
             _pkInventory.HeartCollected();
-            gameObject.SetActive(false);
+            Destroy(gameObject);
 
             AudioManager.instance.PlaySoundOneShot(SoundType.PickUpPotion);
         }

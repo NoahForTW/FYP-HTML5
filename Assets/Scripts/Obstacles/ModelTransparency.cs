@@ -39,12 +39,14 @@ public class ModelTransparency : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        StartCoroutine(LerpAlpha(0.5f, alphaValue));
+        if (other.gameObject.CompareTag("Player"))
+            StartCoroutine(LerpAlpha(0.5f, alphaValue));
     }
 
     private void OnTriggerExit(Collider other)
     {
-        StartCoroutine(LerpAlpha(0.5f, 1));
+        if (other.gameObject.CompareTag("Player"))
+            StartCoroutine(LerpAlpha(0.5f, 1));
     }
 
 }

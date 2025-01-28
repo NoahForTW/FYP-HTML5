@@ -15,15 +15,15 @@ Hi! Do you need a guide on how to control your character?#speaker:{NPCName}
 
 
 ==PCControlsGuide==
-Hold on either <color=red>'A' or 'D'</color>  keys to walk left or right respectively  #speaker:{NPCName}
-Press <color=red>'Space'</color> key to jump.#speaker:{NPCName}
-To interact, press on the <color=red>'F'</color> key #speaker:{NPCName}
+Hold on either <color=yellow>'A' or 'D'</color>  keys to walk left or right respectively  #speaker:{NPCName}
+Press <color=yellow>'Space'</color> key to jump.#speaker:{NPCName}
+To interact, press on the <color=yellow>'F'</color> key #speaker:{NPCName}
 ->Questioning
         
 ==MobileControlsGuide==
-Hold on either the <color=red>left or right buttons</color> to walk left and right respectively  #speaker:{NPCName}
-Press the <color=red>up button</color> to jump.#speaker:{NPCName}
-To interact, press on the <color=red>yellow button</color> #speaker:{NPCName}
+Hold on either the <color=yellow>left or right buttons</color> to walk left and right respectively  #speaker:{NPCName}
+Press the <color=yellow>up button</color> to jump.#speaker:{NPCName}
+To interact, press on the <color=yellow>yellow button</color> #speaker:{NPCName}
 ->Questioning
 
 ==Questioning==

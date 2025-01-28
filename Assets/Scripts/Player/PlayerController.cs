@@ -63,7 +63,7 @@ public class PlayerController : MonoBehaviour
         playerAction.AddListener(PlayerAction);
         SetCurrentPlayerAction(global::PlayerAction.Jump);
 
-        HealthBar.instance.SetUpPlayerHealth();
+        HealthBar.instance?.SetUpPlayerHealth();
     }
 
     private void Update()

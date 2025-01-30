@@ -4060,7 +4060,7 @@ MonoBehaviour:
   - name: PickUpPotion
     sounds:
     - {fileID: 8300000, guid: 0c938184010d92b4b835680ccc6eb93c, type: 3}
-  canAudio: 1
+  canAudio: 0
 --- !u!82 &546868360
 AudioSource:
   m_ObjectHideFlags: 0

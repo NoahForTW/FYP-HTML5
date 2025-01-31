@@ -268,7 +268,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3402098919528327761
 RectTransform:
   m_ObjectHideFlags: 0
@@ -368,6 +368,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minigameType: 3
   isCompleted: 0
+  maxTimeInSeconds: 300
+  currentClue: 
   Window: {fileID: 834406893907503643}
   variablePieceParent: {fileID: 8778804135110015279}
   QuestionTextUI: {fileID: 2229711986627683890}
@@ -622,9 +624,9 @@ RectTransform:
   - {fileID: 5894430531514390931}
   m_Father: {fileID: 3402098919528327761}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 100, y: -22.007263}
+  m_AnchorMin: {x: 0, y: 0.98246914}
+  m_AnchorMax: {x: 0, y: 0.98246914}
+  m_AnchoredPosition: {x: 92, y: -23}
   m_SizeDelta: {x: 223.6218, y: 44.014496}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1004256113413601810
@@ -849,9 +851,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 4433010813282893843}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0}
-  m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 122}
+  m_AnchorMin: {x: 0.5, y: 0.18812695}
+  m_AnchorMax: {x: 0.5, y: 0.18812695}
+  m_AnchoredPosition: {x: 0, y: 26.3}
   m_SizeDelta: {x: 544.8, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5843775670242277135
@@ -920,9 +922,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 4433010813282893843}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 1}
-  m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -8.0738, y: -127}
+  m_AnchorMin: {x: 0.49, y: 0.9123096}
+  m_AnchorMax: {x: 0.49, y: 0.9123096}
+  m_AnchoredPosition: {x: -0.07380009, y: -71}
   m_SizeDelta: {x: 1316.7, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1833856576021595179
@@ -1019,7 +1021,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 3.371849, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0

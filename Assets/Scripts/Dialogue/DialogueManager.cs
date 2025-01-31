@@ -25,6 +25,11 @@ public class DialogueManager : MonoBehaviour
     private bool makingChoice;
     private List<Action> bindActionNames;
 
+    bool IsLineDone = false;
+    float characterTimer = 0f;
+    int characterIndex = 0;
+    string currentLine = string.Empty;
+
 
     const string SpeakerTag = "speaker";
     void Awake()
@@ -57,7 +62,24 @@ public class DialogueManager : MonoBehaviour
         }
 
         if (Input.GetMouseButtonUp(0) && dialogueIsPlaying && !makingChoice) {
-            ContinueStory();
+            if (IsLineDone)
+            {
+                ContinueStory();
+            }
+            else
+            {
+
+            }
+            {
+                // set text to full string
+                IsLineDone = true;
+                dialogueText.text = currentLine;
+            }
+        }
+
+        if (!IsLineDone)
+        {
+            TextWriter(currentLine, 0.25f);
         }
     }
 
@@ -132,7 +154,7 @@ public class DialogueManager : MonoBehaviour
     private void ExitDialogueMode() {
         dialogueIsPlaying = false;
         dialoguePanel.SetActive(false);
-        dialogueText.text = "";
+        currentLine = string.Empty;
         // hide player controls
         CanvasManager.Instance.GUICanvas.SetActiveControlsUI(true);
 
@@ -149,7 +171,8 @@ public class DialogueManager : MonoBehaviour
             {
                 ExitDialogueMode();
             }
-            dialogueText.text = nextLine;
+            currentLine = nextLine;
+            IsLineDone = false;
             DisplayChoices();
             HandleTags(currentStory.currentTags);
         }
@@ -208,6 +231,34 @@ public class DialogueManager : MonoBehaviour
                 case SpeakerTag:
                     speakerName.text = tagValue;
                     break;
+            }
+        }
+    }
+
+    void TextWriter(string textToWrite, float timePerCharacter)
+    {
+        if (textToWrite == string.Empty)
+            return;
+
+        characterTimer -= Time.deltaTime;
+        while(characterTimer <= 0f)
+        {
+            characterTimer += timePerCharacter;
+            characterIndex++;
+            // get charcter in string at that index
+            if (textToWrite[characterIndex] == '<')
+            {
+                int nextIndex = textToWrite.IndexOf('>', characterIndex);
+                characterIndex = nextIndex;
+            }
+            string text = textToWrite.Substring(0, characterIndex);
+            text+= "<color=#00000000>" + textToWrite.Substring(characterIndex) + "</color>";
+
+            dialogueText.text = text;
+
+            if(characterIndex >= textToWrite.Length)
+            {
+                IsLineDone = true;
             }
         }
     }

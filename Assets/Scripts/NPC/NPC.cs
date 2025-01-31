@@ -10,7 +10,7 @@ public class NPC : MonoBehaviour
     public TextMeshProUGUI NPCNameText;
 
     Story NPCStory;
-    private void Awake()
+    public virtual void Awake()
     {
         if (NPCNameText == null)
             return;

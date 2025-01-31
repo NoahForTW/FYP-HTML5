@@ -23,6 +23,7 @@ public class Minigame : MonoBehaviour
     {
         this.gameObject.SetActive(true);
         isCompleted = false;
+        MinigameManager.Instance.SetTimer(maxTimeInSeconds);
     }
 
     public virtual void EndMinigame()

@@ -2,14 +2,17 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MinigameNPC : NPC
 {
     public bool IsMinigameCompleted = false;
     public MinigameType MinigameType;
 
-    [Header("Minigame Max Time In Seconds")]
-    public float maxTimeInSeconds = 0f;
+    [Header("Sprite")]
+    [SerializeField] SpriteRenderer spriteImage;
+    [SerializeField] Sprite Gremlin;
+    Sprite NPCSprite;
 
     public List<Obstacle> CompletedEffects;
     
@@ -20,11 +23,15 @@ public class MinigameNPC : NPC
     [SerializeField] private List<MinigameType> CompletedMinigames;
 
     bool canStartMinigame = false;
+
+    public override void Awake()
+    {
+        base.Awake();
+        if (spriteImage != null)
+            NPCSprite = spriteImage.sprite;
+    }
     public void StartMinigame()
     {
-        if (!canStartMinigame)
-            return;
-        MinigameManager.Instance.SetTimer(maxTimeInSeconds);
         MinigameManager.Instance.SetMinigame(MinigameType);
         MinigameManager.Instance.SetQuestions(questions);
         MinigameManager.Instance.MinigameCompletion.AddListener(MinigameCompleted);
@@ -32,11 +39,12 @@ public class MinigameNPC : NPC
 
     public override void StartDialogue()
     {
-        canStartMinigame = CheckCompletionOfRequireMinigames();
+        // get from playerdata foir mingame
+        //IsMinigameCompleted = PLayerPrefs
         List<(string Name, object Value)> variableList = new List<(string Name, object Value)> {
             (nameof(IsMinigameCompleted), IsMinigameCompleted)
         };
-        List<Action> actionList = new List<Action> { StartMinigame };
+        List<Action> actionList = new List<Action> { StartMinigame, ChangeAvatar };
         DialogueManager.GetInstance().EnterDialogueMode(inkJSON, variableList, actionList);
     }
     void MinigameCompleted()
@@ -52,6 +60,13 @@ public class MinigameNPC : NPC
         MinigameManager.Instance.MinigameCompletion.RemoveListener(MinigameCompleted);
     }
 
+    void ChangeAvatar()
+    {
+        if (spriteImage == null || Gremlin == null)
+            return;
+
+        spriteImage.sprite = spriteImage.sprite == Gremlin ? NPCSprite : Gremlin;
+    }
     bool CheckCompletionOfRequireMinigames()
     {
         foreach(MinigameType type in CompletedMinigames)

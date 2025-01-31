@@ -4650,6 +4650,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 650898540}
+  - component: {fileID: 650898541}
+  - component: {fileID: 650898543}
+  - component: {fileID: 650898542}
+  - component: {fileID: 650898544}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -4675,6 +4679,119 @@ Transform:
   - {fileID: 1234203023}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &650898541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 650898539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff678e8af5397bb499096b97a49b3a2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyType: 0
+  currentState: 0
+  idleDuration: 2
+  detectionRange: 0
+  attackRange: 0
+  attackCooldown: 0
+  hitDetection: {fileID: 684636613}
+  deadBodyTimer: 1.5
+  waypoints:
+  - {fileID: 429200166}
+  - {fileID: 1234203023}
+  player: {fileID: 505707575}
+--- !u!195 &650898542
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 650898539}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 5
+  m_Acceleration: 5
+  avoidancePriority: 50
+  m_AngularSpeed: 0
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 2.8
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!114 &650898543
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 650898539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9791e16bc1420d44a88d61b698e53980, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Method: 2
+  m_Curve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.3947296
+      value: 1
+      inSlope: 0.13101397
+      outSlope: 0.13101397
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.19160815
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.8507781
+      value: 0.0025024414
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 0
+    m_RotationOrder: 4
+--- !u!95 &650898544
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 650898539}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a0101a273267e7148b8a264f00293610, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &656736139
 GameObject:
   m_ObjectHideFlags: 0
@@ -4969,6 +5086,12 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 342989404}
   m_SourcePrefab: {fileID: 100100000, guid: 49c3824ee3c838748943982950ff51ca, type: 3}
+--- !u!1 &684636613 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5336216423173987866, guid: 448a5583cbc611d44bd217e8f1dfad28,
+    type: 3}
+  m_PrefabInstance: {fileID: 3870132356839153027}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &685225808
 GameObject:
   m_ObjectHideFlags: 0
@@ -19223,21 +19346,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 650898540}
     m_Modifications:
-    - target: {fileID: 4091290281540954343, guid: 448a5583cbc611d44bd217e8f1dfad28,
-        type: 3}
-      propertyPath: player
-      value: 
-      objectReference: {fileID: 505707575}
-    - target: {fileID: 4091290281540954343, guid: 448a5583cbc611d44bd217e8f1dfad28,
-        type: 3}
-      propertyPath: waypoints.Array.data[0]
-      value: 
-      objectReference: {fileID: 429200166}
-    - target: {fileID: 4091290281540954343, guid: 448a5583cbc611d44bd217e8f1dfad28,
-        type: 3}
-      propertyPath: waypoints.Array.data[1]
-      value: 
-      objectReference: {fileID: 1234203023}
     - target: {fileID: 6030802538821251460, guid: 448a5583cbc611d44bd217e8f1dfad28,
         type: 3}
       propertyPath: m_LocalPosition.x

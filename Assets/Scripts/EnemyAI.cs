@@ -218,6 +218,13 @@ public class EnemyAI : MonoBehaviour
             collider.enabled = false; // Disable each collider
         }
 
+        // Disable all Rigidbody components (including children)
+        Rigidbody[] rigidbodies = GetComponentsInChildren<Rigidbody>();
+        foreach (var rb in rigidbodies)
+        {
+            rb.isKinematic = true; // Disable physics simulation
+        }
+
         // Destroy the enemy after a delay to let the death animation play
         Destroy(gameObject, deadBodyTimer);
     }

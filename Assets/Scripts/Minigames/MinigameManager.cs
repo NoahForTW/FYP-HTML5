@@ -171,7 +171,8 @@ public class MinigameManager : MonoBehaviour
     void ShowResults()
     {
         PauseTime = true;
-        CanvasManager.Instance.NotificationCanvas?.SetGameDoneNotif(GetGameTimerInFormat(), 5, 6);
+        int coinsEarned = (int)((GameTimer / CurrentMinigame.maxTimeInSeconds)* 25);
+        CanvasManager.Instance.NotificationCanvas?.SetGameDoneNotif(GetGameTimerInFormat(), coinsEarned);
     }
     public void ShowClue(string clue)
     {

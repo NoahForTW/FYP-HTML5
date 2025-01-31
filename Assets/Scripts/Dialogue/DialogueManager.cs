@@ -25,11 +25,10 @@ public class DialogueManager : MonoBehaviour
     private bool makingChoice;
     private List<Action> bindActionNames;
 
-    bool IsLineDone = false;
-    float characterTimer = 0f;
-    int characterIndex = 0;
-    string currentLine = string.Empty;
-
+    [SerializeField] float typingSpeed;
+    Coroutine displayLineCoroutine;
+    bool CanContinueToNextLine;
+    bool keyPressedThisFrame;
 
     const string SpeakerTag = "speaker";
     void Awake()
@@ -60,26 +59,14 @@ public class DialogueManager : MonoBehaviour
         if (!dialogueIsPlaying) {
             return;
         }
-
-        if (Input.GetMouseButtonUp(0) && dialogueIsPlaying && !makingChoice) {
-            if (IsLineDone)
-            {
-                ContinueStory();
-            }
-            else
-            {
-
-            }
-            {
-                // set text to full string
-                IsLineDone = true;
-                dialogueText.text = currentLine;
-            }
+        if (Input.GetMouseButtonUp(0))
+        {
+            keyPressedThisFrame = true;
         }
 
-        if (!IsLineDone)
-        {
-            TextWriter(currentLine, 0.25f);
+        if (keyPressedThisFrame && dialogueIsPlaying && makingChoice && CanContinueToNextLine) {
+            keyPressedThisFrame = false;
+            ContinueStory();
         }
     }
 
@@ -154,7 +141,6 @@ public class DialogueManager : MonoBehaviour
     private void ExitDialogueMode() {
         dialogueIsPlaying = false;
         dialoguePanel.SetActive(false);
-        currentLine = string.Empty;
         // hide player controls
         CanvasManager.Instance.GUICanvas.SetActiveControlsUI(true);
 
@@ -166,16 +152,22 @@ public class DialogueManager : MonoBehaviour
 
     private void ContinueStory() {
         if (currentStory.canContinue) {
+            if (displayLineCoroutine != null)
+                StopCoroutine(displayLineCoroutine);
+
             string nextLine = currentStory.Continue();
             if (nextLine.Equals("") && !currentStory.canContinue)
             {
                 ExitDialogueMode();
             }
-            currentLine = nextLine;
-            IsLineDone = false;
-            DisplayChoices();
-            HandleTags(currentStory.currentTags);
+            else
+            {
+                HandleTags(currentStory.currentTags);
+                displayLineCoroutine = StartCoroutine(DisplayText(nextLine));
+
+            }
         }
+
         else {
             ExitDialogueMode();
         }
@@ -205,9 +197,14 @@ public class DialogueManager : MonoBehaviour
     }
 
     public void MakeChoice(int choiceIndex) {
-        currentStory.ChooseChoiceIndex(choiceIndex);
-        makingChoice = false;
-        ContinueStory();
+        if (CanContinueToNextLine)
+        {
+            keyPressedThisFrame = false;
+            currentStory.ChooseChoiceIndex(choiceIndex);
+            makingChoice = false;
+            ContinueStory();
+        }
+
     }
 
     void HandleTags(List<string> tags)
@@ -235,32 +232,62 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    void TextWriter(string textToWrite, float timePerCharacter)
+    private void HideChoices()
     {
-        if (textToWrite == string.Empty)
-            return;
-
-        characterTimer -= Time.deltaTime;
-        while(characterTimer <= 0f)
+        foreach (Transform choiceButton in choiceList)
         {
-            characterTimer += timePerCharacter;
-            characterIndex++;
-            // get charcter in string at that index
-            if (textToWrite[characterIndex] == '<')
-            {
-                int nextIndex = textToWrite.IndexOf('>', characterIndex);
-                characterIndex = nextIndex;
-            }
-            string text = textToWrite.Substring(0, characterIndex);
-            text+= "<color=#00000000>" + textToWrite.Substring(characterIndex) + "</color>";
-
-            dialogueText.text = text;
-
-            if(characterIndex >= textToWrite.Length)
-            {
-                IsLineDone = true;
-            }
+            choiceButton.gameObject.SetActive(false);
         }
     }
+    IEnumerator DisplayText(string line)
+    {
+        // set the text to the full line, but set the visible characters to 0
+        dialogueText.text = line;
+        dialogueText.maxVisibleCharacters = 0;
+        // hide items while text is typing
+        HideChoices();
 
+        CanContinueToNextLine = false;
+
+        bool isAddingRichTextTag = false;
+        //yield return new WaitForSeconds(0.1f);
+        // display each letter one at a time
+        foreach (char letter in line.ToCharArray())
+        {
+            // if the submit button is pressed, finish up displaying the line right away
+            if (keyPressedThisFrame)
+            {
+                keyPressedThisFrame = false;
+                dialogueText.maxVisibleCharacters = line.Length;
+                break;
+            }
+
+            // check for rich text tag, if found, add it without waiting
+            if (letter == '<' || isAddingRichTextTag)
+            {
+                isAddingRichTextTag = true;
+                if (letter == '>')
+                {
+                    isAddingRichTextTag = false;
+                }
+            }
+            // if not rich text, add the next letter and wait a small time
+            else
+            {
+                //PlayDialogueSound(dialogueText.maxVisibleCharacters, dialogueText.text[dialogueText.maxVisibleCharacters]);
+                dialogueText.maxVisibleCharacters++;
+                yield return new WaitForSeconds(typingSpeed);
+            }
+        }
+
+
+        if (!currentStory.canContinue && currentStory.currentChoices.Count > 0)
+        {
+            DisplayChoices();
+        }
+
+
+        CanContinueToNextLine = true;
+
+    }
 }

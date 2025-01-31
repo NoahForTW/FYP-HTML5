@@ -33,16 +33,13 @@ public class NotificationCanvas : MonoBehaviour
         showNotificationEvent.Invoke(TypeOfNotif.Pause);
     }
 
-    public void SetGameDoneNotif(string remaindingTime, float coinsEarn, float score)
+    public void SetGameDoneNotif(string remaindingTime, float coinsEarn)
     {
         notificationText.text =
             @$"<u>Results</u>
-<line-height=75%>
-<size=70%>Score:</size>
-<color=red>{score}</color><line-height=60%>
-<align=center>----------------
 <size=70%><align=left>Time Left:<line-height=0>
 <align=right><color=yellow>{remaindingTime}</color><line-height=1em>
+
 <align=left>Coins Earned:<line-height=0>
 <align=right><color=yellow>{coinsEarn}</color><line-height=1em></size>";
         showNotificationEvent.Invoke(TypeOfNotif.GameDone);

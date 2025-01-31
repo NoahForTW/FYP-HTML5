@@ -1,43 +1,45 @@
 EXTERNAL StartMinigame()
 VAR IsMinigameCompleted = false
+VAR NPCName = "Yarnok"
 {IsMinigameCompleted: ->AfterMinigame|->BeforeMinigame }
 
 ==BeforeMinigame==
-Hrm... #speaker:Praxylis
-+What's up?
--Oi! Do not disturb!#speaker:Praxylis
--I am busy measuring the approximate length of these lines to these boxes...#speaker:Praxylis
--...Gah, no! I drew the line just a half centimeter too short again!#speaker:Praxylis
--YOU interrupted me, right? So this is your fault!#speaker:Praxylis
-+What?!
-+Yes, I'm the mastermind!
--Erase, erase...#speaker:Praxylis 
--Here, chap! You go draw those lines instead for me!#speaker:Praxylis 
-+No way!
-    Hmph, fine! *Grumble grumble*#speaker:Praxylis 
+Hrm... #speaker:{NPCName}
++What are you up to?
+    Figuring out how to fix up a bridge...#speaker:{NPCName}
+    ++ And you plan to use that yarn ball to...?
++What is this?
+    Ah, just a big old gap over here.#speaker:{NPCName}
+    ++ And you plan to use that yarn ball to...?
+-Oh, this isn't just any ordinary yarn ball, no no.#speaker:{NPCName}
+In fact, all I need is a single thread to make a workable bridge!#speaker:{NPCName}
++Oh, cool.
+    Right? Really practical.#speaker:{NPCName}
++What sorcery is this?!
+    Sorcery? This is just alien tech, as far as I'm concerned.#speaker:{NPCName}
+-Though, there are some caveats to using this yarn as an approach.#speaker:{NPCName}
+You need to lay out the yarn really straight. Any crookedness, and the yarn just falls apart.#speaker:{NPCName}
+It's fragile when it's rolled up all over, but with enough precision, it becomes sturdy as wood.#speaker:{NPCName}
+Wanna give it a try? I can tell you're pretty interested.#speaker:{NPCName}
++Yes, let me try!
+    Here you go. Remember, lay it out straight!#speaker:{NPCName}
+    ~ StartMinigame()
     ->DONE
-+Uh, sure?
-    Very good.#speaker:Praxylis
-    In addition, be sure to match the lines to the correct boxes.#speaker:Praxylis
-     Otherwise, your line still won't count!#speaker:Praxylis
-    I care a lot about precision and correctness, you see..#speaker:Praxylis
-        ~ StartMinigame()
-        ->DONE
++Uh... it looks kinda freaky...
+    Hrmm? Well, as long as it's functional...#speaker:{NPCName}
+    Just let me know if you wanna try it.#speaker:{NPCName}
+    ->DONE
+
         
 ==AfterMinigame==
-...Hmph. Your lines are actually quite fine. And accurate to boot... #speaker:Praxylis
-Very well then! Seems I underestimated you. #speaker:Praxylis
-->LoopOption
--Heh, welcome. And remember, if you require any knowledge, I am right here to answer!#speaker:Praxylis
-            ->DONE
-            
-==LoopOption==
-You may ask me, the brilliant Professor (NPC), anything you wish.#speaker:Praxylis
-+ How do I reach the designated pickup point for spaceships?
-    Hm... to reach there, you will need to go over those platforms over there... #speaker:Praxylis
-    But be careful, youngster! One wrong move and you could perish. #speaker:Praxylis
-    ++ Thank you, I will keep it in mind.
+Yes, see? It became a bridge!#speaker:{NPCName}
+Just remember, when crafting something, a practised hand leads to the best results.#speaker:{NPCName}
+Anyway, you seem like you wanna cross this bridge real bad.#speaker:{NPCName}
+Do you have anywhere you need to be right now?#speaker:{NPCName}
++How do I get to the designated pickup point for spaceships?
+    Oh! Well, it's just straight on past here then.#speaker:{NPCName}
+    There's some nasty enemies and platforms on the other side though, so...#speaker:{NPCName}
+    Beware!#speaker:{NPCName}
+    ++Thank you, and goodbye.
+        Goodbye! Remember, stay on the straight and steady!#speaker:{NPCName}
         ->DONE
-+I have nothing to ask, you old weezer.
-    What?! Surely someone as young as yourself would have something to ask! #speaker:Praxylis
-    ->LoopOption

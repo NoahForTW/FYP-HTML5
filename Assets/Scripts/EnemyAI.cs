@@ -7,8 +7,8 @@ public class EnemyAI : MonoBehaviour
 {
     public enum EnemyType
     {
-        GroundEnemy, // Only moves between waypoints
-        FlyEnemy     // Moves and can attack the player
+        GroundEnemy, // Only moves between waypoints using NavMesh
+        FlyEnemy     // Moves between waypoints using custom code
     }
 
     public enum State
@@ -25,6 +25,7 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] private float detectionRange = 5.0f; // Range for detecting the player
     [SerializeField] private float attackRange = 2.0f; // Range for attacking the player
     [SerializeField] private float attackCooldown = 1.5f; // Cooldown between attacks
+    [SerializeField] private float flySpeed = 3.0f; // Speed for flying enemy movement
 
     [SerializeField] private GameObject hitDetection; // Reference to the HitBox GameObject
 
@@ -36,7 +37,7 @@ public class EnemyAI : MonoBehaviour
     private int targetWaypointIndex = 0;
     private int lastWaypointIndex;
 
-    private NavMeshAgent navMeshAgent; // Reference to NavMeshAgent
+    private NavMeshAgent navMeshAgent; // Reference to NavMeshAgent (for ground enemy)
     private Animator animator; // Reference to Animator
     private bool isIdleCoroutineRunning = false; // Prevent multiple coroutines
 
@@ -47,7 +48,12 @@ public class EnemyAI : MonoBehaviour
         lastWaypointIndex = waypoints.Count - 1;
         targetWaypoint = waypoints[targetWaypointIndex]; // Set the first waypoint
         animator = GetComponent<Animator>(); // Get Animator
-        navMeshAgent = GetComponent<NavMeshAgent>(); // Get NavMeshAgent
+
+        // Only initialize NavMeshAgent for ground enemy
+        if (enemyType == EnemyType.GroundEnemy)
+        {
+            navMeshAgent = GetComponent<NavMeshAgent>();
+        }
 
         ChangeState(State.Walking); // Start in Walking state
     }
@@ -65,8 +71,7 @@ public class EnemyAI : MonoBehaviour
                 HandleWalkingState();
                 break;
             case State.Attacking:
-                if (enemyType == EnemyType.FlyEnemy)
-                    HandleAttackingState();
+                HandleAttackingState();
                 break;
             case State.Dying:
                 Die();
@@ -82,19 +87,31 @@ public class EnemyAI : MonoBehaviour
         {
             case State.Idle:
                 animator.SetBool("Walking", false);
-                navMeshAgent.isStopped = true; // Stop the NavMeshAgent
+                if (enemyType == EnemyType.GroundEnemy)
+                {
+                    navMeshAgent.isStopped = true; // Stop the NavMeshAgent
+                }
                 break;
             case State.Walking:
                 animator.SetBool("Walking", true);
-                navMeshAgent.isStopped = false; // Resume NavMeshAgent
+                if (enemyType == EnemyType.GroundEnemy)
+                {
+                    navMeshAgent.isStopped = false; // Resume NavMeshAgent
+                }
                 break;
             case State.Attacking:
                 animator.SetTrigger("Attack");
-                navMeshAgent.isStopped = true; // Stop moving while attacking
+                if (enemyType == EnemyType.GroundEnemy)
+                {
+                    navMeshAgent.isStopped = true; // Stop moving while attacking
+                }
                 break;
             case State.Dying:
                 animator.SetTrigger("Die");
-                navMeshAgent.isStopped = true;
+                if (enemyType == EnemyType.GroundEnemy)
+                {
+                    navMeshAgent.isStopped = true;
+                }
                 break;
         }
     }
@@ -116,6 +133,30 @@ public class EnemyAI : MonoBehaviour
     }
 
     void HandleWalkingState()
+    {
+        if (enemyType == EnemyType.GroundEnemy)
+        {
+            HandleGroundEnemyMovement();
+        }
+        else if (enemyType == EnemyType.FlyEnemy)
+        {
+            HandleFlyingEnemyMovement();
+        }
+
+        // Check for player detection
+        if (player != null)
+        {
+            float playerDistance = Vector3.Distance(transform.position, player.position);
+
+            if (playerDistance <= detectionRange)
+            {
+                Debug.Log("Player detected!");
+                ChangeState(State.Attacking);
+            }
+        }
+    }
+
+    void HandleGroundEnemyMovement()
     {
         if (targetWaypoint != null)
         {
@@ -144,16 +185,36 @@ public class EnemyAI : MonoBehaviour
                 ChangeState(State.Idle);
             }
         }
+    }
 
-        // If player is within detection range, switch to Attacking state
-        if (enemyType == EnemyType.FlyEnemy && player != null)
+    void HandleFlyingEnemyMovement()
+    {
+        if (targetWaypoint != null)
         {
-            float playerDistance = Vector3.Distance(transform.position, player.position);
+            // Move towards the target waypoint
+            transform.position = Vector3.MoveTowards(transform.position, targetWaypoint.position, flySpeed * Time.deltaTime);
 
-            if (playerDistance <= detectionRange)
+            // Determine the direction of movement
+            Vector3 directionToWaypoint = targetWaypoint.position - transform.position;
+
+            // Flip the enemy based on movement direction
+            if (directionToWaypoint.x < 0)
             {
-                Debug.Log("Player detected!");
-                ChangeState(State.Attacking);
+                // Moving right
+                transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+            }
+            else if (directionToWaypoint.x > 0)
+            {
+                // Moving left
+                transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+            }
+
+            // Check if the enemy reached the waypoint
+            if (Vector3.Distance(transform.position, targetWaypoint.position) <= 0.1f)
+            {
+                targetWaypointIndex++;
+                UpdateTargetWaypoint();
+                ChangeState(State.Idle);
             }
         }
     }
@@ -184,6 +245,12 @@ public class EnemyAI : MonoBehaviour
             Vector3 direction = (player.position - transform.position).normalized;
             Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
             transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
+
+            // Move towards the player (for flying enemy)
+            if (enemyType == EnemyType.FlyEnemy)
+            {
+                transform.position = Vector3.MoveTowards(transform.position, player.position, flySpeed * Time.deltaTime);
+            }
         }
     }
 

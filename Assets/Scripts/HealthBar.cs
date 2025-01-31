@@ -95,7 +95,7 @@ public class HealthBar : MonoBehaviour
         TriggerFlash(false);
     }
 
-    private void RemoveHearts(float healthDown)
+    public void RemoveHearts(float healthDown)
     {
         currentHearts -= healthDown;
         if (currentHearts < 0)

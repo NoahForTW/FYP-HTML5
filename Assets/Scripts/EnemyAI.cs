@@ -26,6 +26,9 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] private float attackRange = 2.0f; // Range for attacking the player
     [SerializeField] private float attackCooldown = 1.5f; // Cooldown between attacks
     [SerializeField] private float flySpeed = 3.0f; // Speed for flying enemy movement
+    [SerializeField] private float explosionRadius = 5.0f; // Radius for flying enemy explosion
+    [SerializeField] private int explosionDamage = 2; // Damage dealt by flying enemy explosion
+    [SerializeField] private int enemyDamage = 1; // Damage dealt by flying enemy explosion
 
     [SerializeField] private GameObject hitDetection; // Reference to the HitBox GameObject
 
@@ -43,7 +46,7 @@ public class EnemyAI : MonoBehaviour
 
     [SerializeField] private Transform player; // Reference to the player
 
-    void Start()
+    private void Start()
     {
         lastWaypointIndex = waypoints.Count - 1;
         targetWaypoint = waypoints[targetWaypointIndex]; // Set the first waypoint
@@ -58,7 +61,7 @@ public class EnemyAI : MonoBehaviour
         ChangeState(State.Walking); // Start in Walking state
     }
 
-    void Update()
+    private void Update()
     {
         attackTimer -= Time.deltaTime; // Reduce attack cooldown timer
 
@@ -79,7 +82,7 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
-    void ChangeState(State newState)
+    private void ChangeState(State newState)
     {
         currentState = newState;
 
@@ -116,7 +119,7 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
-    void HandleIdleState()
+    private void HandleIdleState()
     {
         if (!isIdleCoroutineRunning)
         {
@@ -132,7 +135,7 @@ public class EnemyAI : MonoBehaviour
         isIdleCoroutineRunning = false;
     }
 
-    void HandleWalkingState()
+    private void HandleWalkingState()
     {
         if (enemyType == EnemyType.GroundEnemy)
         {
@@ -156,7 +159,7 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
-    void HandleGroundEnemyMovement()
+    private void HandleGroundEnemyMovement()
     {
         if (targetWaypoint != null)
         {
@@ -187,7 +190,7 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
-    void HandleFlyingEnemyMovement()
+    private void HandleFlyingEnemyMovement()
     {
         if (targetWaypoint != null)
         {
@@ -219,7 +222,7 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
-    void HandleAttackingState()
+    private void HandleAttackingState()
     {
         if (player == null) return;
 
@@ -254,7 +257,7 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
-    void UpdateTargetWaypoint()
+    private void UpdateTargetWaypoint()
     {
         if (targetWaypointIndex > lastWaypointIndex)
         {
@@ -296,7 +299,46 @@ public class EnemyAI : MonoBehaviour
         Destroy(gameObject, deadBodyTimer);
     }
 
-    void OnDrawGizmos()
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            if (enemyType == EnemyType.GroundEnemy)
+            {
+                // Remove a heart from the player
+                HealthBar.instance.RemoveHearts(enemyDamage);
+                Debug.Log("Player lost a heart!");
+            }
+            else if (enemyType == EnemyType.FlyEnemy)
+            {
+                // Explode and deal damage to the player if within radius
+                Explode();
+            }
+        }
+    }
+
+    private void Explode()
+    {
+        // Check if the player is within the explosion radius
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, explosionRadius);
+        foreach (var hitCollider in hitColliders)
+        {
+            if (hitCollider.CompareTag("Player"))
+            {
+                // Deal damage to the player
+                HealthBar.instance.RemoveHearts(explosionDamage);
+                Debug.Log("Player took explosion damage!");
+            }
+        }
+
+        // Optionally, instantiate an explosion effect
+        // Instantiate(explosionEffect, transform.position, Quaternion.identity);
+
+        // Destroy the flying enemy
+        Die();
+    }
+
+    private void OnDrawGizmos()
     {
         // Draw a line to the current waypoint
         if (targetWaypoint != null)
@@ -322,6 +364,13 @@ public class EnemyAI : MonoBehaviour
 
             Gizmos.color = new Color(1, 0, 0, 0.2f); // Red for attack range
             Gizmos.DrawWireSphere(transform.position, attackRange);
+        }
+
+        // Draw the explosion radius for flying enemies
+        if (enemyType == EnemyType.FlyEnemy)
+        {
+            Gizmos.color = new Color(1, 0, 0, 0.1f); // Red for explosion radius
+            Gizmos.DrawWireSphere(transform.position, explosionRadius);
         }
     }
 }

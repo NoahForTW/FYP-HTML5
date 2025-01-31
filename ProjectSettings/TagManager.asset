@@ -8,14 +8,36 @@ TagManager:
   - EndPoint
   - Void
   - Model Side
+  - ParentCanvas
+  - Big
+  - Small
+  - UVModelCanvas
+  - Port
+  - GDT_BehindComputer
+  - AGVE_StartOfLevel
+  - AGVE_BeforeEnemies
+  - AudioCanvas
+  - BooleanCanvas
+  - GDT_LiquidBeforePlatforms
+  - GDT_ComputerTeleport
+  - GDT_Platform
+  - AGVE_BeforeStatues
+  - AGVE_EGround
+  - GDT_BooleanGame
+  - GDT_BeforeVariableGame
+  - GDT_StartOfLevel
+  - PlayerFeet
+  - GDT_WallAfterBooleanGame
+  - GDT_WallAfterVariableGame
+  - GDT_GearAtBooleanGame
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
-  - 
+  - UVModel
   - 
   - Dragging
   - 

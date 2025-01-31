@@ -1,0 +1,216 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using TMPro;
+using UnityEngine.Events;
+using System.Linq;
+
+public enum MinigameType
+{
+    None,
+    Audio,
+    Variable_Gear,
+    Variable_Type,
+    Variable_Wires,
+    Drawing,
+    ModelTexture,
+    Frames,
+}
+
+public class MinigameManager : MonoBehaviour
+{
+    public static MinigameManager Instance;
+
+    [Header("Current Minigame")]
+    Minigame CurrentMinigame;
+    MinigameType CurrentMinigameType;
+    public List<ScriptableObject> CurrentQuestions;
+
+    public UnityEvent MinigameCompletion;
+
+    //minigame list
+    List<Minigame> Minigames = new List<Minigame>();
+
+    // timer UI & variables
+    TMP_Text TimerUI;
+    GameObject Notification;
+
+    float GameTimer;
+    bool PauseTime = false;
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
+    private void Start()
+    {
+        TimerUI = CanvasManager.Instance.TimerCanvas?.timerText;
+        Notification = CanvasManager.Instance.NotificationCanvas?.notification;
+
+        if (CanvasManager.Instance.TimerCanvas != null)
+        {
+            CanvasManager.Instance.TimerCanvas.gameObject.SetActive(false);
+        }
+    }
+
+    public void SetTimer(float time)
+    {
+        GameTimer = time;
+    }
+    public void SetMinigame(MinigameType type)
+    {
+        CurrentMinigameType = type;
+        if (type == MinigameType.None)
+        {
+            CurrentMinigame = null;
+            return;
+        }
+
+        Minigames = CanvasManager.Instance.GetComponentsInChildren<Minigame>(true).ToList();
+        foreach(var game in Minigames)
+        {
+            if (game.minigameType == type)
+            {
+                CurrentMinigame = game;
+                break;
+            }
+        }
+    }
+
+    public void SetQuestions(List<ScriptableObject> questions)
+    {
+        CurrentQuestions = questions;
+    }
+
+    public List<ScriptableObject> GetQuestions()
+    {
+        return CurrentQuestions;
+    }
+
+    public MinigameType GetCurrentMinigameType()
+    {
+        return CurrentMinigameType;
+    }
+
+    public Minigame GetCurrentMinigame()
+    {
+        return CurrentMinigame;
+    }
+
+    public string GetGameTimerInFormat()
+    {
+        int min = Mathf.FloorToInt(GameTimer / 60);
+        int seconds = Mathf.FloorToInt(GameTimer % 60);
+        return string.Format("{0:00}:{1:00}", min, seconds);
+    }
+
+    public bool CheckIfMinigameCompleted(MinigameType minigameType)
+    {
+        foreach (var game in Minigames)
+        {
+            if (game.minigameType == minigameType && game.isCompleted)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    bool IsCurrentActive()
+    {
+        if (CurrentMinigame == null)
+            return false;
+
+        return CurrentMinigame.gameObject.activeSelf;
+    }
+
+    void StartMinigame()
+    {
+        PauseTime = false;
+        CanvasManager.Instance.TimerCanvas?.gameObject.SetActive(true);
+        CanvasManager.Instance.GUICanvas.CanvasGroup.blocksRaycasts = false;
+        CanvasManager.Instance.GUICanvas.SetActiveControlsUI(false);
+        CurrentMinigame.StartMinigame();
+        PlayerController.Instance.canMove = false;
+    }
+    void UpdateTimer()
+    {
+        GameTimer -= Time.deltaTime;
+        if (TimerUI != null)
+        {
+            TimerUI.text = GetGameTimerInFormat();
+        }
+    }
+    public void PauseTimer()
+    {
+        PauseTime = true;
+        CanvasManager.Instance.NotificationCanvas?.SetPauseNotif();
+
+    }
+    public void UnPauseTimer()
+    {
+        PauseTime = false;
+        Notification.SetActive(false);
+    }
+    public void EndMinigame()
+    {
+        CanvasManager.Instance.TimerCanvas?.gameObject.SetActive(false);
+        CanvasManager.Instance.GUICanvas.CanvasGroup.blocksRaycasts = true;
+        CurrentMinigame.EndMinigame();
+        CanvasManager.Instance.GUICanvas.SetActiveControlsUI(true);
+        Notification.SetActive(false);
+        SetMinigame(MinigameType.None);
+        PlayerController.Instance.canMove = true;
+    }
+    void ShowResults()
+    {
+        PauseTime = true;
+        CanvasManager.Instance.NotificationCanvas?.SetGameDoneNotif(GetGameTimerInFormat(), 5, 6);
+    }
+    public void ShowClue(string clue)
+    {
+        CanvasManager.Instance.NotificationCanvas?.SetNotif(clue);
+    }
+    public void ClearChild(Transform parent)
+    {
+        foreach (Transform child in parent)
+        {
+            Destroy(child.gameObject);
+        }
+    }
+    private void Update()
+    {
+        if (CurrentMinigame != null)
+        {
+            if (CurrentMinigameType != MinigameType.None
+             && !IsCurrentActive())
+            {
+                StartMinigame();
+            }
+
+            if (CurrentMinigame.isCompleted)
+            {
+                //EndMinigame();
+                MinigameCompletion.Invoke();
+                // show result notification
+                ShowResults();
+            }
+            else
+            {
+                if (!PauseTime)
+                {
+                    // update timer?
+                    UpdateTimer();
+                }
+
+            }
+        }
+
+    }
+}

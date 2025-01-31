@@ -14,16 +14,12 @@ public class UVTextureUI : DragDrop
     {
         image = GetComponent<RawImage>();
         image.texture = texture;
+        parentDuringDrag = UVTextureMinigame.Instance.UVTextureGameObject.transform;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (canDrag)
-        {
-
-        }
-
 
     }
 
@@ -37,18 +33,36 @@ public class UVTextureUI : DragDrop
     {
         base.OnEndDrag(eventData);
         RaycastHit hit;
-        Ray ray = Camera.main.ScreenPointToRay(eventData.position);
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask))
+        Ray ray = new Ray(transform.position, Camera.main.transform.forward);
+        if (Physics.Raycast(ray, out hit))
         {
             GameObject go = hit.collider.gameObject;
             UVModelSide side = go.GetComponent<UVModelSide>();
-            if (side != null && side.GetCanChangeTexture())
+            if (side != null && !side.IsCurrentTextureCorrect())
             {
                 Material material = new Material(go.GetComponent<MeshRenderer>().material);
                 material.mainTexture = texture;
-                go.GetComponent<MeshRenderer>().material = material;
+                Material[] materials = go.GetComponentInChildren<MeshRenderer>().materials;
+                materials[0] = material;
+
+                go.GetComponent<MeshRenderer>().materials = materials;
+                side.PromptFeedback();
             }
         }
         canDrag = false;
     }
+
+   /* private void OnDrawGizmos()
+    {
+        var screenPoint = Input.mousePosition;
+        screenPoint.z = canvas.planeDistance; //distance of the plane from the camera
+        Vector3 mousePos = Camera.main.ScreenToWorldPoint(screenPoint);
+        //mousePos.z = transform.position.z;
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawLine(Camera.main.transform.position, mousePos);
+        //Debug.Log(mousePos + " , "+transform.position.z);
+
+        Gizmos.color = Color.blue;
+        Gizmos.DrawLine(mousePos, mousePos + Camera.main.transform.forward * 5);
+    }*/
 }

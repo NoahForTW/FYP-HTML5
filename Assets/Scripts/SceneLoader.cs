@@ -3,20 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public static class SceneLoader
-{   
+public class SceneLoader : MonoBehaviour
+{  
+    [HideInInspector] public static string TargetScene; // Store the scene name to load.
 
-    // Init the Scenes
-    public enum Scene
+    // Method to be called by buttons
+    public void LoadSceneWithLoading(string sceneName)
     {
-        GameScene,
-        LoadingScene,
-    }
-    
-    public static void Load(Scene scene)
-    {
-        SceneManager.LoadScene(Scene.LoadingScene.ToString());    
-
-        SceneManager.LoadScene(scene.ToString());
+        TargetScene = sceneName; // Store the target scene name.
+        SceneManager.LoadScene("LoadingScene"); // Load the loading scene.
     }
 }

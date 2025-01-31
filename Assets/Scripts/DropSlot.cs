@@ -16,7 +16,7 @@ public class DropSlot : MonoBehaviour, IDropHandler
                 if (pieces == null) continue;
 
                 Transform parent = pieces.parentAfterDrag;
-                pieces.isInSlot = false;
+                pieces.parentSlot = null;
                 // Smoothly return existing child to its original parent
                 StartCoroutine(pieces.SmoothMove(child.position, parent.position, 0.8f, () =>
                 {
@@ -26,13 +26,14 @@ public class DropSlot : MonoBehaviour, IDropHandler
         }
 
         GameObject dropped = eventData.pointerDrag;
-        DragDrop draggableItem = dropped.GetComponent<DragDrop>();
-        draggableItem.isInSlot = true;
 
-        // Smoothly snap the dropped object into the slot
-        StartCoroutine(draggableItem.SmoothMove(dropped.transform.position, transform.position, 0.8f, () =>
-        {
-            dropped.transform.SetParent(transform);
-        }));
+        SetThisToParentSlot(dropped);
+    }
+
+    public void SetThisToParentSlot(GameObject dragged)
+    {
+        DragDrop draggableItem = dragged.GetComponent<DragDrop>();
+        draggableItem.parentSlot = transform;
+
     }
 }

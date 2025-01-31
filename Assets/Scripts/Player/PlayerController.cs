@@ -1,6 +1,10 @@
 using Cinemachine;
+using System.Collections;
+using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public enum PlayerAction
 {
@@ -8,34 +12,37 @@ public enum PlayerAction
     Left,
     Right,
     Interact,
-    Idle
+    Idle, 
+    Pause,
+    None
 }
 
 public class PlayerController : MonoBehaviour
 {
     //public
     public static PlayerController Instance;
-    public UnityEvent<PlayerAction> playerAction;
+    [HideInInspector] public UnityEvent<PlayerAction> playerAction;
     public bool canMove = true;
-
+    public bool notGrounded = false; // check if player is jumping
+    public UnityEvent<PlayerAction> currentPlayerActionEvent;
+    public PlayerAction currentPlayerAction;
+    public PlayerAction MovingDirection;
+    public bool Jumping;
+    private float lastSoundTime = 0f; // Tracks the last time a walking sound was played
+    [SerializeField] private float walkingSoundCooldown = 0.3f; // Cooldown in seconds for walking sound
     //private
-    [SerializeField] private float movementSpeed = 1f;
 
+    [Header ("Speeds")]
+    [SerializeField] private float movementSpeed = 1f;
     [SerializeField] private float jumpForce = 1f;
 
-    [SerializeField] private CinemachineVirtualCamera vCam;
-    [SerializeField] private GameObject itemPrefab;
-
     private Rigidbody playerRb;
+    private GameObject playerModel;
     private Vector3 direction = new Vector3();
 
-    public bool isJumping = false; // check if player is jumping
-    public UnityEvent<PlayerAction> currentPlayerAction;
-
-    private float playerHeight;
     private float lastActionTime = 0f; // Tracks the time of the last action
-    private float inactivityThreshold = 0.5f;
-    private void Awake  ()
+    private float inactivityThreshold = 0.05f;
+    private void Awake()
     {
         if (Instance != null && Instance != this)
         {
@@ -47,93 +54,180 @@ public class PlayerController : MonoBehaviour
         }
 
         playerRb = GetComponent<Rigidbody>();
+        playerModel = transform.GetChild(0).gameObject;
         //playerAnimator = GetComponent<Animator>();
     }
 
     private void Start()
     {
         playerAction.AddListener(PlayerAction);
-        SetCurrentPlayerAction(global::PlayerAction.Idle);
+        SetCurrentPlayerAction(global::PlayerAction.Jump);
     }
 
-    // Update is called once per frame
     private void Update()
     {
-        if (Time.time - lastActionTime > inactivityThreshold && !isJumping)
+        transform.rotation = Quaternion.identity;
+        canMove = !DialogueManager.GetInstance().dialogueIsPlaying && MinigameManager.Instance.GetCurrentMinigame() == null;
+
+        if (notGrounded)
         {
-            SetCurrentPlayerAction(global::PlayerAction.Idle);
+            SetCurrentPlayerAction(global::PlayerAction.Jump);
+        }
+        else
+        {
+            if (MovingDirection == global::PlayerAction.None)
+                PlayerAction(global::PlayerAction.Idle);
+        }
+            
+    }
+    private void FixedUpdate()
+    {
+        playerRb.velocity = new Vector3(0,playerRb.velocity.y, playerRb.velocity.x);
+        if (MovingDirection == global::PlayerAction.Left || MovingDirection == global::PlayerAction.Right)
+        { 
+            PlayerMovement(MovingDirection);
+            MovingDirection = global::PlayerAction.None;
         }
 
-        Debug.Log("current action: " + currentPlayerAction.ToString());
-        //Vector3 mousePos = Input.mousePosition;
-        //mousePos.z = Mathf.Abs(vCam.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.z);
-        //Vector3 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
-        //Debug.DrawLine(transform.position, worldPos, Color.red);
-        //Debug.Log(worldPos);
+        // Process jump action
+        if (Jumping)
+        {
+            PlayerJump();
+
+        }
+    }
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        string RespawnTag = null;
+        if (SceneManager.GetActiveScene().name == "GDTLevel")
+        {
+            RespawnTag = SavePlayerData.Instance.LoadData<GDTLevelData>().RespawnTag;
+        }
+        else if (SceneManager.GetActiveScene().name == "AGVEScene")
+        {
+            RespawnTag = SavePlayerData.Instance.LoadData<AGVELevelData>().RespawnTag;
+        }
+        if (!string.IsNullOrEmpty(RespawnTag))
+        {
+            SpawnPlayer(RespawnTag);
+        }
+    }
     public void SetCurrentPlayerAction(PlayerAction action)
     {
-        currentPlayerAction.Invoke(action);
+        currentPlayerActionEvent.Invoke(action);
+        currentPlayerAction = action;
     }
     public void PlayerAction(PlayerAction action)
     {
         lastActionTime = Time.time;
         if (!canMove) { return; }
-        switch (action)
+        if (action == global::PlayerAction.Left || action == global::PlayerAction.Right)
         {
-            case global::PlayerAction.Jump:
-                PlayerJump();
-                break;
-
-
-            case global::PlayerAction.Left:
-            case global::PlayerAction.Right:
-                PlayerMovement(action);
-                break;
-
+            MovingDirection = action;
         }
-        SetCurrentPlayerAction(action);
-        //playerAnimator.SetBool("Idle", action == global::PlayerAction.Idle);
-        //playerAnimator.SetBool("Walk", action == global::PlayerAction.Right || action == global::PlayerAction.Left);
+        else if (action == global::PlayerAction.Jump)
+        {
+            Jumping = true;
+        }
 
+        SetCurrentPlayerAction(action);
+        
     }
 
 
     private void PlayerMovement(PlayerAction action)
     {
-        direction = action == global::PlayerAction.Right ? transform.right : -transform.right;
-        float currentForce = isJumping ? Mathf.Abs(movementSpeed - jumpForce) : movementSpeed;
-        //playerRb.AddForce(direction * currentForce);
-        playerRb.velocity = direction * currentForce;
+        // player movement
+       direction = action == global::PlayerAction.Right ? transform.right : -transform.right;
+        /*  float currentForce = isJumping ? Mathf.Abs(movementSpeed - jumpForce) : movementSpeed;
+         playerRb.AddForce(direction * movementSpeed);*/
+        Vector3 movement = direction * movementSpeed;
+        playerRb.velocity = new Vector3(movement.x, playerRb.velocity.y, 0);
+
+        // rotating player 
+        float yRotation = action == global::PlayerAction.Left ? 180f : 0f;
+        Quaternion rotation = Quaternion.Euler(0, yRotation, 0);
+        //StartCoroutine(RotateModel(rotation, 0.3f));
+        playerModel.transform.rotation = rotation;
+
+        // Play walking sound if cooldown has passed
+        if (Time.time - lastSoundTime > walkingSoundCooldown)
+        {
+            AudioManager.instance.PlaySoundOneShot(SoundType.Walking);
+            lastSoundTime = Time.time; // Update the last sound time
+        }
     }
 
     private void PlayerJump()
     {
-        if (!isJumping)
+        if (!notGrounded)
         {
             direction = transform.up;
-            playerRb.AddForce(direction * jumpForce, ForceMode.Impulse);
-            AudioManager.PlaySoundOneShot(SoundType.Jumping);
-            isJumping = true;
+            playerRb.velocity = new Vector3(playerRb.velocity.x, jumpForce, 0);
+            //playerRb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            AudioManager.instance.PlaySoundOneShot(SoundType.Jumping);
         }
     }
 
-
-    /*    private void OnDrawGizmos()
-        {
-            Vector3 mousePositionDirection = Input.mousePosition - transform.position;
-            mousePositionDirection.z = 0;
-            Gizmos.color = Color.blue;
-            //Gizmos.DrawLine(transform.position, transform.position + mousePositionDirection.normalized * 100);
-            Gizmos.DrawLine(transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition));
-        }*/
-
-    public void OnCollisionEnter(Collision collision)
+    IEnumerator RotateModel(Quaternion rotateTo, float duration)
     {
-        if (collision.gameObject.tag == "Ground")
+        float elapsed = 0f;
+
+        Quaternion currentRotation = playerModel.transform.rotation;
+
+        while (elapsed < duration)
         {
-            isJumping = false;
+            playerModel.transform.rotation = Quaternion.Lerp(currentRotation, rotateTo, elapsed / duration);
+            elapsed += Time.deltaTime;
+            yield return null;
         }
     }
+    
+    public void SpawnPlayer(string tagName)
+    {
+        GameObject PlayerSpawnPoint = null;
+        Scene s = SceneManager.GetActiveScene();
+        GameObject[] rootGameObjects = s.GetRootGameObjects();
+        foreach (GameObject go in rootGameObjects)
+        {
+            if (go.CompareTag(tagName))
+            {
+                PlayerSpawnPoint = go;
+                break;
+            }
+        }
+
+        if (PlayerSpawnPoint == null)
+            return;
+
+        transform.position = PlayerSpawnPoint.transform.position;
+    }
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.tag == "Ground")
+        {
+            notGrounded = false;
+            Jumping = false;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "Ground")
+        {
+            notGrounded = true;
+
+        }
+    }
+    
 }

@@ -68,6 +68,9 @@ public class DialogueManager : MonoBehaviour
             }
             else
             {
+
+            }
+            {
                 // set text to full string
                 IsLineDone = true;
                 dialogueText.text = currentLine;

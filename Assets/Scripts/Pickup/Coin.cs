@@ -6,14 +6,12 @@ public class Coin : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        PickUpInventory _pkInventory = other.GetComponent<PickUpInventory>();
-
-        if (_pkInventory != null)
+        if (other.gameObject.CompareTag("Player"))
         {
-            _pkInventory.CoinCollected();
-            Destroy(gameObject);
-
+            PlayerInventory.Instance.CoinCollected.Invoke();
+            this.gameObject.SetActive(false);
             AudioManager.instance.PlaySoundOneShot(SoundType.PickUpCoin);
         }
+
     }
 }

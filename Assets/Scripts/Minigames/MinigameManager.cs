@@ -4,6 +4,9 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.Events;
 using System.Linq;
+using UnityEngine.Rendering;
+using System;
+using UnityEngine.SceneManagement;
 
 public enum MinigameType
 {
@@ -72,7 +75,7 @@ public class MinigameManager : MonoBehaviour
             return;
         }
 
-        Minigames = CanvasManager.Instance.GetComponentsInChildren<Minigame>(true).ToList();
+        
         foreach(var game in Minigames)
         {
             if (game.minigameType == type)
@@ -173,6 +176,8 @@ public class MinigameManager : MonoBehaviour
         PauseTime = true;
         int coinsEarned = (int)((GameTimer / CurrentMinigame.maxTimeInSeconds)* 25);
         CanvasManager.Instance.NotificationCanvas?.SetGameDoneNotif(GetGameTimerInFormat(), coinsEarned);
+        // addd & save coins
+        PlayerInventory.Instance.AddCoins(coinsEarned);
     }
     public void ShowClue(string clue)
     {
@@ -184,6 +189,11 @@ public class MinigameManager : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
+    }
+
+    void SaveMinigame(MinigameType type)
+    {
+
     }
     private void Update()
     {
@@ -213,5 +223,25 @@ public class MinigameManager : MonoBehaviour
             }
         }
 
+    }
+
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+        Minigames = CanvasManager.Instance.GetComponentsInChildren<Minigame>(true).ToList();
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        LevelData data = SceneManager.GetActiveScene().name == "GDTLevel"
+        ? SavePlayerData.Instance.LoadData<GDTLevelData>()
+        : SavePlayerData.Instance.LoadData<AGVELevelData>();
+
+        
     }
 }

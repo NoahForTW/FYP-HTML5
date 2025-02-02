@@ -58,7 +58,7 @@ public class Obstacle : MonoBehaviour
         else if (SceneManager.GetActiveScene().name == "AGVEScene")
         {
             AGVELevelData data = SavePlayerData.Instance.LoadData<AGVELevelData>();
-            if (!SavePlayerData.Instance.LoadData<GDTLevelData>().ObstaclesData.Any(obstacle => obstacle.TagName == this.tag))
+            if (!SavePlayerData.Instance.LoadData<AGVELevelData>().ObstaclesData.Any(obstacle => obstacle.TagName == this.tag))
                 data.ObstaclesData.Add(obstacles);
             SavePlayerData.Instance.SaveData(data);
         }

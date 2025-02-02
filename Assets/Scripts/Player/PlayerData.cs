@@ -15,6 +15,11 @@ public class GameData
     public float playerHealth = 3f;
     public List<SettingsActive> SettingsActive = new List<SettingsActive>();
 }
+public class SettingsActive
+{
+    public string settingsName;
+    public bool isActive = true;
+}
 [Serializable]
 public class LevelData
 {
@@ -22,9 +27,10 @@ public class LevelData
     public List<SceneGameObjects> SceneGameObjects = new List<SceneGameObjects>();
     public List<MinigameNPCData> MinigameNPCData = new List<MinigameNPCData>();
     public List<ObstaclesData> ObstaclesData = new List<ObstaclesData>();
-    public List<SceneGameObjects> Coins = new List<SceneGameObjects>();
-    public List<SceneGameObjects> HealthPoints = new List<SceneGameObjects>();
-    public List<SceneGameObjects> Enemies = new List<SceneGameObjects>();
+    public List<ItemsInScene> Coins = new List<ItemsInScene>();
+    public List<ItemsInScene> Hearts = new List<ItemsInScene>();
+    public List<ItemsInScene> Cosmetics = new List<ItemsInScene>();
+    public List<ItemsInScene> Enemies = new List<ItemsInScene>();
 }
 [Serializable]
 public class GDTLevelData : LevelData
@@ -43,6 +49,12 @@ public class SceneGameObjects
     public bool isActive = true;
 }
 [Serializable]
+public class ItemsInScene
+{
+    public int index;
+    public bool isActive = true;
+}
+[Serializable]
 public class MinigameNPCData : SceneGameObjects
 {
     public bool isMinigameCompleted = false;
@@ -52,8 +64,4 @@ public class ObstaclesData : SceneGameObjects
 {
 
 }
-public class SettingsActive
-{
-    public string settingsName;
-    public bool isActive = true;
-}
+

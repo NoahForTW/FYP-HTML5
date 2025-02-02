@@ -22,3 +22,4 @@ MonoBehaviour:
     isCorrectOption: 0
   - option: false
     isCorrectOption: 1
+  Clue: Boolean only return <color=red>true</color> or <color=red>false</color>

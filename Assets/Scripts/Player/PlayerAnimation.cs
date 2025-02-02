@@ -22,6 +22,12 @@ public class PlayerAnimation : MonoBehaviour
         animator.SetBool("Idle", action == global::PlayerAction.Idle && !PlayerController.Instance.notGrounded);
         animator.SetBool("Run", (action == global::PlayerAction.Right || action == global::PlayerAction.Left) 
             && !PlayerController.Instance.notGrounded); // if player is not currently jumping
+        animator.SetBool("Stun", action == PlayerAction.Stun);
+
+        if (action == PlayerAction.Die)
+            animator.Play("Die");
+
+
     }
 
    

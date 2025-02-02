@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class HealthBar : MonoBehaviour
 {
@@ -28,7 +30,6 @@ public class HealthBar : MonoBehaviour
 
     public void SetUpPlayerHealth()
     {
-        int health = SavePlayerData.Instance.LoadData<GameData>().playerHealth;
         SetupHearts(3);
     }
 
@@ -124,14 +125,31 @@ public class HealthBar : MonoBehaviour
     }
 
     private void TriggerFlash(bool isHealthDecreasing)
-{
-    Color flashColor = isHealthDecreasing ? Color.red : Color.green;
-    float flashDuration = 0.2f;
-
-    foreach (var heart in heartContainers)
     {
-        HeartContainer heartContainer = heart.GetComponent<HeartContainer>();
-        heartContainer.Flash(flashColor, flashDuration);
+        Color flashColor = isHealthDecreasing ? Color.red : Color.green;
+        float flashDuration = 0.2f;
+
+        foreach (var heart in heartContainers)
+        {
+            HeartContainer heartContainer = heart.GetComponent<HeartContainer>();
+            heartContainer.Flash(flashColor, flashDuration);
+        }
     }
-}
+
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        SetUpPlayerHealth();
+        float currentHealth = SavePlayerData.Instance.LoadData<GameData>().playerHealth;
+        SetCurrentHealth(currentHealth);
+    }
 }

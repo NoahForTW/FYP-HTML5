@@ -12,7 +12,8 @@ public class PlayerData
 public class GameData
 {
     public int Coins = 0;
-    public int playerHealth = 3;
+    public float playerHealth = 3f;
+    public List<SettingsActive> SettingsActive = new List<SettingsActive>();
 }
 [Serializable]
 public class LevelData
@@ -50,4 +51,9 @@ public class MinigameNPCData : SceneGameObjects
 public class ObstaclesData : SceneGameObjects
 {
 
+}
+public class SettingsActive
+{
+    public string settingsName;
+    public bool isActive = true;
 }

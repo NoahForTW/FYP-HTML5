@@ -22,3 +22,4 @@ MonoBehaviour:
     isCorrectOption: 0
   - option: '"Red"'
     isCorrectOption: 0
+  Clue: Characters use <color=red>'</color> while string uses <color=red>"</color>.

@@ -22,3 +22,5 @@ MonoBehaviour:
     isCorrectOption: 0
   - option: string
     isCorrectOption: 0
+  Clue: <color=red>Float</color> vaules has decimal places whereas <color=red>integer</color>
+    has no decimal places.

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using Sirenix.OdinInspector;
+using System.Linq;
+using UnityEngine.SceneManagement;
 
 // Init Sound Variables
 /*
@@ -132,17 +134,36 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-#if UNITY_EDITOR
+
     private void OnEnable()
     {
+#if UNITY_EDITOR
         string[] names = Enum.GetNames(typeof(SoundType));
         Array.Resize(ref soundList, names.Length);
         for (int i = 0; i < soundList.Length; i++)
         {
             soundList[i].name = names[i];
         }
-    }
 #endif
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        bool hasSettings = SavePlayerData.Instance.LoadData<GameData>().SettingsActive.Any(settings => settings.settingsName == GetType().Name);
+        if (hasSettings)
+            canAudio = true;
+    }
+
+    public override string ToString()
+    {
+        return GetType().Name;
+    }
 }
 
 [Serializable]

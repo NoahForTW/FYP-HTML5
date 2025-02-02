@@ -64,7 +64,7 @@ public class DialogueManager : MonoBehaviour
             keyPressedThisFrame = true;
         }
 
-        if (keyPressedThisFrame && dialogueIsPlaying && makingChoice && CanContinueToNextLine) {
+        if (keyPressedThisFrame && dialogueIsPlaying && !makingChoice && CanContinueToNextLine) {
             keyPressedThisFrame = false;
             ContinueStory();
         }

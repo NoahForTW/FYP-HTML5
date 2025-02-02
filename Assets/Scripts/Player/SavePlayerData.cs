@@ -44,6 +44,7 @@ public class SavePlayerData : MonoBehaviour
         string playerData = PlayerPrefs.GetString(data.ToString());
         if (playerData.Length == 0)
         {
+            SaveData(data);
             return data;
         }
         else

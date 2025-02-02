@@ -20144,6 +20144,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 9106996225054494879, guid: f8e4b06e11ad8654a83b72bafaaed0b0,
+        type: 3}
+      propertyPath: stunDuration
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9106996225054494879, guid: f8e4b06e11ad8654a83b72bafaaed0b0,
+        type: 3}
+      propertyPath: MovingDirection
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 9106996225054494879, guid: f8e4b06e11ad8654a83b72bafaaed0b0,
+        type: 3}
+      propertyPath: currentPlayerAction
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -20547,6 +20562,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 975134412968565048, guid: c9526f4cf1215434b80a059fe742e0ed,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 152.89996
       objectReference: {fileID: 0}
     - target: {fileID: 1141439053761643484, guid: c9526f4cf1215434b80a059fe742e0ed,
         type: 3}

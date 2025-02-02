@@ -14,6 +14,8 @@ public enum PlayerAction
     Interact,
     Idle, 
     Pause,
+    Stun,
+    Die,
     None
 }
 
@@ -23,11 +25,14 @@ public class PlayerController : MonoBehaviour
     public static PlayerController Instance;
     [HideInInspector] public UnityEvent<PlayerAction> playerAction;
     public bool canMove = true;
+    public bool stunned = false;
     public bool notGrounded = false; // check if player is jumping
     public UnityEvent<PlayerAction> currentPlayerActionEvent;
     public PlayerAction currentPlayerAction;
     public PlayerAction MovingDirection;
     public bool Jumping;
+    float stunTime;
+    [SerializeField] float stunDuration;
     private float lastSoundTime = 0f; // Tracks the last time a walking sound was played
     [SerializeField] private float walkingSoundCooldown = 0.3f; // Cooldown in seconds for walking sound
     //private
@@ -56,6 +61,7 @@ public class PlayerController : MonoBehaviour
         playerRb = GetComponent<Rigidbody>();
         playerModel = transform.GetChild(0).gameObject;
         //playerAnimator = GetComponent<Animator>();
+
     }
 
     private void Start()
@@ -63,13 +69,25 @@ public class PlayerController : MonoBehaviour
         playerAction.AddListener(PlayerAction);
         SetCurrentPlayerAction(global::PlayerAction.Jump);
 
-        HealthBar.instance?.SetUpPlayerHealth();
+ 
     }
 
     private void Update()
     {
         transform.rotation = Quaternion.identity;
-        canMove = !DialogueManager.GetInstance().dialogueIsPlaying && MinigameManager.Instance.GetCurrentMinigame() == null;
+        canMove = !DialogueManager.GetInstance().dialogueIsPlaying && MinigameManager.Instance.GetCurrentMinigame() == null && !stunned;
+        if (stunned)
+        {
+            stunTime += Time.deltaTime;
+            if (stunTime >= stunDuration)
+            {
+                stunTime = 0;
+                stunned = false;
+            }
+            if (MovingDirection == global::PlayerAction.None)
+                return;
+            SetCurrentPlayerAction(global::PlayerAction.Stun);
+        }
 
         if (notGrounded)
         {
@@ -79,12 +97,17 @@ public class PlayerController : MonoBehaviour
         {
             if (MovingDirection == global::PlayerAction.None)
                 PlayerAction(global::PlayerAction.Idle);
+
         }
+
             
+
     }
     private void FixedUpdate()
     {
-        playerRb.velocity = new Vector3(0,playerRb.velocity.y, playerRb.velocity.x);
+        playerRb.velocity = new Vector3(0,playerRb.velocity.y, playerRb.velocity.z);
+        if (!canMove) { return; }
+
         if (MovingDirection == global::PlayerAction.Left || MovingDirection == global::PlayerAction.Right)
         { 
             PlayerMovement(MovingDirection);
@@ -132,7 +155,11 @@ public class PlayerController : MonoBehaviour
     public void PlayerAction(PlayerAction action)
     {
         lastActionTime = Time.time;
-        if (!canMove) { return; }
+        if (action == global::PlayerAction.Stun || stunned)
+        {
+            stunned = true;
+            return;
+        }
         if (action == global::PlayerAction.Left || action == global::PlayerAction.Right)
         {
             MovingDirection = action;

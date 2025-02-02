@@ -8,8 +8,9 @@ public class Variable_SO : ScriptableObject
 {
     [TextArea]
     public string question;
-
     public List<VariableTypeOptions> options;
+    [TextArea]
+    public string Clue;
 
 }
 

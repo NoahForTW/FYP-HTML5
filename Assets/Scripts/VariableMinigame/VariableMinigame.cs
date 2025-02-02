@@ -98,10 +98,11 @@ public class VariableMinigame : Minigame
         //ClearChild(variableSlotParent.transform);
         MinigameManager.Instance.ClearChild(variablePieceParent.transform);
         CurrentQuestion = questionCompleted;
+
         Variable_SO question_SO = questionCompleted.Question_SO;
         // set question text
         QuestionTextUI.text = question_SO.question;
-
+        currentClue = question_SO.Clue;
         //char[] answerArray = question.answer.ToCharArray();
         //char[] shuffledChar = ShuffleArray(RemoveRepetition((char[])answerArray.Clone()));
 

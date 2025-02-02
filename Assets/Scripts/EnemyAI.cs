@@ -313,6 +313,7 @@ public class EnemyAI : MonoBehaviour
             {
                 // Remove a heart from the player
                 HealthBar.instance.RemoveHearts(enemyDamage);
+                PlayerController.Instance.PlayerAction(PlayerAction.Stun);
                 Debug.Log("Player lost a heart!");
             }
             else if (enemyType == EnemyType.FlyEnemy)
@@ -333,6 +334,7 @@ public class EnemyAI : MonoBehaviour
             {
                 // Deal damage to the player
                 HealthBar.instance.RemoveHearts(explosionDamage);
+                PlayerController.Instance.PlayerAction(PlayerAction.Stun);
                 Debug.Log("Player took explosion damage!");
             }
         }

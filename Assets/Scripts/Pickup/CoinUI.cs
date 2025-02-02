@@ -7,6 +7,10 @@ public class CoinUI : MonoBehaviour
 {
     public TMP_Text _pkText;
 
+    private void Awake()
+    {
+        
+    }
     void Start()
     {
         _pkText = GetComponent<TMP_Text>();

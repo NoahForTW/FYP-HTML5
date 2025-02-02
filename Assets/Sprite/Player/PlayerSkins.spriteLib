@@ -31,8 +31,22 @@ MonoBehaviour:
       m_FromMain: 0
       m_SpriteOverride: {fileID: 2872720421967844161, guid: e27a831ab9711844fb52501d14d44237,
         type: 3}
+    - m_Name: Retro
+      m_Hash: 469093302
+      m_Sprite: {fileID: -8282022166593973106, guid: 31ed7f51f098d4648b8f66b24cf70bab,
+        type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -8282022166593973106, guid: 31ed7f51f098d4648b8f66b24cf70bab,
+        type: 3}
+    - m_Name: SciFi
+      m_Hash: 88726331
+      m_Sprite: {fileID: -5834139030988595486, guid: 103d40dfb0914cc49ab8821b52455d33,
+        type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -5834139030988595486, guid: 103d40dfb0914cc49ab8821b52455d33,
+        type: 3}
     m_FromMain: 0
-    m_EntryOverrideCount: 2
+    m_EntryOverrideCount: 4
   - m_Name: Bangs
     m_Hash: 108156830
     m_CategoryList: []
@@ -51,8 +65,22 @@ MonoBehaviour:
       m_FromMain: 0
       m_SpriteOverride: {fileID: -2929582792916527257, guid: e27a831ab9711844fb52501d14d44237,
         type: 3}
+    - m_Name: Retro
+      m_Hash: 469093302
+      m_Sprite: {fileID: 5920196573999344709, guid: 31ed7f51f098d4648b8f66b24cf70bab,
+        type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 5920196573999344709, guid: 31ed7f51f098d4648b8f66b24cf70bab,
+        type: 3}
+    - m_Name: SciFi
+      m_Hash: 88726331
+      m_Sprite: {fileID: 6603744373589274628, guid: 103d40dfb0914cc49ab8821b52455d33,
+        type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 6603744373589274628, guid: 103d40dfb0914cc49ab8821b52455d33,
+        type: 3}
     m_FromMain: 0
-    m_EntryOverrideCount: 2
+    m_EntryOverrideCount: 4
   - m_Name: Body
     m_Hash: 999990412
     m_CategoryList: []
@@ -71,8 +99,22 @@ MonoBehaviour:
       m_FromMain: 0
       m_SpriteOverride: {fileID: 5247618948179564321, guid: e27a831ab9711844fb52501d14d44237,
         type: 3}
+    - m_Name: Retro
+      m_Hash: 469093302
+      m_Sprite: {fileID: 4643460143628166472, guid: 31ed7f51f098d4648b8f66b24cf70bab,
+        type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 4643460143628166472, guid: 31ed7f51f098d4648b8f66b24cf70bab,
+        type: 3}
+    - m_Name: SciFi
+      m_Hash: 88726331
+      m_Sprite: {fileID: -4934327655089493860, guid: 103d40dfb0914cc49ab8821b52455d33,
+        type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -4934327655089493860, guid: 103d40dfb0914cc49ab8821b52455d33,
+        type: 3}
     m_FromMain: 0
-    m_EntryOverrideCount: 2
+    m_EntryOverrideCount: 4
   - m_Name: Head
     m_Hash: 130111906
     m_CategoryList: []
@@ -91,8 +133,22 @@ MonoBehaviour:
       m_FromMain: 0
       m_SpriteOverride: {fileID: 4012097067217027287, guid: e27a831ab9711844fb52501d14d44237,
         type: 3}
+    - m_Name: Retro
+      m_Hash: 469093302
+      m_Sprite: {fileID: 3127784261019017973, guid: 31ed7f51f098d4648b8f66b24cf70bab,
+        type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 3127784261019017973, guid: 31ed7f51f098d4648b8f66b24cf70bab,
+        type: 3}
+    - m_Name: SciFi
+      m_Hash: 88726331
+      m_Sprite: {fileID: -6038216033200418788, guid: 103d40dfb0914cc49ab8821b52455d33,
+        type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -6038216033200418788, guid: 103d40dfb0914cc49ab8821b52455d33,
+        type: 3}
     m_FromMain: 0
-    m_EntryOverrideCount: 2
+    m_EntryOverrideCount: 4
   - m_Name: BackHair
     m_Hash: 509114171
     m_CategoryList: []
@@ -111,8 +167,22 @@ MonoBehaviour:
       m_FromMain: 0
       m_SpriteOverride: {fileID: -8623383328010565812, guid: e27a831ab9711844fb52501d14d44237,
         type: 3}
+    - m_Name: Retro
+      m_Hash: 469093302
+      m_Sprite: {fileID: 8826854261721101125, guid: 31ed7f51f098d4648b8f66b24cf70bab,
+        type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 8826854261721101125, guid: 31ed7f51f098d4648b8f66b24cf70bab,
+        type: 3}
+    - m_Name: SciFi
+      m_Hash: 88726331
+      m_Sprite: {fileID: -885720751111619427, guid: 103d40dfb0914cc49ab8821b52455d33,
+        type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -885720751111619427, guid: 103d40dfb0914cc49ab8821b52455d33,
+        type: 3}
     m_FromMain: 0
-    m_EntryOverrideCount: 2
+    m_EntryOverrideCount: 4
   - m_Name: LeftAnkle
     m_Hash: 805902366
     m_CategoryList: []
@@ -131,8 +201,22 @@ MonoBehaviour:
       m_FromMain: 0
       m_SpriteOverride: {fileID: -8720294838383385986, guid: e27a831ab9711844fb52501d14d44237,
         type: 3}
+    - m_Name: Retro
+      m_Hash: 469093302
+      m_Sprite: {fileID: -2542519619260624211, guid: 31ed7f51f098d4648b8f66b24cf70bab,
+        type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -2542519619260624211, guid: 31ed7f51f098d4648b8f66b24cf70bab,
+        type: 3}
+    - m_Name: SciFi
+      m_Hash: 88726331
+      m_Sprite: {fileID: 7982199499086726146, guid: 103d40dfb0914cc49ab8821b52455d33,
+        type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 7982199499086726146, guid: 103d40dfb0914cc49ab8821b52455d33,
+        type: 3}
     m_FromMain: 0
-    m_EntryOverrideCount: 2
+    m_EntryOverrideCount: 4
   - m_Name: LeftArm
     m_Hash: 730008282
     m_CategoryList: []
@@ -151,8 +235,22 @@ MonoBehaviour:
       m_FromMain: 0
       m_SpriteOverride: {fileID: -7684355060174593508, guid: e27a831ab9711844fb52501d14d44237,
         type: 3}
+    - m_Name: Retro
+      m_Hash: 469093302
+      m_Sprite: {fileID: 1647239441103448229, guid: 31ed7f51f098d4648b8f66b24cf70bab,
+        type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 1647239441103448229, guid: 31ed7f51f098d4648b8f66b24cf70bab,
+        type: 3}
+    - m_Name: SciFi
+      m_Hash: 88726331
+      m_Sprite: {fileID: -7686423692569669947, guid: 103d40dfb0914cc49ab8821b52455d33,
+        type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -7686423692569669947, guid: 103d40dfb0914cc49ab8821b52455d33,
+        type: 3}
     m_FromMain: 0
-    m_EntryOverrideCount: 2
+    m_EntryOverrideCount: 4
   - m_Name: LeftArm1
     m_Hash: 623990647
     m_CategoryList: []
@@ -171,8 +269,22 @@ MonoBehaviour:
       m_FromMain: 0
       m_SpriteOverride: {fileID: -2685506336868606804, guid: e27a831ab9711844fb52501d14d44237,
         type: 3}
+    - m_Name: Retro
+      m_Hash: 469093302
+      m_Sprite: {fileID: 2045305486335232971, guid: 31ed7f51f098d4648b8f66b24cf70bab,
+        type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 2045305486335232971, guid: 31ed7f51f098d4648b8f66b24cf70bab,
+        type: 3}
+    - m_Name: SciFi
+      m_Hash: 88726331
+      m_Sprite: {fileID: -3369860003453235121, guid: 103d40dfb0914cc49ab8821b52455d33,
+        type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -3369860003453235121, guid: 103d40dfb0914cc49ab8821b52455d33,
+        type: 3}
     m_FromMain: 0
-    m_EntryOverrideCount: 2
+    m_EntryOverrideCount: 4
   - m_Name: LeftHand
     m_Hash: 913699692
     m_CategoryList: []
@@ -191,8 +303,22 @@ MonoBehaviour:
       m_FromMain: 0
       m_SpriteOverride: {fileID: -5809524979060192217, guid: e27a831ab9711844fb52501d14d44237,
         type: 3}
+    - m_Name: Retro
+      m_Hash: 469093302
+      m_Sprite: {fileID: 4613226118833780730, guid: 31ed7f51f098d4648b8f66b24cf70bab,
+        type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 4613226118833780730, guid: 31ed7f51f098d4648b8f66b24cf70bab,
+        type: 3}
+    - m_Name: SciFi
+      m_Hash: 88726331
+      m_Sprite: {fileID: 4469667141634767065, guid: 103d40dfb0914cc49ab8821b52455d33,
+        type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 4469667141634767065, guid: 103d40dfb0914cc49ab8821b52455d33,
+        type: 3}
     m_FromMain: 0
-    m_EntryOverrideCount: 2
+    m_EntryOverrideCount: 4
   - m_Name: LeftLeg
     m_Hash: 101577729
     m_CategoryList: []
@@ -211,8 +337,22 @@ MonoBehaviour:
       m_FromMain: 0
       m_SpriteOverride: {fileID: 1230633044292403317, guid: e27a831ab9711844fb52501d14d44237,
         type: 3}
+    - m_Name: Retro
+      m_Hash: 469093302
+      m_Sprite: {fileID: 6058393434266026809, guid: 31ed7f51f098d4648b8f66b24cf70bab,
+        type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 6058393434266026809, guid: 31ed7f51f098d4648b8f66b24cf70bab,
+        type: 3}
+    - m_Name: SciFi
+      m_Hash: 88726331
+      m_Sprite: {fileID: 3144513631304133386, guid: 103d40dfb0914cc49ab8821b52455d33,
+        type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 3144513631304133386, guid: 103d40dfb0914cc49ab8821b52455d33,
+        type: 3}
     m_FromMain: 0
-    m_EntryOverrideCount: 2
+    m_EntryOverrideCount: 4
   - m_Name: LeftLeg1
     m_Hash: 886952661
     m_CategoryList: []
@@ -231,8 +371,22 @@ MonoBehaviour:
       m_FromMain: 0
       m_SpriteOverride: {fileID: 5754389621136518294, guid: e27a831ab9711844fb52501d14d44237,
         type: 3}
+    - m_Name: Retro
+      m_Hash: 469093302
+      m_Sprite: {fileID: -3856970817605040713, guid: 31ed7f51f098d4648b8f66b24cf70bab,
+        type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -3856970817605040713, guid: 31ed7f51f098d4648b8f66b24cf70bab,
+        type: 3}
+    - m_Name: SciFi
+      m_Hash: 88726331
+      m_Sprite: {fileID: -4853802572185296541, guid: 103d40dfb0914cc49ab8821b52455d33,
+        type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -4853802572185296541, guid: 103d40dfb0914cc49ab8821b52455d33,
+        type: 3}
     m_FromMain: 0
-    m_EntryOverrideCount: 2
+    m_EntryOverrideCount: 4
   - m_Name: LeftToe
     m_Hash: 14258031
     m_CategoryList: []
@@ -251,8 +405,22 @@ MonoBehaviour:
       m_FromMain: 0
       m_SpriteOverride: {fileID: -2704145857564965845, guid: e27a831ab9711844fb52501d14d44237,
         type: 3}
+    - m_Name: Retro
+      m_Hash: 469093302
+      m_Sprite: {fileID: -5180782400906760350, guid: 31ed7f51f098d4648b8f66b24cf70bab,
+        type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -5180782400906760350, guid: 31ed7f51f098d4648b8f66b24cf70bab,
+        type: 3}
+    - m_Name: SciFi
+      m_Hash: 88726331
+      m_Sprite: {fileID: 2705434668302480736, guid: 103d40dfb0914cc49ab8821b52455d33,
+        type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 2705434668302480736, guid: 103d40dfb0914cc49ab8821b52455d33,
+        type: 3}
     m_FromMain: 0
-    m_EntryOverrideCount: 2
+    m_EntryOverrideCount: 4
   - m_Name: RightAnkle
     m_Hash: 303532415
     m_CategoryList: []
@@ -271,8 +439,22 @@ MonoBehaviour:
       m_FromMain: 0
       m_SpriteOverride: {fileID: -1200625482616206127, guid: e27a831ab9711844fb52501d14d44237,
         type: 3}
+    - m_Name: Retro
+      m_Hash: 469093302
+      m_Sprite: {fileID: 4823811922076508434, guid: 31ed7f51f098d4648b8f66b24cf70bab,
+        type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 4823811922076508434, guid: 31ed7f51f098d4648b8f66b24cf70bab,
+        type: 3}
+    - m_Name: SciFi
+      m_Hash: 88726331
+      m_Sprite: {fileID: -473721060981788644, guid: 103d40dfb0914cc49ab8821b52455d33,
+        type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -473721060981788644, guid: 103d40dfb0914cc49ab8821b52455d33,
+        type: 3}
     m_FromMain: 0
-    m_EntryOverrideCount: 2
+    m_EntryOverrideCount: 4
   - m_Name: RightArm
     m_Hash: 733214503
     m_CategoryList: []
@@ -291,8 +473,22 @@ MonoBehaviour:
       m_FromMain: 0
       m_SpriteOverride: {fileID: -47870457220345555, guid: e27a831ab9711844fb52501d14d44237,
         type: 3}
+    - m_Name: Retro
+      m_Hash: 469093302
+      m_Sprite: {fileID: 7510098263767881861, guid: 31ed7f51f098d4648b8f66b24cf70bab,
+        type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 7510098263767881861, guid: 31ed7f51f098d4648b8f66b24cf70bab,
+        type: 3}
+    - m_Name: SciFi
+      m_Hash: 88726331
+      m_Sprite: {fileID: -4576352939890578628, guid: 103d40dfb0914cc49ab8821b52455d33,
+        type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -4576352939890578628, guid: 103d40dfb0914cc49ab8821b52455d33,
+        type: 3}
     m_FromMain: 0
-    m_EntryOverrideCount: 2
+    m_EntryOverrideCount: 4
   - m_Name: RightArm1
     m_Hash: 649980203
     m_CategoryList: []
@@ -311,8 +507,22 @@ MonoBehaviour:
       m_FromMain: 0
       m_SpriteOverride: {fileID: -3562847133750305554, guid: e27a831ab9711844fb52501d14d44237,
         type: 3}
+    - m_Name: Retro
+      m_Hash: 469093302
+      m_Sprite: {fileID: 8790683002047488921, guid: 31ed7f51f098d4648b8f66b24cf70bab,
+        type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 8790683002047488921, guid: 31ed7f51f098d4648b8f66b24cf70bab,
+        type: 3}
+    - m_Name: SciFi
+      m_Hash: 88726331
+      m_Sprite: {fileID: 5440080877569325321, guid: 103d40dfb0914cc49ab8821b52455d33,
+        type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 5440080877569325321, guid: 103d40dfb0914cc49ab8821b52455d33,
+        type: 3}
     m_FromMain: 0
-    m_EntryOverrideCount: 2
+    m_EntryOverrideCount: 4
   - m_Name: RightHand
     m_Hash: 905530672
     m_CategoryList: []
@@ -331,8 +541,22 @@ MonoBehaviour:
       m_FromMain: 0
       m_SpriteOverride: {fileID: -4127977976446037208, guid: e27a831ab9711844fb52501d14d44237,
         type: 3}
+    - m_Name: Retro
+      m_Hash: 469093302
+      m_Sprite: {fileID: -677530969412575934, guid: 31ed7f51f098d4648b8f66b24cf70bab,
+        type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -677530969412575934, guid: 31ed7f51f098d4648b8f66b24cf70bab,
+        type: 3}
+    - m_Name: SciFi
+      m_Hash: 88726331
+      m_Sprite: {fileID: -3962754072954149752, guid: 103d40dfb0914cc49ab8821b52455d33,
+        type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -3962754072954149752, guid: 103d40dfb0914cc49ab8821b52455d33,
+        type: 3}
     m_FromMain: 0
-    m_EntryOverrideCount: 2
+    m_EntryOverrideCount: 4
   - m_Name: RightLeg1
     m_Hash: 928083081
     m_CategoryList: []
@@ -351,8 +575,22 @@ MonoBehaviour:
       m_FromMain: 0
       m_SpriteOverride: {fileID: -4024646197741503659, guid: e27a831ab9711844fb52501d14d44237,
         type: 3}
+    - m_Name: Retro
+      m_Hash: 469093302
+      m_Sprite: {fileID: -4824710447475776975, guid: 31ed7f51f098d4648b8f66b24cf70bab,
+        type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -4824710447475776975, guid: 31ed7f51f098d4648b8f66b24cf70bab,
+        type: 3}
+    - m_Name: SciFi
+      m_Hash: 88726331
+      m_Sprite: {fileID: -2870329062907290805, guid: 103d40dfb0914cc49ab8821b52455d33,
+        type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -2870329062907290805, guid: 103d40dfb0914cc49ab8821b52455d33,
+        type: 3}
     m_FromMain: 0
-    m_EntryOverrideCount: 2
+    m_EntryOverrideCount: 4
   - m_Name: RightLeg
     m_Hash: 104663548
     m_CategoryList: []
@@ -371,8 +609,22 @@ MonoBehaviour:
       m_FromMain: 0
       m_SpriteOverride: {fileID: 239325630671282340, guid: e27a831ab9711844fb52501d14d44237,
         type: 3}
+    - m_Name: Retro
+      m_Hash: 469093302
+      m_Sprite: {fileID: -1661033038722661785, guid: 31ed7f51f098d4648b8f66b24cf70bab,
+        type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -1661033038722661785, guid: 31ed7f51f098d4648b8f66b24cf70bab,
+        type: 3}
+    - m_Name: SciFi
+      m_Hash: 88726331
+      m_Sprite: {fileID: -8087825980063745293, guid: 103d40dfb0914cc49ab8821b52455d33,
+        type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -8087825980063745293, guid: 103d40dfb0914cc49ab8821b52455d33,
+        type: 3}
     m_FromMain: 0
-    m_EntryOverrideCount: 2
+    m_EntryOverrideCount: 4
   - m_Name: RightToe
     m_Hash: 15299218
     m_CategoryList: []
@@ -391,8 +643,22 @@ MonoBehaviour:
       m_FromMain: 0
       m_SpriteOverride: {fileID: -326802832697406712, guid: e27a831ab9711844fb52501d14d44237,
         type: 3}
+    - m_Name: Retro
+      m_Hash: 469093302
+      m_Sprite: {fileID: 519765349262383224, guid: 31ed7f51f098d4648b8f66b24cf70bab,
+        type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 519765349262383224, guid: 31ed7f51f098d4648b8f66b24cf70bab,
+        type: 3}
+    - m_Name: SciFi
+      m_Hash: 88726331
+      m_Sprite: {fileID: 6646870896420461456, guid: 103d40dfb0914cc49ab8821b52455d33,
+        type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 6646870896420461456, guid: 103d40dfb0914cc49ab8821b52455d33,
+        type: 3}
     m_FromMain: 0
-    m_EntryOverrideCount: 2
+    m_EntryOverrideCount: 4
   m_PrimaryLibraryGUID: 
-  m_ModificationHash: 638739407893611854
+  m_ModificationHash: 638740985838164004
   m_Version: 1

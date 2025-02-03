@@ -26,6 +26,16 @@ public class GearSlot : DropSlot
                 isGearCorrect = droppedObject == requiredGear;
                 string displayString = droppedObject == requiredGear ? "Correct Piece" : "Incorrect Piece";
                 BooleanGame.Instance.DisplayValidation(displayString, 2f);
+
+                // Play the appropriate sound effect based on whether the gear is correct or not
+                if (isGearCorrect)
+                {
+                    AudioManager.instance.PlaySoundOneShot(SoundType.Correct); // Play correct SFX
+                }
+                else
+                {
+                    AudioManager.instance.PlaySoundOneShot(SoundType.Wrong); // Play wrong SFX
+                }
             }
         }
     }

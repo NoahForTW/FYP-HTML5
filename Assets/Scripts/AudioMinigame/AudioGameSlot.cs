@@ -30,10 +30,12 @@ public class AudioGameSlot : DropSlot
                 if (pieceState == slotState)
                 {
                     AudioGame.Instance.DisplayTextWithDelay("Correct Piece!", 2f);
+                    AudioManager.instance.PlaySoundOneShot(SoundType.Correct);
                 }
                 else
                 {
                     AudioGame.Instance.DisplayTextWithDelay("Incorrect Piece!", 2f);
+                    AudioManager.instance.PlaySoundOneShot(SoundType.Wrong);
                 }
             }
             else

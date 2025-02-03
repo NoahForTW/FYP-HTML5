@@ -16,7 +16,10 @@ public enum SoundType
     PickUpCoin,
     Walking,
     Successful,
-    PickUpPotion
+    PickUpPotion,
+    Lever,
+    Correct,
+    Wrong
 }
 
 [RequireComponent(typeof(AudioSource)), ExecuteInEditMode]
@@ -27,20 +30,22 @@ public class AudioManager : MonoBehaviour
 
     public SoundList[] soundList;
 
-    private int[] currentSequenceIndex; // Track current index for each SoundType
-    private Coroutine[] sequenceCoroutines; // Track coroutines for each SoundType
-    private Coroutine[] loopCoroutines; // Track looping coroutines for each SoundType
-
     [Tooltip("To enable or disable the audio in the game")]
     public bool canAudio;
 
     private void Awake()
     {
-        instance = this;
-
-        currentSequenceIndex = new int[soundList.Length]; // Initialize array size
-        sequenceCoroutines = new Coroutine[soundList.Length]; // Initialize array size
-        loopCoroutines = new Coroutine[soundList.Length]; // Initialize array size
+        // Singleton pattern implementation
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject); // Make sure the AudioManager persists across scenes
+        }
+        else
+        {
+            Destroy(gameObject); // Destroy any duplicate instances
+            return;
+        }
     }
 
     private void Start()
@@ -61,79 +66,6 @@ public class AudioManager : MonoBehaviour
         AudioClip[] clips = instance.soundList[(int)sound].Sounds;
         instance.audioSource.PlayOneShot(clips[0], volume);
     }
-    
-    // Play Sound Randomly
-    public void PlaySoundRandomly(SoundType sound, float volume = 1)
-    {
-        AudioClip[] clips = instance.soundList[(int)sound].Sounds;
-        AudioClip randomClip = clips[UnityEngine.Random.Range(0, clips.Length)];
-        instance.audioSource.PlayOneShot(randomClip, volume);
-    }
-
-    // Play Sound in Sequences
-    public void PlaySoundInSequence(SoundType sound, float volume = 1f)
-    {
-        int soundIndex = (int)sound;
-        if (instance.sequenceCoroutines[soundIndex] != null) return; // Prevent overlapping sequences
-        instance.sequenceCoroutines[soundIndex] = instance.StartCoroutine(instance.PlaySoundSequenceCoroutine(soundIndex, volume));
-    }
-
-    // Stop the Sound
-    public void StopSoundSequence(SoundType sound)
-    {
-        int soundIndex = (int)sound;
-        if (instance.sequenceCoroutines[soundIndex] != null)
-        {
-            instance.StopCoroutine(instance.sequenceCoroutines[soundIndex]);
-            instance.sequenceCoroutines[soundIndex] = null;
-        }
-    }
-
-    private IEnumerator PlaySoundSequenceCoroutine(int soundIndex, float volume)
-    {
-        AudioClip[] clips = soundList[soundIndex].Sounds;
-        while (true)
-        {
-            if (currentSequenceIndex[soundIndex] >= clips.Length)
-            {
-                currentSequenceIndex[soundIndex] = 0; // Reset sequence index if it exceeds array length
-            }
-
-            audioSource.PlayOneShot(clips[currentSequenceIndex[soundIndex]], volume);
-            yield return new WaitForSeconds(clips[currentSequenceIndex[soundIndex]].length); // Wait for the current clip to finish
-            currentSequenceIndex[soundIndex]++;
-        }
-    }
-
-    // Play Sound Loop
-    public void PlaySoundLoop(SoundType sound, float volume = 1f)
-    {
-        int soundIndex = (int)sound;
-        if (instance.loopCoroutines[soundIndex] != null) return; // Prevent overlapping loops
-        instance.loopCoroutines[soundIndex] = instance.StartCoroutine(instance.PlaySoundLoopCoroutine(soundIndex, volume));
-    }
-
-    // Stop Sound Loop
-    public void StopSoundLoop(SoundType sound)
-    {
-        int soundIndex = (int)sound;
-        if (instance.loopCoroutines[soundIndex] != null)
-        {
-            instance.StopCoroutine(instance.loopCoroutines[soundIndex]);
-            instance.loopCoroutines[soundIndex] = null;
-        }
-    }
-
-    private IEnumerator PlaySoundLoopCoroutine(int soundIndex, float volume)
-    {
-        AudioClip clip = soundList[soundIndex].Sounds[0]; // Assume the first clip is to be looped
-        while (true)
-        {
-            audioSource.PlayOneShot(clip, volume);
-            yield return new WaitForSeconds(clip.length); // Wait for the clip to finish
-        }
-    }
-
 
     private void OnEnable()
     {

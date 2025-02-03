@@ -142,6 +142,7 @@ public class AudioGame : Minigame
         if (AllSlotsAreCorrect() && !isCompleted && !AudioManager.instance.canAudio)
         {
             AudioManager.instance.canAudio = true;
+            MusicManager.instance.canMusic = true;
             GameData data = SavePlayerData.Instance.LoadData<GameData>();
             bool hasSettings = data.SettingsActive.Any(settings => settings.settingsName == AudioManager.instance.ToString());
             if (!hasSettings)

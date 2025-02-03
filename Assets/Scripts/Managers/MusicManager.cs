@@ -14,6 +14,8 @@ public class MusicManager : MonoBehaviour
         public float volume = 1f; // Volume for this music clip
     }
 
+    public bool canMusic;
+
     public SceneMusic[] sceneMusic; // Array of scene-specific music
 
     private AudioSource audioSource;

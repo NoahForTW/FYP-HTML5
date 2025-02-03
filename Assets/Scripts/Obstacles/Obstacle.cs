@@ -30,7 +30,6 @@ public class Obstacle : MonoBehaviour
 
     public void DoCompletionEvent()
     {
-
         switch (CompletionEffect)
         {
             case global::CompletionEffects.Deactivate:

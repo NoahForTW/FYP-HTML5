@@ -31,7 +31,7 @@ public class AudioManager : MonoBehaviour
     public SoundList[] soundList;
 
     [Tooltip("To enable or disable the audio in the game")]
-    public bool canAudio;
+    public bool canAudio = false;
 
     private void Awake()
     {
@@ -39,7 +39,6 @@ public class AudioManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject); // Make sure the AudioManager persists across scenes
         }
         else
         {

@@ -105,6 +105,7 @@ public class EnemyAI : MonoBehaviour
                 break;
             case State.Attacking:
                 animator.SetTrigger("Attack");
+                animator.SetBool("Walking", false);
                 break;
             case State.Dying:
                 animator.SetTrigger("Die");
@@ -239,12 +240,12 @@ public class EnemyAI : MonoBehaviour
 
         // Face the player while attacking
         Vector3 direction = (player.position - transform.position).normalized;
-        if (direction.x < 0)
+        if (direction.x > 0)
         {
             // Player is to the left
             transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
         }
-        else if (direction.x > 0)
+        else if (direction.x < 0)
         {
             // Player is to the right
             transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);

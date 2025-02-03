@@ -26,7 +26,6 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] private float attackRange = 2.0f; // Range for attacking the player
     [SerializeField] private float attackCooldown = 1.5f; // Cooldown between attacks
     [SerializeField] private float flySpeed = 3.0f; // Speed for flying enemy movement
-    [SerializeField] private float chargeSpeed = 6.0f; // Increased speed during attack
     [SerializeField] private float explosionRadius = 5.0f; // Radius for flying enemy explosion
     [SerializeField] private int explosionDamage = 2; // Damage dealt by flying enemy explosion
     [SerializeField] private int enemyDamage = 1; // Damage dealt by flying enemy explosion
@@ -196,8 +195,7 @@ public class EnemyAI : MonoBehaviour
         if (targetWaypoint != null)
         {
             // Move towards the target waypoint
-            float currentSpeed = (currentState == State.Attacking) ? chargeSpeed : flySpeed;
-            transform.position = Vector3.MoveTowards(transform.position, targetWaypoint.position, currentSpeed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, targetWaypoint.position, flySpeed * Time.deltaTime);
 
             // Determine the direction of movement
             Vector3 directionToWaypoint = targetWaypoint.position - transform.position;
@@ -248,11 +246,13 @@ public class EnemyAI : MonoBehaviour
         {
             // Face the player while attacking
             Vector3 direction = (player.position - transform.position).normalized;
+            //Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+            //transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
 
             // Move towards the player (for flying enemy)
             if (enemyType == EnemyType.FlyEnemy)
             {
-                transform.position = Vector3.MoveTowards(transform.position, player.position, chargeSpeed * Time.deltaTime);
+                transform.position = Vector3.MoveTowards(transform.position, player.position, flySpeed * Time.deltaTime);
             }
         }
     }
@@ -297,12 +297,6 @@ public class EnemyAI : MonoBehaviour
 
         // Destroy the enemy after a delay to let the death animation play
         Destroy(gameObject, deadBodyTimer);
-
-        // Destroy the parent GameObject if it exists
-        if (transform.parent != null)
-        {
-            Destroy(transform.parent.gameObject, deadBodyTimer);
-        }
     }
 
     private void OnCollisionEnter(Collision collision)

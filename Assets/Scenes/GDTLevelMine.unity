@@ -3610,16 +3610,15 @@ MonoBehaviour:
   enemyType: 1
   currentState: 0
   idleDuration: 2
-  detectionRange: 15
+  detectionRange: 20
   attackRange: 0
   attackCooldown: 0
   flySpeed: 3.5
-  chargeSpeed: 15
   explosionRadius: 5
-  explosionDamage: 1
-  enemyDamage: 0
+  explosionDamage: 2
+  enemyDamage: 1
   hitDetection: {fileID: 0}
-  deadBodyTimer: 0.7
+  deadBodyTimer: 1.5
   waypoints:
   - {fileID: 833576033}
   - {fileID: 1120345104}
@@ -4794,7 +4793,7 @@ GameObject:
   m_Component:
   - component: {fileID: 650898540}
   m_Layer: 0
-  m_Name: CyberGoblin
+  m_Name: CyberGoblim
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -19281,11 +19280,6 @@ PrefabInstance:
     - target: {fileID: 4091290281540954343, guid: 448a5583cbc611d44bd217e8f1dfad28,
         type: 3}
       propertyPath: flySpeed
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4091290281540954343, guid: 448a5583cbc611d44bd217e8f1dfad28,
-        type: 3}
-      propertyPath: chargeSpeed
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4091290281540954343, guid: 448a5583cbc611d44bd217e8f1dfad28,

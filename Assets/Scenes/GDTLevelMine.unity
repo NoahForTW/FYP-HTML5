@@ -3174,7 +3174,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: dbc7e3d6cdde4e14992f80dd96bed54b, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 37365e6df49f2924bbdade8dbabafe96, type: 2}
   m_BuildHeightMesh: 0
 --- !u!4 &365059268
 Transform:
@@ -18928,11 +18928,56 @@ PrefabInstance:
       propertyPath: m_Name
       value: BooleanGameCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 454838046022363061, guid: 1265b248cbba6a64e9e5309d88787945,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 779474292852528212, guid: 1265b248cbba6a64e9e5309d88787945,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 779474292852528212, guid: 1265b248cbba6a64e9e5309d88787945,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 779474292852528212, guid: 1265b248cbba6a64e9e5309d88787945,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 779474292852528212, guid: 1265b248cbba6a64e9e5309d88787945,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2110795689095856685, guid: 1265b248cbba6a64e9e5309d88787945,
         type: 3}
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 6180390636679337192}
+    - target: {fileID: 3193752079442696524, guid: 1265b248cbba6a64e9e5309d88787945,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3193752079442696524, guid: 1265b248cbba6a64e9e5309d88787945,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3193752079442696524, guid: 1265b248cbba6a64e9e5309d88787945,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3193752079442696524, guid: 1265b248cbba6a64e9e5309d88787945,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6424145795066083458, guid: 1265b248cbba6a64e9e5309d88787945,
         type: 3}
       propertyPath: m_Pivot.x
@@ -19032,6 +19077,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7924887018284947912, guid: 1265b248cbba6a64e9e5309d88787945,
+        type: 3}
+      propertyPath: m_text
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -30,7 +30,6 @@ public class Obstacle : MonoBehaviour
 
     public void DoCompletionEvent()
     {
-        Event.Invoke();
 
         switch (CompletionEffect)
         {

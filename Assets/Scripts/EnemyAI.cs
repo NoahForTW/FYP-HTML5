@@ -105,10 +105,6 @@ public class EnemyAI : MonoBehaviour
                 break;
             case State.Attacking:
                 animator.SetTrigger("Attack");
-                if (enemyType == EnemyType.GroundEnemy)
-                {
-                    navMeshAgent.isStopped = true; // Stop moving while attacking
-                }
                 break;
             case State.Dying:
                 animator.SetTrigger("Die");
@@ -226,7 +222,10 @@ public class EnemyAI : MonoBehaviour
 
     private void HandleAttackingState()
     {
-        if (player == null) return;
+        if (player == null) 
+        {
+            return;
+        }
 
         float playerDistance = Vector3.Distance(transform.position, player.position);
 
@@ -238,6 +237,19 @@ public class EnemyAI : MonoBehaviour
             return;
         }
 
+        // Face the player while attacking
+        Vector3 direction = (player.position - transform.position).normalized;
+        if (direction.x < 0)
+        {
+            // Player is to the left
+            transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+        }
+        else if (direction.x > 0)
+        {
+            // Player is to the right
+            transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+        }
+
         // Attack if the player is within range and cooldown is ready
         if (playerDistance <= attackRange && attackTimer <= 0f)
         {
@@ -246,9 +258,6 @@ public class EnemyAI : MonoBehaviour
         }
         else
         {
-            // Face the player while attacking
-            Vector3 direction = (player.position - transform.position).normalized;
-
             // Move towards the player (for flying enemy)
             if (enemyType == EnemyType.FlyEnemy)
             {

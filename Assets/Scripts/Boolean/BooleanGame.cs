@@ -173,6 +173,7 @@ public class BooleanGame : Minigame
     public void QuestionIsAnswered()
     {
         Lever.GetComponent<Animator>()?.SetBool("Start", true);
+        AudioManager.instance.PlaySoundOneShot(SoundType.Lever);
         StopCoroutine(ShowFeedBack(AllSlotsAreCorrect()));
         StartCoroutine(ShowFeedBack(AllSlotsAreCorrect()));
     }

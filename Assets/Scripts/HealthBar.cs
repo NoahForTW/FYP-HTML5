@@ -28,6 +28,11 @@ public class HealthBar : MonoBehaviour
         displayedHearts = currentHearts;
     }
 
+    private void Start()
+    {
+        
+    }
+
     public void SetUpPlayerHealth()
     {
         SetupHearts(3);
@@ -92,6 +97,8 @@ public class HealthBar : MonoBehaviour
         {
             currentHearts = (float)totalHearts;
         }
+
+        SaveHealth(currentHearts);
         SetCurrentHealth(currentHearts);
         TriggerFlash(false);
     }
@@ -103,6 +110,7 @@ public class HealthBar : MonoBehaviour
         {
             currentHearts = 0f;
         }
+        SaveHealth(currentHearts);
         SetCurrentHealth(currentHearts);
         TriggerFlash(true);
     }
@@ -136,6 +144,13 @@ public class HealthBar : MonoBehaviour
         }
     }
 
+    void SaveHealth(float newHealth)
+    {
+        GameData data = SavePlayerData.Instance.LoadData<GameData>();
+        data.playerHealth = newHealth;
+        SavePlayerData.Instance.SaveData(data);
+    }
+
     private void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
@@ -149,7 +164,8 @@ public class HealthBar : MonoBehaviour
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         SetUpPlayerHealth();
-        float currentHealth = SavePlayerData.Instance.LoadData<GameData>().playerHealth;
-        SetCurrentHealth(currentHealth);
+        SetCurrentHealth(PlayerInventory.Instance.GetCurrentHearts());
     }
+
+
 }

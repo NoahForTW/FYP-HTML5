@@ -8,7 +8,7 @@ public class Heart : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            PlayerInventory.Instance.CoinCollected.Invoke();
+            PlayerInventory.Instance.HeartCollected.Invoke();
             this.gameObject.SetActive(false);
             AudioManager.instance.PlaySoundOneShot(SoundType.PickUpPotion);
         }

@@ -12,7 +12,7 @@ public class PlayerData
 public class GameData
 {
     public int Coins = 0;
-    public float playerHealth = 3f;
+    public float playerHealth = 2f;
     public List<SettingsActive> SettingsActive = new List<SettingsActive>();
 }
 public class SettingsActive

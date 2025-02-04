@@ -308,7 +308,7 @@ Transform:
   m_GameObject: {fileID: 43498990}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -228, y: 70.8, z: -12.15}
+  m_LocalPosition: {x: -228.32, y: 64, z: -12.15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1563,8 +1563,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inkJSON: {fileID: 4900000, guid: 17b10a5725bbfc84d82c507a95192b6c, type: 3}
+  NPCNameText: {fileID: 0}
   IsMinigameCompleted: 0
   MinigameType: 7
+  spriteImage: {fileID: 0}
+  Gremlin: {fileID: 0}
   CompletedEffects:
   - {fileID: 223901233}
   questions: []
@@ -3381,8 +3384,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inkJSON: {fileID: 4900000, guid: 7336ff77fe09738439d9202386cda394, type: 3}
+  NPCNameText: {fileID: 0}
   IsMinigameCompleted: 0
   MinigameType: 5
+  spriteImage: {fileID: 0}
+  Gremlin: {fileID: 0}
   CompletedEffects: []
   questions: []
   CompletedMinigames: 
@@ -4053,13 +4059,21 @@ MonoBehaviour:
   - name: Jumping
     sounds:
     - {fileID: 8300000, guid: 319e7d1f9b59f0743b4941dfc4e6fba5, type: 3}
-  - name: Pickup
+  - name: PickUpCoin
     sounds:
     - {fileID: 8300000, guid: a36d59517a7377048882a49caa04bef4, type: 3}
   - name: Walking
     sounds:
     - {fileID: 8300000, guid: 6b2cf1e0537bc6f4797391fe0687ba64, type: 3}
   - name: Successful
+    sounds: []
+  - name: PickUpPotion
+    sounds: []
+  - name: Lever
+    sounds: []
+  - name: Correct
+    sounds: []
+  - name: Wrong
     sounds: []
   canAudio: 0
 --- !u!82 &546868360
@@ -4169,12 +4183,12 @@ PrefabInstance:
     - target: {fileID: 5844570921862521951, guid: f8e4b06e11ad8654a83b72bafaaed0b0,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -228
+      value: -228.32
       objectReference: {fileID: 0}
     - target: {fileID: 5844570921862521951, guid: f8e4b06e11ad8654a83b72bafaaed0b0,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 66
+      value: 59.2
       objectReference: {fileID: 0}
     - target: {fileID: 5844570921862521951, guid: f8e4b06e11ad8654a83b72bafaaed0b0,
         type: 3}
@@ -7728,6 +7742,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minigameType: 7
   isCompleted: 0
+  maxTimeInSeconds: 0
+  currentClue: 
   Window: {fileID: 1730488548}
   _qNa:
   - Question: Choose 4
@@ -8162,8 +8178,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inkJSON: {fileID: 4900000, guid: 02c28a7d6ad50654ab274d9d8d81c1a6, type: 3}
+  NPCNameText: {fileID: 0}
   IsMinigameCompleted: 0
   MinigameType: 6
+  spriteImage: {fileID: 0}
+  Gremlin: {fileID: 0}
   CompletedEffects:
   - {fileID: 1664626549}
   questions:
@@ -9256,12 +9275,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.0326366, y: 2.1809013, z: 0.34219688}
   m_Center: {x: 0.12689081, y: -0.5153353, z: 0.000000029802322}
---- !u!4 &1515616855 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4475725655427619384, guid: 2370ad1b1325b1143b8b6820eeb20be3,
-    type: 3}
-  m_PrefabInstance: {fileID: 8619994762417064335}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1523803123
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10485,6 +10498,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TimerCanvas: {fileID: 1523803125}
   GUICanvas: {fileID: 1056007268}
+  NotificationCanvas: {fileID: 0}
 --- !u!4 &1763095138
 Transform:
   m_ObjectHideFlags: 0
@@ -10826,6 +10840,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: DialogueCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 5920100809855871038, guid: 9dccdcf613a7b62438460cde2e0583cd,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -11173,7 +11192,7 @@ Transform:
   m_GameObject: {fileID: 1932984366}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -228, y: 70.8, z: -12.15}
+  m_LocalPosition: {x: -228.32, y: 64, z: -12.15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -11289,7 +11308,7 @@ Transform:
   - {fileID: 1420864670}
   - {fileID: 368297682}
   - {fileID: 972099575}
-  - {fileID: 1515616855}
+  - {fileID: 8619994762417064336}
   - {fileID: 317289859}
   - {fileID: 2093085959}
   - {fileID: 257313108}
@@ -12676,6 +12695,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2370ad1b1325b1143b8b6820eeb20be3, type: 3}
+--- !u!4 &8619994762417064336 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2758697374417822738, guid: 2370ad1b1325b1143b8b6820eeb20be3,
+    type: 3}
+  m_PrefabInstance: {fileID: 8619994762417064335}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

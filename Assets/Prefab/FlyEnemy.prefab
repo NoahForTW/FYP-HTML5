@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 656694611659082811}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -78.84, y: 31.05, z: 0}
+  m_LocalPosition: {x: -89.66, y: 31.05, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -146,7 +146,7 @@ Transform:
   m_GameObject: {fileID: 7461803858924183780}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -86.2, y: 23.7, z: 0}
+  m_LocalPosition: {x: -86.2, y: 30.14, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -222,7 +222,7 @@ MonoBehaviour:
   attackRange: 0
   attackCooldown: 0
   flySpeed: 3.5
-  attackSpeed: 6
+  attackSpeed: 20
   explosionRadius: 5
   explosionDamage: 2
   enemyDamage: 1
@@ -280,7 +280,7 @@ Transform:
   m_GameObject: {fileID: 8280891899851225521}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -44.4, y: 29.9, z: 0}
+  m_LocalPosition: {x: -47.66001, y: 29.9, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []

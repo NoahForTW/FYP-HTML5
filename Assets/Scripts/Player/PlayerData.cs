@@ -14,6 +14,7 @@ public class GameData
     public int Coins = 0;
     public float playerHealth = 2f;
     public List<SettingsActive> SettingsActive = new List<SettingsActive>();
+    public MinigameManagerData minigameManagerData = new MinigameManagerData(); 
 }
 public class SettingsActive
 {
@@ -25,7 +26,6 @@ public class LevelData
 {
     public string RespawnTag = "";
     public List<SceneGameObjects> SceneGameObjects = new List<SceneGameObjects>();
-    public List<MinigameNPCData> MinigameNPCData = new List<MinigameNPCData>();
     public List<ObstaclesData> ObstaclesData = new List<ObstaclesData>();
     public List<ItemsInScene> Coins = new List<ItemsInScene>();
     public List<ItemsInScene> Hearts = new List<ItemsInScene>();
@@ -55,13 +55,23 @@ public class ItemsInScene
     public bool isActive = true;
 }
 [Serializable]
-public class MinigameNPCData : SceneGameObjects
-{
-    public bool isMinigameCompleted = false;
-}
-[Serializable]
 public class ObstaclesData : SceneGameObjects
 {
 
 }
+
+[Serializable]
+public class MinigameManagerData
+{
+    public int ClueCostMultiplier;
+    public List<MinigameData> minigameDatas = new List<MinigameData>();
+
+}
+
+public class MinigameData
+{
+    public MinigameType MinigameType;
+    public bool isCompleted = true;
+}
+
 

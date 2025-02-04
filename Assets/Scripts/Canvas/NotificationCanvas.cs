@@ -1,6 +1,8 @@
+using PrimeTween;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor.PackageManager.UI;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -14,28 +16,32 @@ public enum TypeOfNotif
 public class NotificationCanvas : MonoBehaviour
 {
     public GameObject notification;
-    public TextMeshProUGUI notificationText;
-    public GameObject notificationCloseMinigameButton;
-    public GameObject notificationCloseWindowButton;
-    public GameObject notificationPauseButtons;
+    public GameObject notificationTextGO;
+    [SerializeField] TextMeshProUGUI notificationText;
+    [SerializeField] TextMeshProUGUI notificationWindowText;
+    [SerializeField] GameObject notificationCloseMinigameButton;
+    [SerializeField] GameObject notificationCloseWindowButton;
+    [SerializeField] GameObject notificationPauseButtons;
 
     UnityEvent<TypeOfNotif> showNotificationEvent;
+    Coroutine showNotificationText;
+    bool ShowTextDone = true;
 
     private void Awake()
     {
         if(showNotificationEvent == null)
             showNotificationEvent = new UnityEvent<TypeOfNotif>();
-        showNotificationEvent.AddListener(showNotification);
+        showNotificationEvent.AddListener(ShowNotification);
     }
     public void SetPauseNotif()
     {
-        notificationText.text = "Are you sure to quit this game?\r\n<size=75%><color=red>Your progress would be lost</color></size>";
+        notificationWindowText.text = "Are you sure to quit this game?\r\n<size=75%><color=red>Your progress would be lost</color></size>";
         showNotificationEvent.Invoke(TypeOfNotif.Pause);
     }
 
     public void SetGameDoneNotif(string remaindingTime, float coinsEarn)
     {
-        notificationText.text =
+        notificationWindowText.text =
             @$"<u>Results</u>
 <size=70%><align=left>Time Left:<line-height=0>
 <align=right><color=yellow>{remaindingTime}</color><line-height=1em>
@@ -46,17 +52,43 @@ public class NotificationCanvas : MonoBehaviour
 
     }
 
-    public void SetNotif(string text)
+    public void SetWindowNotif(string text)
     {
-        notificationText.text = text;
+        notificationWindowText.text = text;
         showNotificationEvent.Invoke(TypeOfNotif.Notification);
     }
 
-    public void showNotification(TypeOfNotif type)
+    public void ShowNotification(TypeOfNotif type)
     {
         notification.SetActive(true);
         notificationCloseWindowButton.SetActive(type == TypeOfNotif.Notification);
         notificationCloseMinigameButton.SetActive(type == TypeOfNotif.GameDone);
         notificationPauseButtons.SetActive(type == TypeOfNotif.Pause);
+    }
+
+    public void StartTextNotif(string text)
+    {
+        if (!ShowTextDone)
+            return;
+
+        if (showNotificationText != null)
+            StopCoroutine(showNotificationText);
+        showNotificationText = StartCoroutine(ShowTextNotification(text));
+    }
+    IEnumerator ShowTextNotification(string text)
+    {
+        ShowTextDone = false;
+        notificationText.text = text;
+        notificationTextGO.SetActive(true);
+
+        RectTransform windownRect = notificationTextGO?.GetComponent<RectTransform>();
+        Vector3 currentPosition = windownRect.anchoredPosition3D;
+        RectTransform startTransform = windownRect;
+        startTransform.anchoredPosition3D = currentPosition - transform.up * 100;
+        Tween.UIAnchoredPosition(startTransform, currentPosition, duration: 1.5f, ease: Ease.OutCubic);
+
+        yield return new WaitForSeconds(1.5f);
+        notificationTextGO.SetActive(false);
+        ShowTextDone = true;
     }
 }

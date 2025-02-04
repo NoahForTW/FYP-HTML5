@@ -1,7 +1,13 @@
 EXTERNAL StartMinigame()
 VAR IsMinigameCompleted = false
+VAR IsMinigameFailed = false
 VAR NPCName = "Sonicus"
+{IsMinigameFailed : ->FailedMinigame|}
 {IsMinigameCompleted: ->AfterMinigame|->BeforeMinigame }
+
+==FailedMinigame==
+    
+->DONE
 
 ==BeforeMinigame==
 Listen to some sick tunes here! #speaker:{NPCName}
@@ -17,8 +23,8 @@ Listen to some sick tunes here! #speaker:{NPCName}
     ++[Cybergoblin?]
 -Oh, that's a creature that likes to corrupt and glitch out our devices. So annoying!.#speaker:{NPCName}
 -Sorry, could you help me place labels on the correct music?#speaker:{NPCName}
-+[Leave it to me!]
-    Ah, thank you! You're a lifesaver.#speaker:{NPCName}
++[Leave it to me!]#StartMinigame
+    Ah, thank you! You're a lifesaver.#speaker:{NPCName} 
     ~ StartMinigame()
         ->DONE
 +[Uh, I'm kinda busy at the moment.]

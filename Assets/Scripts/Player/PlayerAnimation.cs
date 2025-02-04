@@ -24,7 +24,7 @@ public class PlayerAnimation : MonoBehaviour
             && !PlayerController.Instance.notGrounded); // if player is not currently jumping
         animator.SetBool("Stun", action == PlayerAction.Stun);
 
-        if (action == PlayerAction.Die)
+        if (action == PlayerAction.Die) 
             animator.Play("Die");
 
 

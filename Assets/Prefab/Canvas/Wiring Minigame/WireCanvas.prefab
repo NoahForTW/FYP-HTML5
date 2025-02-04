@@ -431,7 +431,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d3d803af78148f945ae0c019f50f08cd, type: 2}
+  - {fileID: 2100000, guid: 16f07462658553c4dace0cf5937f6cd0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1739,7 +1739,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d3d803af78148f945ae0c019f50f08cd, type: 2}
+  - {fileID: 2100000, guid: 3444b1744dfbe504b817cfaf034e57db, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2356,7 +2356,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d3d803af78148f945ae0c019f50f08cd, type: 2}
+  - {fileID: 2100000, guid: 3444b1744dfbe504b817cfaf034e57db, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2964,7 +2964,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d3d803af78148f945ae0c019f50f08cd, type: 2}
+  - {fileID: 2100000, guid: 16f07462658553c4dace0cf5937f6cd0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3240,7 +3240,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6232152784414028366
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3344,6 +3344,7 @@ MonoBehaviour:
   maxTimeInSeconds: 300
   currentClue: Drag the wire to the correct connection.
   Window: {fileID: 2491247590542135270}
+  ClueCostText: {fileID: 0}
   _colorMaterials:
   - {fileID: 2100000, guid: 72e5f387820d4cc4b9188840eadddb9a, type: 2}
   - {fileID: 2100000, guid: 2bd2a8fc13e911c4da2b52c89c822320, type: 2}

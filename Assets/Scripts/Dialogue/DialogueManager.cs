@@ -16,6 +16,7 @@ public class DialogueManager : MonoBehaviour
 
     [Header("Choices UI")]
     [SerializeField] private GameObject choicePrefab;
+    [SerializeField] private Sprite startMinigameChoice;
     [SerializeField] private GameObject choiceParent;
     List<Transform> choiceList = new List<Transform>();
 
@@ -101,6 +102,8 @@ public class DialogueManager : MonoBehaviour
             return;
         if (inkJson == null)
             return;
+        PlayerController.Instance.playerAction.Invoke(PlayerAction.Idle);
+
         // reset bind list 
         bindActionNames.Clear();
 
@@ -162,7 +165,7 @@ public class DialogueManager : MonoBehaviour
             }
             else
             {
-                HandleTags(currentStory.currentTags);
+                //HandleTags(currentStory.currentTags);
                 displayLineCoroutine = StartCoroutine(DisplayText(nextLine));
 
             }
@@ -189,6 +192,11 @@ public class DialogueManager : MonoBehaviour
         
         for (int i = 0; i < currentChoices.Count; i++) {
             GameObject choice = Instantiate(choicePrefab, choiceParent.transform);
+            // solve this pls
+
+            if (currentChoices[i].tags.Contains("StartMinigame"))
+                choice.GetComponent<Image>().sprite = startMinigameChoice;
+
             choice.GetComponentInChildren<TextMeshProUGUI>().text = currentChoices[i].text;
             int index = i;
             choice.GetComponent<Button>().onClick.AddListener(()=> MakeChoice(index));
@@ -207,10 +215,9 @@ public class DialogueManager : MonoBehaviour
 
     }
 
-    void HandleTags(List<string> tags)
+    Dictionary<string, string> HandleTags(List<string> tags)
     {
-        // reset text 
-        speakerName.text = "";
+        Dictionary<string, string> keyValuePairs = new Dictionary<string, string>();
         // set text
         foreach (string tag in tags)
         {
@@ -222,16 +229,25 @@ public class DialogueManager : MonoBehaviour
             }
             string tagKey = splitTag[0].Trim();
             string tagValue = splitTag[1].Trim();
-
-            switch (tagKey)
-            {
-                case SpeakerTag:
-                    speakerName.text = tagValue;
-                    break;
-            }
+            keyValuePairs[tagKey] = tagValue;
         }
+
+        return keyValuePairs;
     }
 
+    
+    void SetSpeakerTag()
+    {
+        foreach (var keyValue in HandleTags(currentStory.currentTags))
+        {
+            if (keyValue.Key == SpeakerTag)
+            {
+                speakerName.text = keyValue.Value;
+                return;
+            }
+        }
+        
+    }
     private void HideChoices()
     {
         foreach (Transform choiceButton in choiceList)

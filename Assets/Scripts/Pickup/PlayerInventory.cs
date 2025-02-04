@@ -10,6 +10,7 @@ public class PlayerInventory : MonoBehaviour
     public int NoOfHearts { get; private set; }
 
     public UnityEvent CoinCollected;
+    public UnityEvent UpdateCoinUI;
     public UnityEvent HeartCollected;
 
     private void Awake()
@@ -23,6 +24,7 @@ public class PlayerInventory : MonoBehaviour
     {
         //NoOfCoins++;
         AddCoins(1);
+        UpdateCoinUI.Invoke();
     }
     public void OnHeartCollected()
     {
@@ -34,15 +36,17 @@ public class PlayerInventory : MonoBehaviour
         GameData data = SavePlayerData.Instance.LoadData<GameData>();
         data.Coins += amount;
         SavePlayerData.Instance.SaveData(data);
+        UpdateCoinUI.Invoke();
     }
 
     public void RemoveCoins(int amount)
     {
         GameData data = SavePlayerData.Instance.LoadData<GameData>();
-        data.Coins += amount;
+        data.Coins -= amount;
         if (data.Coins < 0)
             data.Coins = 0;
         SavePlayerData.Instance.SaveData(data);
+        UpdateCoinUI.Invoke();
     }
 
     public int GetCurrentCoins()

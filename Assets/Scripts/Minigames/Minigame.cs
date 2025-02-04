@@ -1,6 +1,8 @@
 using PrimeTween;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using TMPro.EditorUtilities;
 using UnityEngine;
 public class Minigame : MonoBehaviour
 {
@@ -11,6 +13,7 @@ public class Minigame : MonoBehaviour
     public string currentClue;
 
     public GameObject Window;
+    public TMP_Text ClueCostText;
     protected virtual void OnEnable()
     {
         RectTransform windownRect = Window?.GetComponent<RectTransform>();
@@ -18,6 +21,14 @@ public class Minigame : MonoBehaviour
         RectTransform startTransform = windownRect;
         startTransform.anchoredPosition3D = currentPosition - transform.up * 400;
         Tween.UIAnchoredPosition(startTransform, currentPosition, duration: 1, ease: Ease.OutCubic);
+
+        // subscribe clue cost 
+        MinigameManager.Instance.clueCostUpdated.AddListener(UpdateClueCost);
+        UpdateClueCost();
+    }
+    private void OnDisable()
+    {
+        MinigameManager.Instance.clueCostUpdated.RemoveListener(UpdateClueCost);
     }
     public virtual void StartMinigame()
     {
@@ -38,5 +49,10 @@ public class Minigame : MonoBehaviour
     public void ShowClue()
     {
         MinigameManager.Instance.ShowClue(currentClue);
+    }
+
+    void UpdateClueCost()
+    {
+        ClueCostText.text = MinigameManager.Instance.GetCurrentClueCost().ToString();
     }
 }

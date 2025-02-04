@@ -30,6 +30,7 @@ public class MinigameManager : MonoBehaviour
     public List<ScriptableObject> CurrentQuestions;
 
     public UnityEvent MinigameCompletion;
+    public UnityEvent MinigameFailed;
 
     //minigame list
     List<Minigame> Minigames = new List<Minigame>();
@@ -40,6 +41,11 @@ public class MinigameManager : MonoBehaviour
 
     float GameTimer;
     bool PauseTime = false;
+
+    // clue cost
+    float baseClueCost = 10;
+    int ClueCostMultiplier = 1;
+    public UnityEvent clueCostUpdated;
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -179,9 +185,30 @@ public class MinigameManager : MonoBehaviour
         // addd & save coins
         PlayerInventory.Instance.AddCoins(coinsEarned);
     }
+
+    public void SetClueMultiplier(int newMultiplier)
+    {
+        ClueCostMultiplier = newMultiplier;
+        clueCostUpdated.Invoke();
+    }
+
+    public int GetCurrentClueCost()
+    {
+        return (int)(ClueCostMultiplier * baseClueCost);
+    }
     public void ShowClue(string clue)
     {
-        CanvasManager.Instance.NotificationCanvas?.SetNotif(clue);
+        int cost = GetCurrentClueCost();
+        if (PlayerInventory.Instance.GetCurrentCoins() >= cost)
+        {
+            CanvasManager.Instance.NotificationCanvas?.SetWindowNotif(clue);
+            PlayerInventory.Instance.RemoveCoins(cost);
+            SetClueMultiplier(ClueCostMultiplier + 1);
+        }
+        else
+        {
+            CanvasManager.Instance.NotificationCanvas?.StartTextNotif("You have not enough coins!");
+        }
     }
     public void ClearChild(Transform parent)
     {
@@ -197,31 +224,36 @@ public class MinigameManager : MonoBehaviour
     }
     private void Update()
     {
-        if (CurrentMinigame != null)
+        if (CurrentMinigame == null)
+            return;
+        if (CurrentMinigameType != MinigameType.None
+            && !IsCurrentActive())
         {
-            if (CurrentMinigameType != MinigameType.None
-             && !IsCurrentActive())
-            {
-                StartMinigame();
-            }
-
-            if (CurrentMinigame.isCompleted)
-            {
-                //EndMinigame();
-                MinigameCompletion.Invoke();
-                // show result notification
-                ShowResults();
-            }
-            else
-            {
-                if (!PauseTime)
-                {
-                    // update timer?
-                    UpdateTimer();
-                }
-
-            }
+            StartMinigame();
         }
+
+        if (CurrentMinigame.isCompleted)
+        {
+            //EndMinigame();
+            MinigameCompletion.Invoke();
+            // show result notification
+            ShowResults();
+        }
+        else
+        {
+            if (!PauseTime)
+            {
+                // update timer?
+                UpdateTimer();
+
+                if (GameTimer <=0)
+                {
+                    EndMinigame();
+                }
+            }
+
+        }
+        
 
     }
 

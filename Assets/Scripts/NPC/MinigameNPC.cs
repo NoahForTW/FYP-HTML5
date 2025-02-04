@@ -35,6 +35,7 @@ public class MinigameNPC : NPC
         MinigameManager.Instance.SetMinigame(MinigameType);
         MinigameManager.Instance.SetQuestions(questions);
         MinigameManager.Instance.MinigameCompletion.AddListener(MinigameCompleted);
+        MinigameManager.Instance.MinigameFailed.AddListener(MinigameFailed);
     }
 
     public override void StartDialogue()
@@ -58,6 +59,11 @@ public class MinigameNPC : NPC
             effect.Event.Invoke();
         }
         MinigameManager.Instance.MinigameCompletion.RemoveListener(MinigameCompleted);
+    }
+
+    void MinigameFailed()
+    {
+        DialogueManager.GetInstance().SetVariableInStory("IsMinigameFailed", true);
     }
 
     void ChangeAvatar()

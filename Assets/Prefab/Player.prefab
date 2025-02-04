@@ -107,13 +107,15 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canMove: 1
+  stunned: 0
   notGrounded: 1
   currentPlayerActionEvent:
     m_PersistentCalls:
       m_Calls: []
   currentPlayerAction: 0
-  MovingDirection: 6
+  MovingDirection: 8
   Jumping: 0
+  stunDuration: 0
   walkingSoundCooldown: 0.3
   movementSpeed: 10
   jumpForce: 20

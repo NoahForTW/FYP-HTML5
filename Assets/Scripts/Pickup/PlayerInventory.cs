@@ -10,18 +10,23 @@ public class PlayerInventory : MonoBehaviour
     public int NoOfHearts { get; private set; }
 
     public UnityEvent CoinCollected;
-    public UnityEvent<PlayerInventory> OnHeartCollected;
+    public UnityEvent HeartCollected;
 
     private void Awake()
     {
         if (Instance == null)
             Instance = this;
         CoinCollected.AddListener(OnCoinCollected);
+        HeartCollected.AddListener(OnHeartCollected);
     }
     public void OnCoinCollected()
     {
         //NoOfCoins++;
         AddCoins(1);
+    }
+    public void OnHeartCollected()
+    {
+        HealthBar.instance.AddHearts(1);
     }
 
     public void AddCoins(int amount)
@@ -45,13 +50,10 @@ public class PlayerInventory : MonoBehaviour
         return SavePlayerData.Instance.LoadData<GameData>().Coins;
     }
 
-    public void HeartCollected()
+    public float GetCurrentHearts()
     {
-        HealthBar.instance.AddContainer();
-        HealthBar.instance.AddHearts(1);
-        OnHeartCollected.Invoke(this);
+        return SavePlayerData.Instance.LoadData<GameData>().playerHealth;
     }
-
     public void CosmeticCollected()
     {
 

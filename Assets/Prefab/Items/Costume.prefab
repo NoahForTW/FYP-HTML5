@@ -4918,6 +4918,7 @@ GameObject:
   - component: {fileID: 3341184321130302254}
   - component: {fileID: 3974458581250517557}
   - component: {fileID: -1855661470228954488}
+  - component: {fileID: 6285542809179729309}
   m_Layer: 0
   m_Name: Costume
   m_TagString: Untagged
@@ -5037,6 +5038,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &6285542809179729309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6734277035660426803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b526baf6a65f274abe82007157cfbf7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8035699459670171019
 GameObject:
   m_ObjectHideFlags: 0

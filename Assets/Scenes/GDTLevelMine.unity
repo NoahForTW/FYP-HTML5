@@ -4029,6 +4029,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 798315679e76eea439176268572d9ac5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sceneMusic: []
   soundList:
   - name: Jumping
     sounds:
@@ -16916,7 +16917,7 @@ MonoBehaviour:
   CoinCollected:
     m_PersistentCalls:
       m_Calls: []
-  OnHeartCollected:
+  HeartCollected:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &1835419897
@@ -18706,12 +18707,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 175365567}
     m_Modifications:
-    - target: {fileID: 2977065694949055730, guid: fe6b442e195588e4ea990f53216d1c8f,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: -876546973899608171, guid: fca09aed4f4e16949935bf2b6a3f569f,
-        type: 3}
     - target: {fileID: 3130204439065751910, guid: fe6b442e195588e4ea990f53216d1c8f,
         type: 3}
       propertyPath: m_Camera
@@ -18821,16 +18816,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: WireCanvas
-      objectReference: {fileID: 0}
-    - target: {fileID: 8984246464062442200, guid: fe6b442e195588e4ea990f53216d1c8f,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8997445911493561511, guid: fe6b442e195588e4ea990f53216d1c8f,
-        type: 3}
-      propertyPath: _matchMaterial
-      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -7,6 +7,7 @@ public class TeleportToLastSave : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
+        HealthBar.instance.RemoveHearts(1);
 
         if (SceneManager.GetActiveScene().name == "GDTLevel")
         {

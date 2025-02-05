@@ -4,8 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
-using System.IO;
-using UnityEngine.Networking;
 
 public class LoadingScreen : MonoBehaviour
 {

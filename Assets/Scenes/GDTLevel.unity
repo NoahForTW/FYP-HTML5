@@ -5262,6 +5262,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: NPC Wiring
       objectReference: {fileID: 0}
+    - target: {fileID: 1760037459870283335, guid: d5a60da5aa3854d48a097da78964751b,
+        type: 3}
+      propertyPath: CompletedEffects.Array.data[0]
+      value: 
+      objectReference: {fileID: 602475159}
+    - target: {fileID: 1760037459870283335, guid: d5a60da5aa3854d48a097da78964751b,
+        type: 3}
+      propertyPath: CompletedEffects.Array.data[1]
+      value: 
+      objectReference: {fileID: 1210419774}
     - target: {fileID: 1860357280239553568, guid: d5a60da5aa3854d48a097da78964751b,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -12842,6 +12852,16 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -0.765
       objectReference: {fileID: 0}
+    - target: {fileID: 9146360852136116097, guid: 687bf03b39641724ab3323f81bd1f2a2,
+        type: 3}
+      propertyPath: CompletedEffects.Array.data[0]
+      value: 
+      objectReference: {fileID: 1507488356}
+    - target: {fileID: 9146360852136116097, guid: 687bf03b39641724ab3323f81bd1f2a2,
+        type: 3}
+      propertyPath: CompletedEffects.Array.data[1]
+      value: 
+      objectReference: {fileID: 296679826}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -19351,6 +19371,12 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1651551530}
   m_Mesh: {fileID: 958213706671446225, guid: 6b99e3b6b7e2ba14b89c0b0ebabe2621, type: 3}
+--- !u!1 &1652133344 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2497768029552346873, guid: 1265b248cbba6a64e9e5309d88787945,
+    type: 3}
+  m_PrefabInstance: {fileID: 4797180264415605778}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1667434513
 GameObject:
   m_ObjectHideFlags: 0
@@ -24028,6 +24054,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -9.565
       objectReference: {fileID: 0}
+    - target: {fileID: 8443184587462979143, guid: 1265b248cbba6a64e9e5309d88787945,
+        type: 3}
+      propertyPath: GearGameParent
+      value: 
+      objectReference: {fileID: 1652133344}
     - target: {fileID: 9086098928135583226, guid: 1265b248cbba6a64e9e5309d88787945,
         type: 3}
       propertyPath: m_SizeDelta.y

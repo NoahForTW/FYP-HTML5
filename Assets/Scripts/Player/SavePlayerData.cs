@@ -58,10 +58,13 @@ public class SavePlayerData : MonoBehaviour
     
     public void ClearGame()
     {
-        GDTLevelData data = new GDTLevelData();
-        SaveData(data);
-        PlayerData playerData = new PlayerData();
-        SaveData(playerData);
+        GDTLevelData GDTdata = new GDTLevelData();
+        SaveData(GDTdata);
+        AGVELevelData AGVEdata = new AGVELevelData();
+        SaveData(AGVEdata);
+
+        GameData gameData = new GameData();
+        SaveData(gameData);
     }
     public void test()
     {

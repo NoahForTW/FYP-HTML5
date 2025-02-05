@@ -472,7 +472,7 @@ MonoBehaviour:
     type: 3}
   choiceParent: {fileID: 9170994319903700139}
   dialogueIsPlaying: 0
-  typingSpeed: 0.25
+  typingSpeed: 0.05
 --- !u!1 &9170994319903700139
 GameObject:
   m_ObjectHideFlags: 0

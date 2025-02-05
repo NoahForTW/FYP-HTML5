@@ -278,7 +278,7 @@ public class DialogueManager : MonoBehaviour
         foreach (char letter in line.ToCharArray())
         {
             // if the submit button is pressed, finish up displaying the line right away
-            if (keyPressedThisFrame)
+            if (keyPressedThisFrame && dialogueText.maxVisibleCharacters > 3)
             {
                 keyPressedThisFrame = false;
                 dialogueText.maxVisibleCharacters = line.Length;

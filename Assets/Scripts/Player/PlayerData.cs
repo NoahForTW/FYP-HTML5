@@ -6,13 +6,14 @@ using UnityEngine;
 [Serializable]
 public class PlayerData
 {
-    int Coins = 0;
+    public int Coins = 10000;
+    public CosmeticType currentCosmetic = CosmeticType.Default;
+    public List<CosmeticType> cosmeticsOwned = new List<CosmeticType>();
 }
 [Serializable]
 public class GameData
 {
-    public int Coins = 0;
-    public float playerHealth = 2f;
+    public float playerHealth = 3f;
     public List<SettingsActive> SettingsActive = new List<SettingsActive>();
     public MinigameManagerData minigameManagerData = new MinigameManagerData(); 
 }

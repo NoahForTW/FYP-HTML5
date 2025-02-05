@@ -13,6 +13,7 @@ public class CoinUI : MonoBehaviour
     private void Start()
     {
         PlayerInventory.Instance.UpdateCoinUI.AddListener(UpdateCoinText);
+        UpdateCoinText();
     }
 
     public void UpdateCoinText()

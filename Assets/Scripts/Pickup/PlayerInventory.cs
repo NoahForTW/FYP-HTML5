@@ -33,7 +33,7 @@ public class PlayerInventory : MonoBehaviour
 
     public void AddCoins(int amount)
     {
-        GameData data = SavePlayerData.Instance.LoadData<GameData>();
+        PlayerData data = SavePlayerData.Instance.LoadData<PlayerData>();
         data.Coins += amount;
         SavePlayerData.Instance.SaveData(data);
         UpdateCoinUI.Invoke();
@@ -41,7 +41,7 @@ public class PlayerInventory : MonoBehaviour
 
     public void RemoveCoins(int amount)
     {
-        GameData data = SavePlayerData.Instance.LoadData<GameData>();
+        PlayerData data = SavePlayerData.Instance.LoadData<PlayerData>();
         data.Coins -= amount;
         if (data.Coins < 0)
             data.Coins = 0;
@@ -51,7 +51,7 @@ public class PlayerInventory : MonoBehaviour
 
     public int GetCurrentCoins()
     {
-        return SavePlayerData.Instance.LoadData<GameData>().Coins;
+        return SavePlayerData.Instance.LoadData<PlayerData>().Coins;
     }
 
     public float GetCurrentHearts()

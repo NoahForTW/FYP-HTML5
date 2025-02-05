@@ -30,6 +30,7 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] private float explosionRadius = 5.0f; // Radius for flying enemy explosion
     [SerializeField] private int explosionDamage = 2; // Damage dealt by flying enemy explosion
     [SerializeField] private int enemyDamage = 1; // Damage dealt by flying enemy explosion
+    [SerializeField] private ParticleSystem explosionEffect;
 
     [SerializeField] private GameObject hitDetection; // Reference to the HitBox GameObject
 
@@ -340,12 +341,17 @@ public class EnemyAI : MonoBehaviour
             {
                 // Deal damage to the player
                 HealthBar.instance.RemoveHearts(explosionDamage);
-                Debug.Log("Player took explosion damage!");
             }
         }
 
-        // Optionally, instantiate an explosion effect
-        // Instantiate(explosionEffect, transform.position, Quaternion.identity);
+        // Instantiate the explosion effect
+        ParticleSystem explosionInstance = Instantiate(explosionEffect, transform.position, Quaternion.identity);
+
+        // Get the duration of the particle effect
+        float explosionDuration = explosionInstance.main.duration;
+
+        // Destroy the particle effect GameObject after it has finished playing
+        Destroy(explosionInstance.gameObject, explosionDuration);
 
         // Destroy the flying enemy
         Die();

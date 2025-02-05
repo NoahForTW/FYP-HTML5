@@ -3732,6 +3732,12 @@ PrefabInstance:
       propertyPath: deadBodyTimer
       value: 0.8
       objectReference: {fileID: 0}
+    - target: {fileID: 7988216279277068616, guid: 78fcd7206df6f554c98a7e3f3bebea09,
+        type: 3}
+      propertyPath: explosionEffect
+      value: 
+      objectReference: {fileID: 6300683539458024697, guid: 44624d4fa593c58468daddda42713afd,
+        type: 3}
     - target: {fileID: 8974376725366178215, guid: 78fcd7206df6f554c98a7e3f3bebea09,
         type: 3}
       propertyPath: m_LocalPosition.x

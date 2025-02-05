@@ -17,7 +17,7 @@ public class PausePanel : MonoBehaviour
         pausePanel.SetActive(false);
         settingsPanel.SetActive(false);
         pauseMenu.SetActive(false);
-        //Time.timeScale = 1; // Ensure time is running normally at the start
+        Time.timeScale = 1; // Ensure time is running normally at the start
 
         // Subscribe to the Pause action
         PlayerController.Instance.playerAction.AddListener(OnPlayerAction);

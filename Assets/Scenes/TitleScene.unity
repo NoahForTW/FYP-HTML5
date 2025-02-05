@@ -605,7 +605,7 @@ Transform:
   m_GameObject: {fileID: 104312414}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 21050}
+  m_LocalPosition: {x: 0, y: 0, z: 30410}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4722,8 +4722,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "Credits:\n\nProject Manager/Lead Programmer\r\n<color=yellow>Rachel Phui
-    Mun\r</color>\n\r\nFrontEnd Programmer\r\n<color=yellow>Yip Han Wen</color>\n\r\nIDK\r\n<color=yellow>Robbie\r</color>\n\r\n2D
-    Artists\n<color=yellow>Torres\r</color>\n\r\n3D Artists\n<color=yellow>Jun\r</color>\n\r\nTESTETETSTTETETESTSETSETEST\r\nETESTESTESTEST\r\n\r\n\r\nESTSETESTESTES\r\nSESTESTESTESTES\r\n\r\nSETSETESTESTESTESTSET\r\n\r\nSupervisor's\r\nMs
+    Mun\r</color>\n\r\nFrontEnd Programmer\r\n<color=yellow>Yip Han Wen</color>\n\r\nFrontEnd
+    / BackEnd Programmer\r\n<color=yellow>Robbie\r</color>\n\r\n2D Artists\n<color=yellow>Torres\r</color>\n\r\n3D
+    Artists\n<color=yellow>Jun\r</color>\n\r\nTESTETETSTTETETESTSETSETEST\r\nETESTESTESTEST\r\n\r\n\r\nESTSETESTESTES\r\nSESTESTESTESTES\r\n\r\nSETSETESTESTESTESTSET\r\n\r\nSupervisor's\r\nMs
     Tan\r\nMr Soren Tan"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 40ca28f4cb48f2b4d858b0b18dfebb4c, type: 2}
@@ -6577,7 +6578,7 @@ Transform:
   m_GameObject: {fileID: 1564651500}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 21050}
+  m_LocalPosition: {x: 0, y: 0, z: 30410}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

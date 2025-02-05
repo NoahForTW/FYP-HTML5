@@ -14,6 +14,10 @@ public class HealthBar : MonoBehaviour
     private float displayedHearts;
     private Coroutine healthUpdateCoroutine;
 
+    [SerializeField] private Animator deathAnimation;
+
+    [SerializeField] private GameObject deathPanel;
+
     private HeartContainer currentContainer;
 
     // Start is called before the first frame update
@@ -30,7 +34,8 @@ public class HealthBar : MonoBehaviour
 
     private void Start()
     {
-        
+        deathPanel.SetActive(false);
+        Time.timeScale = 1;
     }
 
     public void SetUpPlayerHealth()
@@ -113,6 +118,12 @@ public class HealthBar : MonoBehaviour
         SaveHealth(currentHearts);
         SetCurrentHealth(currentHearts);
         TriggerFlash(true);
+
+        // Check for death
+        if (currentHearts <= 0)
+        {
+            Die();
+        }
     }
 
     public void AddContainer()
@@ -142,6 +153,35 @@ public class HealthBar : MonoBehaviour
             HeartContainer heartContainer = heart.GetComponent<HeartContainer>();
             heartContainer.Flash(flashColor, flashDuration);
         }
+    }
+
+    private void Die()
+    {
+        Debug.Log("Player has died!");
+        PlayerController.Instance.playerAction.Invoke(PlayerAction.Die);
+
+        // Start the coroutine to wait for the animation and show the death panel
+        StartCoroutine(WaitForDeathAnimation());
+    }
+
+    private IEnumerator WaitForDeathAnimation()
+    {
+        // Wait for the death animation to finish
+        if (deathAnimation != null)
+        {
+            // Get the length of the current animation state (assuming it's the death animation)
+            float animationLength = deathAnimation.GetCurrentAnimatorStateInfo(0).length;
+            yield return new WaitForSeconds(animationLength);
+        }
+
+        // Show the death panel
+        if (deathPanel != null)
+        {
+            deathPanel.SetActive(true);
+        }
+
+        // Pause the game
+        Time.timeScale = 0;
     }
 
     void SaveHealth(float newHealth)

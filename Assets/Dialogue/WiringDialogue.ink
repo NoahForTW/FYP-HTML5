@@ -1,8 +1,23 @@
 EXTERNAL StartMinigame()
 EXTERNAL ChangeAvatar()
 VAR IsMinigameCompleted = false
+VAR IsMinigameFailed = false
+
 VAR NPCName = "Praxylis"
-{IsMinigameCompleted: ->AfterMinigame|->BeforeMinigame }
+{ IsMinigameFailed : -> FailedMinigame | { IsMinigameCompleted: -> AfterMinigame | -> BeforeMinigame }}
+
+==FailedMinigame==
+Hmph! Not straight at all!#speaker:{NPCName}
+ou're really quite dim at measuring things.#speaker:{NPCName}
+Take a good looksie at my ruler, and then try again!#speaker:{NPCName}
++[Ugh... I'll try again. #startminigame]
+    ~StartMinigame()
+    ->DONE
++[Go away, old fart!]
+    GO away? How about no!#speaker:{NPCName}
+    I'll stay here until you measure the line to the boxes proper!#speaker:{NPCName}
+    ->DONE
+
 
 ==BeforeMinigame==
 Hrm... #speaker:{NPCName}

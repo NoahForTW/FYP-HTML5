@@ -41,6 +41,7 @@ public class MinigameManager : MonoBehaviour
 
     float GameTimer;
     bool PauseTime = false;
+    bool hasMinigameEnded = false;
 
     // clue cost
     float baseClueCost = 10;
@@ -59,6 +60,7 @@ public class MinigameManager : MonoBehaviour
     }
     private void Start()
     {
+        Minigames = CanvasManager.Instance.GetComponentsInChildren<Minigame>(true).ToList();
         TimerUI = CanvasManager.Instance.TimerCanvas?.timerText;
         Notification = CanvasManager.Instance.NotificationCanvas?.notification;
 
@@ -147,6 +149,7 @@ public class MinigameManager : MonoBehaviour
         CanvasManager.Instance.GUICanvas.SetActiveControlsUI(false);
         CurrentMinigame.StartMinigame();
         PlayerController.Instance.canMove = false;
+        hasMinigameEnded = false;
     }
     void UpdateTimer()
     {
@@ -179,17 +182,36 @@ public class MinigameManager : MonoBehaviour
     }
     void ShowResults()
     {
+        hasMinigameEnded = true;
         PauseTime = true;
         int coinsEarned = (int)((GameTimer / CurrentMinigame.maxTimeInSeconds)* 25);
         CanvasManager.Instance.NotificationCanvas?.SetGameDoneNotif(GetGameTimerInFormat(), coinsEarned);
         // addd & save coins
         PlayerInventory.Instance.AddCoins(coinsEarned);
+
+        // add minigame into playerprefs
+        GameData data = SavePlayerData.Instance.LoadData<GameData>();
+
+        if (!data.minigameManagerData.minigameDatas.Any(minigame => minigame.MinigameType == CurrentMinigameType))
+        {
+            MinigameData minigameData = new MinigameData();
+            minigameData.MinigameType = CurrentMinigameType;
+            data.minigameManagerData.minigameDatas.Add(minigameData);
+            SavePlayerData.Instance.SaveData(data);
+        }
+
+        
     }
 
     public void SetClueMultiplier(int newMultiplier)
     {
         ClueCostMultiplier = newMultiplier;
         clueCostUpdated.Invoke();
+
+        // save to player prefs
+        GameData data = SavePlayerData.Instance.LoadData<GameData>();
+        data.minigameManagerData.ClueCostMultiplier = newMultiplier;
+        SavePlayerData.Instance.SaveData(data);
     }
 
     public int GetCurrentClueCost()
@@ -234,10 +256,13 @@ public class MinigameManager : MonoBehaviour
 
         if (CurrentMinigame.isCompleted)
         {
-            //EndMinigame();
-            MinigameCompletion.Invoke();
-            // show result notification
-            ShowResults();
+            if (!hasMinigameEnded)
+            {
+                MinigameCompletion.Invoke();
+                // show result notification
+                ShowResults();
+            }
+
         }
         else
         {
@@ -249,6 +274,8 @@ public class MinigameManager : MonoBehaviour
                 if (GameTimer <=0)
                 {
                     EndMinigame();
+                    MinigameFailed.Invoke();
+                    // add fail sfx
                 }
             }
 
@@ -260,7 +287,6 @@ public class MinigameManager : MonoBehaviour
     private void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
-        Minigames = CanvasManager.Instance.GetComponentsInChildren<Minigame>(true).ToList();
     }
 
     private void OnDisable()
@@ -270,10 +296,12 @@ public class MinigameManager : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        LevelData data = SceneManager.GetActiveScene().name == "GDTLevel"
+/*        LevelData levelData = SceneManager.GetActiveScene().name == "GDTLevel"
         ? SavePlayerData.Instance.LoadData<GDTLevelData>()
-        : SavePlayerData.Instance.LoadData<AGVELevelData>();
+        : SavePlayerData.Instance.LoadData<AGVELevelData>();*/
 
-        
+        GameData data = SavePlayerData.Instance.LoadData<GameData>();
+        ClueCostMultiplier = data.minigameManagerData.ClueCostMultiplier;
+
     }
 }

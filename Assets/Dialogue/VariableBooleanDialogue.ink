@@ -1,7 +1,21 @@
 EXTERNAL StartMinigame()
 VAR IsMinigameCompleted = false
+VAR IsMinigameFailed = false
 VAR NPCName = "Mechael"
-{IsMinigameCompleted: ->AfterMinigame|->BeforeMinigame }
+{ IsMinigameFailed : -> FailedMinigame | { IsMinigameCompleted: -> AfterMinigame | -> BeforeMinigame }}
+
+==FailedMinigame==
+Woah! Those gears popped right outta their slots!#speaker:{NPCName}
+Seems this ain't our day, ey?#speaker:{NPCName}
+But, there must be some sorta way for those gears to slot themselves in!#speaker:{NPCName}
+Maybe we needa rethink the positions... or maybe tha gears 'emselves...#speaker:{NPCName}
+Here, I'll pass ya a gear.#speaker:{NPCName}
++[I'll take it from here! #startminigame]
+    ~StartMinigame()
+    ->DONE
++[Uh... let me think first.]
+    No problem! All engineers need time to architect a solution.#speaker:{NPCName}
+    ->DONE
 
 ==BeforeMinigame==
 Well, this is sure do be a conundrum.#speaker:{NPCName}
@@ -16,7 +30,7 @@ But uh, the machine's started to... malfunction recently.#speaker:{NPCName}
 +[Public transportation on this planet sure is something.]
     I also checked the security cameras for any mischief, an' it all seems to be the fault of the cybergoblin.#speaker:{NPCName}
     Anyway, I'm still busy fixin' it, so could ya come back later when I'm done?#speaker:{NPCName}
-    ++[Maybe if I lent a hand, we could find the solution faster.]
+    ++[Maybe if I lent a hand, we could find the solution faster. #startminigame]
         Oh! That sure be a good point. Could you check around the room for anything?#speaker:{NPCName}
         In the meantime, I'll be wrenchin' away ova' here.#speaker:{NPCName}
         ~ StartMinigame()

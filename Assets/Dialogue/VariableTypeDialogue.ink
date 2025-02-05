@@ -1,8 +1,19 @@
 EXTERNAL StartMinigame()
 EXTERNAL ChangeAvatar()
 VAR IsMinigameCompleted = false
+VAR IsMinigameFailed = false
 VAR NPCName = "Codexor"
-{IsMinigameCompleted: ->AfterMinigame|->BeforeMinigame }
+{ IsMinigameFailed : -> FailedMinigame | { IsMinigameCompleted: -> AfterMinigame | -> BeforeMinigame }}
+==FailedMinigame==
+Ah... Please don't go around touching random things!#speaker:{NPCName}
+You might cause this situation to become even more complicated!#speaker:{NPCName}
++[(Ignore her warnings.) #startminigame]
+    ~StartMinigame()
+    ->DONE
++[Yes, I understand...]
+    Good, good.#speaker:{NPCName}
+    In the meantime, I will continue to try and get the safety mechanisms to work.#speaker:{NPCName}
+    ->DONE
 
 ==BeforeMinigame==
 Hm? #speaker:{NPCName}
@@ -22,7 +33,7 @@ Why won't it work?!#speaker:{NPCName}
 Urgh, apologies, let me at least try to activate the emergency exit.#speaker:{NPCName}
 + [Oh no, oh no, am I gonna die?]
     Apologies, please give me a bit more time...#speaker:{NPCName}
-    ++[! There's some kind of panel here to input some passcodes.]
+    ++[! There's some kind of panel here to input some passcodes. #startminigame]
         ~StartMinigame()
         ->DONE
 + [I can't just sit around and do nothing! I should try to help.]

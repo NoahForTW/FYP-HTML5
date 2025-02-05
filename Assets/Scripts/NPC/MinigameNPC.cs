@@ -1,12 +1,15 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MinigameNPC : NPC
 {
     public bool IsMinigameCompleted = false;
+    public bool IsMinigameFailed = false;
     public MinigameType MinigameType;
 
     [Header("Sprite")]
@@ -43,15 +46,17 @@ public class MinigameNPC : NPC
         // get from playerdata foir mingame
         //IsMinigameCompleted = PLayerPrefs
         List<(string Name, object Value)> variableList = new List<(string Name, object Value)> {
-            (nameof(IsMinigameCompleted), IsMinigameCompleted)
+            (nameof(IsMinigameCompleted), IsMinigameCompleted),
+            (nameof(IsMinigameFailed), IsMinigameFailed)
         };
         List<Action> actionList = new List<Action> { StartMinigame, ChangeAvatar };
         DialogueManager.GetInstance().EnterDialogueMode(inkJSON, variableList, actionList);
+        IsMinigameFailed = false;
     }
     void MinigameCompleted()
     {
         IsMinigameCompleted = true;
-        DialogueManager.GetInstance().SetVariableInStory(nameof(IsMinigameCompleted), IsMinigameCompleted);
+        //DialogueManager.GetInstance().SetVariableInStory(nameof(IsMinigameCompleted), IsMinigameCompleted);
         foreach (var effect in CompletedEffects)
         {
             if (effect == null || effect.gameObject == null)
@@ -63,7 +68,8 @@ public class MinigameNPC : NPC
 
     void MinigameFailed()
     {
-        DialogueManager.GetInstance().SetVariableInStory("IsMinigameFailed", true);
+        IsMinigameFailed = true;
+        //DialogueManager.GetInstance().SetVariableInStory(nameof(IsMinigameFailed), IsMinigameFailed);
     }
 
     void ChangeAvatar()
@@ -89,6 +95,27 @@ public class MinigameNPC : NPC
     {
         yield return new WaitForSeconds(duration);
         go.SetActive(false);
+    }
+
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        GameData data = SavePlayerData.Instance.LoadData<GameData>();
+
+        if (data.minigameManagerData.minigameDatas.Any(minigame => minigame.MinigameType == MinigameType))
+        {
+            IsMinigameCompleted = true;
+        }
+
     }
 }
 

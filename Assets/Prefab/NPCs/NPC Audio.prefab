@@ -311,6 +311,7 @@ MonoBehaviour:
   inkJSON: {fileID: 4900000, guid: 02c28a7d6ad50654ab274d9d8d81c1a6, type: 3}
   NPCNameText: {fileID: 6175709116495153690}
   IsMinigameCompleted: 0
+  IsMinigameFailed: 0
   MinigameType: 1
   spriteImage: {fileID: 0}
   Gremlin: {fileID: 0}

@@ -63,7 +63,7 @@ public class ObstaclesData : SceneGameObjects
 [Serializable]
 public class MinigameManagerData
 {
-    public int ClueCostMultiplier;
+    public int ClueCostMultiplier = 1;
     public List<MinigameData> minigameDatas = new List<MinigameData>();
 
 }

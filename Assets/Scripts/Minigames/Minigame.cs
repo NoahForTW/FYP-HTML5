@@ -1,9 +1,11 @@
 using PrimeTween;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using TMPro.EditorUtilities;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 public class Minigame : MonoBehaviour
 {
     public MinigameType minigameType;
@@ -55,4 +57,7 @@ public class Minigame : MonoBehaviour
     {
         ClueCostText.text = MinigameManager.Instance.GetCurrentClueCost().ToString();
     }
+
+
+
 }

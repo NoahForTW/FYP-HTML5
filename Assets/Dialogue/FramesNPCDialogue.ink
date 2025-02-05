@@ -1,7 +1,21 @@
 EXTERNAL StartMinigame()
 VAR IsMinigameCompleted = false
+VAR IsMinigameFailed = false
 VAR NPCName = "Dashar"
-{IsMinigameCompleted: ->AfterMinigame|->BeforeMinigame }
+{ IsMinigameFailed : -> FailedMinigame | { IsMinigameCompleted: -> AfterMinigame | -> BeforeMinigame }}
+
+==FailedMinigame==
+Ouf! Ya tripped!#speaker:{NPCName}
+You okay there? Lemme help you up.#speaker:{NPCName}
+Ah... no need to feel so down about it.#speaker:{NPCName}
+ We all got days where we mess up and stuff. That's just life.#speaker:{NPCName}
+ Well, when you're ready, we can practice warm-ups again!#speaker:{NPCName}
+ +[I'm ready! #startminigame]
+    ~StartMinigame()
+    ->DONE
+ +[Hold on...]
+    Aye, that's no problem. When you're ready, just tell me!#speaker:{NPCName}
+    ->DONE
 
 ==BeforeMinigame==
 <i>Huff huff</i> #speaker:{NPCName}
@@ -17,12 +31,7 @@ VAR NPCName = "Dashar"
 +[Warm-ups?]
 -Yea! Runnin', jumpin', stretchin'... you name it.#speaker:{NPCName}
 -Just a few'll do. They'll perk you right up!#speaker:{NPCName}
-+[Uh... I'm not really a sporty person...]
-    Doesn't matter whether you're a fitness guy!#speaker:{NPCName}
-    Exercise helps you get into the flow of the action, as they say.#speaker:{NPCName}
-    If ya ever wanna warm-up, I'll be right here.#speaker:{NPCName}
-    ->DONE
-+[Let's do it!]
++[Let's do it! #startminigame]
     Nice!#speaker:{NPCName}
     For this exercise, all you need to do is follow my lead.#speaker:{NPCName}
      When I walk, you walk. When I jump, you jump!#speaker:{NPCName}
@@ -30,6 +39,12 @@ VAR NPCName = "Dashar"
     Well, let's get to it!#speaker:{NPCName}
         ~ StartMinigame()
         ->DONE
++[Uh... I'm not really a sporty person...]
+    Doesn't matter whether you're a fitness guy!#speaker:{NPCName}
+    Exercise helps you get into the flow of the action, as they say.#speaker:{NPCName}
+    If ya ever wanna warm-up, I'll be right here.#speaker:{NPCName}
+    ->DONE
+
         
 ==AfterMinigame==
 Wow, you're pretty good at this! #speaker:{NPCName}

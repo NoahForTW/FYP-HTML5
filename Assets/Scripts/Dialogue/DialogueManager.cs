@@ -5,6 +5,7 @@ using TMPro;
 using Ink.Runtime;
 using UnityEngine.UI;
 using System;
+using System.Linq;
 public class DialogueManager : MonoBehaviour
 {
     private static DialogueManager instance;
@@ -155,8 +156,7 @@ public class DialogueManager : MonoBehaviour
 
     private void ContinueStory() {
         if (currentStory.canContinue) {
-            if (displayLineCoroutine != null)
-                StopCoroutine(displayLineCoroutine);
+
 
             string nextLine = currentStory.Continue();
             if (nextLine.Equals("") && !currentStory.canContinue)
@@ -166,11 +166,12 @@ public class DialogueManager : MonoBehaviour
             else
             {
                 //HandleTags(currentStory.currentTags);
+                if (displayLineCoroutine != null)
+                    StopCoroutine(displayLineCoroutine);
                 displayLineCoroutine = StartCoroutine(DisplayText(nextLine));
-
+                SetSpeakerTag();
             }
         }
-
         else {
             ExitDialogueMode();
         }
@@ -193,11 +194,17 @@ public class DialogueManager : MonoBehaviour
         for (int i = 0; i < currentChoices.Count; i++) {
             GameObject choice = Instantiate(choicePrefab, choiceParent.transform);
             // solve this pls
+            string choiceText = currentChoices[i].text;
+            
 
-            if (currentChoices[i].tags.Contains("StartMinigame"))
+            if (currentChoices[i].tags != null && currentChoices[i].tags.Contains("startminigame"))
+            {
                 choice.GetComponent<Image>().sprite = startMinigameChoice;
+            }
+            
 
-            choice.GetComponentInChildren<TextMeshProUGUI>().text = currentChoices[i].text;
+
+            choice.GetComponentInChildren<TextMeshProUGUI>().text = choiceText;
             int index = i;
             choice.GetComponent<Button>().onClick.AddListener(()=> MakeChoice(index));
             choiceList.Add(choice.transform);
@@ -211,6 +218,7 @@ public class DialogueManager : MonoBehaviour
             currentStory.ChooseChoiceIndex(choiceIndex);
             makingChoice = false;
             ContinueStory();
+
         }
 
     }
@@ -257,16 +265,15 @@ public class DialogueManager : MonoBehaviour
     }
     IEnumerator DisplayText(string line)
     {
+        CanContinueToNextLine = false;
         // set the text to the full line, but set the visible characters to 0
         dialogueText.text = line;
         dialogueText.maxVisibleCharacters = 0;
         // hide items while text is typing
         HideChoices();
 
-        CanContinueToNextLine = false;
-
         bool isAddingRichTextTag = false;
-        //yield return new WaitForSeconds(0.1f);
+
         // display each letter one at a time
         foreach (char letter in line.ToCharArray())
         {
@@ -278,7 +285,7 @@ public class DialogueManager : MonoBehaviour
                 break;
             }
 
-            // check for rich text tag, if found, add it without waiting
+            // check for rich text tag
             if (letter == '<' || isAddingRichTextTag)
             {
                 isAddingRichTextTag = true;
@@ -287,15 +294,13 @@ public class DialogueManager : MonoBehaviour
                     isAddingRichTextTag = false;
                 }
             }
-            // if not rich text, add the next letter and wait a small time
             else
             {
                 //PlayDialogueSound(dialogueText.maxVisibleCharacters, dialogueText.text[dialogueText.maxVisibleCharacters]);
                 dialogueText.maxVisibleCharacters++;
-                yield return new WaitForSeconds(typingSpeed);
+                yield return new WaitForSecondsRealtime(typingSpeed);
             }
         }
-
 
         if (!currentStory.canContinue && currentStory.currentChoices.Count > 0)
         {

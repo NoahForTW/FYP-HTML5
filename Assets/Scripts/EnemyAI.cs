@@ -305,7 +305,10 @@ public class EnemyAI : MonoBehaviour
         {
             rb.isKinematic = true; // Disable physics simulation
         }
-
+        
+        /*
+            Here to change it to hide 
+        */
         // Destroy the parent GameObject if it exists
         if (transform.parent != null)
         {

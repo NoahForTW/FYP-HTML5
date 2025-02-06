@@ -100,10 +100,9 @@ public class PlayerController : MonoBehaviour
 
         }
 
-            
 
     }
-    private void FixedUpdate()
+    private void LateUpdate()
     {
         playerRb.velocity = new Vector3(0,playerRb.velocity.y, playerRb.velocity.z);
         if (!canMove) { return; }

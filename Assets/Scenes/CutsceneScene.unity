@@ -456,13 +456,18 @@ MonoBehaviour:
   - ' https://noahfortw.github.io/HTML5Web/StreamingAssets/cutscene%201.mp4'
   - ' https://noahfortw.github.io/HTML5Web/StreamingAssets/cutscene%202.mp4'
   - ' https://noahfortw.github.io/HTML5Web/StreamingAssets/cutscene%203.mp4'
-  - ' https://noahfortw.github.io/HTML5Web/StreamingAssets/cutscene%205.mp4'
   cutsceneTexts:
-  - die
-  - die2
-  - die3
-  - die4
-  sceneLoader: {fileID: 1024820084}
+  - text: You are an aspiring student of Planet NYP, heading to your destination
+    cutsceneIndex: 0
+  - text: Zzz......Zzz...
+    cutsceneIndex: 1
+  - text: You contacted Planet NYP helpdesk for customer support.
+    cutsceneIndex: 2
+  - text: You have to make it to the pick-up point! NYP will send a rocket to save
+      you.
+    cutsceneIndex: 2
+  - text: Traverse the mysterious planet and make your way to rescue!
+    cutsceneIndex: 2
 --- !u!4 &1024820083
 Transform:
   m_ObjectHideFlags: 0

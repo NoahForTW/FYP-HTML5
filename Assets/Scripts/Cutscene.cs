@@ -4,6 +4,9 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Video;
 using UnityEngine.SceneManagement;
+using UnityEditor.Rendering;
+using System;
+using System.Linq;
 
 public class Cutscene : MonoBehaviour
 {
@@ -11,13 +14,17 @@ public class Cutscene : MonoBehaviour
     public TextMeshProUGUI cutsceneText; // Reference to the TextMeshPro UI component
 
     public List<string> cutsceneURLs = new List<string>(); // List of video URLs
-    public List<string> cutsceneTexts = new List<string>(); // List of text captions
+    public List<CutSceneTexts> cutsceneTexts = new List<CutSceneTexts>(); // List of text captions
 
     private int currentCutsceneIndex = 0; // Keeps track of the current cutscene
     private bool canPressSpace = true; // Cooldown flag
 
-    public SceneLoader sceneLoader;
+    SceneLoader sceneLoader;
+    int currentTextIndex = 0;
 
+    bool IsTextDone = false;
+
+    Coroutine cutsceneTextPrinting;
     void Start()
     {
         if (cutsceneURLs.Count > 0)
@@ -30,6 +37,12 @@ public class Cutscene : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) && canPressSpace)
         {
+            if (!IsTextDone)
+            {
+                UpdateCutSceneText();
+                return;
+            }
+                
             StartCoroutine(NextCutscene());
         }
     }
@@ -60,10 +73,48 @@ public class Cutscene : MonoBehaviour
             videoPlayer.url = cutsceneURLs[index];
             videoPlayer.Play();
         }
+        IsTextDone = false;
+        UpdateCutSceneText();
+        
+    }
 
-        if (cutsceneText != null && index < cutsceneTexts.Count)
+    void UpdateCutSceneText()
+    {
+        if (cutsceneText != null)
         {
-            cutsceneText.text = cutsceneTexts[index]; // Change the text for each cutscene
+            List<CutSceneTexts> texts = cutsceneTexts.Where(text => text.cutsceneIndex == currentCutsceneIndex).ToList(); 
+            if (cutsceneTextPrinting != null)
+                StopCoroutine(cutsceneTextPrinting);
+            cutsceneTextPrinting = StartCoroutine(CutsceneText(texts[currentTextIndex].text));
+            currentTextIndex++;
+            if (currentTextIndex >= texts.Count)
+            {
+                currentTextIndex = 0;
+                IsTextDone = true;
+            }
         }
     }
+
+    IEnumerator CutsceneText(string text)
+    {
+        // set the text to the full line, but set the visible characters to 0
+        cutsceneText.text = text;
+        cutsceneText.maxVisibleCharacters = 0;
+
+        // display each letter one at a time
+        foreach (char c in text.ToCharArray())
+        {
+            cutsceneText.maxVisibleCharacters++;
+            yield return new WaitForSecondsRealtime(0.05f);
+            
+        }
+
+    }
+}
+
+[Serializable]
+public class CutSceneTexts
+{
+    public string text;
+    public int cutsceneIndex;
 }

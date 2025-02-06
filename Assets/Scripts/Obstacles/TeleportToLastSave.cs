@@ -7,22 +7,26 @@ public class TeleportToLastSave : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        HealthBar.instance.RemoveHearts(1);
-
-        if (SceneManager.GetActiveScene().name == "GDTLevel")
+        if(other.gameObject.CompareTag("PlayerFeet"))
         {
-            if (!string.IsNullOrEmpty(SavePlayerData.Instance.LoadData<GDTLevelData>().RespawnTag))
+            HealthBar.instance.RemoveHearts(1);
+
+            if (SceneManager.GetActiveScene().name == "GDTLevel")
             {
-                PlayerController.Instance.SpawnPlayer(SavePlayerData.Instance.LoadData<GDTLevelData>().RespawnTag);
+                if (!string.IsNullOrEmpty(SavePlayerData.Instance.LoadData<GDTLevelData>().RespawnTag))
+                {
+                    PlayerController.Instance.SpawnPlayer(SavePlayerData.Instance.LoadData<GDTLevelData>().RespawnTag);
+                }
+            }
+            else if (SceneManager.GetActiveScene().name == "AGVEScene")
+            {
+                if (!string.IsNullOrEmpty(SavePlayerData.Instance.LoadData<AGVELevelData>().RespawnTag))
+                {
+                    PlayerController.Instance.SpawnPlayer(SavePlayerData.Instance.LoadData<AGVELevelData>().RespawnTag);
+
+                }
             }
         }
-        else if (SceneManager.GetActiveScene().name == "AGVEScene")
-        {
-            if (!string.IsNullOrEmpty(SavePlayerData.Instance.LoadData<AGVELevelData>().RespawnTag))
-            {
-                PlayerController.Instance.SpawnPlayer(SavePlayerData.Instance.LoadData<AGVELevelData>().RespawnTag);
-
-            }
-        }
+        
     }
 }

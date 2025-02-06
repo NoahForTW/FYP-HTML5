@@ -8803,6 +8803,9 @@ MonoBehaviour:
   - sceneName: AGVEScene
     musicClip: {fileID: 8300000, guid: 4a38b049f76a8704f92763f1cc1de206, type: 3}
     volume: 1
+  - sceneName: CutsceneScene
+    musicClip: {fileID: 8300000, guid: c1a5ff8daaeb6cf429fcdf96dc03de88, type: 3}
+    volume: 1
   sfxVolume: 1
   musicVolume: 1
   canAudio: 0

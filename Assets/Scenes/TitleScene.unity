@@ -8788,11 +8788,6 @@ MonoBehaviour:
   - name: Squish
     sounds:
     - {fileID: 8300000, guid: 552e09419d9b808428987f6e6da78561, type: 3}
-  - name: Hover
-    sounds:
-    - {fileID: 8300000, guid: fe4012f2cd8a8a5428bdc5db730ed9c3, type: 3}
-  - name: 
-    sounds: []
   sceneMusic:
   - sceneName: TitleScene
     musicClip: {fileID: 8300000, guid: a8c023b7345c3474f86e65677699a0db, type: 3}

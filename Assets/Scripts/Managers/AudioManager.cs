@@ -22,9 +22,7 @@ public enum SoundType
     Wrong,
     Hurt,
     Explosion,
-    Squish,
-    Hover,
-    Click
+    Squish
 }
 
 [RequireComponent(typeof(AudioSource))]

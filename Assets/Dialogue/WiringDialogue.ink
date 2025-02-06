@@ -8,7 +8,7 @@ VAR NPCName = "Praxylis"
 
 ==FailedMinigame==
 Hmph! Not straight at all!#speaker:{NPCName}
-ou're really quite dim at measuring things.#speaker:{NPCName}
+You're really quite dim at measuring things.#speaker:{NPCName}
 Take a good looksie at my ruler, and then try again!#speaker:{NPCName}
 +[Ugh... I'll try again. #startminigame]
     ~StartMinigame()

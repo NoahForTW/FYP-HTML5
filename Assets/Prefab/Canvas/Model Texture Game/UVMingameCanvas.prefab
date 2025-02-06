@@ -1789,7 +1789,7 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1784548561831965979}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.000003993511, y: 0}
+  m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
@@ -2550,7 +2550,7 @@ MonoBehaviour:
   minigameType: 6
   isCompleted: 0
   maxTimeInSeconds: 150
-  currentClue: 
+  currentClue: Placed the correct texture on parts of the model
   Window: {fileID: 3682001847173371562}
   ClueCostText: {fileID: 4294772167905560093}
   UVTexturePrefab: {fileID: 7092225906535658580, guid: c2fffc394fecb504895f3ec7c7eefc52,
@@ -2969,7 +2969,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.000869751, y: -44.99695}
+  m_AnchoredPosition: {x: 0.000289917, y: -44.99695}
   m_SizeDelta: {x: -375.66, y: 90}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &8389949037198054976

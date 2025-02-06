@@ -143,6 +143,12 @@ public class UVTextureMinigame : Minigame
         MinigameManager.Instance.ClearChild(SampleModelParent.transform);
         MinigameManager.Instance.ClearChild(modelParent.transform);
         MinigameManager.Instance.ClearChild(UVTexturePalette.transform);
+        foreach (var uVTexture in UVTextures)
+        {
+            Destroy(uVTexture.gameObject);
+        }
+        UVTextures.Clear();
+
         uVModelTools.SelectTool(UVTools.None);
 
         currentModelParameters = uVQuestion;

@@ -8,26 +8,40 @@ public class AnswerScripts : MonoBehaviour
     public bool isCorrect = false;
     public QuizManager quizManager;
 
-    public Color startColor;
-
-    private void Start()
+    Color startColor;
+    public Image image;
+    public Image childImage;
+    private void OnEnable()
     {
-        startColor = GetComponent<Image>().color;
+        image = GetComponent<Image>();
+        childImage = transform.GetChild(0).GetComponent<Image>();
+        startColor = image.color;
     }
 
     public void Answer()
     {
+        SetImageColor(isCorrect ? Color.green : Color.red);
         if (isCorrect)
         {
-            GetComponent<Image>().color = Color.green;
-            Debug.Log("Correct!");
             quizManager.correct();
         }
         else
         {
-            GetComponent<Image>().color = Color.red;
-            Debug.Log("Wrong!");
             quizManager.wrong();
         }
+    }
+
+    public void SetImageColor(Color color)
+    {
+        image.color = color;
+    }
+    public void SetChildImageSprite(Sprite sprite)
+    {
+        childImage.sprite = sprite;
+    }
+
+    public void SetDefaultColor()
+    {
+        image.color = startColor;
     }
 }

@@ -30,16 +30,16 @@ Hrm... #speaker:{NPCName}
 +[Yes, I'm the mastermind!]
 -Erase, erase...#speaker:{NPCName} 
 -Here, chap! You go draw those lines instead for me!#speaker:{NPCName} 
-+[No way!]
-    Hmph, fine! *Grumble grumble*#speaker:{NPCName} 
-    ->DONE
-+[Uh, sure?]
++[Uh, sure? #startminigame]
     Very good.#speaker:{NPCName}
     In addition, be sure to match the lines to the correct boxes.#speaker:{NPCName}
      Otherwise, your line still won't count!#speaker:{NPCName}
     I care a lot about precision and correctness, you see..#speaker:{NPCName}
         ~ StartMinigame()
         ->DONE
++[No way!]
+    Hmph, fine! *Grumble grumble*#speaker:{NPCName} 
+    ->DONE
         
 ==AfterMinigame==
 ...Hmph. Your lines are actually quite fine. And accurate to boot... #speaker:{NPCName}
@@ -49,7 +49,7 @@ Very well then! Seems I underestimated you. #speaker:{NPCName}
             ->DONE
             
 ==LoopOption==
-You may ask me, the brilliant Professor (NPC), anything you wish.#speaker:{NPCName}
+You may ask me, the brilliant Professor {NPCName}, anything you wish.#speaker:{NPCName}
 + [How do I reach the designated pickup point for spaceships?]
     Hm... to reach there, you will need to go over those platforms over there... #speaker:{NPCName}
     But be careful, youngster! One wrong move and you could perish. #speaker:{NPCName}

@@ -33,7 +33,7 @@ public class UVTextureUI : DragDrop
     {
         base.OnEndDrag(eventData);
         RaycastHit hit;
-        Ray ray = new Ray(transform.position, Camera.main.transform.forward);
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out hit))
         {
             GameObject go = hit.collider.gameObject;
@@ -52,17 +52,9 @@ public class UVTextureUI : DragDrop
         canDrag = false;
     }
 
-   /* private void OnDrawGizmos()
+    private void OnDrawGizmos()
     {
-        var screenPoint = Input.mousePosition;
-        screenPoint.z = canvas.planeDistance; //distance of the plane from the camera
-        Vector3 mousePos = Camera.main.ScreenToWorldPoint(screenPoint);
-        //mousePos.z = transform.position.z;
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawLine(Camera.main.transform.position, mousePos);
-        //Debug.Log(mousePos + " , "+transform.position.z);
-
-        Gizmos.color = Color.blue;
-        Gizmos.DrawLine(mousePos, mousePos + Camera.main.transform.forward * 5);
-    }*/
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Debug.DrawRay(ray.origin, ray.direction * 10, Color.yellow);
+    }
 }

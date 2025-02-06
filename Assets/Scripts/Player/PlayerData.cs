@@ -33,7 +33,7 @@ public class AudioSettings
 [Serializable]
 public class LevelData
 {
-    public string RespawnTag = "";
+    public virtual string RespawnTag { get; set; } = "";
     public List<SceneGameObjects> SceneGameObjects = new List<SceneGameObjects>();
     public List<ObstaclesData> ObstaclesData = new List<ObstaclesData>();
     public List<ItemsInScene> Coins = new List<ItemsInScene>();
@@ -44,11 +44,11 @@ public class LevelData
 [Serializable]
 public class GDTLevelData : LevelData
 {
-
+    public override string RespawnTag { get; set; } = "GDT_StartOfLevel";
 }
 public class AGVELevelData : LevelData
 {
-
+    public override string RespawnTag { get; set; } = "AGVE_StartOfLevel";
 }
 
 [Serializable]

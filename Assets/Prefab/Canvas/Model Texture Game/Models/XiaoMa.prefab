@@ -235,10 +235,6 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 6457909864280381110}
-    - targetCorrespondingSourceObject: {fileID: 6657560127643677590, guid: 3e54fa9ebeda12541929c57fc3ccdb50,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 8191521893725710941}
     - targetCorrespondingSourceObject: {fileID: -6452266432751415832, guid: 3e54fa9ebeda12541929c57fc3ccdb50,
         type: 3}
       insertIndex: -1
@@ -275,10 +271,6 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 762946268644039586}
-    - targetCorrespondingSourceObject: {fileID: 1839753970148383582, guid: 3e54fa9ebeda12541929c57fc3ccdb50,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 5065355163734815877}
     - targetCorrespondingSourceObject: {fileID: 2448734117451779196, guid: 3e54fa9ebeda12541929c57fc3ccdb50,
         type: 3}
       insertIndex: -1
@@ -357,19 +349,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 3359138182758997695, guid: 3e54fa9ebeda12541929c57fc3ccdb50, type: 3}
---- !u!114 &8191521893725710941
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1812743557062825141}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58e6b946e84ad8140a1226be3855bcd6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: 17dc00975e124d44ca63dcc5c52d4f9d, type: 3}
 --- !u!1 &4250454770715177393 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -22261706385434990, guid: 3e54fa9ebeda12541929c57fc3ccdb50,
@@ -566,19 +545,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -3978569672750779382, guid: 3e54fa9ebeda12541929c57fc3ccdb50, type: 3}
---- !u!114 &5065355163734815877
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6684557346591865981}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58e6b946e84ad8140a1226be3855bcd6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: 17dc00975e124d44ca63dcc5c52d4f9d, type: 3}
 --- !u!1 &7149674268793907915 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -6452266432751415832, guid: 3e54fa9ebeda12541929c57fc3ccdb50,

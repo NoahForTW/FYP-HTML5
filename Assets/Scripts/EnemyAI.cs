@@ -28,8 +28,8 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] private float flySpeed = 3.0f; // Speed for flying enemy movement
     [SerializeField] private float attackSpeed = 6.0f; // Increased speed during attack
     [SerializeField] private float explosionRadius = 5.0f; // Radius for flying enemy explosion
-    [SerializeField] private int explosionDamage = 2; // Damage dealt by flying enemy explosion
-    [SerializeField] private int enemyDamage = 1; // Damage dealt by flying enemy explosion
+    [SerializeField] private float explosionDamage = 2; // Damage dealt by flying enemy explosion
+    [SerializeField] private float enemyDamage = 1; // Damage dealt by flying enemy explosion
     [SerializeField] private ParticleSystem explosionEffect;
 
     [SerializeField] private GameObject hitDetection; // Reference to the HitBox GameObject
@@ -320,7 +320,7 @@ public class EnemyAI : MonoBehaviour
     IEnumerator KillEnemy(float duration)
     {
         yield return new WaitForSeconds(duration); // Wait for 'delay' seconds
-        this.gameObject.SetActive(false); // Disable the object
+        transform.parent.gameObject.SetActive(false); // Disable the object
     }
 
     private void OnCollisionEnter(Collision collision)

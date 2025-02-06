@@ -66,6 +66,10 @@ public class MatchSystemManager : Minigame
         }
     }
 
+    public void ResetMatchRecord()
+    {
+        _currentMatchCount = 0;
+    }
     IEnumerator ShowComplete()
     {
         _gamePanel.SetActive(false);

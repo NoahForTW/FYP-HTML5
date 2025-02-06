@@ -72,6 +72,7 @@ public class GoblinMinigame : MonoBehaviour
                 if (playerData.playerHealth - deduction > 0)
                 {
                     SetActiveGoblin(type);
+                    HealthBar.instance.AddHearts(deduction);
                     break; 
                 }
             }
@@ -83,6 +84,7 @@ public class GoblinMinigame : MonoBehaviour
                 if (playerData.playerHealth - deduction > 0)
                 {
                     SetActiveGoblin(type);
+                    PlayerInventory.Instance.RemoveCoins(deduction);
                     break; 
                 }
             }

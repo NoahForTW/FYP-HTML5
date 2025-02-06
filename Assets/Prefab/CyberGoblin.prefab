@@ -1106,13 +1106,14 @@ MonoBehaviour:
   currentState: 0
   idleDuration: 2
   detectionRange: 0
-  attackRange: 0
-  attackCooldown: 0
+  attackRange: 1
+  attackCooldown: 10
   flySpeed: 0
-  attackSpeed: 6
+  attackSpeed: 2
   explosionRadius: 0
   explosionDamage: 0
-  enemyDamage: 1
+  enemyDamage: 0.5
+  explosionEffect: {fileID: 0}
   hitDetection: {fileID: 4635069558479993271}
   deadBodyTimer: 1.5
   waypoints:

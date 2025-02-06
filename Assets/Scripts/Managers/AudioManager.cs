@@ -136,8 +136,7 @@ public class AudioManager : MonoBehaviour
     {
 
         bool hasSettings = SavePlayerData.Instance.LoadData<GameData>().SettingsActive.Any(settings => settings.settingsName == GetType().Name);
-        if (hasSettings)
-            canAudio = true;
+        canAudio = hasSettings;
 
         SceneMusic musicForScene = null;
         foreach (var sceneMusicEntry in sceneMusic)

@@ -63,7 +63,7 @@ public class UVTextureMinigame : Minigame
     public override void StartMinigame()
     {
         base.StartMinigame();
-
+        questionsCompleted.Clear();
         modelParameters = MinigameManager.Instance.GetQuestions().OfType<UVGame_SO>().ToList();
         modelParameters = ShuffleList(modelParameters).Take(3).ToList();
         foreach (UVGame_SO UVQuestion in modelParameters)
@@ -143,11 +143,15 @@ public class UVTextureMinigame : Minigame
         MinigameManager.Instance.ClearChild(SampleModelParent.transform);
         MinigameManager.Instance.ClearChild(modelParent.transform);
         MinigameManager.Instance.ClearChild(UVTexturePalette.transform);
-        foreach (var uVTexture in UVTextures)
+        if (UVTextures != null)
         {
-            Destroy(uVTexture.gameObject);
+            foreach (var uVTexture in UVTextures)
+            {
+                Destroy(uVTexture.gameObject);
+            }
+            UVTextures.Clear();
         }
-        UVTextures.Clear();
+        
 
         uVModelTools.SelectTool(UVTools.None);
 
@@ -166,6 +170,7 @@ public class UVTextureMinigame : Minigame
         // instantiate model
         GameObject model = Instantiate(game_SO.UVModelPrefab, modelParent.transform);
         ModelSides = new List<UVModelSide>();
+        UVTextures = new List<UVTextureUI>();
         ModelSides = model.GetComponentsInChildren<UVModelSide>().ToList();
 
         //instantiate textures

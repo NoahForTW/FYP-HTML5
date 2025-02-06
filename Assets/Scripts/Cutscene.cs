@@ -47,6 +47,21 @@ public class Cutscene : MonoBehaviour
         }
     }
 
+    IEnumerator PreloadCutscene(int index)
+    {
+        if (videoPlayer != null)
+        {
+            videoPlayer.url = cutsceneURLs[index];
+            videoPlayer.Prepare(); // Start preloading
+
+            while (!videoPlayer.isPrepared) // Wait until the video is ready
+            {
+                yield return null;
+            }
+        }
+    }
+
+
     IEnumerator NextCutscene()
     {
         canPressSpace = false; // Disable input for cooldown
@@ -54,6 +69,7 @@ public class Cutscene : MonoBehaviour
         currentCutsceneIndex++;
         if (currentCutsceneIndex < cutsceneURLs.Count)
         {
+            yield return StartCoroutine(PreloadCutscene(currentCutsceneIndex));
             PlayCutscene(currentCutsceneIndex);
         }
         else 
@@ -71,6 +87,8 @@ public class Cutscene : MonoBehaviour
         if (videoPlayer != null)
         {
             videoPlayer.url = cutsceneURLs[index];
+            videoPlayer.playOnAwake = false;
+            videoPlayer.audioOutputMode = VideoAudioOutputMode.None;
             videoPlayer.Play();
         }
         IsTextDone = false;

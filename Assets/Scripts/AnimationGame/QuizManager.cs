@@ -44,11 +44,13 @@ public class QuizManager : Minigame
     {
         _score += 1;
         _qNa.RemoveAt(_currentQuestion);
+        AudioManager.instance.PlaySoundOneShot(SoundType.Correct);
         generateQuestion();
     }
     public void wrong()
     {
         _qNa.RemoveAt(_currentQuestion);
+        AudioManager.instance.PlaySoundOneShot(SoundType.Wrong);
         StartCoroutine(waitForNext());
     }
 

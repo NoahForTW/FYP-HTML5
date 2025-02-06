@@ -1183,7 +1183,7 @@ PrefabInstance:
     - target: {fileID: 7988216279277068616, guid: 78fcd7206df6f554c98a7e3f3bebea09,
         type: 3}
       propertyPath: attackSpeed
-      value: 15
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7988216279277068616, guid: 78fcd7206df6f554c98a7e3f3bebea09,
         type: 3}
@@ -1203,7 +1203,7 @@ PrefabInstance:
     - target: {fileID: 7988216279277068616, guid: 78fcd7206df6f554c98a7e3f3bebea09,
         type: 3}
       propertyPath: detectionRange
-      value: 8
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 7988216279277068616, guid: 78fcd7206df6f554c98a7e3f3bebea09,
         type: 3}

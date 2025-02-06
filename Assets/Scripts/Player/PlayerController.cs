@@ -195,6 +195,8 @@ public class PlayerController : MonoBehaviour
             AudioManager.instance.PlaySoundOneShot(SoundType.Walking, 0.7f);
             lastSoundTime = Time.time; // Update the last sound time
         }
+
+        Debug.LogError("Movement " + movement);
     }
 
     private void PlayerJump()

@@ -9,7 +9,6 @@ enum TypeOfItems
 {
     Coin,
     Heart,
-    Cosmetics,
     Enemy
 }
 
@@ -20,7 +19,6 @@ public class LevelManager : MonoBehaviour
 
     [SerializeField] List<GameObject> CoinsGO;
     [SerializeField] List<GameObject> HeartGO;
-    [SerializeField] List<GameObject> CosmeticsGO;
     [SerializeField] List<GameObject> EnemiesGO;
     private void Awake()
     {
@@ -42,7 +40,6 @@ public class LevelManager : MonoBehaviour
         {
             TypeOfItems.Coin => CoinsGO,
             TypeOfItems.Heart => HeartGO,
-            TypeOfItems.Cosmetics => CoinsGO,
             TypeOfItems.Enemy => EnemiesGO,
         };
 
@@ -70,7 +67,6 @@ public class LevelManager : MonoBehaviour
         {
             TypeOfItems.Coin => data.Coins,
             TypeOfItems.Heart => data.Hearts,
-            TypeOfItems.Cosmetics => data.Cosmetics,
             TypeOfItems.Enemy => data.Enemies,
             _ => null
         };
@@ -81,7 +77,6 @@ public class LevelManager : MonoBehaviour
             {
                 TypeOfItems.Coin => CoinsGO,
                 TypeOfItems.Heart => HeartGO,
-                TypeOfItems.Cosmetics => CoinsGO,
                 TypeOfItems.Enemy => EnemiesGO,
             };
             foreach (GameObject item in list)
@@ -107,7 +102,6 @@ public class LevelManager : MonoBehaviour
         {
             TypeOfItems.Coin => data.Coins,
             TypeOfItems.Heart => data.Hearts,
-            TypeOfItems.Cosmetics => data.Cosmetics,
             TypeOfItems.Enemy => data.Enemies,
             _ => null
         };

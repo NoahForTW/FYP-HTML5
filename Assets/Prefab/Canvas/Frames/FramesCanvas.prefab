@@ -583,7 +583,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isCorrect: 0
   quizManager: {fileID: 8663379578268003944}
-  startColor: {r: 0, g: 0, b: 0, a: 0}
+  image: {fileID: 0}
+  childImage: {fileID: 0}
 --- !u!1 &1270298646317793084
 GameObject:
   m_ObjectHideFlags: 0
@@ -774,34 +775,11 @@ MonoBehaviour:
   Window: {fileID: 3612352374369408986}
   ClueCostText: {fileID: 4238171000658403450}
   _qNa:
-  - Question: Choose 4
-    Answers:
-    - {fileID: 21300000, guid: d5ba3f1ebba96ab429a68b9e202a73ba, type: 3}
-    - {fileID: 21300000, guid: c32e3713f8fc1514baa813fa4d1366b3, type: 3}
-    - {fileID: 21300000, guid: 599bf6da31bb35c45adab9180fa14058, type: 3}
-    - {fileID: 21300000, guid: 45e62e09be4b73d42bebddd8047d3a3a, type: 3}
-    CorrectAnswer: 4
-  - Question: Choose 3
-    Answers:
-    - {fileID: 21300000, guid: 45e62e09be4b73d42bebddd8047d3a3a, type: 3}
-    - {fileID: 21300000, guid: 845f921c3a514ba4eb81d5035b78ca8d, type: 3}
-    - {fileID: 21300000, guid: 9508330b9f5e77845abc4044ac121054, type: 3}
-    - {fileID: 21300000, guid: c32e3713f8fc1514baa813fa4d1366b3, type: 3}
-    CorrectAnswer: 3
-  - Question: Choose 2
-    Answers:
-    - {fileID: 21300000, guid: 9aa55becb372bfa43b85d2cc900b3304, type: 3}
-    - {fileID: 21300000, guid: c32e3713f8fc1514baa813fa4d1366b3, type: 3}
-    - {fileID: 21300000, guid: 599bf6da31bb35c45adab9180fa14058, type: 3}
-    - {fileID: 21300000, guid: 490d64d77459ece428447ce980ae5e6b, type: 3}
-    CorrectAnswer: 2
-  - Question: Choose 1
-    Answers:
-    - {fileID: 21300000, guid: 845f921c3a514ba4eb81d5035b78ca8d, type: 3}
-    - {fileID: 21300000, guid: d5ba3f1ebba96ab429a68b9e202a73ba, type: 3}
-    - {fileID: 21300000, guid: 9508330b9f5e77845abc4044ac121054, type: 3}
-    - {fileID: 21300000, guid: 9aa55becb372bfa43b85d2cc900b3304, type: 3}
-    CorrectAnswer: 1
+  - {fileID: 11400000, guid: 1d2e5fd021d92004eb26b76310e205eb, type: 2}
+  - {fileID: 11400000, guid: 0242ce873472b264ab1dc5bd71fd067e, type: 2}
+  - {fileID: 11400000, guid: 9eb823b6074285d4ca522e6118b2d070, type: 2}
+  - {fileID: 11400000, guid: f9ec0103b0358c34992cacfc09004ff8, type: 2}
+  questionImage: {fileID: 6126256710795361389}
   options:
   - {fileID: 8958900549770634914}
   - {fileID: 2984860555494889155}
@@ -1215,7 +1193,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isCorrect: 0
   quizManager: {fileID: 8663379578268003944}
-  startColor: {r: 0, g: 0, b: 0, a: 0}
+  image: {fileID: 0}
+  childImage: {fileID: 0}
 --- !u!1 &2984860555494889155
 GameObject:
   m_ObjectHideFlags: 0
@@ -1364,7 +1343,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isCorrect: 0
   quizManager: {fileID: 8663379578268003944}
-  startColor: {r: 0, g: 0, b: 0, a: 0}
+  image: {fileID: 0}
+  childImage: {fileID: 0}
 --- !u!1 &3119843835676219553
 GameObject:
   m_ObjectHideFlags: 0
@@ -2679,7 +2659,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isCorrect: 0
   quizManager: {fileID: 8663379578268003944}
-  startColor: {r: 0, g: 0, b: 0, a: 0}
+  image: {fileID: 0}
+  childImage: {fileID: 0}
 --- !u!1 &9002045413095140574
 GameObject:
   m_ObjectHideFlags: 0

@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class QuizManager : Minigame
 {
     public List<QuestionAndAnswers> _qNa;
+    public Image questionImage;
     public GameObject[] options;
     public int _currentQuestion;
 
@@ -23,6 +24,7 @@ public class QuizManager : Minigame
     {
         _totalQuestions = _qNa.Count;
         _gOPanel.SetActive(false);
+        _questionTxt.text = "Choose the correct frame";
         generateQuestion();
     }
 
@@ -59,14 +61,12 @@ public class QuizManager : Minigame
     {
         for (int i = 0; i < options.Length; i++)
         {
-            options[i].GetComponent<Image>().color = options[i].GetComponent<AnswerScripts>().startColor;
-            options[i].GetComponent<AnswerScripts>().isCorrect = false;
-            options[i].transform.GetChild(0).GetComponent<Image>().sprite = _qNa[_currentQuestion].Answers[i];
-
-            if (_qNa[_currentQuestion].CorrectAnswer == i+1)
-            {
-                options[i].GetComponent<AnswerScripts>().isCorrect = true;
-            }
+            questionImage.sprite = _qNa[_currentQuestion].QuestionSprite;
+            AnswerScripts currentOption = options[i].GetComponent<AnswerScripts>();
+            currentOption.SetDefaultColor();
+            currentOption.SetChildImageSprite(_qNa[_currentQuestion].option[i].AnswerSprite);
+            currentOption.isCorrect = _qNa[_currentQuestion].option[i].CorrectAnswer;
+            
         }
     }
 
@@ -76,7 +76,6 @@ public class QuizManager : Minigame
         {
             _currentQuestion = Random.Range(0, _qNa.Count);
 
-            _questionTxt.text = _qNa[_currentQuestion].Question;
             SetAnswers();
         }
         else

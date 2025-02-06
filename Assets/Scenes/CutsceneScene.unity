@@ -468,6 +468,7 @@ MonoBehaviour:
     cutsceneIndex: 2
   - text: Traverse the mysterious planet and make your way to rescue!
     cutsceneIndex: 2
+  sceneLoader: {fileID: 1024820084}
 --- !u!4 &1024820083
 Transform:
   m_ObjectHideFlags: 0

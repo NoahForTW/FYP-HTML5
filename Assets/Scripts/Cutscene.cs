@@ -19,7 +19,7 @@ public class Cutscene : MonoBehaviour
     private int currentCutsceneIndex = 0; // Keeps track of the current cutscene
     private bool canPressSpace = true; // Cooldown flag
 
-    SceneLoader sceneLoader;
+    public SceneLoader sceneLoader;
     int currentTextIndex = 0;
 
     bool IsTextDone = false;

@@ -10679,7 +10679,7 @@ GameObject:
   - component: {fileID: 1126311250}
   - component: {fileID: 1126311253}
   - component: {fileID: 1126311252}
-  - component: {fileID: 1126311251}
+  - component: {fileID: 1126311254}
   m_Layer: 5
   m_Name: BG
   m_TagString: Untagged
@@ -10696,7 +10696,7 @@ RectTransform:
   m_GameObject: {fileID: 1126311249}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 34}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_LocalScale: {x: 0.099999994, y: 0.099999994, z: 0.099999994}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1172305609}
@@ -10706,42 +10706,6 @@ RectTransform:
   m_AnchoredPosition: {x: 319.8, y: 25.3}
   m_SizeDelta: {x: 7680, y: 2040}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!328 &1126311251
-VideoPlayer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1126311249}
-  m_Enabled: 1
-  m_VideoClip: {fileID: 32900000, guid: 1dde6ab9b970f77428ab59502d47e422, type: 3}
-  m_TargetCameraAlpha: 1
-  m_TargetCamera3DLayout: 0
-  m_TargetCamera: {fileID: 0}
-  m_TargetTexture: {fileID: 8400000, guid: 2509def580638a645ab80d11ad46a685, type: 2}
-  m_TimeReference: 0
-  m_TargetMaterialRenderer: {fileID: 0}
-  m_TargetMaterialProperty: <noninit>
-  m_RenderMode: 2
-  m_AspectRatio: 2
-  m_DataSource: 0
-  m_TimeUpdateMode: 2
-  m_PlaybackSpeed: 1
-  m_AudioOutputMode: 2
-  m_TargetAudioSources:
-  - {fileID: 0}
-  m_DirectAudioVolumes:
-  - 1
-  m_Url: 
-  m_EnabledAudioTracks: 01
-  m_DirectAudioMutes: 00
-  m_ControlledAudioTrackCount: 1
-  m_PlayOnAwake: 1
-  m_SkipOnDrop: 1
-  m_Looping: 1
-  m_WaitForFirstFrame: 1
-  m_FrameReadyEventEnabled: 0
-  m_VideoShaders: []
 --- !u!114 &1126311252
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10756,7 +10720,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -10777,6 +10741,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1126311249}
   m_CullTransparentMesh: 1
+--- !u!114 &1126311254
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1126311249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be6199f39265b1e4aa7016ee21b85941, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  videoFileName: Light.mp4
+  rawImage: {fileID: 1126311252}
+  renderTexture: {fileID: 8400000, guid: 2509def580638a645ab80d11ad46a685, type: 2}
 --- !u!1 &1135606099 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 49c3824ee3c838748943982950ff51ca,

@@ -57,6 +57,10 @@ public class LoadingScreen : MonoBehaviour
         {
             selectedArray = titleBG;
         }
+        else if (SceneLoader.TargetScene == "EndingScene")
+        {
+            selectedArray = titleBG;
+        }
 
         if (selectedArray != null && selectedArray.Length > 0)
         {

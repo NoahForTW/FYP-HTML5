@@ -5124,7 +5124,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.015624999, y: 0.97229636}
   m_AnchorMax: {x: 0.015624999, y: 0.97229636}
-  m_AnchoredPosition: {x: 49.49298, y: -47.351013}
+  m_AnchoredPosition: {x: 49.493042, y: -47.351013}
   m_SizeDelta: {x: 95.322, y: 95.322}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1109837243
@@ -5713,7 +5713,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a890ade03304b0b439f8c134c75ac873, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneDataSO: {fileID: 11400000, guid: 4dbf101904489a04fb238d4b3f30583f, type: 2}
 --- !u!114 &1264363806
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8802,6 +8801,12 @@ MonoBehaviour:
     volume: 1
   - sceneName: AGVEScene
     musicClip: {fileID: 8300000, guid: 4a38b049f76a8704f92763f1cc1de206, type: 3}
+    volume: 1
+  - sceneName: CutsceneScene
+    musicClip: {fileID: 8300000, guid: c1a5ff8daaeb6cf429fcdf96dc03de88, type: 3}
+    volume: 1
+  - sceneName: EndingScene
+    musicClip: {fileID: 8300000, guid: c1a5ff8daaeb6cf429fcdf96dc03de88, type: 3}
     volume: 1
   sfxVolume: 1
   musicVolume: 1

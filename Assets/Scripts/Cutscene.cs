@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Video;
+using UnityEngine.SceneManagement;
 
 public class Cutscene : MonoBehaviour
 {
@@ -15,6 +16,8 @@ public class Cutscene : MonoBehaviour
     private int currentCutsceneIndex = 0; // Keeps track of the current cutscene
     private bool canPressSpace = true; // Cooldown flag
 
+    public SceneLoader sceneLoader;
+
     void Start()
     {
         if (cutsceneURLs.Count > 0)
@@ -25,7 +28,7 @@ public class Cutscene : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && canPressSpace)
+        if (Input.GetMouseButtonDown(0) && canPressSpace)
         {
             StartCoroutine(NextCutscene());
         }
@@ -39,6 +42,11 @@ public class Cutscene : MonoBehaviour
         if (currentCutsceneIndex < cutsceneURLs.Count)
         {
             PlayCutscene(currentCutsceneIndex);
+        }
+        else 
+        {
+            sceneLoader.LoadSceneWithLoading("GDTLevel");
+            SceneManager.LoadScene("LoadingScene");
         }
 
         yield return new WaitForSeconds(1f); // 1-second cooldown

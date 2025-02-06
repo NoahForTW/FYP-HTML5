@@ -53,6 +53,10 @@ public class LoadingScreen : MonoBehaviour
         {
             selectedArray = titleBG;
         }
+        else if (SceneLoader.TargetScene == "CutsceneScene")
+        {
+            selectedArray = titleBG;
+        }
 
         if (selectedArray != null && selectedArray.Length > 0)
         {
@@ -146,7 +150,6 @@ public class LoadingScreen : MonoBehaviour
             yield return null;
         }
     }
-
 
     private IEnumerator AnimateLoadingText()
     {

@@ -68,6 +68,7 @@ GameObject:
   - component: {fileID: 6179395797785353365}
   - component: {fileID: 5693127182044194046}
   - component: {fileID: 7663931859473527100}
+  - component: {fileID: 7094933538840002736}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -218,9 +219,24 @@ MonoBehaviour:
   CoinCollected:
     m_PersistentCalls:
       m_Calls: []
+  UpdateCoinUI:
+    m_PersistentCalls:
+      m_Calls: []
   HeartCollected:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &7094933538840002736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8841480867982241963}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bccad73348c3a9f42b63e6392cf8d45c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5580081742587971212
 PrefabInstance:
   m_ObjectHideFlags: 0

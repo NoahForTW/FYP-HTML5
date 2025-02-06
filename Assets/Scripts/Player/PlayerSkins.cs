@@ -41,20 +41,10 @@ public class PlayerSkins : MonoBehaviour
             resolver.SetCategoryAndLabel(resolver.GetCategory(), type.ToString());
         }
     }
+
     private void OnEnable()
-    {
-        SceneManager.sceneLoaded += OnSceneLoaded;
-    }
-
-    private void OnDisable()
-    {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
-    }
-
-    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         CosmeticType type = SavePlayerData.Instance.LoadData<PlayerData>().currentCosmetic;
         SetAllResolvers(type);
-
     }
 }

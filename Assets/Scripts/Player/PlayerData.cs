@@ -6,7 +6,7 @@ using UnityEngine;
 [Serializable]
 public class PlayerData
 {
-    public int Coins = 10000;
+    public int Coins = 0;
     public CosmeticType currentCosmetic = CosmeticType.Default;
     public List<CosmeticType> cosmeticsOwned = new List<CosmeticType>();
 }

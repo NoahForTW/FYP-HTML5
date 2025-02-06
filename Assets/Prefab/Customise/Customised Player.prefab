@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6586633152258547723}
   - component: {fileID: 4478880462289500255}
   - component: {fileID: 7891994791692010396}
+  - component: {fileID: 3283970400867707733}
   m_Layer: 3
   m_Name: Customised Player
   m_TagString: Player
@@ -26,9 +27,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7853315614042469465}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -39.71, y: 7.34, z: 10.32}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 125, y: 125, z: 125}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 6798798103643106849}
@@ -70,9 +71,24 @@ MonoBehaviour:
   CoinCollected:
     m_PersistentCalls:
       m_Calls: []
+  UpdateCoinUI:
+    m_PersistentCalls:
+      m_Calls: []
   HeartCollected:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &3283970400867707733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7853315614042469465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bccad73348c3a9f42b63e6392cf8d45c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5293410516078352383
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -145,7 +161,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -3129100836080988905, guid: f92c2470f1b8c204f82c3dea367da6e6,
+      objectReference: {fileID: -4042232605291407700, guid: f92c2470f1b8c204f82c3dea367da6e6,
         type: 3}
     - target: {fileID: 729600980489151616, guid: f92c2470f1b8c204f82c3dea367da6e6,
         type: 3}
@@ -157,6 +173,12 @@ PrefabInstance:
       propertyPath: m_SortingLayerID
       value: 2081029601
       objectReference: {fileID: 0}
+    - target: {fileID: 1609719090194301641, guid: f92c2470f1b8c204f82c3dea367da6e6,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 4012097067217027287, guid: e27a831ab9711844fb52501d14d44237,
+        type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -416,9 +438,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_CategoryHash: 2.9092094e-34
-  m_labelHash: 6.4580854e-12
+  m_labelHash: 0.0001442647
   m_SpriteKey: 0
-  m_SpriteHash: 773490090
+  m_SpriteHash: 842252522
 --- !u!1 &4321440004373018928 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -969067663395770673, guid: f92c2470f1b8c204f82c3dea367da6e6,
@@ -546,10 +568,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed8b1ae4e4e52b34ea557c1c11e076fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_CategoryHash: 0.000012482641
+  m_CategoryHash: 3.5554285e-35
   m_labelHash: 6.4580854e-12
   m_SpriteKey: 0
-  m_SpriteHash: 203087770
+  m_SpriteHash: 599117225
 --- !u!1 &6136286270950380589 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2043947085605127122, guid: f92c2470f1b8c204f82c3dea367da6e6,

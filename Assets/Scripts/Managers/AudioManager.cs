@@ -19,7 +19,12 @@ public enum SoundType
     PickUpPotion,
     Lever,
     Correct,
-    Wrong
+    Wrong,
+    Hurt,
+    Explosion,
+    Squish,
+    Hover,
+    Click
 }
 
 [RequireComponent(typeof(AudioSource))]

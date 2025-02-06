@@ -9,6 +9,7 @@ public class TeleportToLastSave : MonoBehaviour
     {
         if(other.gameObject.CompareTag("PlayerFeet"))
         {
+            AudioManager.instance.PlaySoundOneShot(SoundType.Hurt);
             HealthBar.instance.RemoveHearts(1);
 
             if (SceneManager.GetActiveScene().name == "GDTLevel")

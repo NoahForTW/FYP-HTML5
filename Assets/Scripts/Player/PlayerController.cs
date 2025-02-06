@@ -191,7 +191,7 @@ public class PlayerController : MonoBehaviour
         // Play walking sound if cooldown has passed
         if (!notGrounded && Time.time - lastSoundTime > walkingSoundCooldown)
         {
-            AudioManager.instance.PlaySoundOneShot(SoundType.Walking, 0.7f);
+            AudioManager.instance.PlaySoundOneShot(SoundType.Walking, 0.4f);
             lastSoundTime = Time.time; // Update the last sound time
         }
     }

@@ -5677,7 +5677,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1264363804}
-  - component: {fileID: 1264363805}
   - component: {fileID: 1264363806}
   m_Layer: 0
   m_Name: SceneManager
@@ -5701,18 +5700,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1264363805
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1264363802}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a890ade03304b0b439f8c134c75ac873, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1264363806
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8760,7 +8747,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2047259317}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 798315679e76eea439176268572d9ac5, type: 3}
   m_Name: 
@@ -8779,7 +8766,7 @@ MonoBehaviour:
     - {fileID: 8300000, guid: cb88fbce69e810f4480da20055cd2d6b, type: 3}
   - name: Successful
     sounds:
-    - {fileID: 8300000, guid: 87746a37091be454aaac8e8e3846ae03, type: 3}
+    - {fileID: 8300000, guid: 5d34b82d536f14a4088e64b080da8f4a, type: 3}
   - name: PickUpPotion
     sounds:
     - {fileID: 8300000, guid: 0c938184010d92b4b835680ccc6eb93c, type: 3}
@@ -8792,6 +8779,20 @@ MonoBehaviour:
   - name: Wrong
     sounds:
     - {fileID: 8300000, guid: a4eb460d1f1895543895ee3c1c2c87df, type: 3}
+  - name: Hurt
+    sounds:
+    - {fileID: 8300000, guid: bafb9c0b1003b2842a746e50ec61d2e9, type: 3}
+  - name: Explosion
+    sounds:
+    - {fileID: 8300000, guid: 2a331d97f8d4e8340909656124725107, type: 3}
+  - name: Squish
+    sounds:
+    - {fileID: 8300000, guid: 552e09419d9b808428987f6e6da78561, type: 3}
+  - name: Hover
+    sounds:
+    - {fileID: 8300000, guid: fe4012f2cd8a8a5428bdc5db730ed9c3, type: 3}
+  - name: 
+    sounds: []
   sceneMusic:
   - sceneName: TitleScene
     musicClip: {fileID: 8300000, guid: a8c023b7345c3474f86e65677699a0db, type: 3}
@@ -8810,7 +8811,7 @@ MonoBehaviour:
     volume: 1
   sfxVolume: 1
   musicVolume: 1
-  canAudio: 0
+  canAudio: 1
 --- !u!1 &2050384300
 GameObject:
   m_ObjectHideFlags: 0

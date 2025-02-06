@@ -255,7 +255,6 @@ public class EnemyAI : MonoBehaviour
         // Attack if the player is within range and cooldown is ready
         if (playerDistance <= attackRange && attackTimer <= 0f)
         {
-            Debug.Log("Attacking player!");
             attackTimer = attackCooldown; // Reset attack cooldown
         }
         else
@@ -283,6 +282,7 @@ public class EnemyAI : MonoBehaviour
     {
         if (other.CompareTag("PlayerFeet"))
         {
+            AudioManager.instance.PlaySoundOneShot(SoundType.Squish);
             Die(); // Call the Die() method to destroy the enemy
         }
     }
@@ -329,13 +329,14 @@ public class EnemyAI : MonoBehaviour
         {
             if (enemyType == EnemyType.GroundEnemy)
             {
+                AudioManager.instance.PlaySoundOneShot(SoundType.Hurt);
                 // Remove a heart from the player
                 HealthBar.instance.RemoveHearts(enemyDamage);
-                Debug.Log("Player lost a heart!");
             }
             else if (enemyType == EnemyType.FlyEnemy)
             {
                 // Explode and deal damage to the player if within radius
+                AudioManager.instance.PlaySoundOneShot(SoundType.Explosion);
                 Explode();
             }
         }

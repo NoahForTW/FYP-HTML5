@@ -439,14 +439,13 @@ GameObject:
   - component: {fileID: 1472539971752081072}
   - component: {fileID: 9041121894308999770}
   - component: {fileID: 8475817371720889639}
-  - component: {fileID: 2707815716576102359}
   m_Layer: 0
   m_Name: EndingCanvas
-  m_TagString: Untagged
+  m_TagString: AudioCanvas
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6853179393324065239
 RectTransform:
   m_ObjectHideFlags: 0
@@ -477,7 +476,7 @@ Canvas:
   m_GameObject: {fileID: 4248009023593952602}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 0}
   m_PlaneDistance: 5
   m_PixelPerfect: 0
@@ -557,20 +556,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad0b1ab06ce43bb42b05ddad2278fc3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2707815716576102359
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4248009023593952602}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0a23666734f3e649a6cbe486f523d16, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  panel: {fileID: 4248009023593952602}
-  delayTime: 1
 --- !u!1 &5463334635347355779
 GameObject:
   m_ObjectHideFlags: 0

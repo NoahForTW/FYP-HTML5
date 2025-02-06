@@ -331,6 +331,7 @@ public class EnemyAI : MonoBehaviour
             {
                 // Remove a heart from the player
                 HealthBar.instance.RemoveHearts(enemyDamage);
+                Debug.Log("Player lost a heart!");
             }
             else if (enemyType == EnemyType.FlyEnemy)
             {

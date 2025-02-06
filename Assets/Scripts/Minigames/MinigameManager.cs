@@ -74,6 +74,10 @@ public class MinigameManager : MonoBehaviour
     {
         GameTimer = time;
     }
+    public float GetTimer()
+    {
+        return GameTimer;
+    }
     public void SetMinigame(MinigameType type)
     {
         CurrentMinigameType = type;
@@ -158,6 +162,10 @@ public class MinigameManager : MonoBehaviour
         {
             TimerUI.text = GetGameTimerInFormat();
         }
+    }
+    public bool GetPauseTimer()
+    {
+        return PauseTime;
     }
     public void PauseTimer()
     {

@@ -30,7 +30,7 @@ public class VideoPlayerWebGL : MonoBehaviour
         if (request.isNetworkError || request.isHttpError)
         {
             Debug.LogError("Error loading video: " + request.error);
-             Debug.LogError("wtf" );
+             Debug.LogError(videoPath);
             yield break;
         }
 

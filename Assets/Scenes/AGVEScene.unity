@@ -836,7 +836,7 @@ GameObject:
   - component: {fileID: 222153846}
   - component: {fileID: 222153849}
   - component: {fileID: 222153848}
-  - component: {fileID: 222153850}
+  - component: {fileID: 222153851}
   m_Layer: 5
   m_Name: BG
   m_TagString: Untagged
@@ -898,21 +898,40 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 222153845}
   m_CullTransparentMesh: 1
---- !u!114 &222153850
-MonoBehaviour:
+--- !u!328 &222153851
+VideoPlayer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 222153845}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be6199f39265b1e4aa7016ee21b85941, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  videoFileName: Bird.mp4
-  rawImage: {fileID: 222153848}
-  renderTexture: {fileID: 8400000, guid: d3d345d941f0e8f49b05a325c67eb73a, type: 2}
+  m_VideoClip: {fileID: 32900000, guid: 1dde6ab9b970f77428ab59502d47e422, type: 3}
+  m_TargetCameraAlpha: 1
+  m_TargetCamera3DLayout: 0
+  m_TargetCamera: {fileID: 0}
+  m_TargetTexture: {fileID: 8400000, guid: d3d345d941f0e8f49b05a325c67eb73a, type: 2}
+  m_TimeReference: 0
+  m_TargetMaterialRenderer: {fileID: 0}
+  m_TargetMaterialProperty: <noninit>
+  m_RenderMode: 2
+  m_AspectRatio: 2
+  m_DataSource: 1
+  m_TimeUpdateMode: 2
+  m_PlaybackSpeed: 1
+  m_AudioOutputMode: 2
+  m_TargetAudioSources: []
+  m_DirectAudioVolumes: []
+  m_Url: https://noahfortw.github.io/HTML5Web/StreamingAssets/bird.mp4
+  m_EnabledAudioTracks: 
+  m_DirectAudioMutes: 
+  m_ControlledAudioTrackCount: 0
+  m_PlayOnAwake: 1
+  m_SkipOnDrop: 1
+  m_Looping: 1
+  m_WaitForFirstFrame: 1
+  m_FrameReadyEventEnabled: 0
+  m_VideoShaders: []
 --- !u!1 &223901231 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 653e369d37e44d9499b3490310f4ced5,

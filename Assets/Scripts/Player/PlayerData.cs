@@ -66,7 +66,7 @@ public class ItemsInScene
 [Serializable]
 public class ObstaclesData : SceneGameObjects
 {
-
+        
 }
 
 [Serializable]

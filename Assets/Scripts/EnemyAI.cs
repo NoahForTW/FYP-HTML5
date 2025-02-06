@@ -312,8 +312,15 @@ public class EnemyAI : MonoBehaviour
         // Destroy the parent GameObject if it exists
         if (transform.parent != null)
         {
-            Destroy(transform.parent.gameObject, deadBodyTimer);
+            //Destroy(transform.parent.gameObject, deadBodyTimer);
+            StartCoroutine(KillEnemy(deadBodyTimer));
         }
+    }
+
+    IEnumerator KillEnemy(float duration)
+    {
+        yield return new WaitForSeconds(duration); // Wait for 'delay' seconds
+        this.gameObject.SetActive(false); // Disable the object
     }
 
     private void OnCollisionEnter(Collision collision)

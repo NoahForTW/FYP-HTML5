@@ -309,7 +309,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -3129100836080988905, guid: f92c2470f1b8c204f82c3dea367da6e6,
+      objectReference: {fileID: -4042232605291407700, guid: f92c2470f1b8c204f82c3dea367da6e6,
         type: 3}
     - target: {fileID: 729600980489151616, guid: f92c2470f1b8c204f82c3dea367da6e6,
         type: 3}
@@ -735,7 +735,7 @@ MonoBehaviour:
   m_CategoryHash: 0.000012482641
   m_labelHash: 6.4580854e-12
   m_SpriteKey: 0
-  m_SpriteHash: 203087770
+  m_SpriteHash: 599117225
 --- !u!4 &6512126776180522834 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -7552582706839291426, guid: f92c2470f1b8c204f82c3dea367da6e6,

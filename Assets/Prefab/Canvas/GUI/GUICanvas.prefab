@@ -37,7 +37,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 55.650024}
+  m_AnchoredPosition: {x: 0, y: 55.649994}
   m_SizeDelta: {x: 656.01, y: 111.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &278488364829877434
@@ -1383,7 +1383,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 55.650024}
+  m_AnchoredPosition: {x: 0, y: 55.649994}
   m_SizeDelta: {x: 656.01, y: 111.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &4704113251754021060
@@ -2100,7 +2100,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.9972222, y: 0.9965309}
   m_AnchorMax: {x: 0.9972222, y: 0.9965309}
-  m_AnchoredPosition: {x: -65.099976, y: -19.700012}
+  m_AnchoredPosition: {x: -73.859985, y: -19.700012}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5155754453210115212
@@ -2286,6 +2286,8 @@ MonoBehaviour:
   heartContainerPrefab: {fileID: 9193245050775051790, guid: 47ab3de643a4f8f41933427cfb19545c,
     type: 3}
   heartContainers: []
+  deathAnimation: {fileID: 0}
+  deathPanel: {fileID: 0}
 --- !u!114 &2579961076489347677
 MonoBehaviour:
   m_ObjectHideFlags: 0

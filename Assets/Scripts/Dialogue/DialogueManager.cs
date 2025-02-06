@@ -103,7 +103,7 @@ public class DialogueManager : MonoBehaviour
             return;
         if (inkJson == null)
             return;
-        PlayerController.Instance.playerAction.Invoke(PlayerAction.Idle);
+        
 
         // reset bind list 
         bindActionNames.Clear();
@@ -138,7 +138,7 @@ public class DialogueManager : MonoBehaviour
 
         // hide player controls
         CanvasManager.Instance.GUICanvas.SetActiveControlsUI(false);
-
+        PlayerController.Instance.playerAction.Invoke(PlayerAction.Idle);
 
     }
 

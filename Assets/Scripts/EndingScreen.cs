@@ -12,18 +12,8 @@ public class EndingScreen : MonoBehaviour
 
     void Start()
     {
-        // Ensure the panel is hidden at the start
-        gameObject.SetActive(false);
-
         // Add a listener to the button to open the URL
         websiteButton.onClick.AddListener(OpenWebsite);
-    }
-
-    // Call this function
-    public void ShowPanel()
-    {
-        // Show the panel
-        gameObject.SetActive(true);
     }
 
     void OpenWebsite()

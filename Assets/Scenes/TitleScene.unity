@@ -5677,7 +5677,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1264363804}
-  - component: {fileID: 1264363805}
   - component: {fileID: 1264363806}
   m_Layer: 0
   m_Name: SceneManager
@@ -5701,19 +5700,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1264363805
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1264363802}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a890ade03304b0b439f8c134c75ac873, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneDataSO: {fileID: 11400000, guid: 4dbf101904489a04fb238d4b3f30583f, type: 2}
 --- !u!114 &1264363806
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8802,6 +8788,9 @@ MonoBehaviour:
     volume: 1
   - sceneName: AGVEScene
     musicClip: {fileID: 8300000, guid: 4a38b049f76a8704f92763f1cc1de206, type: 3}
+    volume: 1
+  - sceneName: CutsceneScene
+    musicClip: {fileID: 8300000, guid: c1a5ff8daaeb6cf429fcdf96dc03de88, type: 3}
     volume: 1
   sfxVolume: 1
   musicVolume: 1

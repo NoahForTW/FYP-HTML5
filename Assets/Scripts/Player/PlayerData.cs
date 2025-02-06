@@ -9,6 +9,7 @@ public class PlayerData
     public int Coins = 0;
     public CosmeticType currentCosmetic = CosmeticType.Default;
     public List<CosmeticType> cosmeticsOwned = new List<CosmeticType>();
+    public AudioSettings audioSettings= new AudioSettings();
 }
 [Serializable]
 public class GameData
@@ -22,6 +23,13 @@ public class SettingsActive
     public string settingsName;
     public bool isActive = true;
 }
+
+public class AudioSettings
+{
+    public float musicVolume = 0.5f;
+    public float sfxVolume = 0.5f;
+}
+
 [Serializable]
 public class LevelData
 {

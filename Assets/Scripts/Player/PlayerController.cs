@@ -100,10 +100,9 @@ public class PlayerController : MonoBehaviour
 
         }
 
-            
 
     }
-    private void FixedUpdate()
+    private void LateUpdate()
     {
         playerRb.velocity = new Vector3(0,playerRb.velocity.y, playerRb.velocity.z);
         if (!canMove) { return; }
@@ -195,8 +194,6 @@ public class PlayerController : MonoBehaviour
             AudioManager.instance.PlaySoundOneShot(SoundType.Walking, 0.7f);
             lastSoundTime = Time.time; // Update the last sound time
         }
-
-        Debug.LogError("Movement " + movement);
     }
 
     private void PlayerJump()

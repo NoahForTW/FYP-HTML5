@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,9 +43,27 @@ public class PlayerSkins : MonoBehaviour
         }
     }
 
+    void SetSavedSkin()
+    {
+        if (SavePlayerData.Instance != null)
+        {
+            CosmeticType type = SavePlayerData.Instance.LoadData<PlayerData>().currentCosmetic;
+            SetAllResolvers(type);
+        }
+    }
     private void OnEnable()
     {
-        CosmeticType type = SavePlayerData.Instance.LoadData<PlayerData>().currentCosmetic;
-        SetAllResolvers(type);
+        SetSavedSkin();
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        SetSavedSkin();
     }
 }

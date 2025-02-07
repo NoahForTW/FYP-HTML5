@@ -40,9 +40,9 @@ PlayerSettings:
     width: 1
     height: 1
   m_SplashScreenLogos:
-  - logo: {fileID: 21300000, guid: 8ef3259a9f4263c40a0ab6517c0a27b8, type: 3}
+  - logo: {fileID: 21300000, guid: 5586a91d8db016d4289e9c457e1c35a0, type: 3}
     duration: 2
-  m_VirtualRealitySplashScreen: {fileID: 2800000, guid: 8ef3259a9f4263c40a0ab6517c0a27b8,
+  m_VirtualRealitySplashScreen: {fileID: 2800000, guid: 5586a91d8db016d4289e9c457e1c35a0,
     type: 3}
   m_HolographicTrackingLossScreen: {fileID: 0}
   defaultScreenWidth: 1024
@@ -803,7 +803,7 @@ PlayerSettings:
   webGLTemplate: APPLICATION:Default
   webGLAnalyzeBuildSize: 0
   webGLUseEmbeddedResources: 0
-  webGLCompressionFormat: 1
+  webGLCompressionFormat: 2
   webGLWasmArithmeticExceptions: 0
   webGLLinkerTarget: 1
   webGLThreadsSupport: 0
